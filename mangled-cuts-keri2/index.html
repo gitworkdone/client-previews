@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mangled Cuts — Dog Grooming</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        cream: '#F5F0E8',
+        bark: '#2D1B0E',
+        moss: '#4A6741',
+        clay: '#C4733F',
+        blush: '#E8C4A0',
+        sage: '#8FAF8A',
+        sky: '#B8D4E3',
+      },
+      fontFamily: {
+        display: ['Fraunces', 'serif'],
+        body: ['DM Sans', 'sans-serif'],
+      }
+    }
+  }
+}
+</script>
+<style>
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background-color: #F5F0E8; font-family: 'DM Sans', sans-serif; color: #2D1B0E; overflow-x: hidden; }
+
+  @keyframes floatUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes waggle {
+    0%, 100% { transform: rotate(-8deg); }
+    50% { transform: rotate(8deg); }
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @keyframes scaleIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  @keyframes slideLeft {
+    from { opacity: 0; transform: translateX(-30px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  .hero-headline { animation: floatUp 0.9s cubic-bezier(.22,1,.36,1) both; }
+  .hero-sub { animation: floatUp 0.9s 0.15s cubic-bezier(.22,1,.36,1) both; }
+  .hero-cta { animation: floatUp 0.9s 0.3s cubic-bezier(.22,1,.36,1) both; }
+  .hero-badge { animation: fadeIn 1.2s 0.5s both; }
+
+  .paw-spin { animation: waggle 1.5s ease-in-out infinite; display: inline-block; }
+
+  .marquee-track { animation: marquee 22s linear infinite; display: flex; width: max-content; }
+  .marquee-wrap { overflow: hidden; }
+
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s cubic-bezier(.22,1,.36,1), transform 0.7s cubic-bezier(.22,1,.36,1); }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  .service-card { transition: transform 0.3s cubic-bezier(.22,1,.36,1), box-shadow 0.3s ease; }
+  .service-card:hover { transform: translateY(-6px); box-shadow: 0 24px 48px rgba(45,27,14,0.12); }
+
+  .gallery-item { transition: transform 0.4s cubic-bezier(.22,1,.36,1); overflow: hidden; }
+  .gallery-item:hover { transform: scale(1.02); }
+  .gallery-item img { transition: transform 0.5s ease; width: 100%; height: 100%; object-fit: cover; }
+  .gallery-item:hover img { transform: scale(1.07); }
+
+  .price-card { transition: transform 0.3s cubic-bezier(.22,1,.36,1), box-shadow 0.3s ease; }
+  .price-card:hover { transform: translateY(-8px); box-shadow: 0 32px 64px rgba(45,27,14,0.15); }
+
+  .faq-item summary { cursor: pointer; list-style: none; }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item[open] .faq-icon { transform: rotate(45deg); }
+  .faq-icon { transition: transform 0.3s ease; }
+  details[open] .faq-answer { animation: scaleIn 0.3s ease both; }
+
+  .nav-link { position: relative; }
+  .nav-link::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 2px; background: #C4733F; transition: width 0.3s ease; }
+  .nav-link:hover::after { width: 100%; }
+
+  .sticky-nav { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+
+  .btn-primary { position: relative; overflow: hidden; }
+  .btn-primary::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: rgba(255,255,255,0.15); transition: left 0.4s ease; }
+  .btn-primary:hover::before { left: 100%; }
+
+  .review-card { transition: transform 0.3s ease; }
+  .review-card:hover { transform: translateY(-4px); }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: #F5F0E8; }
+  ::-webkit-scrollbar-thumb { background: #C4733F; border-radius: 10px; }
+
+  .split-char { display: inline-block; }
+
+  .blob { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+
+  @media (max-width: 768px) {
+    .hero-huge { font-size: clamp(3.2rem, 12vw, 5rem) !important; line-height: 1.05 !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- STICKY NAV -->
+<nav class="sticky-nav fixed top-0 left-0 right-0 z-50 bg-cream/90 border-b border-bark/10">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="#hero" class="flex items-center gap-2">
+      <span class="text-2xl">🐾</span>
+      <span class="font-display font-900 text-bark text-xl tracking-tight">Mangled<span class="text-clay">Cuts</span></span>
+    </a>
+    <div class="hidden md:flex items-center gap-8">
+      <a href="#services" class="nav-link font-body text-sm font-500 text-bark/70 hover:text-bark transition-colors">Services</a>
+      <a href="#about" class="nav-link font-body text-sm font-500 text-bark/70 hover:text-bark transition-colors">About</a>
+      <a href="#gallery" class="nav-link font-body text-sm font-500 text-bark/70 hover:text-bark transition-colors">Gallery</a>
+      <a href="#pricing" class="nav-link font-body text-sm font-500 text-bark/70 hover:text-bark transition-colors">Pricing</a>
+      <a href="#reviews" class="nav-link font-body text-sm font-500 text-bark/70 hover:text-bark transition-colors">Reviews</a>
+      <a href="#signup" class="btn-primary bg-clay text-white text-sm font-600 px-5 py-2.5 rounded-full hover:bg-bark transition-colors duration-300">Book Now</a>
+    </div>
+    <!-- Mobile hamburger -->
+    <button onclick="document.getElementById('mobileMenu').classList.toggle('hidden')" class="md:hidden p-2 rounded-lg hover:bg-blush/40 transition-colors">
+      <svg width="22" height="22" fill="none" stroke="#2D1B0E" stroke-width="2" stroke-linecap="round">
+        <line x1="3" y1="6" x2="19" y2="6"/>
+        <line x1="3" y1="12" x2="19" y2="12"/>
+        <line x1="3" y1="18" x2="19" y2="18"/>
+      </svg>
+    </button>
+  </div>
+  <!-- Mobile menu -->
+  <div id="mobileMenu" class="hidden md:hidden bg-cream border-t border-bark/10 px-6 py-4 flex flex-col gap-4">
+    <a href="#services" onclick="document.getElementById('mobileMenu').classList.add('hidden')" class="font-body text-sm font-500 text-bark/70">Services</a>
+    <a href="#about" onclick="document.getElementById('mobileMenu').classList.add('hidden')" class="font-body text-sm font-500 text-bark/70">About</a>
+    <a href="#gallery" onclick="document.getElementById('mobileMenu').classList.add('hidden')" class="font-body text-sm font-500 text-bark/70">Gallery</a>
+    <a href="#pricing" onclick="document.getElementById('mobileMenu').classList.add('hidden')" class="font-body text-sm font-500 text-bark/70">Pricing</a>
+    <a href="#reviews" onclick="document.getElementById('mobileMenu').classList.add('hidden')" class="font-body text-sm font-500 text-bark/70">Reviews</a>
+    <a href="#signup" onclick="document.getElementById('mobileMenu').classList.add('hidden')" class="btn-primary bg-clay text-white text-sm font-600 px-5 py-2.5 rounded-full text-center">Book Now</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero" class="min-h-screen pt-24 pb-16 flex flex-col justify-center relative overflow-hidden">
+  <!-- Background decoration -->
+  <div class="absolute top-20 right-0 w-96 h-96 bg-sage/20 blob" style="filter: blur(60px);"></div>
+  <div class="absolute bottom-10 left-0 w-80 h-80 bg-blush/30 blob" style="filter: blur(50px);"></div>
+
+  <div class="max-w-7xl mx-auto px-6 w-full">
+    <div class="grid lg:grid-cols-2 gap-12 items-center">
+      <!-- Left content -->
+      <div>
+        <div class="hero-badge inline-flex items-center gap-2 bg-moss/10 border border-moss/20 rounded-full px-4 py-2 mb-8">
+          <span class="paw-spin">🐾</span>
+          <span class="font-body text-sm font-500 text-moss">Fast & Friendly Grooming</span>
+        </div>
+        <h1 class="hero-headline font-display font-900 text-bark leading-[1.02] mb-6" style="font-size: clamp(3.8rem, 8vw, 7rem);">
+          Your pup<br/>deserves<br/><em class="text-clay not-italic">the best</em><br/>cuts.
+        </h1>
+        <p class="hero-sub font-body text-bark/60 text-lg md:text-xl max-w-md mb-10 leading-relaxed">
+          Professional dog grooming that feels like home — quick appointments, gentle hands, and tails that wag all the way out.
+        </p>
+        <div class="hero-cta flex flex-wrap gap-4 items-center">
+          <a href="#signup" class="btn-primary bg-clay text-white font-body font-600 text-base px-8 py-4 rounded-full hover:bg-bark transition-colors duration-300 shadow-lg shadow-clay/25">
+            Book an Appointment →
+          </a>
+          <a href="#services" class="font-body font-500 text-bark/70 text-base hover:text-bark transition-colors flex items-center gap-2">
+            See services <span>↓</span>
+          </a>
+        </div>
+        <!-- Trust badges -->
+        <div class="flex flex-wrap gap-6 mt-12">
+          <div class="flex items-center gap-2">
+            <span class="text-xl">⚡</span>
+            <span class="font-body text-sm text-bark/60">60-min avg session</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-xl">❤️</span>
+            <span class="font-body text-sm text-bark/60">500+ happy dogs</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-xl">⭐</span>
+            <span class="font-body text-sm text-bark/60">4.9 star rating</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: visual block -->
+      <div class="relative">
+        <!-- Main image block -->
+        <div class="relative rounded-3xl overflow-hidden" style="height: 560px; background: linear-gradient(135deg, #8FAF8A 0%, #4A6741 100%);">
+          <div class="absolute inset-0 flex flex-col items-center justify-center p-8 text-center">
+            <div style="font-size: 8rem; line-height:1;" class="mb-4">🐶</div>
+            <p class="font-display font-700 text-white text-3xl mb-2">Freshly Groomed</p>
+            <p class="font-body text-white/80 text-base">Every dog leaves looking & feeling amazing</p>
+          </div>
+          <!-- Floating card 1 -->
+          <div class="absolute top-6 left-6 bg-white rounded-2xl p-4 shadow-xl" style="animation: floatUp 1s 0.6s both;">
+            <div class="flex items-center gap-3">
+              <span class="text-2xl">✂️</span>
+              <div>
+                <p class="font-body font-600 text-bark text-sm">Bath + Cut</p>
+                <p class="font-body text-bark/50 text-xs">Starting at $45</p>
+              </div>
+            </div>
+          </div>
+          <!-- Floating card 2 -->
+          <div class="absolute bottom-6 right-6 bg-clay rounded-2xl p-4 shadow-xl text-white" style="animation: floatUp 1s 0.8s both;">
+            <p class="font-display font-700 text-lg">⚡ Fast</p>
+            <p class="font-body text-white/80 text-xs">In & out in 60 min</p>
+          </div>
+        </div>
+        <!-- Accent block -->
+        <div class="absolute -bottom-6 -left-6 bg-blush rounded-2xl p-5 shadow-lg w-40" style="animation: slideLeft 1s 0.7s both;">
+          <p class="font-display font-700 text-bark text-4xl">500+</p>
+          <p class="font-body text-bark/60 text-sm">Pups groomed this year</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE BAND -->
+<div class="bg-clay py-4 overflow-hidden">
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <div class="flex items-center gap-8 pr-8">
+        <span class="font-display font-700 text-white text-xl whitespace-nowrap">Fast & Friendly</span>
+        <span class="text-white/40">🐾</span>
+        <span class="font-display font-700 text-white text-xl whitespace-nowrap">Feels Like Home</span>
+        <span class="text-white/40">🐾</span>
+        <span class="font-display font-700 text-white text-xl whitespace-nowrap">Happy Tails</span>
+        <span class="text-white/40">🐾</span>
+        <span class="font-display font-700 text-white text-xl whitespace-nowrap">Expert Groomers</span>
+        <span class="text-white/40">🐾</span>
+        <span class="font-display font-700 text-white text-xl whitespace-nowrap">Best In Town</span>
+        <span class="text-white/40">🐾</span>
+        <span class="font-display font-700 text-white text-xl whitespace-nowrap">Book Today</span>
+        <span class="text-white/40">🐾</span>
+        <span class="font-display font-700 text-white text-xl whitespace-nowrap">Fast & Friendly</span>
+        <span class="text-white/40">🐾</span>
+        <span class="font-display font-700 text-white text-xl whitespace-nowrap">Feels Like Home</span>
+        <span class="text-white/40">🐾</span>
+        <span class="font-display font-700 text-white text-xl whitespace-nowrap">Happy Tails</span>
+        <span class="text-white/40">🐾</span>
+        <span class="font-display font-700 text-white text-xl whitespace-nowrap">Expert Groomers</span>
+        <span class="text-white/40">🐾</span>
+        <span class="font-display font-700 text-white text-xl whitespace-nowrap">Best In Town</span>
+        <span class="text-white/40">🐾</span>
+        <span class="font-display font-700 text-white text-xl whitespace-nowrap">Book Today</span>
+        <span class="text-white/40">🐾</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section id="services" class="py-24 md:py-32">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="mb-16 reveal">
+      <p class="font-body text-clay font-600 text-sm uppercase tracking-widest mb-3">What We Do</p>
+      <h2 class="font-display font-900 text-bark text-5xl md:text-6xl leading-tight">Services that<br/><em class="text-moss not-italic">make tails wag.</em></h2>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Card 1 -->
+      <div class="service-card reveal bg-white rounded-3xl p-8 border border-bark/5">
+        <div class="w-14 h-14 bg-sky rounded-2xl flex items-center justify-center text-2xl mb-6">🛁</div>
+        <h3 class="font-display font-700 text-bark text-2xl mb-3">Bath & Brush</h3>
+        <p class="font-body text-bark/60 text-base leading-relaxed mb-6">A thorough wash with premium shampoo, blow-dry, and full brush-out. Your pup will smell incredible.</p>
+        <span class="font-body text-sm font-600 text-clay">From $35 →</span>
+      </div>
+      <!-- Card 2 -->
+      <div class="service-card reveal bg-moss rounded-3xl p-8" style="transition-delay: 0.1s;">
+        <div class="w-14 h-14 bg-white/20 rounded-2xl flex items-center justify-center text-2xl mb-6">✂️</div>
+        <h3 class="font-display font-700 text-white text-2xl mb-3">Full Haircut</h3>
+        <p class="font-body text-white/70 text-base leading-relaxed mb-6">Complete breed-specific styling or your choice of cut. Every detail is handled with care and precision.</p>
+        <span class="font-body text-sm font-600 text-blush">From $55 →</span>
+      </div>
+      <!-- Card 3 -->
+      <div class="service-card reveal bg-blush rounded-3xl p-8" style="transition-delay: 0.2s;">
+        <div class="w-14 h-14 bg-clay/20 rounded-2xl flex items-center justify-center text-2xl mb-6">💅</div>
+        <h3 class="font-display font-700 text-bark text-2xl mb-3">Nail Trim</h3>
+        <p class="font-body text-bark/60 text-base leading-relaxed mb-6">Quick, stress-free nail clipping and filing. We make it calm and comfortable for even anxious pups.</p>
+        <span class="font-body text-sm font-600 text-clay">From $15 →</span>
+      </div>
+      <!-- Card 4 -->
+      <div class="service-card reveal bg-bark rounded-3xl p-8" style="transition-delay: 0.1s;">
+        <div class="w-14 h-14 bg-clay/30 rounded-2xl flex items-center justify-center text-2xl mb-6">🦷</div>
+        <h3 class="font-display font-700 text-white text-2xl mb-3">Teeth Brushing</h3>
+        <p class="font-body text-white/70 text-base leading-relaxed mb-6">Keep those puppy breath moments at bay with a gentle, dog-safe toothbrushing session.</p>
+        <span class="font-body text-sm font-600 text-blush">From $10 →</span>
+      </div>
+      <!-- Card 5 -->
+      <div class="service-card reveal bg-white rounded-3xl p-8 border border-bark/5" style="transition-delay: 0.2s;">
+        <div class="w-14 h-14 bg-sage/30 rounded-2xl flex items-center justify-center text-2xl mb-6">👂</div>
+        <h3 class="font-display font-700 text-bark text-2xl mb-3">Ear Cleaning</h3>
+        <p class="font-body text-bark/60 text-base leading-relaxed mb-6">Gentle ear cleaning to prevent buildup and keep your dog healthy and comfortable year-round.</p>
+        <span class="font-body text-sm font-600 text-clay">From $12 →</span>
+      </div>
+      <!-- Card 6 -->
+      <div class="service-card reveal bg-clay rounded-3xl p-8" style="transition-delay: 0.3s;">
+        <div class="w-14 h-14 bg-white/20 rounded-2xl flex items-center justify-center text-2xl mb-6">✨</div>
+        <h3 class="font-display font-700 text-white text-2xl mb-3">The Full Works</h3>
+        <p class="font-body text-white/80 text-base leading-relaxed mb-6">Our signature package: bath, cut, nails, ears, and teeth. The complete spa day your dog deserves.</p>
+        <span class="font-body text-sm font-600 text-cream">From $85 →</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="py-24 md:py-32 bg-bark overflow-hidden">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="grid lg:grid-cols-2 gap-16 items-center">
+      <!-- Left visual -->
+      <div class="relative reveal">
+        <div class="rounded-3xl overflow-hidden" style="background: linear-gradient(135deg, #C4733F 0%, #4A6741 100%); height: 520px;">
+          <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-8">
+            <div style="font-size: 7rem; line-height:1;" class="mb-4">🏡</div>
+            <p class="font-display font-700 text-white text-3xl mb-2">Home Away From Home</p>
+            <p class="font-body text-white/70 text-base">Where every dog feels safe and loved</p>
+          </div>
+        </div>
+        <!-- Stat blocks -->
+        <div class="absolute -top-5 -right-5 bg-cream rounded-2xl p-5 shadow-2xl">
+          <p class="font-display font-900 text-bark text-3xl">4.9★</p>
+          <p class="font-body text-bark/60 text-xs">Average rating</p>
+        </div>
+        <div class="absolute -bottom-5 -left-5 bg-clay rounded-2xl p-5 shadow-2xl text-white">
+          <p class="font-display font-900 text-white text-3xl">3 yrs</p>
+          <p class="font-body text-white/70 text-xs">In business</p>
+        </div>
+      </div>
+
+      <!-- Right content -->
+      <div class="reveal">
+        <p class="font-body text-clay font-600 text-sm uppercase tracking-widest mb-4">Our Story</p>
+        <h2 class="font-display font-900 text-cream text-5xl md:text-6xl leading-tight mb-8">We treat every<br/>dog like<br/><em class="text-sage not-italic">family.</em></h2>
+        <p class="font-body text-cream/70 text-lg leading-relaxed mb-6">
+          Mangled Cuts was born from a simple idea: grooming should be fast, fun, and feel like a treat — not a stressor. We know your dog is more than a pet, they're part of the family.
+        </p>
+        <p class="font-body text-cream/70 text-lg leading-relaxed mb-10">
+          Our experienced groomers move with speed and gentleness, so your pup is in and out before they even realize they've had a spa day. No cages, no rushing, just real care.
+        </p>
+        <div class="grid grid-cols-3 gap-6 border-t border-cream/10 pt-8">
+          <div>
+            <p class="font-display font-900 text-cream text-3xl">500+</p>
+            <p class="font-body text-cream/50 text-sm">Dogs groomed</p>
+          </div>
+          <div>
+            <p class="font-display font-900 text-cream text-3xl">3</p>
+            <p class="font-body text-cream/50 text-sm">Expert groomers</p>
+          </div>
+          <div>
+            <p class="font-display font-900 text-cream text-3xl">60m</p>
+            <p class="font-body text-cream/50 text-sm">Avg session</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery" class="py-24 md:py-32">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between mb-12 reveal">
+      <div>
+        <p class="font-body text-clay font-600 text-sm uppercase tracking-widest mb-3">The Proof</p>
+        <h2 class="font-display font-900 text-bark text-5xl md:text-6xl leading-tight">Our freshest<br/><em class="text-clay not-italic">pups.</em></h2>
+      </div>
+      <p class="font-body text-bark/50 text-base mt-4 md:mt-0 max-w-xs">Every dog that walks out of Mangled Cuts is a work of art.</p>
+    </div>
+
+    <!-- Gallery grid -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-min">
+      <!-- Row 1 -->
+      <div class="gallery-item reveal rounded-2xl col-span-2" style="height: 320px; background: linear-gradient(135deg, #8FAF8A, #4A6741);">
+        <div class="w-full h-full flex flex-col items-center justify-center text-white">
+          <div style="font-size: 5rem; line-height:1;">🐩</div>
+          <p class="font-display font-700 text-xl mt-3">Bella</p>
+          <p class="font-body text-white/70 text-sm">Standard Poodle</p>
+        </div>
+      </div>
+      <div class="gallery-item reveal rounded-2xl" style="height: 320px; background: linear-gradient(135deg, #C4733F, #E8C4A0); transition-delay: 0.1s;">
+        <div class="w-full h-full flex flex-col items-center justify-center text-white">
+          <div style="font-size: 4rem; line-height:1;">🐕</div>
+          <p class="font-display font-700 text-xl mt-3">Max</p>
+          <p class="font-body text-white/70 text-sm">Golden Retriever</p>
+        </div>
+      </div>
+      <div class="gallery-item reveal rounded-2xl" style="height: 320px; background: linear-gradient(135deg, #B8D4E3, #8FAF8A); transition-delay: 0.2s;">
+        <div class="w-full h-full flex flex-col items-center justify-center">
+          <div style="font-size: 4rem; line-height:1;">🐶</div>
+          <p class="font-display font-700 text-bark text-xl mt-3">Luna</p>
+          <p class="font-body text-bark/60 text-sm">Shih Tzu</p>
+        </div>
+      </div>
+      <!-- Row 2 -->
+      <div class="gallery-item reveal rounded-2xl" style="height: 280px; background: linear-gradient(135deg, #2D1B0E, #4A6741); transition-delay: 0.1s;">
+        <div class="w-full h-full flex flex-col items-center justify-center text-white">
+          <div style="font-size: 4rem; line-height:1;">🐾</div>
+          <p class="font-display font-700 text-xl mt-3">Buddy</p>
+          <p class="font-body text-white
