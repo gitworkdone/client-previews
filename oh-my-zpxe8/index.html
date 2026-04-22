@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OH MY! — Premium Dominatrix Gear & Toys</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        obsidian: '#0a0a0a',
+        crimson: '#8b0000',
+        scarlet: '#c0392b',
+        blush: '#ff6b6b',
+        gold: '#c9a84c',
+        goldlight: '#f0d080',
+        smoke: '#1a1a1a',
+        ash: '#2a2a2a',
+        mist: '#3a3a3a',
+      },
+      fontFamily: {
+        heading: ['Georgia', 'serif'],
+        body: ['system-ui', 'sans-serif'],
+      }
+    }
+  }
+}
+</script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Raleway:wght@300;400;500;600&display=swap');
+
+  * { scroll-behavior: smooth; }
+
+  body {
+    background-color: #0a0a0a;
+    color: #e0d0d0;
+    font-family: 'Raleway', sans-serif;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Playfair Display', serif;
+  }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: #0a0a0a; }
+  ::-webkit-scrollbar-thumb { background: #8b0000; border-radius: 3px; }
+
+  .gold-gradient {
+    background: linear-gradient(135deg, #c9a84c, #f0d080, #c9a84c);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .crimson-glow {
+    box-shadow: 0 0 30px rgba(139, 0, 0, 0.4), 0 0 60px rgba(139, 0, 0, 0.1);
+  }
+
+  .gold-glow {
+    box-shadow: 0 0 20px rgba(201, 168, 76, 0.3);
+  }
+
+  .card-hover {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .card-hover:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px rgba(139, 0, 0, 0.3);
+  }
+
+  .nav-blur {
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  .hero-bg {
+    background: 
+      radial-gradient(ellipse at 20% 50%, rgba(139, 0, 0, 0.15) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 20%, rgba(201, 168, 76, 0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 60% 80%, rgba(139, 0, 0, 0.1) 0%, transparent 50%),
+      linear-gradient(180deg, #0a0a0a 0%, #120a0a 50%, #0a0a0a 100%);
+  }
+
+  .chain-border {
+    border-image: linear-gradient(90deg, transparent, #c9a84c, transparent) 1;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, #8b0000, #c0392b);
+    border: 1px solid rgba(201, 168, 76, 0.4);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+    transition: left 0.5s ease;
+  }
+
+  .btn-primary:hover::before { left: 100%; }
+  .btn-primary:hover {
+    box-shadow: 0 0 25px rgba(192, 57, 43, 0.6);
+    transform: translateY(-2px);
+  }
+
+  .btn-outline {
+    border: 1px solid #c9a84c;
+    color: #c9a84c;
+    transition: all 0.3s ease;
+    background: transparent;
+  }
+
+  .btn-outline:hover {
+    background: rgba(201, 168, 76, 0.1);
+    box-shadow: 0 0 20px rgba(201, 168, 76, 0.3);
+    transform: translateY(-2px);
+  }
+
+  .product-card {
+    background: linear-gradient(145deg, #1a0a0a, #1a1010);
+    border: 1px solid rgba(139, 0, 0, 0.3);
+    transition: all 0.4s ease;
+  }
+
+  .product-card:hover {
+    border-color: rgba(201, 168, 76, 0.5);
+    transform: translateY(-8px);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.5), 0 0 30px rgba(139,0,0,0.2);
+  }
+
+  .badge-new {
+    background: linear-gradient(135deg, #8b0000, #c0392b);
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+  }
+
+  .badge-hot {
+    background: linear-gradient(135deg, #c9a84c, #f0d080);
+    color: #0a0a0a;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+  }
+
+  .section-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #8b0000, #c9a84c, #8b0000, transparent);
+  }
+
+  .testimonial-card {
+    background: linear-gradient(145deg, #120808, #1a0a0a);
+    border: 1px solid rgba(139, 0, 0, 0.25);
+  }
+
+  .star { color: #c9a84c; }
+
+  .marquee {
+    animation: marquee 20s linear infinite;
+    white-space: nowrap;
+  }
+
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  .float-anim {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+  }
+
+  .pulse-ring {
+    animation: pulseRing 2s ease-out infinite;
+  }
+
+  @keyframes pulseRing {
+    0% { box-shadow: 0 0 0 0 rgba(139, 0, 0, 0.4); }
+    70% { box-shadow: 0 0 0 15px rgba(139, 0, 0, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(139, 0, 0, 0); }
+  }
+
+  .category-card {
+    background: linear-gradient(145deg, #150505, #1a0808);
+    border: 1px solid rgba(139, 0, 0, 0.2);
+    transition: all 0.4s ease;
+    overflow: hidden;
+  }
+
+  .category-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(139,0,0,0.1), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .category-card:hover::after { opacity: 1; }
+
+  .category-card:hover {
+    border-color: rgba(201, 168, 76, 0.4);
+    transform: scale(1.02);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 25px rgba(139,0,0,0.15);
+  }
+
+  input, textarea, select {
+    background: #1a0808 !important;
+    border: 1px solid rgba(139, 0, 0, 0.4) !important;
+    color: #e0d0d0 !important;
+    outline: none !important;
+  }
+
+  input:focus, textarea:focus, select:focus {
+    border-color: #c9a84c !important;
+    box-shadow: 0 0 10px rgba(201, 168, 76, 0.2) !important;
+  }
+
+  .mobile-menu {
+    background: rgba(10, 0, 0, 0.97);
+    backdrop-filter: blur(20px);
+  }
+
+  .age-modal {
+    background: rgba(0,0,0,0.95);
+    backdrop-filter: blur(10px);
+  }
+
+  .progress-bar {
+    background: linear-gradient(90deg, #8b0000, #c9a84c);
+    height: 4px;
+    border-radius: 2px;
+    transition: width 0.3s ease;
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-in-up {
+    animation: fadeInUp 0.8s ease forwards;
+  }
+
+  .delay-1 { animation-delay: 0.1s; opacity: 0; }
+  .delay-2 { animation-delay: 0.2s; opacity: 0; }
+  .delay-3 { animation-delay: 0.3s; opacity: 0; }
+  .delay-4 { animation-delay: 0.4s; opacity: 0; }
+</style>
+</head>
+<body class="bg-obsidian">
+
+<!-- Age Verification Modal -->
+<div id="ageModal" class="age-modal fixed inset-0 z-[100] flex items-center justify-center p-4">
+  <div class="max-w-md w-full text-center">
+    <div class="mb-6 text-6xl">🔞</div>
+    <h2 class="text-4xl font-bold mb-3" style="font-family:'Playfair Display',serif;">
+      <span class="gold-gradient">OH MY!</span>
+    </h2>
+    <p class="text-gray-400 mb-2 text-sm tracking-widest uppercase">Adults Only</p>
+    <div class="section-divider my-6"></div>
+    <p class="text-gray-300 mb-8 leading-relaxed">
+      This website contains adult content and products intended for mature audiences only. 
+      You must be <strong class="text-blush">18 years or older</strong> to enter.
+    </p>
+    <div class="flex gap-4 justify-center">
+      <button onclick="enterSite()" class="btn-primary px-8 py-3 rounded text-white font-semibold tracking-wide uppercase text-sm">
+        I Am 18+ — Enter
+      </button>
+      <button onclick="window.location.href='https://google.com'" class="btn-outline px-8 py-3 rounded font-semibold tracking-wide uppercase text-sm">
+        Exit
+      </button>
+    </div>
+    <p class="text-gray-600 text-xs mt-6">By entering you confirm you are of legal age in your jurisdiction.</p>
+  </div>
+</div>
+
+<!-- Sticky Navigation -->
+<nav id="navbar" class="nav-blur fixed top-0 left-0 right-0 z-50 border-b border-red-900/30 bg-black/80 transition-all duration-300">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      <!-- Logo -->
+      <a href="#home" class="flex items-center gap-2">
+        <span class="text-2xl font-bold gold-gradient" style="font-family:'Playfair Display',serif;">OH MY!</span>
+        <span class="text-xs text-gray-500 tracking-widest hidden sm:block">PREMIUM GEAR</span>
+      </a>
+
+      <!-- Desktop Nav -->
+      <div class="hidden md:flex items-center gap-8 text-sm tracking-widest uppercase">
+        <a href="#shop" class="text-gray-400 hover:text-gold transition-colors duration-200">Shop</a>
+        <a href="#specialties" class="text-gray-400 hover:text-gold transition-colors duration-200">Specialties</a>
+        <a href="#about" class="text-gray-400 hover:text-gold transition-colors duration-200">About</a>
+        <a href="#reviews" class="text-gray-400 hover:text-gold transition-colors duration-200">Reviews</a>
+        <a href="#contact" class="text-gray-400 hover:text-gold transition-colors duration-200">Contact</a>
+      </div>
+
+      <!-- CTA + Cart -->
+      <div class="hidden md:flex items-center gap-4">
+        <button class="relative text-gray-400 hover:text-gold transition-colors" onclick="toggleCart()">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+          </svg>
+          <span id="cartCount" class="absolute -top-2 -right-2 bg-crimson text-white text-xs w-4 h-4 rounded-full flex items-center justify-center">0</span>
+        </button>
+        <a href="#shop" class="btn-primary px-5 py-2 rounded text-sm text-white font-medium tracking-wide uppercase">
+          Shop Now
+        </a>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button id="mobileMenuBtn" class="md:hidden text-gray-400 hover:text-gold" onclick="toggleMobileMenu()">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="mobileMenu" class="hidden md:hidden mobile-menu border-t border-red-900/30">
+    <div class="px-6 py-6 space-y-4 text-sm tracking-widest uppercase">
+      <a href="#shop" onclick="closeMobileMenu()" class="block text-gray-300 hover:text-gold py-2 border-b border-gray-800">Shop</a>
+      <a href="#specialties" onclick="closeMobileMenu()" class="block text-gray-300 hover:text-gold py-2 border-b border-gray-800">Specialties</a>
+      <a href="#about" onclick="closeMobileMenu()" class="block text-gray-300 hover:text-gold py-2 border-b border-gray-800">About</a>
+      <a href="#reviews" onclick="closeMobileMenu()" class="block text-gray-300 hover:text-gold py-2 border-b border-gray-800">Reviews</a>
+      <a href="#contact" onclick="closeMobileMenu()" class="block text-gray-300 hover:text-gold py-2">Contact</a>
+      <a href="#shop" class="btn-primary block text-center px-5 py-3 rounded text-white font-medium mt-4">
+        Shop Now
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- Cart Sidebar -->
+<div id="cartSidebar" class="fixed top-0 right-0 h-full w-80 z-[60] transform translate-x-full transition-transform duration-300" style="background:#0f0000; border-left: 1px solid rgba(139,0,0,0.4);">
+  <div class="p-6 h-full flex flex-col">
+    <div class="flex justify-between items-center mb-6">
+      <h3 class="text-xl font-bold gold-gradient" style="font-family:'Playfair Display',serif;">Your Bag</h3>
+      <button onclick="toggleCart()" class="text-gray-400 hover:text-white">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+    <div id="cartItems" class="flex-1 overflow-y-auto">
+      <div class="text-center py-12 text-gray-600">
+        <div class="text-4xl mb-3">🛒</div>
+        <p class="text-sm">Your bag is empty.</p>
+        <p class="text-xs mt-1">Add something wicked.</p>
+      </div>
+    </div>
+    <div class="border-t border-red-900/30 pt-4">
+      <div class="flex justify-between text-sm mb-4">
+        <span class="text-gray-400">Total</span>
+        <span id="cartTotal" class="text-gold font-bold">$0.00</span>
+      </div>
+      <button class="btn-primary w-full py-3 rounded text-white font-medium tracking-wide uppercase text-sm">
+        Checkout
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Hero Section -->
+<section id="home" class="hero-bg min-h-screen flex items-center pt-16 relative overflow-hidden">
+  <!-- Decorative elements -->
+  <div class="absolute top-1/4 left-10 w-64 h-64 bg-red-900/5 rounded-full blur-3xl"></div>
+  <div class="absolute bottom-1/4 right-10 w-96 h-96 bg-yellow-900/5 rounded-full blur-3xl"></div>
+  <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-red-900/3 rounded-full blur-3xl"></div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 w-full">
+    <div class="grid lg:grid-cols-2 gap-12 items-center">
+      <!-- Left Content -->
+      <div>
+        <div class="inline-flex items-center gap-2 bg-red-900/20 border border-red-900/40 px-4 py-2 rounded-full text-xs tracking-widest uppercase text-gold mb-8 fade-in-up delay-1">
+          <span class="w-2 h-2 bg-blush rounded-full pulse-ring"></span>
+          New Collection Arrived
+        </div>
+
+        <h1 class="text-5xl sm:text-6xl lg:text-7xl font-bold leading-none mb-6 fade-in-up delay-2" style="font-family:'Playfair Display',serif;">
+          <span class="text-white">Dare to</span><br>
+          <span class="gold-gradient italic">Dominate.</span>
+        </h1>
+
+        <p class="text-gray-400 text-lg leading-relaxed mb-8 max-w-lg fade-in-up delay-3">
+          Premium dominatrix gear, restraints, and specialty toys crafted for those who demand the very best. 
+          Because mediocre just isn't in your vocabulary — and neither is holding back.
+        </p>
+
+        <div class="flex flex-wrap gap-4 mb-12 fade-in-up delay-4">
+          <a href="#shop" class="btn-primary px-8 py-4 rounded text-white font-semibold tracking-wide uppercase text-sm">
+            Explore Collection
+          </a>
+          <a href="#specialties" class="btn-outline px-8 py-4 rounded font-semibold tracking-wide uppercase text-sm">
+            Our Specialties
+          </a>
+        </div>
+
+        <!-- Stats -->
+        <div class="grid grid-cols-3 gap-6 fade-in-up delay-4">
+          <div class="border-l-2 border-crimson pl-4">
+            <div class="text-2xl font-bold gold-gradient" style="font-family:'Playfair Display',serif;">500+</div>
+            <div class="text-xs text-gray-500 tracking-wide uppercase mt-1">Products</div>
+          </div>
+          <div class="border-l-2 border-crimson pl-4">
+            <div class="text-2xl font-bold gold-gradient" style="font-family:'Playfair Display',serif;">12K+</div>
+            <div class="text-xs text-gray-500 tracking-wide uppercase mt-1">Happy Clients</div>
+          </div>
+          <div class="border-l-2 border-crimson pl-4">
+            <div class="text-2xl font-bold gold-gradient" style="font-family:'Playfair Display',serif;">100%</div>
+            <div class="text-xs text-gray-500 tracking-wide uppercase mt-1">Discreet Ship</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Visual -->
+      <div class="flex justify-center lg:justify-end relative">
+        <div class="relative w-80 h-80 lg:w-96 lg:h-96 float-anim">
+          <!-- Outer ring -->
+          <div class="absolute inset-0 rounded-full border border-gold/20 animate-spin" style="animation-duration:20s;"></div>
+          <div class="absolute inset-4 rounded-full border border-crimson/20 animate-spin" style="animation-duration:15s; animation-direction:reverse;"></div>
+
+          <!-- Center piece -->
+          <div class="absolute inset-8 rounded-full crimson-glow flex items-center justify-center"
+               style="background: radial-gradient(circle, #1a0000 0%, #0a0000 70%);">
+            <div class="text-center">
+              <div class="text-6xl lg:text-8xl font-black italic gold-gradient" style="font-family:'Playfair Display',serif; line-height:1;">
+                OH<br>MY!
+              </div>
+              <div class="text-xs tracking-[0.3em] text-gray-500 uppercase mt-2">Premium Gear</div>
+            </div>
+          </div>
+
+          <!-- Decorative dots -->
+          <div class="absolute top-4 right-8 w-3 h-3 rounded-full bg-crimson pulse-ring"></div>
+          <div class="absolute bottom-8 left-4 w-2 h-2 rounded-full bg-gold/60"></div>
+          <div class="absolute top-1/2 right-2 w-2 h-2 rounded-full bg-blush/40"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-gray-600 text-xs tracking-widest uppercase flex flex-col items-center gap-2">
+    <span>Scroll</span>
+    <div class="w-px h-8 bg-gradient-to-b from-gray-600 to-transparent"></div>
+  </div>
+</section>
+
+<!-- Marquee Banner -->
+<div class="py-4 overflow-hidden" style="background: linear-gradient(90deg, #1a0000, #2a0000, #1a0000); border-top: 1px solid rgba(139,0,0,0.4); border-bottom: 1px solid rgba(139,0,0,0.4);">
+  <div class="marquee inline-block">
+    <span class="text-xs tracking-widest uppercase text-gold/70 mx-8">✦ Free Discreet Shipping Over $99</span>
+    <span class="text-xs tracking-widest uppercase text-gray-600 mx-8">✦ Premium Quality Materials</span>
+    <span class="text-xs tracking-widest uppercase text-gold/70 mx-8">✦ Specialists in Anal Play</span>
+    <span class="text-xs tracking-widest uppercase text-gray-600 mx-8">✦ Body-Safe Certified</span>
+    <span class="text-xs tracking-widest uppercase text-gold/70 mx-8">✦ Discreet Packaging Always</span>
+    <span class="text-xs tracking-widest uppercase text-gray-600 mx-8">✦ Returns Within 30 Days</span>
+    <span class="text-xs tracking-widest uppercase text-gold/70 mx-8">✦ Free Discreet Shipping Over $99</span>
+    <span class="text-xs tracking-widest uppercase text-gray-600 mx-8">✦ Premium Quality Materials</span>
+    <span class="text-xs tracking-widest uppercase text-gold/70 mx-8">✦ Specialists in Anal Play</span>
+    <span class="text-xs tracking-widest uppercase text-gray-600 mx-8">✦ Body-Safe Certified</span>
+    <span class="text-xs tracking-widest uppercase text-gold/70 mx-8">✦ Discreet Packaging Always</span>
+    <span class="text-xs tracking-widest uppercase text-gray-600 mx-8">✦ Returns Within 30 Days</span>
+  </div>
+</div>
+
+<!-- Categories Section -->
+<section id="categories" class="py-24" style="background: linear-gradient(180deg, #0a0000 0%, #080000 100%);">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <p class="text-xs tracking-[0.4em] uppercase text-gold mb-4">Browse By</p>
+      <h2 class="text-4xl lg:text-5xl font-bold text-white" style="font-family:'Playfair Display',serif;">
+        Shop <span class="italic gold-gradient">Categories</span>
+      </h2>
+      <div class="section-divider w-48 mx-auto mt-6"></div>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+      <!-- Category cards -->
+      <div class="category-card relative rounded-xl p-6 text-center cursor-pointer group" onclick="window.location.href='#shop'">
+        <div class="text-3xl mb-3 group-hover:scale-110 transition-transform duration-300">⛓️</div>
+        <div class="text-xs font-semibold tracking-widest uppercase text-gray-300 group-hover:text-gold transition-colors">Restraints</div>
+        <div class="text-xs text-gray-600 mt-1">48 items</div>
+      </div>
+      <div class="category-card relative rounded-xl p-6 text-center cursor-pointer group" onclick="window.location.href='#shop'">
+        <div class="text-3xl mb-3 group-hover:scale-110 transition-transform duration-300">🎭</div>
+        <div class="text-xs font-semibold tracking-widest uppercase text-gray-300 group-hover:text-gold transition-colors">Masks & Hoods</div>
+        <div class="text-xs text-gray-600 mt-1">32 items</div>
+      </div>
+      <div class="category-card relative rounded-xl p-6 text-center cursor-pointer group" onclick="window.location.href='#shop'">
+        <div class="text-3xl mb-3 group-hover:scale-110 transition-transform duration-300">🖤</div>
+        <div class="text-xs font-semibold tracking-widest uppercase text-gray-300 group-hover:text-gold transition-colors">Paddles</div>
+        <div class="text-xs text-gray-600 mt-1">24 items</div>
+      </div>
+      <div class="category-card relative rounded-xl p-6 text-center cursor-pointer group" onclick="window.location.href='#specialties'">
+        <div class="text-3xl mb-3 group-hover:scale-110 transition-transform duration-300">🍑</div>
+        <div class="text-xs font-semibold tracking-widest uppercase text-gray-300 group-hover:text-gold transition-colors">Butt Stuff</div>
+        <div class="text-xs text-gray-600 mt-1">89 items</div>
+        <div class="absolute top-2 right-2 badge-hot px-1.5 py-0.5 rounded-full font-bold tracking-widest">HOT</div>
+      </div>
+      <div class="category-card relative rounded-xl p-6 text-center cursor-pointer group" onclick="window.location.href='#shop'">
+        <div class="text-3xl mb-3 group-hover:scale-110 transition-transform duration-300">🥿</div>
+        <div class="text-xs font-semibold tracking-widest uppercase text-gray-300 group-hover:text-gold transition-colors">Footwear</div>
+        <div class="text-xs text-gray-600 mt-1">19 items</div>
+      </div>
+      <div class="category-card relative rounded-xl p-6 text-center cursor-pointer group" onclick="window.location.href='#shop'">
+        <div class="text-3xl mb-3 group-hover:scale-110 transition-transform duration-300">🪢</div>
+        <div class="text-xs font-semibold tracking-widest uppercase text-gray-300 group-hover:text-gold transition-colors">Rope & Ties</div>
+        <div class="text-xs text-gray-600 mt-1">36 items</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Shop / Products Section -->
+<section id="shop" class="py-24" style="background: linear-gradient(180deg, #080000
