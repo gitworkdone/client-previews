@@ -297,7 +297,7 @@ footer{background:var(--cream);padding:60px 40px 40px;border-top:1px solid var(-
     </div>
   </div>
   <div class="hero-img">
-    <img src="https://images.unsplash.com/photo-1572860036857-2cfd26f462cc?w=1400&q=90&fit=crop" alt="Luxury Atlanta home landscape">
+    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1400&q=90&fit=crop" alt="Luxury Atlanta home landscape">
   </div>
 </section>
 
@@ -363,7 +363,7 @@ footer{background:var(--cream);padding:60px 40px 40px;border-top:1px solid var(-
     <div class="gal-item"><img src="https://images.unsplash.com/photo-1524598171353-ce84a57f7f8a?w=800&q=90&fit=crop" alt="Perennial flower garden"></div>
     <div class="gal-item"><img src="https://images.unsplash.com/photo-1605647533135-51b5906087d8?w=800&q=90&fit=crop" alt="Dry stacked stone retaining wall"></div>
     <div class="gal-item"><img src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6?w=800&q=90&fit=crop" alt="Lush backyard garden"></div>
-    <div class="gal-item wide"><img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1400&q=90&fit=crop" alt="Home landscape"></div>
+    <div class="gal-item wide"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1400&q=90&fit=crop" alt="Home landscape"></div>
   </div>
 </section>
 
@@ -695,11 +695,17 @@ footer{background:var(--cream);padding:60px 40px 40px;border-top:1px solid var(-
 gsap.registerPlugin(ScrollTrigger);
 
 // Image fallback — if any image fails to load, swap to a verified working source
-document.querySelectorAll('img').forEach(img=>{
+const fallbackPool = [
+  'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1400&q=90&fit=crop',
+  'https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=1400&q=90&fit=crop',
+  'https://images.unsplash.com/photo-1572177812156-58036aae439c?w=1400&q=90&fit=crop',
+  'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1400&q=90&fit=crop',
+  'https://images.unsplash.com/photo-1523712999610-f77fbcfc3843?w=1400&q=90&fit=crop'
+];
+document.querySelectorAll('img').forEach((img,i)=>{
   img.addEventListener('error',function(){
-    const alt = encodeURIComponent((this.alt || 'landscape garden').replace(/\s+/g,','));
     this.onerror = null;
-    this.src = 'https://source.unsplash.com/1400x1000/?' + alt + ',landscape,garden';
+    this.src = fallbackPool[i % fallbackPool.length];
   });
 });
 
