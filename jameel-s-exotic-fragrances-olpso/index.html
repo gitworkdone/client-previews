@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Jameel's Exotic Fragrances — Luxury, By The Drop</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500;600&family=Italiana&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/SplitText.min.js"></script>
+<style>
+  :root{
+    --noir:#0a0806;
+    --ink:#141210;
+    --bone:#f3ece1;
+    --parchment:#e8dfce;
+    --gilt:#b8893a;
+    --gilt-deep:#8a6320;
+    --ember:#7a1f1f;
+    --amber:#c9a66b;
+    --smoke:#2a211a;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{background:var(--noir);color:var(--bone);font-family:'Inter',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+  ::selection{background:var(--gilt);color:var(--noir)}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  .serif{font-family:'Cormorant Garamond',serif}
+  .display{font-family:'Italiana',serif;letter-spacing:.01em}
+
+  /* Grain overlay */
+  .grain{position:fixed;inset:0;pointer-events:none;z-index:9998;opacity:.08;mix-blend-mode:overlay}
+  .grain svg{width:100%;height:100%}
+
+  /* Cursor */
+  .cursor{position:fixed;width:10px;height:10px;border-radius:50%;background:var(--gilt);pointer-events:none;z-index:9999;mix-blend-mode:difference;transform:translate(-50%,-50%);transition:width .3s,height .3s,background .3s}
+  .cursor.grow{width:60px;height:60px;background:var(--amber)}
+  @media (max-width:768px){.cursor{display:none}}
+
+  /* Nav */
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:24px 48px;display:flex;justify-content:space-between;align-items:center;transition:all .5s ease;mix-blend-mode:difference}
+  nav.scrolled{padding:16px 48px;background:rgba(10,8,6,.85);backdrop-filter:blur(20px);mix-blend-mode:normal;border-bottom:1px solid rgba(184,137,58,.15)}
+  .logo{font-family:'Italiana',serif;font-size:22px;letter-spacing:.2em;color:var(--bone)}
+  .logo span{color:var(--gilt)}
+  .nav-links{display:flex;gap:42px;list-style:none}
+  .nav-links a{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--bone);position:relative;padding:6px 0;font-weight:400}
+  .nav-links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:var(--gilt);transition:width .4s ease}
+  .nav-links a:hover::after{width:100%}
+  .nav-cta{font-size:11px;letter-spacing:.28em;text-transform:uppercase;border:1px solid var(--gilt);padding:12px 22px;color:var(--bone);transition:all .4s;background:transparent;cursor:pointer}
+  .nav-cta:hover{background:var(--gilt);color:var(--noir)}
+  @media(max-width:900px){.nav-links{display:none}nav{padding:20px 24px}}
+
+  /* Hero */
+  .hero{height:100vh;min-height:720px;position:relative;display:flex;align-items:flex-end;overflow:hidden;background:radial-gradient(ellipse at 20% 30%,#2a1a0a 0%,#0a0806 60%)}
+  .hero-bottle{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:min(520px,70vw);height:min(720px,80vh);z-index:2;filter:drop-shadow(0 40px 80px rgba(0,0,0,.8))}
+  .hero-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:900px;height:900px;background:radial-gradient(circle,rgba(184,137,58,.35) 0%,rgba(184,137,58,.08) 30%,transparent 60%);z-index:1;pointer-events:none}
+  .hero-content{position:relative;z-index:3;padding:0 48px 80px;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:flex-end}
+  .hero h1{font-family:'Italiana',serif;font-size:clamp(68px,11vw,180px);line-height:.88;letter-spacing:-.02em;font-weight:400}
+  .hero h1 em{font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--gilt);font-weight:300}
+  .hero-sub{max-width:380px;justify-self:end;text-align:right}
+  .hero-sub p{font-size:15px;line-height:1.7;color:rgba(243,236,225,.7);margin-bottom:28px;font-weight:300}
+  .hero-ctas{display:flex;gap:14px;justify-content:flex-end;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;gap:12px;padding:16px 28px;font-size:11px;letter-spacing:.28em;text-transform:uppercase;cursor:pointer;transition:all .5s cubic-bezier(.2,.8,.2,1);border:none;font-family:inherit}
+  .btn-primary{background:var(--gilt);color:var(--noir)}
+  .btn-primary:hover{background:var(--amber);transform:translateY(-2px);box-shadow:0 20px 40px rgba(184,137,58,.3)}
+  .btn-ghost{background:transparent;color:var(--bone);border:1px solid rgba(243,236,225,.3)}
+  .btn-ghost:hover{border-color:var(--gilt);color:var(--gilt)}
+  .btn svg{width:14px;height:14px;transition:transform .4s}
+  .btn:hover svg{transform:translateX(4px)}
+  .hero-tag{position:absolute;top:50%;right:48px;transform:translateY(-50%) rotate(90deg);transform-origin:right center;font-size:10px;letter-spacing:.5em;text-transform:uppercase;color:rgba(243,236,225,.4);z-index:3}
+  .scroll-indicator{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:rgba(243,236,225,.5);z-index:3;display:flex;flex-direction:column;align-items:center;gap:12px}
+  .scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,transparent,var(--gilt));animation:scrollPulse 2s ease-in-out infinite}
+  @keyframes scrollPulse{0%,100%{opacity:.3;transform:scaleY(.6)}50%{opacity:1;transform:scaleY(1)}}
+  @media(max-width:900px){.hero-content{grid-template-columns:1fr;gap:30px;padding:0 24px 60px}.hero-sub{justify-self:start;text-align:left}.hero-ctas{justify-content:flex-start}.hero-tag{display:none}}
+
+  /* Trust bar */
+  .trust{padding:80px 48px;border-top:1px solid rgba(184,137,58,.15);border-bottom:1px solid rgba(184,137,58,.15);background:var(--ink)}
+  .trust-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:40px;max-width:1400px;margin:0 auto}
+  .trust-item{text-align:center;position:relative}
+  .trust-item:not(:last-child)::after{content:'';position:absolute;right:-20px;top:20%;bottom:20%;width:1px;background:rgba(184,137,58,.2)}
+  .trust-num{font-family:'Italiana',serif;font-size:clamp(48px,6vw,80px);color:var(--gilt);line-height:1;letter-spacing:-.02em}
+  .trust-label{font-size:10px;letter-spacing:.35em;text-transform:uppercase;color:rgba(243,236,225,.6);margin-top:14px}
+  @media(max-width:768px){.trust-grid{grid-template-columns:repeat(2,1fr);gap:40px 20px}.trust-item:nth-child(2)::after{display:none}}
+
+  /* Marquee */
+  .marquee{padding:30px 0;overflow:hidden;background:var(--noir);border-bottom:1px solid rgba(184,137,58,.1)}
+  .marquee-track{display:flex;gap:80px;white-space:nowrap;animation:marquee 40s linear infinite;font-family:'Italiana',serif;font-size:clamp(32px,4vw,56px);color:rgba(243,236,225,.5)}
+  .marquee-track span{display:flex;align-items:center;gap:80px}
+  .marquee-track span::before{content:'✦';color:var(--gilt);font-size:.6em}
+  @keyframes marquee{to{transform:translateX(-50%)}}
+
+  /* Section heading */
+  .section{padding:140px 48px;position:relative}
+  .eyebrow{font-size:10px;letter-spacing:.45em;text-transform:uppercase;color:var(--gilt);margin-bottom:24px;display:flex;align-items:center;gap:14px}
+  .eyebrow::before{content:'';width:30px;height:1px;background:var(--gilt)}
+  .section-title{font-family:'Italiana',serif;font-size:clamp(48px,7vw,110px);line-height:.95;letter-spacing:-.02em;margin-bottom:30px;font-weight:400}
+  .section-title em{font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--gilt);font-weight:300}
+  @media(max-width:768px){.section{padding:100px 24px}}
+
+  /* Products */
+  .products-header{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end;margin-bottom:80px;max-width:1400px;margin-left:auto;margin-right:auto}
+  .products-intro{max-width:420px;justify-self:end}
+  .products-intro p{font-size:15px;line-height:1.7;color:rgba(243,236,225,.65);font-weight:300}
+  .filters{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:70px}
+  .filter{padding:12px 24px;font-size:10px;letter-spacing:.3em;text-transform:uppercase;border:1px solid rgba(243,236,225,.15);background:transparent;color:var(--bone);cursor:pointer;transition:all .4s;font-family:inherit}
+  .filter:hover{border-color:var(--gilt)}
+  .filter.active{background:var(--gilt);color:var(--noir);border-color:var(--gilt)}
+
+  .product-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:24px;max-width:1400px;margin:0 auto}
+  .product{position:relative;cursor:pointer;overflow:hidden;transition:opacity .6s}
+  .product.hidden{display:none}
+  .product-visual{aspect-ratio:3/4;background:linear-gradient(145deg,#1a1410 0%,#2a1f15 100%);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+  .product-visual::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 40%,rgba(184,137,58,.2) 0%,transparent 50%);transition:opacity .6s}
+  .product:hover .product-visual::before{opacity:1.5}
+  .bottle{position:relative;width:50%;height:75%;transition:transform .8s cubic-bezier(.2,.8,.2,1)}
+  .product:hover .bottle{transform:scale(1.08) translateY(-10px)}
+  .bottle-body{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:100%;height:78%;background:linear-gradient(135deg,var(--bottle-c1,#3a2a1a) 0%,var(--bottle-c2,#1a1008) 50%,var(--bottle-c1,#3a2a1a) 100%);border-radius:4px 4px 8px 8px;box-shadow:inset 0 0 30px rgba(0,0,0,.5),0 20px 40px rgba(0,0,0,.6)}
+  .bottle-body::after{content:'';position:absolute;top:10%;left:15%;width:25%;height:60%;background:linear-gradient(to right,rgba(255,255,255,.15),transparent);border-radius:3px}
+  .bottle-neck{position:absolute;top:10%;left:50%;transform:translateX(-50%);width:28%;height:14%;background:linear-gradient(to bottom,#2a1a0a,var(--bottle-c1,#3a2a1a));border-radius:2px}
+  .bottle-cap{position:absolute;top:0;left:50%;transform:translateX(-50%);width:38%;height:12%;background:linear-gradient(135deg,#b8893a 0%,#8a6320 50%,#b8893a 100%);border-radius:3px 3px 2px 2px;box-shadow:0 2px 8px rgba(0,0,0,.4)}
+  .bottle-label{position:absolute;bottom:20%;left:50%;transform:translateX(-50%);width:70%;text-align:center;font-family:'Italiana',serif;font-size:9px;letter-spacing:.2em;color:rgba(243,236,225,.85);line-height:1.4}
+  .product-info{padding:22px 4px 0;display:flex;justify-content:space-between;align-items:flex-start;gap:20px}
+  .product-name{font-family:'Cormorant Garamond',serif;font-size:20px;letter-spacing:-.01em;font-weight:400;line-height:1.2;margin-bottom:6px}
+  .product-cat{font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:rgba(243,236,225,.45)}
+  .product-price{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--gilt);font-weight:500;white-space:nowrap}
+  .product-price small{font-size:11px;color:rgba(243,236,225,.5);letter-spacing:.1em;display:block;text-align:right;font-family:'Inter',sans-serif;font-weight:300;margin-top:2px}
+
+  /* Product sizes — editorial */
+  .product.feat{grid-column:span 6}
+  .product.med{grid-column:span 4}
+  .product.sm{grid-column:span 3}
+  .product.reg{grid-column:span 4}
+  @media(max-width:1024px){.product.feat,.product.med,.product.reg,.product.sm{grid-column:span 6}}
+  @media(max-width:600px){.product.feat,.product.med,.product.reg,.product.sm{grid-column:span 12}.products-header{grid-template-columns:1fr}.products-intro{justify-self:start}}
+
+  /* Story */
+  .story{background:var(--ink);position:relative;overflow:hidden}
+  .story-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;max-width:1400px;margin:0 auto}
+  .story-visual{position:relative;aspect-ratio:4/5;background:radial-gradient(ellipse at center,#3a2818 0%,#0a0806 80%);overflow:hidden;display:flex;align-items:center;justify-content:center}
+  .story-visual::before{content:'J';position:absolute;font-family:'Italiana',serif;font-size:min(600px,70vw);color:rgba(184,137,58,.08);line-height:.8;top:50%;left:50%;transform:translate(-50%,-50%)}
+  .story-bottles{position:relative;z-index:2;display:flex;gap:20px;align-items:flex-end}
+  .story-bottle{width:90px;height:160px;position:relative;filter:drop-shadow(0 20px 40px rgba(0,0,0,.6))}
+  .story-bottle:nth-child(2){width:110px;height:200px}
+  .story-bottle:nth-child(3){width:80px;height:140px}
+  .story-copy p{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,1.6vw,26px);line-height:1.55;color:rgba(243,236,225,.85);margin-bottom:24px;font-weight:300}
+  .story-copy p:first-of-type{font-size:clamp(22px,2vw,32px);color:var(--bone)}
+  .signature{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:32px;color:var(--gilt);margin-top:40px;font-weight:400}
+  .signature small{display:block;font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:rgba(243,236,225,.5);margin-top:8px;font-style:normal;font-weight:400}
+  @media(max-width:900px){.story-grid{grid-template-columns:1fr;gap:50px}}
+
+  /* Collection callout — full bleed */
+  .callout{height:100vh;min-height:700px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#1a0a05 0%,#0a0806 100%)}
+  .callout-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(184,137,58,.25) 0%,transparent 50%),radial-gradient(ellipse at 70% 50%,rgba(122,31,31,.2) 0%,transparent 50%)}
+  .callout-content{position:relative;z-index:2;text-align:center;padding:0 24px}
+  .callout-eye{font-size:11px;letter-spacing:.5em;text-transform:uppercase;color:var(--gilt);margin-bottom:30px}
+  .callout h2{font-family:'Italiana',serif;font-size:clamp(60px,11vw,180px);line-height:.88;letter-spacing:-.02em;margin-bottom:40px}
+  .callout h2 em{font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--gilt);font-weight:300}
+  .callout p{max-width:520px;margin:0 auto 40px;font-family:'Cormorant Garamond',serif;font-size:20px;line-height:1.6;color:rgba(243,236,225,.75);font-weight:300}
+  .callout-line{position:absolute;left:0;right:0;height:1px;background:rgba(184,137,58,.2)}
+  .callout-line.top{top:40px}
+  .callout-line.bottom{bottom:40px}
+
+  /* Testimonials */
+  .testimonials{background:var(--noir)}
+  .testimonial-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;max-width:1400px;margin:0 auto}
+  .testimonial{padding:50px 40px;border:1px solid rgba(184,137,58,.15);position:relative;background:linear-gradient(145deg,rgba(20,18,16,.6) 0%,rgba(10,8,6,.6) 100%);transition:all .5s}
+  .testimonial:hover{border-color:var(--gilt);transform:translateY(-6px)}
+  .testimonial::before{content:'"';position:absolute;top:10px;left:20px;font-family:'Italiana',serif;font-size:100px;color:var(--gilt);opacity:.2;line-height:1}
+  .stars{color:var(--gilt);margin-bottom:24px;font-size:14px;letter-spacing:2px}
+  .testimonial p{font-family:'Cormorant Garamond',serif;font-size:19px;line-height:1.6;color:rgba(243,236,225,.9);margin-bottom:30px;font-weight:300;font-style:italic}
+  .t-author{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--gilt)}
+  .t-role{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(243,236,225,.4);margin-top:4px}
+  @media(max-width:900px){.testimonial-grid{grid-template-columns:1fr}}
+
+  /* FAQ */
+  .faq-wrap{max-width:900px;margin:0 auto}
+  .faq-item{border-bottom:1px solid rgba(184,137,58,.15);padding:30px 0;cursor:pointer}
+  .faq-q{display:flex;justify-content:space-between;align-items:center;gap:20px}
+  .faq-q h3{font-family:'Cormorant Garamond',serif;font-size:clamp(22px,2.5vw,32px);font-weight:400;letter-spacing:-.01em;transition:color .3s}
+  .faq-item:hover .faq-q h3{color:var(--gilt)}
+  .faq-icon{width:32px;height:32px;border:1px solid var(--gilt);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--gilt);flex-shrink:0;transition:all .4s}
+  .faq-item.open .faq-icon{background:var(--gilt);color:var(--noir);transform:rotate(45deg)}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .5s ease,margin .5s ease}
+  .faq-item.open .faq-a{max-height:300px;margin-top:20px}
+  .faq-a p{font-size:15px;line-height:1.7;color:rgba(243,236,225,.7);max-width:700px;font-weight:300}
+
+  /* CTA strip */
+  .cta-strip{padding:140px 48px;text-align:center;background:linear-gradient(135deg,#2a1a0a 0%,#0a0806 60%);position:relative;overflow:hidden}
+  .cta-strip::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,rgba(184,137,58,.15) 0%,transparent 60%)}
+  .cta-strip h2{position:relative;font-family:'Italiana',serif;font-size:clamp(48px,8vw,130px);line-height:.9;margin-bottom:30px;letter-spacing:-.02em}
+  .cta-strip h2 em{font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--gilt);font-weight:300}
+  .cta-strip p{position:relative;font-family:'Cormorant Garamond',serif;font-size:20px;color:rgba(243,236,225,.7);margin-bottom:40px;font-weight:300}
+  .cta-strip .btn{position:relative}
+
+  /* Footer */
+  footer{padding:80px 48px 40px;background:var(--ink);border-top:1px solid rgba(184,137,58,.15)}
+  .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:60px;max-width:1400px;margin:0 auto 60px}
+  .footer-logo{font-family:'Italiana',serif;font-size:32px;letter-spacing:.15em;margin-bottom:20px}
+  .footer-logo span{color:var(--gilt)}
+  .footer-tag{font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic;color:rgba(243,236,225,.6);max-width:300px;line-height:1.5;font-weight:300}
+  .footer-col h4{font-size:10px;letter-spacing:.35em;text-transform:uppercase;color:var(--gilt);margin-bottom:20px;font-weight:500}
+  .footer-col ul{list-style:none}
+  .footer-col li{margin-bottom:12px}
+  .footer-col a{font-size:14px;color:rgba(243,236,225,.65);transition:color .3s}
+  .footer-col a:hover{color:var(--gilt)}
+  .footer-bottom{border-top:1px solid rgba(184,137,58,.1);padding-top:30px;max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:rgba(243,236,225,.4)}
+  @media(max-width:900px){.footer-grid{grid-template-columns:1fr 1fr;gap:40px}.footer-bottom{flex-direction:column;gap:16px;text-align:center}}
+
+  /* Animations */
+  .reveal{opacity:0;transform:translateY(40px)}
+  .char{display:inline-block}
+</style>
+</head>
+<body>
+
+<svg style="display:none"><filter id="grainFilter"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3"/><feColorMatrix values="0 0 0 0 0.7  0 0 0 0 0.5  0 0 0 0 0.2  0 0 0 1 0"/></filter></svg>
+<div class="grain"><svg width="100%" height="100%"><rect width="100%" height="100%" filter="url(#grainFilter)"/></svg></div>
+<div class="cursor" id="cursor"></div>
+
+<nav id="nav">
+  <div class="logo">JAMEEL'S <span>✦</span> EXOTIC</div>
+  <ul class="nav-links">
+    <li><a href="#collections" data-cursor>Collections</a></li>
+    <li><a href="#story" data-cursor>The House</a></li>
+    <li><a href="#gifts" data-cursor>Gift Sets</a></li>
+    <li><a href="#faq" data-cursor>Journal</a></li>
+  </ul>
+  <button class="nav-cta" data-cursor>Shop Samples</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <svg class="hero-bottle" viewBox="0 0 400 600" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="bgrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#4a2f1a"/>
+        <stop offset="40%" stop-color="#1a0f07"/>
+        <stop offset="60%" stop-color="#2a1a0a"/>
+        <stop offset="100%" stop-color="#3a2416"/>
+      </linearGradient>
+      <linearGradient id="cgrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#d4a55f"/>
+        <stop offset="50%" stop-color="#8a6320"/>
+        <stop offset="100%" stop-color="#c9a66b"/>
+      </linearGradient>
+      <linearGradient id="shine" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="rgba(255,255,255,0.3)"/>
+        <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+      </linearGradient>
+    </defs>
+    <rect x="110" y="130" width="180" height="420" rx="10" fill="url(#bgrad)" stroke="#6a4a2a" stroke-width="1"/>
+    <rect x="120" y="150" width="50" height="350" rx="4" fill="url(#shine)"/>
+    <rect x="170" y="80" width="60" height="60" fill="url(#bgrad)" stroke="#6a4a2a" stroke-width="1"/>
+    <rect x="155" y="30" width="90" height="60" rx="4" fill="url(#cgrad)" stroke="#5a3f15" stroke-width="1"/>
+    <rect x="160" y="35" width="30" height="50" fill="rgba(255,255,255,0.15)"/>
+    <text x="200" y="320" text-anchor="middle" font-family="Italiana" font-size="18" fill="#d4a55f" letter-spacing="4">JAMEEL'S</text>
+    <line x1="140" y1="340" x2="260" y2="340" stroke="#8a6320" stroke-width="0.5"/>
+    <text x="200" y="365" text-anchor="middle" font-family="Cormorant Garamond" font-size="11" fill="#c9a66b" letter-spacing="2" font-style="italic">Eau de Parfum</text>
+    <text x="200" y="420" text-anchor="middle" font-family="Inter" font-size="8" fill="rgba(243,236,225,0.6)" letter-spacing="3">EXOTIC BLEND</text>
+    <text x="200" y="440" text-anchor="middle" font-family="Inter" font-size="7" fill="rgba(243,236,225,0.4)" letter-spacing="2">5ML · SAMPLE</text>
+  </svg>
+  <div class="hero-tag">EST · 2019 · HANDPICKED LUXURY</div>
+  <div class="hero-content">
+    <h1 class="hero-title">Luxury,<br>by the <em>drop.</em></h1>
+    <div class="hero-sub">
+      <p>Creed. Tom Ford. Baccarat Rouge. Seventy of the world's most coveted fragrances — in sample sizes from $5. Try before you invest. Fall in love before you commit.</p>
+      <div class="hero-ctas">
+        <button class="btn btn-primary" data-cursor>Explore Scents <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></button>
+        <button class="btn btn-ghost" data-cursor>The House Story</button>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-indicator"><span>Scroll</span><div class="scroll-line"></div></div>
+</section>
+
+<!-- TRUST BAR -->
+<section class="trust">
+  <div class="trust-grid">
+    <div class="trust-item"><div class="trust-num" data-count="70">0</div><div class="trust-label">Curated Scents</div></div>
+    <div class="trust-item"><div class="trust-num" data-count="40" data-suffix="+">0</div><div class="trust-label">Luxury Houses</div></div>
+    <div class="trust-item"><div class="trust-num" data-count="12000" data-suffix="+">0</div><div class="trust-label">Happy Noses</div></div>
+    <div class="trust-item"><div class="trust-num" data-prefix="$" data-count="5">0</div><div class="trust-label">Starting Price</div></div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee">
+  <div class="marquee-track">
+    <span>Creed</span><span>Tom Ford</span><span>Baccarat Rouge 540</span><span>Dior Sauvage</span><span>Chanel</span><span>Parfums de Marly</span><span>Le Labo</span><span>Maison Margiela</span>
+    <span>Creed</span><span>Tom Ford</span><span>Baccarat Rouge 540</span><span>Dior Sauvage</span><span>Chanel</span><span>Parfums de Marly</span><span>Le Labo</span><span>Maison Margiela</span>
+  </div>
+</div>
+
+<!-- COLLECTIONS -->
+<section class="section" id="collections">
+  <div class="products-header">
+    <div>
+      <div class="eyebrow reveal">The Collection</div>
+      <h2 class="section-title reveal">Seventy scents.<br><em>One obsession.</em></h2>
+    </div>
+    <div class="products-intro reveal">
+      <p>Every fragrance is handpicked — nothing random, nothing generic. From the first floral whisper to the deepest oud, each sample is poured with care so you can discover before you commit.</p>
+    </div>
+  </div>
+
+  <div class="filters reveal">
+    <button class="filter active" data-filter="all">All</button>
+    <button class="filter" data-filter="men">Men</button>
+    <button class="filter" data-filter="women">Women</button>
+    <button class="filter" data-filter="unisex">Unisex</button>
+    <button class="filter" data-filter="gift">Gift Sets</button>
+    <button class="filter" data-filter="body">Bath & Body</button>
+  </div>
+
+  <div class="product-grid">
+    <!-- Row 1: feat + med + sm+sm stacked via sm spans -->
+    <div class="product feat reveal" data-cat="unisex" data-cursor>
+      <div class="product-visual">
+        <div class="bottle" style="--bottle-c1:#8a1a1a;--bottle-c2:#3a0808">
+          <div class="bottle-cap"></div><div class="bottle-neck"></div>
+          <div class="bottle-body"><div class="bottle-label">BACCARAT<br>ROUGE 540</div></div>
+        </div>
+      </div>
+      <div class="product-info">
+        <div><div class="product-name">Baccarat Rouge 540</div><div class="product-cat">Maison Francis Kurkdjian · Unisex</div></div>
+        <div class="product-price">$12<small>per 5ml</small></div>
+      </div>
+    </div>
+
+    <div class="product med reveal" data-cat="men" data-cursor>
+      <div class="product-visual">
+        <div class="bottle" style="--bottle-c1:#1a3a5a;--bottle-c2:#0a1a2a">
+          <div class="bottle-cap"></div><div class="bottle-neck"></div>
+          <div class="bottle-body"><div class="bottle-label">DIOR<br>SAUVAGE</div></div>
+        </div>
+      </div>
+      <div class="product-info">
+        <div><div class="product-name">Sauvage Elixir</div><div class="product-cat">Dior · Men</div></div>
+        <div class="product-price">$8<small>per 5ml</small></div>
+      </div>
+    </div>
+
+    <div class="product sm reveal" data-cat="women" data-cursor>
+      <div class="product-visual">
+        <div class="bottle" style="--bottle-c1:#d4a5c0;--bottle-c2:#6a2a4a">
+          <div class="bottle-cap"></div><div class="bottle-neck"></div>
+          <div class="bottle-body"><div class="bottle-label">CHANEL<br>N°5</div></div>
+        </div>
+      </div>
+      <div class="product-info">
+        <div><div class="product-name">Chanel N°5</div><div class="product-cat">Chanel · Women</div></div>
+        <div class="product-price">$10</div>
+      </div>
+    </div>
+
+    <div class="product reg reveal" data-cat="men" data-cursor>
+      <div class="product-visual">
+        <div class="bottle" style="--bottle-c1:#1a1a1a;--bottle-c2:#000">
+          <div class="bottle-cap"></div><div class="bottle-neck"></div>
+          <div class="bottle-body"><div class="bottle-label">CREED<br>AVENTUS</div></div>
+        </div>
+      </div>
+      <div class="product-info">
+        <div><div class="product-name">Creed Aventus</div><div class="product-cat">Creed · Men</div></div>
+        <div class="product-price">$15<small>per 5ml</small></div>
+      </div>
+    </div>
+
+    <div class="product reg reveal" data-cat="unisex" data-cursor>
+      <div class="product-visual">
+        <div class="bottle" style="--bottle-c1:#3a2a10;--bottle-c2:#1a0f05">
+          <div class="bottle-cap"></div><div class="bottle-neck"></div>
+          <div class="bottle-body"><div class="bottle-label">TOM FORD<br>OUD WOOD</div></div>
+        </div>
+      </div>
+      <div class="product-info">
+        <div><div class="product-name">Oud Wood</div><div class="product-cat">Tom Ford · Unisex</div></div>
+        <div class="product-price">$11<small>per 5ml</small></div>
+      </div>
+    </div>
+
+    <div class="product reg reveal" data-cat="women" data-cursor>
+      <div class="product-visual">
+        <div class="bottle" style="--bottle-c1:#e8c4a8;--bottle-c2:#8a5a3a">
+          <div class="bottle-cap"></div><div class="bottle-neck"></div>
+          <div class="bottle-body"><div class="bottle-label">DELINA<br>EXCLUSIF</div></div>
+        </div>
+      </div>
+      <div class="product-info">
+        <div><div class="product-name">Delina Exclusif</div><div class="product-cat">Parfums de Marly · Women</div></div>
+        <div class="product-price">$9<small>per 5ml</small></div>
+      </div>
+    </div>
+
+    <div class="product med reveal" data-cat="gift" data-cursor>
+      <div class="product-visual">
+        <div class="bottle" style="--bottle-c1:#d4a5d4;--bottle-c2:#7a3a7a">
+          <div class="bottle-cap"></div><div class="bottle-neck"></div>
+          <div class="bottle-body"><div class="bottle-label">GIRLY GIRL<br>COLLECTION</div></div>
+        </div>
+      </div>
+      <div class="product-info">
+        <div><div class="product-name">Girly Girl Collection</div><div class="product-cat">Curated Set · 6 Samples</div></div>
+        <div class="product-price">$45<small>set</small></div>
+      </div>
+    </div>
+
+    <div class="product feat reveal" data-cat="body" data-cursor>
+      <div class="product-visual">
+        <div class="bottle" style="--bottle-c1:#c9a66b;--bottle-c2:#5a3f15">
+          <div class="bottle-cap"></div><div class="bottle-neck"></div>
+          <div class="bottle-body"><div class="bottle-label">FRAGRANCE<br>LAMP SET</div></div>
+        </div>
+      </div>
+      <div class="product-info">
+        <div><div class="product-name">Fragrance Lamp Set</div><div class="product-cat">Bath & Body · Ambient</div></div>
+        <div class="product-price">$65<small>complete</small></div>
+      </div>
+    </div>
+
+    <div class="product sm reveal" data-cat="body" data-cursor>
+      <div class="product-visual">
+        <div class="bottle" style="--bottle-c1:#6a4a2a;--bottle-c2:#2a1a0a">
+          <div class="bottle-cap"></div><div class="bottle-neck"></div>
+          <div class="bottle-body"><div class="bottle-label">BURNING<br>OIL</div></div>
+        </div>
+      </div>
+      <div class="product-info">
+        <div><div class="product-name">Amber Burning Oil</div><div class="product-cat">Bath & Body</div></div>
+        <div class="product-price">$14</div>
+      </div>
+    </div>
+
+    <div class="product reg reveal" data-cat="men" data-cursor>
+      <div class="product-visual">
+        <div class="bottle" style="--bottle-c1:#2a4a2a;--bottle-c2:#0a1a0a">
+          <div class="bottle-cap"></div><div class="bottle-neck"></div>
+          <div class="bottle-body"><div class="bottle-label">LAYTON<br>EXCLUSIF</div></div>
+        </div>
+      </div>
+      <div class="product-info">
+        <div><div class="product-name">Layton Exclusif</div><div class="product-cat">Parfums de Marly · Men</div></div>
+        <div class="product-price">$10<small>per 5ml</small></div>
+      </div>
+    </div>
+
+    <div class="product reg reveal" data-cat="unisex" data-cursor>
+      <div class="product-visual">
+        <div class="bottle" style="--bottle-c1:#1a2a1a;--bottle-c2:#050a05">
+          <div class="bottle-cap"></div><div class="bottle-neck"></div>
+          <div class="bottle-body"><div class="bottle-label">SANTAL 33</div></div>
+        </div>
+      </div>
+      <div class="product-info">
+        <div><div class="product-name">Santal 33</div><div class="product-cat">Le Labo · Unisex</div></div>
+        <div class="product-price">$13<small>per 5ml</small></div>
+      </div>
+    </div>
+  </div>
+
+  <div style="text-align:center;margin-top:80px" class="reveal">
+    <button class="btn btn-ghost" data-cursor>View All 70+ Scents <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></button>
+  </div>
+</section>
+
+<!-- STORY -->
+<section class="section story" id="story">
+  <div class="story-grid">
+    <div class="story-visual reveal">
+      <div class="story-bottles">
+        <svg class="story-bottle" viewBox="0 0 100 180"><rect x="25" y="40" width="50" height="130" rx="3" fill="#2a1a0a" stroke="#6a4a2a"/><rect x="40" y="15" width="20" height="30" fill="#2a1a0a"/><rect x="30" y="5" width="40" height="18" rx="2" fill="#b8893a"/></svg>
+        <svg class="story-bottle" viewBox="0 0 100 180"><rect x="20" y="40" width="60" height="135" rx="4" fill="#8a1a1a" stroke="#6a1a1a"/><rect x="40" y="15" width="20" height="30" fill="#6a1a1a"/><rect x="28" y="5" width="44" height="18" rx="2" fill="#d4a55f"/></svg>
+        <svg class="story-bottle" viewBox="0 0 100 180"><rect x="25" y="40" width="50" height="130" rx="3" fill="#1a3a5a" stroke="#0a2a4a"/><rect x="40" y="15" width="20" height="30" fill="#0a2a4a"/><rect x="30" y="5" width="40" height="18" rx="2" fill="#c9a66b"/></svg>
+      </div>
+    </div>
+    <div class="story-copy">
+      <div class="eyebrow reveal">The House of Jameel</div>
+      <h2 class="section-title reveal">Scent shouldn't be <em>gambled on.</em></h2>
+      <p class="reveal">Walk into any department store and you'll find a $300 bottle wrapped in cellophane. You can't try it properly. You can't live with it. You commit — or you walk away.</p>
+      <p class="reveal">I built Jameel's because that felt broken. Fragrance is personal, intimate, seasonal. It should breathe on your skin for a week before it becomes yours. So I brought in Creed, Tom Ford, Baccarat, Chanel — the names everyone knows — and poured them into samples you can actually afford.</p>
+      <p class="reveal">Luxury shouldn't require a luxury budget to discover. That's the whole idea.</p>
+      <div class="signature reveal">Jameel.<small>Founder & Curator</small></div>
+    </div>
+  </div>
+</section>
+
+<!-- CALLOUT -->
+<section class="callout" id="gifts">
+  <div class="callout-bg"></div>
+  <div class="callout-line top"></div>
+  <div class="callout-line bottom"></div>
+  <div class="callout-content">
+    <div class="callout-eye reveal">Signature Offering</div>
+    <h2 class="reveal">The Girly Girl<br><em>Collection.</em></h2>
+    <p class="reveal">Six of our most beloved feminine fragrances — from rose noir to sugared vanilla — poured into a giftable keepsake box. Made for discovery. Built for obsession.</p>
+    <button class="btn btn-primary reveal" data-cursor>Shop Gift Sets <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></button>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section testimonials">
+  <div style="text-align:center;margin-bottom:80px">
+    <div class="eyebrow reveal" style="justify-content:center">Notes from the Faithful</div>
+    <h2 class="section-title reveal">Worn. Loved. <em>Reordered.</em></h2>
+  </div>
+  <div class="testimonial-grid">
+    <div class="testimonial reveal">
+      <div class="stars">★★★★★</div>
+      <p>Finally got to try Baccarat Rouge without remortgaging my apartment. Wore it for two weeks — bought the full bottle the day the sample ran out. Jameel's saved me $280 in regret.</p>
+      <div class="t-author">Aaliyah M.</div>
+      <div class="t-role">Brooklyn · Verified Buyer</div>
+    </div>
+    <div class="testimonial reveal">
+      <div class="stars">★★★★★</div>
+      <p>Ordered five samples for $35. Five. Samples. I've spent more on a single bad candle. Packaging was immaculate — every vial felt like unwrapping a tiny piece of something expensive.</p>
+      <div class="t-author">Marcus T.</div>
+      <div class="t-role">Atlanta · Verified Buyer</div>
+    </div>
+    <div class="testimonial reveal">
+      <div class="stars">★★★★★</div>
+      <p>The Girly Girl set was my birthday gift to myself and it is exquisite. Each scent is genuinely curated — not a filler in the box. This is a fragrance house pretending to be an online shop.</p>
+      <div class="t-author">Sienna R.</div>
+      <div class="t-role">Los Angeles · Verified Buyer</div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section" id="faq">
+  <div style="text-align:center;margin-bottom:80px">
+    <div class="eyebrow reveal" style="justify-content:center">The Fine Print</div>
+    <h2 class="section-title reveal">Questions, <em>answered.</em></h2>
+  </div>
+  <div class="faq-wrap">
+    <div class="faq-item"><div class="faq-q"><h3>Are these authentic fragrances?</h3><div class="faq-icon">+</div></div><div class="faq-a"><p>Every single scent is 100% authentic, sourced directly from authorized channels. We decant from the original bottles into our sample vials — never reformulated, never diluted, never synthetic dupes. What you smell is exactly what's in the $300 bottle.</p></div></div>
+    <div class="faq-item"><div class="faq-q"><h3>How much fragrance is in a sample?</h3><div class="faq-icon">+</div></div><div class="faq-a"><p>Our standard samples are 5ml — roughly 50 sprays, or 2-3 weeks of daily wear. Plenty of time to live with the fragrance through mornings, evenings, and every mood in between before you commit to a full bottle.</p></div></div>
+    <div class="faq-item"><div class="faq-q"><h3>Do samples really start at $5?</h3><div class="faq-icon">+</div></div><div class="faq-a"><p>Yes. Many designer fragrances start at exactly $5 for a 2ml sample. Luxury niche houses like Creed, Baccarat, and Roja Dove range from $10-$20 — still a fraction of committing to a $400 bottle you're unsure about.</p></div></div>
+    <div class="faq-item"><div class="faq-q"><h3>What's in the Girly Girl Collection?</h3><div class="faq-icon">+</div></div><div class="faq-a"><p>Six handpicked feminine fragrances ranging from sweet gourmand to smoky floral — including Delina Exclusif, Baccarat Rouge 540, Kilian Love Don't Be Shy, and three curator's picks. Presented in a keepsake box worth gifting.</p></div></div>
+    <div class="faq-item"><div class="faq-q"><h3>Do you ship internationally?</h3><div class="faq-icon">+</div></div><div class="faq-a"><p>We ship across the United States with expedited options. International shipping is available to select countries — check our shipping page for the current list. All orders over $50 ship free domestically.</p></div></div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-strip">
+  <h2>Find the one.<br><em>Then own it.</em></h2>
+  <p>Your signature scent is one sample away.</p>
+  <button class="btn btn-primary" data-cursor>Start Exploring <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></button>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo">JAMEEL'S <span>✦</span> EXOTIC</div>
+      <p class="footer-tag">Luxury fragrance, made accessible. Handpicked from the world's most legendary houses — poured with care, priced with respect.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Shop</h4>
+      <ul><li><a href="#">Men</a></li><li><a href="#">Women</a></li><li><a href="#">Unisex</a></li><li><a href="#">Gift Sets</a></li><li><a href="#">Bath & Body</a></li></ul>
+    </div>
+    <div class="footer-col">
+      <h4>House</h4>
+      <ul><li><a href="#">Our Story</a></li><li><a href="#">Curation</a></li><li><a href="#">Journal</a></li><li><a href="#">Contact</a></li></ul>
+    </div>
+    <div class="footer-col">
+      <h4>Follow</h4>
+      <ul><li><a href="#">Instagram</a></li><li><a href="#">TikTok</a></li><li><a href="#">Newsletter</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div>© 2025 Jameel's Exotic Fragrances</div>
+    <div>Crafted with obsession</div>
+  </div>
+</footer>
+
+<script>
+  // Cursor
+  const cursor = document.getElementById('cursor');
+  document.addEventListener('mousemove', e => {
+    gsap.to(cursor, {x:e.clientX, y:e.clientY, duration:.3, ease:'power2.out'});
+  });
+  document.querySelectorAll('[data-cursor], a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => cursor.classList.add('grow'));
+    el.addEventListener('mouseleave', () => cursor.classList.remove('grow'));
+  });
+
+  // Nav scroll
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // GSAP
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Hero
+  gsap.timeline({defaults:{ease:'power3.out'}})
+    .from('.hero-title', {y:80, opacity:0, duration:1.4, delay:.2})
+    .from('.hero-sub p, .hero-ctas', {y:30, opacity:0, duration:.8, stagger:.1}, '-=.8')
+    .from('.hero-bottle', {scale:.85, opacity:0, duration:1.6, ease:'power2.out'}, '-=1.6')
+    .from('.hero-glow', {opacity:0, duration:2}, '-=1.6')
+    .from('nav', {y:-30, opacity:0, duration:.8}, '-=1');
+
+  // Parallax bottle
+  gsap.to('.hero-bottle', {
+    y:-100, scrollTrigger:{trigger:'.hero', start:'top top', end:'bottom top', scrub:true}
+  });
+  gsap.to('.hero-glow', {
+    scale:1.3, opacity:.5, scrollTrigger:{trigger:'.hero', start:'top top', end:'bottom top', scrub:true}
+  });
+
+  // Reveals
+  document.querySelectorAll('.reveal').forEach(el => {
+    gsap.to(el, {
+      opacity:1, y:0, duration:1.1, ease:'power3.out',
+      scrollTrigger:{trigger:el, start:'top 88%'}
+    });
+  });
+
+  // Counters
+  document.querySelectorAll('[data-count]').forEach(el => {
+    const target = +el.dataset.count;
+    const prefix = el.dataset.prefix || '';
+    const suffix = el.dataset.suffix || '';
+    ScrollTrigger.create({
+      trigger: el, start:'top 85%',
+      onEnter: () => {
+        const obj = {v:0};
+        gsap.to(obj, {v:target, duration:2.2, ease:'power2.out',
+          onUpdate: () => {
+            el.textContent = prefix + Math.floor(obj.v).toLocaleString() + suffix;
+          }
+        });
+      }
+    });
+  });
+
+  // Filters
+  document.querySelectorAll('.filter').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const cat = btn.dataset.filter;
+      document.querySelectorAll('.product').forEach(p => {
+        const show = cat === 'all' || p.dataset.cat === cat;
+        gsap.to(p, {opacity: show?1:0, scale:show?1:.95, duration:.4,
+          onStart: () => { if(show) p.classList.remove('hidden'); },
+          onComplete: () => { if(!show) p.classList.add('hidden'); }
+        });
+      });
+    });
+  });
+
+  // FAQ
+  document.querySelectorAll('.faq-item').forEach(item => {
+    item.addEventListener('click', () => item.classList.toggle('open'));
+  });
+
+  // Magnetic buttons
+  document.querySelectorAll('.btn').forEach(btn => {
+    btn.addEventListener('mousemove', e => {
+      const r = btn.getBoundingClientRect();
+      const x = e.clientX - r.left - r.width/2;
+      const y = e.clientY - r.top - r.height/2;
+      gsap.to(btn, {x:x*.25, y:y*.25, duration:.4});
+    });
+    btn.addEventListener('mouseleave', () => gsap.to(btn, {x:0, y:0, duration:.5, ease:'elastic.out(1,.3)'}));
+  });
+
+  // Product hover tilt
+  document.querySelectorAll('.product').forEach(p => {
+    const visual = p.querySelector('.product-visual');
+    p.addEventListener('mousemove', e => {
+      const r = p.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - .5;
+      const y = (e.clientY - r.top) / r.height - .5;
+      gsap.to(visual, {rotateY:x*6, rotateX:-y*6, duration:.5, transformPerspective:1000});
+    });
+    p.addEventListener('mouseleave', () => gsap.to(visual, {rotateY:0, rotateX:0, duration:.6}));
+  });
+</script>
+</body>
+</html>
