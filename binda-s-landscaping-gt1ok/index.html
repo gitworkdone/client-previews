@@ -269,6 +269,44 @@ footer{background:var(--cream);padding:60px 40px 40px;border-top:1px solid var(-
   .gal-item.wide{grid-column:span 2}
   .contact-info div{grid-template-columns:1fr;gap:4px}
 }
+
+/* Mobile portrait — show nav menu below logo + phone */
+@media(max-width:760px) and (orientation:portrait){
+  nav.top{
+    flex-wrap:wrap;
+    padding:14px 20px 0;
+    row-gap:10px;
+  }
+  nav.top .logo{
+    order:1;
+    flex:1 1 auto;
+    font-size:19px;
+  }
+  nav.top .phone{
+    order:2;
+    flex:0 0 auto;
+    font-size:13px;
+  }
+  nav.top ul{
+    order:3;
+    display:flex;
+    flex-basis:100%;
+    width:100%;
+    justify-content:space-between;
+    gap:12px;
+    padding:10px 0 12px;
+    margin-top:4px;
+    border-top:1px solid rgba(216,212,200,.5);
+    flex-wrap:wrap;
+  }
+  nav.top ul li{flex:0 0 auto}
+  nav.top ul a{
+    font-size:12px;
+    letter-spacing:.04em;
+  }
+  /* push hero down so it clears the taller nav */
+  .hero{padding-top:150px}
+}
 </style>
 </head>
 <body>
