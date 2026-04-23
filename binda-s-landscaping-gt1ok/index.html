@@ -109,6 +109,148 @@ section{padding:120px 40px;max-width:1400px;margin:0 auto}
 .form-submit{background:var(--cream);color:var(--ink);border:none;padding:16px 32px;border-radius:2px;font-size:14px;cursor:pointer;font-weight:500;margin-top:12px;align-self:flex-start;transition:all .3s}
 .form-submit:hover{background:var(--sage);color:var(--cream)}
 
+/* Documents / Proposals & Invoices */
+.documents{padding:140px 40px;background:var(--cream);margin:0;max-width:none;border-top:1px solid var(--stone)}
+.documents-inner{max-width:1400px;margin:0 auto}
+.doc-tabs{display:flex;gap:8px;margin-bottom:56px;flex-wrap:wrap;padding-bottom:20px;border-bottom:1px solid var(--stone)}
+.doc-tab{background:transparent;border:1px solid var(--stone);color:var(--char);padding:10px 18px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;font-family:'Inter',sans-serif;cursor:pointer;border-radius:2px;transition:all .3s;font-weight:500}
+.doc-tab:hover{border-color:var(--moss);color:var(--moss)}
+.doc-tab.active{background:var(--ink);border-color:var(--ink);color:var(--cream)}
+
+.doc-panel{display:none;animation:fadeIn .5s ease}
+.doc-panel.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+.doc-paper{background:#fff;border:1px solid var(--stone);border-radius:2px;padding:56px;box-shadow:0 30px 80px -40px rgba(26,29,26,.15);max-width:920px;margin:0 auto}
+
+/* Doc 1 — Classic Editorial Proposal */
+.doc-1 .doc-paper{background:#fff}
+.doc-1 .doc-head{display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:32px;border-bottom:2px solid var(--ink);margin-bottom:40px}
+.doc-1 .doc-brand{font-family:'Instrument Serif',serif;font-size:28px;color:var(--ink)}
+.doc-1 .doc-brand i{color:var(--moss)}
+.doc-1 .doc-brand small{display:block;font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--char);margin-top:6px;font-weight:500}
+.doc-1 .doc-meta{text-align:right;font-size:13px;color:var(--char);line-height:1.8}
+.doc-1 .doc-meta b{color:var(--ink);font-weight:500}
+.doc-1 .doc-title{font-family:'Instrument Serif',serif;font-size:42px;line-height:1.05;letter-spacing:-.02em;color:var(--ink);margin-bottom:8px}
+.doc-1 .doc-title i{color:var(--moss)}
+.doc-1 .doc-sub{font-size:14px;color:var(--char);margin-bottom:40px}
+.doc-1 .doc-parties{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-bottom:40px;padding:24px;background:var(--paper);border-radius:2px}
+.doc-1 .doc-parties .label{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--moss);margin-bottom:8px;font-weight:500}
+.doc-1 .doc-parties .name{font-family:'Instrument Serif',serif;font-size:20px;color:var(--ink);margin-bottom:4px}
+.doc-1 .doc-parties .addr{font-size:13px;color:var(--char);line-height:1.6}
+.doc-1 table{width:100%;border-collapse:collapse;margin-bottom:32px}
+.doc-1 th{text-align:left;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--moss);font-weight:500;padding:12px 0;border-bottom:1px solid var(--stone)}
+.doc-1 th:last-child,.doc-1 td:last-child{text-align:right}
+.doc-1 td{padding:18px 0;border-bottom:1px solid var(--stone);font-size:14px;color:var(--ink);vertical-align:top}
+.doc-1 td .desc{color:var(--char);font-size:13px;margin-top:4px;line-height:1.5}
+.doc-1 .doc-totals{display:flex;justify-content:flex-end;margin-bottom:32px}
+.doc-1 .doc-totals table{width:320px}
+.doc-1 .doc-totals td{border:none;padding:8px 0;font-size:14px}
+.doc-1 .doc-totals tr.total td{font-family:'Instrument Serif',serif;font-size:22px;color:var(--ink);border-top:2px solid var(--ink);padding-top:16px;margin-top:8px}
+.doc-1 .doc-foot{padding-top:24px;border-top:1px solid var(--stone);font-size:12px;color:var(--char);line-height:1.7;text-align:center;font-style:italic;font-family:'Instrument Serif',serif}
+
+/* Doc 2 — Minimal Modern Invoice */
+.doc-2 .doc-paper{background:#fff;padding:64px}
+.doc-2 .doc-head{display:grid;grid-template-columns:1fr auto;gap:40px;margin-bottom:56px;align-items:start}
+.doc-2 .invoice-label{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--char);margin-bottom:8px}
+.doc-2 .invoice-num{font-family:'Instrument Serif',serif;font-size:56px;line-height:1;color:var(--ink);letter-spacing:-.02em}
+.doc-2 .doc-brand{text-align:right;font-family:'Instrument Serif',serif;font-size:22px;color:var(--ink)}
+.doc-2 .doc-brand i{color:var(--moss)}
+.doc-2 .doc-brand small{display:block;font-family:'Inter',sans-serif;font-size:12px;color:var(--char);margin-top:8px;letter-spacing:0;text-transform:none;line-height:1.6;font-weight:400}
+.doc-2 .doc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;margin-bottom:48px;padding:28px 0;border-top:1px solid var(--stone);border-bottom:1px solid var(--stone)}
+.doc-2 .doc-grid .label{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--char);margin-bottom:8px;font-weight:500}
+.doc-2 .doc-grid .val{font-family:'Instrument Serif',serif;font-size:17px;color:var(--ink);line-height:1.3}
+.doc-2 table{width:100%;border-collapse:collapse}
+.doc-2 tr{border-bottom:1px solid var(--stone)}
+.doc-2 td{padding:20px 0;font-size:14px;vertical-align:top}
+.doc-2 td:last-child{text-align:right;font-variant-numeric:tabular-nums}
+.doc-2 td .item-name{font-family:'Instrument Serif',serif;font-size:18px;color:var(--ink);margin-bottom:4px}
+.doc-2 td .item-desc{color:var(--char);font-size:13px;line-height:1.6}
+.doc-2 .totals-row{display:flex;justify-content:flex-end;padding:32px 0 0;gap:80px}
+.doc-2 .totals-row .label{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--char);margin-bottom:8px}
+.doc-2 .totals-row .amount{font-family:'Instrument Serif',serif;font-size:40px;color:var(--ink);letter-spacing:-.02em}
+.doc-2 .totals-row .amount i{color:var(--moss)}
+
+/* Doc 3 — Botanical Dark Proposal */
+.doc-3 .doc-paper{background:var(--ink);color:var(--cream);border-color:var(--ink);padding:64px}
+.doc-3 .doc-head{text-align:center;padding-bottom:40px;border-bottom:1px solid rgba(250,248,242,.15);margin-bottom:40px}
+.doc-3 .ornament{color:var(--sage);font-size:20px;letter-spacing:.5em;margin-bottom:20px}
+.doc-3 .doc-title{font-family:'Instrument Serif',serif;font-size:48px;line-height:1.05;letter-spacing:-.02em;margin-bottom:12px}
+.doc-3 .doc-title i{color:var(--sage)}
+.doc-3 .doc-sub{font-size:13px;letter-spacing:.15em;text-transform:uppercase;color:var(--sage);font-weight:500}
+.doc-3 .doc-info{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-bottom:40px;padding:24px 0;border-bottom:1px solid rgba(250,248,242,.15)}
+.doc-3 .doc-info .label{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--sage);margin-bottom:8px}
+.doc-3 .doc-info .val{font-family:'Instrument Serif',serif;font-size:18px;line-height:1.3}
+.doc-3 .phase{display:grid;grid-template-columns:60px 1fr auto;gap:24px;padding:24px 0;border-bottom:1px solid rgba(250,248,242,.1);align-items:start}
+.doc-3 .phase:last-child{border-bottom:none}
+.doc-3 .phase-num{font-family:'Instrument Serif',serif;font-style:italic;font-size:32px;color:var(--sage);line-height:1}
+.doc-3 .phase-name{font-family:'Instrument Serif',serif;font-size:22px;margin-bottom:6px}
+.doc-3 .phase-desc{font-size:13px;color:rgba(250,248,242,.7);line-height:1.6;max-width:440px}
+.doc-3 .phase-price{font-family:'Instrument Serif',serif;font-size:22px;color:var(--sage);white-space:nowrap}
+.doc-3 .doc-total{display:flex;justify-content:space-between;align-items:baseline;margin-top:32px;padding-top:32px;border-top:2px solid var(--sage)}
+.doc-3 .doc-total .label{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--sage)}
+.doc-3 .doc-total .amount{font-family:'Instrument Serif',serif;font-size:44px;letter-spacing:-.02em}
+.doc-3 .sig-line{margin-top:40px;padding-top:28px;border-top:1px solid rgba(250,248,242,.15);display:grid;grid-template-columns:1fr 1fr;gap:40px}
+.doc-3 .sig-line .label{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--sage);margin-bottom:32px}
+.doc-3 .sig-line .line{border-bottom:1px solid rgba(250,248,242,.35);padding-bottom:4px}
+.doc-3 .sig-line .caption{font-size:11px;color:rgba(250,248,242,.5);margin-top:6px;font-style:italic;font-family:'Instrument Serif',serif}
+
+/* Doc 4 — Compact Receipt / Statement */
+.doc-4 .doc-paper{background:var(--paper);max-width:560px;padding:48px;border:1px dashed var(--stone)}
+.doc-4 .doc-head{text-align:center;margin-bottom:32px}
+.doc-4 .doc-brand{font-family:'Instrument Serif',serif;font-size:22px;color:var(--ink);margin-bottom:4px}
+.doc-4 .doc-brand i{color:var(--moss)}
+.doc-4 .doc-sub{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--char)}
+.doc-4 .doc-type{text-align:center;font-family:'Instrument Serif',serif;font-style:italic;font-size:28px;color:var(--moss);margin:24px 0;padding:16px 0;border-top:1px dashed var(--stone);border-bottom:1px dashed var(--stone)}
+.doc-4 .receipt-row{display:flex;justify-content:space-between;align-items:baseline;padding:10px 0;font-size:14px;gap:16px}
+.doc-4 .receipt-row.head{padding-bottom:12px;border-bottom:1px solid var(--stone);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--moss);font-weight:500;margin-bottom:8px}
+.doc-4 .receipt-row .name{color:var(--ink);flex:1}
+.doc-4 .receipt-row .qty{color:var(--char);width:40px;text-align:center}
+.doc-4 .receipt-row .price{color:var(--ink);font-variant-numeric:tabular-nums;text-align:right;min-width:90px}
+.doc-4 .receipt-dots{flex:1;border-bottom:1px dotted var(--stone);margin:0 8px;position:relative;top:-4px}
+.doc-4 .receipt-total{margin-top:20px;padding-top:20px;border-top:2px solid var(--ink);display:flex;justify-content:space-between;align-items:baseline}
+.doc-4 .receipt-total .label{font-size:12px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink);font-weight:500}
+.doc-4 .receipt-total .amount{font-family:'Instrument Serif',serif;font-size:32px;color:var(--ink)}
+.doc-4 .receipt-foot{text-align:center;margin-top:32px;font-family:'Instrument Serif',serif;font-style:italic;font-size:15px;color:var(--char);line-height:1.6}
+.doc-4 .receipt-foot small{display:block;font-family:'Inter',sans-serif;font-style:normal;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--moss);margin-top:12px;font-weight:500}
+.doc-4 .barcode{display:flex;justify-content:center;gap:2px;margin-top:20px}
+.doc-4 .barcode span{display:block;width:2px;height:32px;background:var(--ink)}
+.doc-4 .barcode span:nth-child(3n){width:1px;height:28px;opacity:.6}
+.doc-4 .barcode span:nth-child(5n){width:3px}
+
+/* Doc 5 — Magazine Proposal */
+.doc-5 .doc-paper{background:#fff;padding:0;overflow:hidden}
+.doc-5 .doc-banner{background:var(--moss);color:var(--cream);padding:48px 56px;display:grid;grid-template-columns:1fr auto;align-items:end;gap:32px}
+.doc-5 .doc-banner .eyebrow{font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:var(--sage);margin-bottom:12px;font-weight:500}
+.doc-5 .doc-banner h3{font-family:'Instrument Serif',serif;font-size:44px;line-height:1.02;letter-spacing:-.02em;font-weight:400}
+.doc-5 .doc-banner h3 i{color:var(--sage)}
+.doc-5 .doc-banner .num{text-align:right;font-family:'Instrument Serif',serif}
+.doc-5 .doc-banner .num .label{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--sage);font-family:'Inter',sans-serif;font-weight:500;margin-bottom:6px}
+.doc-5 .doc-banner .num .val{font-size:28px}
+.doc-5 .doc-body{padding:48px 56px;display:grid;grid-template-columns:1fr 1fr;gap:48px}
+.doc-5 .doc-body .col h4{font-family:'Instrument Serif',serif;font-size:22px;color:var(--ink);margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--stone)}
+.doc-5 .doc-body .col h4 i{color:var(--moss)}
+.doc-5 .doc-body .col p{font-size:14px;color:var(--char);line-height:1.7;margin-bottom:14px}
+.doc-5 .scope{display:flex;flex-direction:column;gap:12px}
+.doc-5 .scope .item{display:flex;justify-content:space-between;align-items:baseline;padding:10px 0;border-bottom:1px dotted var(--stone);font-size:14px;gap:12px}
+.doc-5 .scope .item:last-child{border-bottom:none}
+.doc-5 .scope .item .name{color:var(--ink)}
+.doc-5 .scope .item .val{color:var(--moss);font-family:'Instrument Serif',serif;font-size:17px;white-space:nowrap}
+.doc-5 .doc-summary{background:var(--paper);padding:40px 56px;display:grid;grid-template-columns:repeat(3,1fr);gap:24px;border-top:1px solid var(--stone)}
+.doc-5 .doc-summary .block .label{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--moss);margin-bottom:6px;font-weight:500}
+.doc-5 .doc-summary .block .val{font-family:'Instrument Serif',serif;font-size:22px;color:var(--ink);line-height:1.2}
+.doc-5 .doc-summary .block.total .val{font-size:32px;color:var(--moss);letter-spacing:-.02em}
+
+@media(max-width:820px){
+  .doc-paper{padding:32px !important}
+  .doc-1 .doc-head,.doc-2 .doc-head{flex-direction:column;grid-template-columns:1fr;text-align:left;gap:20px}
+  .doc-1 .doc-parties,.doc-2 .doc-grid,.doc-3 .doc-info,.doc-5 .doc-body,.doc-5 .doc-banner,.doc-5 .doc-summary{grid-template-columns:1fr;gap:20px;padding:24px}
+  .doc-3 .phase{grid-template-columns:1fr;gap:8px}
+  .doc-5 .doc-body,.doc-5 .doc-summary{padding:32px 24px}
+  .doc-5 .doc-banner{padding:32px 24px}
+  .doc-2 .invoice-num{font-size:40px}
+}
+
 /* Footer */
 footer{background:var(--cream);padding:60px 40px 40px;border-top:1px solid var(--stone)}
 .foot-inner{max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:24px}
@@ -121,7 +263,7 @@ footer{background:var(--cream);padding:60px 40px 40px;border-top:1px solid var(-
   nav.top ul{display:none}
   .hero,.editorial-inner,.contact-inner{grid-template-columns:1fr;gap:48px;padding:100px 20px 60px}
   section{padding:80px 20px}
-  .editorial,.contact{padding:80px 20px}
+  .editorial,.contact,.documents{padding:80px 20px}
   .services-grid{grid-template-columns:1fr;gap:40px}
   .gallery-grid{grid-template-columns:1fr 1fr}
   .gal-item.wide{grid-column:span 2}
@@ -137,6 +279,7 @@ footer{background:var(--cream);padding:60px 40px 40px;border-top:1px solid var(-
     <li><a href="#services">Services</a></li>
     <li><a href="#about">About</a></li>
     <li><a href="#work">Work</a></li>
+    <li><a href="#documents">Documents</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
   <a href="#contact" class="phone">(678) 983-0827</a>
@@ -248,11 +391,303 @@ footer{background:var(--cream);padding:60px 40px 40px;border-top:1px solid var(-
   </div>
 </section>
 
+<!-- DOCUMENTS — PROPOSALS & INVOICES -->
+<section class="documents" id="documents">
+  <div class="documents-inner">
+    <div class="sec-head">
+      <div class="eyebrow">Paperwork, considered</div>
+      <h2>Proposals and invoices, <i>written with care.</i></h2>
+      <p>Every project begins with clear paper — scope, phases, numbers. Five formats we use, depending on the job and the client.</p>
+    </div>
+
+    <div class="doc-tabs">
+      <button class="doc-tab active" data-doc="1">01 · Classic Proposal</button>
+      <button class="doc-tab" data-doc="2">02 · Minimal Invoice</button>
+      <button class="doc-tab" data-doc="3">03 · Phased Proposal</button>
+      <button class="doc-tab" data-doc="4">04 · Receipt</button>
+      <button class="doc-tab" data-doc="5">05 · Magazine Proposal</button>
+    </div>
+
+    <!-- DOC 1 — Classic Editorial Proposal -->
+    <div class="doc-panel doc-1 active" data-panel="1">
+      <div class="doc-paper">
+        <div class="doc-head">
+          <div class="doc-brand">
+            <b>Binda's</b> <i>Landscaping</i>
+            <small>Est. 2008 · Atlanta, GA</small>
+          </div>
+          <div class="doc-meta">
+            <b>Proposal No.</b> BL-2026-0142<br>
+            <b>Issued</b> March 14, 2026<br>
+            <b>Valid through</b> April 30, 2026
+          </div>
+        </div>
+        <h3 class="doc-title">Buckhead Residence — <i>Full Garden Design.</i></h3>
+        <div class="doc-sub">Prepared for the Whitfield family · 2840 Habersham Rd NW</div>
+
+        <div class="doc-parties">
+          <div>
+            <div class="label">Prepared by</div>
+            <div class="name">Manoj Kumar</div>
+            <div class="addr">Binda's Landscaping LLC<br>hello@bindas.land · (678) 983-0827</div>
+          </div>
+          <div>
+            <div class="label">Prepared for</div>
+            <div class="name">Eleanor &amp; James Whitfield</div>
+            <div class="addr">2840 Habersham Rd NW<br>Atlanta, GA 30305</div>
+          </div>
+        </div>
+
+        <table>
+          <thead>
+            <tr><th>Scope of work</th><th>Qty</th><th>Rate</th><th>Total</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Site assessment &amp; master plan<div class="desc">Topographic survey, drainage study, planting schedule</div></td>
+              <td>1</td><td>$4,200</td><td>$4,200</td>
+            </tr>
+            <tr>
+              <td>Perennial bed installation<div class="desc">Front &amp; side gardens, 1,400 sq ft, regional natives</div></td>
+              <td>1,400</td><td>$18/sf</td><td>$25,200</td>
+            </tr>
+            <tr>
+              <td>Fieldstone retaining wall<div class="desc">Hand-laid Georgia fieldstone, 42 linear feet</div></td>
+              <td>42</td><td>$340/lf</td><td>$14,280</td>
+            </tr>
+            <tr>
+              <td>French drain system<div class="desc">Rear slope, tied to existing storm line</div></td>
+              <td>1</td><td>$6,800</td><td>$6,800</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="doc-totals">
+          <table>
+            <tr><td>Subtotal</td><td>$50,480</td></tr>
+            <tr><td>Materials escrow (15%)</td><td>$7,572</td></tr>
+            <tr class="total"><td>Total</td><td>$58,052</td></tr>
+          </table>
+        </div>
+
+        <div class="doc-foot">A 30% deposit initiates the work. Balance invoiced in two draws at milestones agreed in writing.</div>
+      </div>
+    </div>
+
+    <!-- DOC 2 — Minimal Modern Invoice -->
+    <div class="doc-panel doc-2" data-panel="2">
+      <div class="doc-paper">
+        <div class="doc-head">
+          <div>
+            <div class="invoice-label">Invoice</div>
+            <div class="invoice-num">№ 2026-087</div>
+          </div>
+          <div class="doc-brand">
+            <b>Binda's</b> <i>Landscaping</i>
+            <small>hello@bindas.land<br>(678) 983-0827<br>Atlanta, Georgia</small>
+          </div>
+        </div>
+
+        <div class="doc-grid">
+          <div><div class="label">Billed to</div><div class="val">Harrison Residence</div></div>
+          <div><div class="label">Property</div><div class="val">Druid Hills, 30307</div></div>
+          <div><div class="label">Issued</div><div class="val">June 3, 2026</div></div>
+          <div><div class="label">Due</div><div class="val">July 3, 2026</div></div>
+        </div>
+
+        <table>
+          <tr>
+            <td><div class="item-name">Seasonal planting refresh</div><div class="item-desc">Spring perennials, mulch top-dress, boxwood trim</div></td>
+            <td>$3,840.00</td>
+          </tr>
+          <tr>
+            <td><div class="item-name">Irrigation tune &amp; zone repair</div><div class="item-desc">Zone 4 head replacement, controller re-program</div></td>
+            <td>$680.00</td>
+          </tr>
+          <tr>
+            <td><div class="item-name">Bluestone path repoint</div><div class="item-desc">18 linear feet along east garden walk</div></td>
+            <td>$1,240.00</td>
+          </tr>
+          <tr>
+            <td><div class="item-name">Monthly maintenance (May)</div><div class="item-desc">Four visits, full crew, hauling included</div></td>
+            <td>$1,600.00</td>
+          </tr>
+        </table>
+
+        <div class="totals-row">
+          <div>
+            <div class="label">Amount due</div>
+            <div class="amount">$7,360<i>.00</i></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DOC 3 — Botanical Dark Proposal -->
+    <div class="doc-panel doc-3" data-panel="3">
+      <div class="doc-paper">
+        <div class="doc-head">
+          <div class="ornament">· · ·</div>
+          <h3 class="doc-title">A garden proposal, <i>in four seasons.</i></h3>
+          <div class="doc-sub">Binda's Landscaping · Project Verdant · 2026</div>
+        </div>
+
+        <div class="doc-info">
+          <div><div class="label">Client</div><div class="val">The Ashford Estate</div></div>
+          <div><div class="label">Location</div><div class="val">Brookhaven, GA</div></div>
+          <div><div class="label">Timeline</div><div class="val">Mar – Nov 2026</div></div>
+        </div>
+
+        <div class="phase">
+          <div class="phase-num">01</div>
+          <div>
+            <div class="phase-name">Ground reading</div>
+            <div class="phase-desc">Two-week site study. Soil samples, light mapping, drainage behavior in real rain events. No digging yet.</div>
+          </div>
+          <div class="phase-price">$5,400</div>
+        </div>
+        <div class="phase">
+          <div class="phase-num">02</div>
+          <div>
+            <div class="phase-name">Structural bones</div>
+            <div class="phase-desc">Fieldstone walls, grading corrections, French drain network. The quiet work that holds everything after.</div>
+          </div>
+          <div class="phase-price">$34,800</div>
+        </div>
+        <div class="phase">
+          <div class="phase-num">03</div>
+          <div>
+            <div class="phase-name">The planting</div>
+            <div class="phase-desc">Native perennial layers, specimen trees, formal boxwood parterre at the front approach. Sourced from three regional growers.</div>
+          </div>
+          <div class="phase-price">$42,200</div>
+        </div>
+        <div class="phase">
+          <div class="phase-num">04</div>
+          <div>
+            <div class="phase-name">Year-one stewardship</div>
+            <div class="phase-desc">Monthly visits, watering calibration, seasonal adjustments. The garden establishes itself; we watch it closely.</div>
+          </div>
+          <div class="phase-price">$9,600</div>
+        </div>
+
+        <div class="doc-total">
+          <div class="label">Investment, all phases</div>
+          <div class="amount">$92,000</div>
+        </div>
+
+        <div class="sig-line">
+          <div>
+            <div class="label">Client approval</div>
+            <div class="line">&nbsp;</div>
+            <div class="caption">signature &amp; date</div>
+          </div>
+          <div>
+            <div class="label">Binda's Landscaping</div>
+            <div class="line">Manoj Kumar</div>
+            <div class="caption">Founder · Principal</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DOC 4 — Receipt -->
+    <div class="doc-panel doc-4" data-panel="4">
+      <div class="doc-paper">
+        <div class="doc-head">
+          <div class="doc-brand"><b>Binda's</b> <i>Landscaping</i></div>
+          <div class="doc-sub">Atlanta · Since 2008</div>
+        </div>
+        <div class="doc-type">Paid in full.</div>
+
+        <div class="receipt-row head">
+          <div class="name">Item</div>
+          <div class="qty">Qty</div>
+          <div class="price">Amount</div>
+        </div>
+        <div class="receipt-row">
+          <div class="name">Lawn aeration &amp; overseed</div>
+          <div class="qty">1</div>
+          <div class="price">$540.00</div>
+        </div>
+        <div class="receipt-row">
+          <div class="name">Pine straw (bales)</div>
+          <div class="qty">24</div>
+          <div class="price">$216.00</div>
+        </div>
+        <div class="receipt-row">
+          <div class="name">Hedge trim — boxwood</div>
+          <div class="qty">1</div>
+          <div class="price">$320.00</div>
+        </div>
+        <div class="receipt-row">
+          <div class="name">Haul &amp; disposal</div>
+          <div class="qty">1</div>
+          <div class="price">$185.00</div>
+        </div>
+
+        <div class="receipt-total">
+          <div class="label">Total paid</div>
+          <div class="amount">$1,261</div>
+        </div>
+
+        <div class="receipt-foot">
+          Thank you for letting us tend the land.
+          <small>№ R-2026-0418 · Oct 11, 2026</small>
+        </div>
+
+        <div class="barcode">
+          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- DOC 5 — Magazine Proposal -->
+    <div class="doc-panel doc-5" data-panel="5">
+      <div class="doc-paper">
+        <div class="doc-banner">
+          <div>
+            <div class="eyebrow">Proposal · Issue 07 · 2026</div>
+            <h3>The Virginia-Highland <i>courtyard</i> garden.</h3>
+          </div>
+          <div class="num">
+            <div class="label">Ref.</div>
+            <div class="val">BL·2026·207</div>
+          </div>
+        </div>
+        <div class="doc-body">
+          <div class="col">
+            <h4>The <i>brief.</i></h4>
+            <p>A north-facing courtyard, forty feet square, currently paved in a grey concrete that holds the summer heat until midnight. The clients want it cool, green, and quiet — a place to read in July.</p>
+            <p>Our proposal removes the slab, introduces a permeable stone floor, builds two raised planters against the west wall, and establishes a small fig tree at the center as the garden's anchor.</p>
+          </div>
+          <div class="col">
+            <h4>The <i>scope.</i></h4>
+            <div class="scope">
+              <div class="item"><span class="name">Concrete removal &amp; grade</span><span class="val">$4,800</span></div>
+              <div class="item"><span class="name">Permeable Tennessee flagstone</span><span class="val">$12,600</span></div>
+              <div class="item"><span class="name">Raised cedar planters (2)</span><span class="val">$3,400</span></div>
+              <div class="item"><span class="name">Anchor tree — Black Mission fig</span><span class="val">$1,900</span></div>
+              <div class="item"><span class="name">Perennial underplanting</span><span class="val">$4,200</span></div>
+              <div class="item"><span class="name">Drip irrigation, new zone</span><span class="val">$1,850</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="doc-summary">
+          <div class="block"><div class="label">Start</div><div class="val">April 2026</div></div>
+          <div class="block"><div class="label">Duration</div><div class="val">5 weeks</div></div>
+          <div class="block total"><div class="label">Total</div><div class="val">$28,750</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- FOOTER -->
 <footer>
   <div class="foot-inner">
     <div class="brand"><b>Binda's</b> <i>Landscaping</i></div>
-    <div class="meta">© 2025 · Licensed &amp; insured in Georgia · Atlanta</div>
+    <div class="meta">© 2026 · Licensed &amp; insured in Georgia · Atlanta</div>
   </div>
 </footer>
 
@@ -279,9 +714,20 @@ window.addEventListener('load',()=>{
 
 // Reveal sections
 gsap.utils.toArray('section').forEach(sec=>{
-  const heads = sec.querySelectorAll('.sec-head, .editorial-text, .contact-left, .service, .gal-item');
+  const heads = sec.querySelectorAll('.sec-head, .editorial-text, .contact-left, .service, .gal-item, .doc-tabs, .doc-panel.active');
   heads.forEach(el=>{
     gsap.fromTo(el,{opacity:0,y:40},{opacity:1,y:0,duration:1,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 88%'}});
+  });
+});
+
+// Document tabs
+document.querySelectorAll('.doc-tab').forEach(tab=>{
+  tab.addEventListener('click',()=>{
+    const id = tab.getAttribute('data-doc');
+    document.querySelectorAll('.doc-tab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.doc-panel').forEach(p=>p.classList.remove('active'));
+    tab.classList.add('active');
+    document.querySelector('.doc-panel[data-panel="'+id+'"]').classList.add('active');
   });
 });
 
