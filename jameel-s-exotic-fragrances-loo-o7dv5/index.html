@@ -14,11 +14,11 @@
 :root{
   --sun:#FFFFFF;
   --sun-deep:#1A1A1A;
-  --coral:#6B4E9B;
+  --coral:#8B6914;
   --pink:#F5F5F5;
-  --hot-pink:#4B2E83;
+  --hot-pink:#B8860B;
   --sky:#EAEAEA;
-  --sky-deep:#4B2E83;
+  --sky-deep:#B8860B;
   --mint:#F5F5F5;
   --lime:#EAEAEA;
   --cream:#FFFFFF;
@@ -29,7 +29,7 @@
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{background:var(--cream);color:var(--ink);font-family:'Space Grotesk',sans-serif;overflow-x:hidden}
 a{color:inherit;text-decoration:none}
-img{display:block;max-width:100%;filter:grayscale(1) contrast(1.05)}
+img{display:block;max-width:100%;filter:grayscale(1) contrast(1.05) sepia(.15)}
 button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
 
 .serif{font-family:'Fraunces',serif}
@@ -38,30 +38,45 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
 .grain{position:fixed;inset:0;pointer-events:none;z-index:100;opacity:.025;mix-blend-mode:multiply}
 
 /* Subtle bg accent */
-.sunshine-bg{position:fixed;top:-20vh;right:-20vw;width:60vw;height:60vw;border-radius:50%;background:radial-gradient(circle,rgba(75,46,131,.06),transparent 70%);pointer-events:none;z-index:0;filter:blur(60px)}
+.sunshine-bg{position:fixed;top:-20vh;right:-20vw;width:60vw;height:60vw;border-radius:50%;background:radial-gradient(circle,rgba(184,134,11,.08),transparent 70%);pointer-events:none;z-index:0;filter:blur(60px)}
 
 /* Nav */
-nav.top{position:fixed;top:0;left:0;right:0;z-index:90;padding:24px 48px;display:flex;justify-content:space-between;align-items:center;text-transform:uppercase;background:rgba(255,255,255,.85);backdrop-filter:blur(14px);border-bottom:1px solid rgba(10,10,10,.08)}
-nav.top .logo{font-family:'Fraunces',serif;font-size:22px;font-weight:500;letter-spacing:-.01em;color:var(--ink);text-transform:none;display:flex;align-items:center;gap:8px}
+nav.top{position:fixed;top:0;left:0;right:0;z-index:90;padding:24px 48px;display:flex;justify-content:space-between;align-items:center;text-transform:uppercase;background:rgba(255,255,255,.85);backdrop-filter:blur(14px);border-bottom:1px solid rgba(10,10,10,.08);transition:background .4s,border-color .4s}
+nav.top.scrolled{background:rgba(10,10,10,.92);border-bottom-color:rgba(184,134,11,.3)}
+nav.top.scrolled .logo{color:#fff}
+nav.top.scrolled ul a{color:rgba(255,255,255,.85)}
+nav.top.scrolled .nav-cta{background:var(--hot-pink);color:#0A0A0A}
+nav.top.scrolled .nav-cta:hover{background:#fff;color:var(--hot-pink)}
+nav.top .logo{font-family:'Fraunces',serif;font-size:22px;font-weight:500;letter-spacing:-.01em;color:var(--ink);text-transform:none;display:flex;align-items:center;gap:8px;transition:color .4s;position:relative;z-index:2}
 nav.top .logo span{color:var(--hot-pink);font-style:italic}
-nav.top ul{display:flex;gap:38px;list-style:none}
-nav.top ul a{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--ink);position:relative;padding:6px 0;font-weight:500}
-nav.top ul a::after{content:"";position:absolute;left:0;bottom:0;height:1px;width:0;background:var(--hot-pink);transition:width .4s cubic-bezier(.7,0,.3,1)}
-nav.top ul a:hover::after{width:100%}
-.nav-cta{background:var(--ink);color:#fff;padding:14px 28px;border-radius:0;font-size:10px;letter-spacing:.28em;text-transform:uppercase;transition:all .3s;font-weight:500}
-.nav-cta:hover{background:var(--hot-pink)}
+
+/* COOL NAV */
+nav.top ul{display:flex;gap:8px;list-style:none;position:relative;padding:4px;background:rgba(10,10,10,.03);border:1px solid rgba(10,10,10,.08);border-radius:999px;transition:all .4s}
+nav.top.scrolled ul{background:rgba(255,255,255,.06);border-color:rgba(184,134,11,.2)}
+nav.top ul li{position:relative}
+nav.top ul a{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--ink);position:relative;padding:12px 22px;font-weight:500;display:block;z-index:2;transition:color .4s}
+nav.top ul a:hover{color:var(--hot-pink)}
+nav.top.scrolled ul a:hover{color:var(--hot-pink)}
+.nav-indicator{position:absolute;top:4px;left:4px;height:calc(100% - 8px);background:linear-gradient(135deg,var(--hot-pink),#D4A017);border-radius:999px;z-index:1;opacity:0;transition:opacity .3s;box-shadow:0 4px 20px rgba(184,134,11,.4)}
+nav.top ul:hover .nav-indicator{opacity:1}
+nav.top ul li a.nav-active-indicator{color:#0A0A0A !important}
+
+.nav-cta{background:var(--ink);color:#fff;padding:14px 28px;border-radius:0;font-size:10px;letter-spacing:.28em;text-transform:uppercase;transition:all .3s;font-weight:500;position:relative;overflow:hidden}
+.nav-cta::before{content:"";position:absolute;inset:0;background:var(--hot-pink);transform:translateY(100%);transition:transform .4s cubic-bezier(.7,0,.3,1)}
+.nav-cta:hover::before{transform:translateY(0)}
+.nav-cta span{position:relative;z-index:2}
 
 /* ===== HERO ===== */
 .hero{position:relative;min-height:100vh;overflow:hidden;background:#FFFFFF}
 .hero::before{content:"";position:absolute;inset:0;background:
-    radial-gradient(circle at 85% 15%,rgba(75,46,131,.04),transparent 45%);
+    radial-gradient(circle at 85% 15%,rgba(184,134,11,.07),transparent 45%);
   z-index:1;pointer-events:none}
 
 /* Floating shapes - removed for minimalism */
 .shape{display:none}
 
 .hero-img-wrap{position:absolute;top:50%;right:6%;transform:translateY(-50%);width:32vw;height:70vh;z-index:3;overflow:hidden;border-radius:0;box-shadow:none}
-.hero-img-wrap img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.05)}
+.hero-img-wrap img{width:100%;height:100%;object-fit:cover;filter:grayscale(.3) contrast(1.05) sepia(.35) saturate(1.1)}
 
 .hero-content{position:relative;z-index:4;padding:140px 48px 90px;min-height:100vh;display:flex;flex-direction:column;justify-content:space-between}
 .hero-eyebrow{display:inline-flex;align-items:center;gap:12px;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink);font-weight:500;background:transparent;padding:10px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);width:fit-content}
@@ -77,7 +92,7 @@ nav.top ul a:hover::after{width:100%}
 .hero-foot{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;flex-wrap:wrap;z-index:4;position:relative}
 .hero-foot p{max-width:380px;font-size:14px;line-height:1.7;color:var(--ink-soft);letter-spacing:.005em;font-weight:400}
 .hero-cta{display:inline-flex;align-items:center;gap:18px;background:var(--ink);color:#fff;padding:22px 44px;border-radius:0;font-size:11px;letter-spacing:.3em;text-transform:uppercase;font-weight:500;transition:all .4s cubic-bezier(.7,0,.3,1);position:relative;overflow:hidden}
-.hero-cta:hover{background:var(--hot-pink)}
+.hero-cta:hover{background:var(--hot-pink);color:#0A0A0A}
 .hero-cta .arrow{width:28px;height:10px;position:relative;display:inline-block}
 .hero-cta .arrow::before{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:currentColor}
 .hero-cta .arrow::after{content:"";position:absolute;right:0;top:50%;width:7px;height:7px;border-top:1px solid currentColor;border-right:1px solid currentColor;transform:translateY(-50%) rotate(45deg)}
@@ -93,7 +108,7 @@ nav.top ul a:hover::after{width:100%}
 .trust-grid{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:0}
 .trust-item{padding:50px 30px;background:transparent;transition:all .4s;border-right:1px solid rgba(10,10,10,.08)}
 .trust-item:last-child{border-right:none}
-.trust-item:hover{background:rgba(75,46,131,.03)}
+.trust-item:hover{background:rgba(184,134,11,.05)}
 .trust-item .num{font-family:'Fraunces',serif;font-size:clamp(40px,5vw,72px);font-weight:400;color:var(--ink);line-height:1;letter-spacing:-.03em}
 .trust-item .label{margin-top:16px;font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:var(--ink-soft);font-weight:500}
 
@@ -109,15 +124,15 @@ nav.top ul a:hover::after{width:100%}
 /* Asymmetric product grid */
 .product-grid{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:repeat(12,1fr);grid-auto-rows:120px;gap:18px}
 .product{position:relative;overflow:hidden;background:#F8F8F8;cursor:pointer;transition:transform .6s cubic-bezier(.7,0,.3,1);border-radius:0}
-.product img{width:100%;height:100%;object-fit:cover;transition:transform 1.5s cubic-bezier(.7,0,.3,1),filter .6s;filter:grayscale(1) contrast(1.05)}
-.product:hover img{transform:scale(1.04);filter:grayscale(1) contrast(1.1)}
+.product img{width:100%;height:100%;object-fit:cover;transition:transform 1.5s cubic-bezier(.7,0,.3,1),filter .6s;filter:grayscale(.2) contrast(1.05) sepia(.35) saturate(1.1)}
+.product:hover img{transform:scale(1.04);filter:grayscale(0) contrast(1.1) sepia(.45) saturate(1.2)}
 .product .meta{position:absolute;inset:0;padding:32px;display:flex;flex-direction:column;justify-content:space-between;pointer-events:none}
 .product .brand{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:#fff;font-weight:500;background:rgba(10,10,10,.75);padding:6px 14px;border-radius:0;width:fit-content}
 .product .bottom{opacity:0;transform:translateY(20px);transition:all .6s cubic-bezier(.7,0,.3,1);background:#fff;padding:18px 22px;border-radius:0;width:fit-content;max-width:90%}
 .product:hover .bottom{opacity:1;transform:translateY(0)}
 .product .name{font-family:'Fraunces',serif;font-size:22px;line-height:1;letter-spacing:-.02em;color:var(--ink);font-weight:500}
 .product .price{margin-top:8px;font-size:11px;letter-spacing:.15em;color:var(--hot-pink);font-weight:500;text-transform:uppercase}
-.product .badge{position:absolute;top:20px;right:20px;background:var(--hot-pink);color:#fff;padding:6px 14px;border-radius:0;font-size:10px;letter-spacing:.22em;text-transform:uppercase;font-weight:500;z-index:2}
+.product .badge{position:absolute;top:20px;right:20px;background:var(--hot-pink);color:#0A0A0A;padding:6px 14px;border-radius:0;font-size:10px;letter-spacing:.22em;text-transform:uppercase;font-weight:600;z-index:2}
 .product:nth-child(even) .badge{background:var(--ink);color:#fff}
 
 .p1{grid-column:span 5;grid-row:span 4}
@@ -131,13 +146,13 @@ nav.top ul a:hover::after{width:100%}
 .filters{max-width:1400px;margin:0 auto 60px;display:flex;gap:12px;flex-wrap:wrap}
 .pill{padding:12px 24px;border:1px solid var(--ink);border-radius:0;font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:var(--ink);transition:all .3s;font-weight:500;background:transparent}
 .pill.active,.pill:hover{background:var(--ink);border-color:var(--ink);color:#fff}
-.pill.active{background:var(--hot-pink);border-color:var(--hot-pink)}
+.pill.active{background:var(--hot-pink);border-color:var(--hot-pink);color:#0A0A0A}
 
 /* ===== STORY ===== */
 .story{padding:180px 48px;background:var(--cream);position:relative;overflow:hidden;border-top:1px solid rgba(10,10,10,.08)}
 .story-inner{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1.2fr 1fr;gap:100px;align-items:center}
 .story-img{position:relative;height:780px;overflow:hidden;border-radius:0}
-.story-img img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.05)}
+.story-img img{width:100%;height:100%;object-fit:cover;filter:grayscale(.2) contrast(1.05) sepia(.4) saturate(1.15)}
 .story-img .caption{position:absolute;bottom:28px;left:28px;z-index:3;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:#fff;font-weight:500;background:rgba(10,10,10,.7);padding:10px 18px;border-radius:0}
 
 .story-text .tag{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--hot-pink);margin-bottom:28px;display:inline-flex;align-items:center;gap:14px;font-weight:500;background:transparent;padding:0;border-radius:0}
@@ -158,28 +173,29 @@ nav.top ul a:hover::after{width:100%}
 .coll-grid{max-width:1500px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
 .coll-card{position:relative;aspect-ratio:3/4;overflow:hidden;background:#F8F8F8;border-radius:0;transition:transform .6s cubic-bezier(.7,0,.3,1)}
 .coll-card:hover{transform:translateY(-6px)}
-.coll-card img{width:100%;height:100%;object-fit:cover;transition:transform 1.8s cubic-bezier(.7,0,.3,1);filter:grayscale(1) contrast(1.05)}
+.coll-card img{width:100%;height:100%;object-fit:cover;transition:transform 1.8s cubic-bezier(.7,0,.3,1);filter:grayscale(.2) contrast(1.05) sepia(.35) saturate(1.1)}
 .coll-card:hover img{transform:scale(1.05)}
 .coll-card::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(10,10,10,.9));pointer-events:none}
 .coll-card .info{position:absolute;bottom:0;left:0;right:0;padding:38px;z-index:2}
 .coll-card .label{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.7);margin-bottom:14px;font-weight:500}
 .coll-card h4{font-family:'Fraunces',serif;font-weight:400;font-size:28px;line-height:1.05;letter-spacing:-.02em;color:#fff;margin-bottom:14px}
-.coll-card h4 em{font-style:italic;color:#fff;font-weight:400}
+.coll-card h4 em{font-style:italic;color:var(--hot-pink);font-weight:400}
 .coll-card .desc{font-size:13px;color:rgba(255,255,255,.75);line-height:1.65;margin-bottom:22px;font-weight:400}
 .coll-card .link{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:#fff;display:inline-flex;align-items:center;gap:12px;background:transparent;padding:12px 0;border-bottom:1px solid #fff;border-radius:0;transition:all .3s;font-weight:500}
-.coll-card:hover .link{gap:18px;color:#fff;border-bottom-color:var(--hot-pink)}
+.coll-card:hover .link{gap:18px;color:var(--hot-pink);border-bottom-color:var(--hot-pink)}
 
 /* ===== QUIZ CTA STRIP ===== */
 .quiz{padding:120px 48px;background:var(--cream);position:relative;overflow:hidden;border-top:1px solid rgba(10,10,10,.08)}
 .quiz-inner{max-width:1400px;margin:0 auto;padding:80px 70px;border-radius:0;background:var(--ink);position:relative;overflow:hidden;display:flex;justify-content:space-between;align-items:center;gap:60px;flex-wrap:wrap}
+.quiz-inner::before{content:"";position:absolute;top:-50%;right:-10%;width:60%;height:200%;background:radial-gradient(circle,rgba(184,134,11,.15),transparent 60%);pointer-events:none}
 .quiz-left{position:relative;z-index:2;max-width:700px}
 .quiz-left .tag{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--hot-pink);margin-bottom:22px;font-weight:500;background:transparent;padding:0;border-radius:0;display:inline-block}
 .quiz-left h3{font-family:'Fraunces',serif;font-weight:400;font-size:clamp(28px,3.5vw,48px);line-height:1.05;letter-spacing:-.03em;color:#fff}
 .quiz-left h3 em{font-style:italic;color:var(--hot-pink);font-weight:400}
 .quiz-left p{margin-top:22px;font-size:14px;color:rgba(255,255,255,.75);line-height:1.75;max-width:480px;font-weight:400}
 .quiz-btn{position:relative;z-index:2;padding:22px 40px;background:#fff;border-radius:0;color:var(--ink);font-size:11px;letter-spacing:.3em;text-transform:uppercase;font-weight:500;transition:all .4s;display:inline-flex;align-items:center;gap:14px;white-space:nowrap}
-.quiz-btn:hover{background:var(--hot-pink);color:#fff}
-.quiz-btn .soon{font-size:9px;padding:4px 10px;background:var(--hot-pink);color:#fff;border-radius:0;letter-spacing:.2em;font-weight:500}
+.quiz-btn:hover{background:var(--hot-pink);color:#0A0A0A}
+.quiz-btn .soon{font-size:9px;padding:4px 10px;background:var(--hot-pink);color:#0A0A0A;border-radius:0;letter-spacing:.2em;font-weight:600}
 
 /* ===== TESTIMONIALS ===== */
 .testimonials{padding:180px 48px;background:var(--cream);position:relative;border-top:1px solid rgba(10,10,10,.08)}
@@ -197,12 +213,13 @@ nav.top ul a:hover::after{width:100%}
 .test-card .quote em{font-style:italic;color:var(--hot-pink);font-weight:400}
 .test-card .author{display:flex;align-items:center;gap:16px;padding-top:24px;border-top:1px solid rgba(10,10,10,.1)}
 .test-card .avatar{width:44px;height:44px;border-radius:50%;overflow:hidden;flex-shrink:0}
-.test-card .avatar img{width:100%;height:100%;object-fit:cover}
+.test-card .avatar img{width:100%;height:100%;object-fit:cover;filter:grayscale(.3) sepia(.3) contrast(1.05)}
 .test-card .name{font-size:13px;color:var(--ink);font-weight:500;letter-spacing:.02em}
 .test-card .loc{font-size:10px;color:var(--ink-soft);letter-spacing:.25em;text-transform:uppercase;margin-top:4px;font-weight:500}
 
 /* ===== BIG STATEMENT ===== */
 .statement{padding:200px 48px;background:var(--ink);text-align:center;position:relative;overflow:hidden;color:#fff}
+.statement::before{content:"";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:80vw;height:80vw;max-width:1000px;max-height:1000px;background:radial-gradient(circle,rgba(184,134,11,.1),transparent 60%);pointer-events:none}
 .statement h2{font-family:'Fraunces',serif;font-weight:400;font-size:clamp(40px,7vw,110px);line-height:1.02;letter-spacing:-.04em;color:#fff;max-width:1400px;margin:0 auto;position:relative}
 .statement h2 em{font-style:italic;color:var(--hot-pink);font-weight:400}
 .statement h2 .strike{text-decoration:line-through;text-decoration-color:var(--hot-pink);text-decoration-thickness:2px;opacity:.7;font-style:italic;font-weight:400}
@@ -236,7 +253,7 @@ nav.top ul a:hover::after{width:100%}
 .final p{margin-top:30px;font-size:15px;color:var(--ink-soft);max-width:560px;margin-left:auto;margin-right:auto;line-height:1.75;font-weight:400}
 .final .cta-row{margin-top:52px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
 .btn-primary{background:var(--ink);color:#fff;padding:22px 44px;border-radius:0;font-size:11px;letter-spacing:.3em;text-transform:uppercase;font-weight:500;transition:all .4s;display:inline-flex;align-items:center;gap:14px}
-.btn-primary:hover{background:var(--hot-pink)}
+.btn-primary:hover{background:var(--hot-pink);color:#0A0A0A}
 .btn-ghost{border:1px solid var(--ink);color:var(--ink);padding:21px 44px;border-radius:0;font-size:11px;letter-spacing:.3em;text-transform:uppercase;font-weight:500;transition:all .4s;background:transparent}
 .btn-ghost:hover{background:var(--ink);color:#fff}
 
@@ -248,7 +265,7 @@ footer{background:var(--ink);padding:120px 48px 48px;color:#fff}
 .foot-col h5{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--hot-pink);margin-bottom:24px;font-weight:500}
 .foot-col ul{list-style:none;display:flex;flex-direction:column;gap:14px}
 .foot-col ul a{color:rgba(255,255,255,.65);font-size:13px;transition:color .3s;letter-spacing:.01em}
-.foot-col ul a:hover{color:#fff}
+.foot-col ul a:hover{color:var(--hot-pink)}
 .foot-newsletter{display:flex;gap:0;margin-top:22px;background:transparent;border-radius:0;padding:0;max-width:340px;border-bottom:1px solid rgba(255,255,255,.25)}
 .foot-newsletter input{flex:1;background:transparent;border:none;outline:none;color:#fff;font-family:inherit;font-size:13px;padding:14px 0}
 .foot-newsletter input::placeholder{color:rgba(255,255,255,.35)}
@@ -291,15 +308,16 @@ footer{background:var(--ink);padding:120px 48px 48px;color:#fff}
 
 <div class="sunshine-bg"></div>
 
-<nav class="top">
+<nav class="top" id="topNav">
   <a href="#" class="logo">Jameel<span>'s</span></a>
-  <ul>
-    <li><a href="#shop">Shop</a></li>
-    <li><a href="#collections">Collections</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="#contact">Contact</a></li>
+  <ul id="navList">
+    <div class="nav-indicator" id="navIndicator"></div>
+    <li><a href="#shop" data-navlink>Shop</a></li>
+    <li><a href="#collections" data-navlink>Collections</a></li>
+    <li><a href="#about" data-navlink>About</a></li>
+    <li><a href="#contact" data-navlink>Contact</a></li>
   </ul>
-  <a href="#shop" class="nav-cta">Shop Samples</a>
+  <a href="#shop" class="nav-cta"><span>Shop Samples</span></a>
 </nav>
 
 <!-- HERO -->
@@ -309,11 +327,11 @@ footer{background:var(--ink);padding:120px 48px 48px;color:#fff}
   <div class="shape shape-3"></div>
 
   <div class="hero-img-wrap">
-    <img src="https://images.unsplash.com/photo-1541643600914-78b084683601?w=1600&q=85&fit=crop" alt="Luxury fragrance bottle">
+    <img src="https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=1600&q=85&fit=crop" alt="Luxury gold fragrance bottle">
   </div>
 
   <div class="hero-content">
-    <div class="hero-eyebrow"><span class="dot"></span><span>Sunshine in a bottle · from $5</span></div>
+    <div class="hero-eyebrow"><span class="dot"></span><span>Liquid gold in a bottle · from $5</span></div>
 
     <h1 class="hero-title">
       <span class="line"><span class="word">Smell</span> <span class="word"><em>like</em></span></span>
@@ -382,7 +400,7 @@ footer{background:var(--ink);padding:120px 48px 48px;color:#fff}
 
   <div class="product-grid">
     <a href="#" class="product p1" data-hover>
-      <img src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=1200&q=85&fit=crop" alt="Creed Aventus">
+      <img src="https://images.unsplash.com/photo-1587017539504-67cfbddac569?w=1200&q=85&fit=crop" alt="Creed Aventus gold luxury perfume">
       <span class="badge">Best Seller</span>
       <div class="meta">
         <span class="brand">Creed</span>
@@ -390,21 +408,21 @@ footer{background:var(--ink);padding:120px 48px 48px;color:#fff}
       </div>
     </a>
     <a href="#" class="product p2" data-hover>
-      <img src="https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=1000&q=85&fit=crop" alt="Baccarat Rouge">
+      <img src="https://images.unsplash.com/photo-1590736704728-f4e2bb9df587?w=1000&q=85&fit=crop" alt="Amber gold perfume">
       <div class="meta">
         <span class="brand">Maison Francis Kurkdjian</span>
         <div class="bottom"><div class="name serif">Baccarat Rouge 540</div><div class="price">From $10 · 2ml Sample</div></div>
       </div>
     </a>
     <a href="#" class="product p3" data-hover>
-      <img src="https://images.unsplash.com/photo-1557170334-a9086d21c2c6?w=900&q=85&fit=crop" alt="Tom Ford">
+      <img src="https://images.unsplash.com/photo-1541643600914-78b084683601?w=900&q=85&fit=crop" alt="Tom Ford golden fragrance">
       <div class="meta">
         <span class="brand">Tom Ford</span>
         <div class="bottom"><div class="name serif">Ombré Leather</div><div class="price">From $8 · 2ml Sample</div></div>
       </div>
     </a>
     <a href="#" class="product p4" data-hover>
-      <img src="https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=900&q=85&fit=crop" alt="Dior">
+      <img src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=900&q=85&fit=crop" alt="Dior gold perfume bottle">
       <span class="badge">New</span>
       <div class="meta">
         <span class="brand">Dior</span>
@@ -412,14 +430,14 @@ footer{background:var(--ink);padding:120px 48px 48px;color:#fff}
       </div>
     </a>
     <a href="#" class="product p5" data-hover>
-      <img src="https://images.unsplash.com/photo-1587017539504-67cfbddac569?w=1200&q=85&fit=crop" alt="Chanel">
+      <img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?w=1200&q=85&fit=crop" alt="Chanel luxury perfume gold">
       <div class="meta">
         <span class="brand">Chanel</span>
         <div class="bottom"><div class="name serif">Coco Mademoiselle</div><div class="price">From $6 · 2ml Sample</div></div>
       </div>
     </a>
     <a href="#" class="product p6" data-hover>
-      <img src="https://images.unsplash.com/photo-1590736969955-71cc94901144?w=1200&q=85&fit=crop" alt="LV">
+      <img src="https://images.unsplash.com/photo-1557170334-a9086d21c2c6?w=1200&q=85&fit=crop" alt="Louis Vuitton amber gold perfume">
       <div class="meta">
         <span class="brand">Louis Vuitton</span>
         <div class="bottom"><div class="name serif">Ombre Nomade</div><div class="price">From $15 · 2ml Sample</div></div>
@@ -432,7 +450,7 @@ footer{background:var(--ink);padding:120px 48px 48px;color:#fff}
 <section class="story" id="about">
   <div class="story-inner">
     <div class="story-img reveal">
-      <img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?w=1200&q=85&fit=crop" alt="Boutique atmosphere">
+      <img src="https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=1200&q=85&fit=crop" alt="Gold amber boutique atmosphere">
       <div class="caption">— The Boutique at Golden Hour</div>
     </div>
     <div class="story-text">
@@ -454,7 +472,7 @@ footer{background:var(--ink);padding:120px 48px 48px;color:#fff}
   </div>
   <div class="coll-grid">
     <a href="#" class="coll-card" data-hover>
-      <img src="https://images.unsplash.com/photo-1563170351-be82bc888aa4?w=1000&q=85&fit=crop" alt="Girly Girl">
+      <img src="https://images.unsplash.com/photo-1590736704728-f4e2bb9df587?w=1000&q=85&fit=crop" alt="Gold girly girl edit">
       <div class="info">
         <div class="label">Collection 01</div>
         <h4 class="serif">The <em>Girly Girl</em> Edit</h4>
@@ -463,7 +481,7 @@ footer{background:var(--ink);padding:120px 48px 48px;color:#fff}
       </div>
     </a>
     <a href="#" class="coll-card" data-hover>
-      <img src="https://images.unsplash.com/photo-1602874801007-aa4d13b27fcd?w=1000&q=85&fit=crop" alt="Lamp Set">
+      <img src="https://images.unsplash.com/photo-1602874801007-aa4d13b27fcd?w=1000&q=85&fit=crop" alt="Gold lamp set amber">
       <div class="info">
         <div class="label">Collection 02</div>
         <h4 class="serif">Ambient <em>Lamp Sets</em></h4>
@@ -472,7 +490,7 @@ footer{background:var(--ink);padding:120px 48px 48px;color:#fff}
       </div>
     </a>
     <a href="#" class="coll-card" data-hover>
-      <img src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=1000&q=85&fit=crop" alt="Burning Oils">
+      <img src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=1000&q=85&fit=crop" alt="Burning oils gold amber oud">
       <div class="info">
         <div class="label">Collection 03</div>
         <h4 class="serif">The <em>Burning Oils</em></h4>
@@ -570,7 +588,7 @@ footer{background:var(--ink);padding:120px 48px 48px;color:#fff}
 <!-- FINAL CTA -->
 <section class="final" id="contact">
   <div class="final-inner">
-    <h2>Walk in. <em>Smell</em> like sunshine.</h2>
+    <h2>Walk in. <em>Smell</em> like gold.</h2>
     <p>Browse over 70 curated scents. Start at $5. Find the one people will remember you by.</p>
     <div class="cta-row">
       <a href="#shop" class="btn-primary" data-hover>Enter The Shop →</a>
@@ -669,6 +687,86 @@ document.querySelectorAll('.faq-item').forEach(item=>{
     if(!open)item.classList.add('open');
   });
 });
+
+/* ===== COOL NAV — Magnetic indicator + scroll morph + active section tracking ===== */
+(function(){
+  const nav = document.getElementById('topNav');
+  const navList = document.getElementById('navList');
+  const indicator = document.getElementById('navIndicator');
+  const links = navList.querySelectorAll('a[data-navlink]');
+  let activeLink = null;
+
+  function moveIndicator(target, instant=false){
+    if(!target) return;
+    const listRect = navList.getBoundingClientRect();
+    const tRect = target.getBoundingClientRect();
+    const x = tRect.left - listRect.left;
+    const w = tRect.width;
+    if(instant){
+      gsap.set(indicator,{x:x,width:w,opacity:1});
+    }else{
+      gsap.to(indicator,{x:x,width:w,opacity:1,duration:.5,ease:'expo.out'});
+    }
+    // set text color on hovered link only
+    links.forEach(l=>l.classList.remove('nav-active-indicator'));
+    target.classList.add('nav-active-indicator');
+  }
+
+  function hideIndicator(){
+    if(activeLink){
+      moveIndicator(activeLink);
+    }else{
+      gsap.to(indicator,{opacity:0,duration:.3,ease:'power2.out'});
+      links.forEach(l=>l.classList.remove('nav-active-indicator'));
+    }
+  }
+
+  links.forEach(link=>{
+    link.addEventListener('mouseenter',()=>moveIndicator(link));
+    // magnetic hover
+    link.addEventListener('mousemove',(e)=>{
+      const r = link.getBoundingClientRect();
+      const mx = e.clientX - (r.left + r.width/2);
+      const my = e.clientY - (r.top + r.height/2);
+      gsap.to(link,{x:mx*.25,y:my*.25,duration:.4,ease:'power3.out'});
+    });
+    link.addEventListener('mouseleave',()=>{
+      gsap.to(link,{x:0,y:0,duration:.6,ease:'elastic.out(1,.5)'});
+    });
+  });
+
+  navList.addEventListener('mouseleave',hideIndicator);
+
+  // Scroll: morph nav + track active section
+  const sections = ['shop','collections','about','contact'].map(id=>document.getElementById(id)).filter(Boolean);
+
+  function onScroll(){
+    if(window.scrollY > 60){ nav.classList.add('scrolled'); } else { nav.classList.remove('scrolled'); }
+
+    // active section
+    const y = window.scrollY + window.innerHeight*.35;
+    let current = null;
+    sections.forEach(s=>{
+      if(s.offsetTop <= y && s.offsetTop + s.offsetHeight > y) current = s;
+    });
+    if(current){
+      const match = navList.querySelector('a[href="#'+current.id+'"]');
+      if(match && match !== activeLink){
+        activeLink = match;
+        if(!navList.matches(':hover')) moveIndicator(activeLink);
+      }
+    }else{
+      activeLink = null;
+      if(!navList.matches(':hover')){
+        gsap.to(indicator,{opacity:0,duration:.3});
+        links.forEach(l=>l.classList.remove('nav-active-indicator'));
+      }
+    }
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});
+  window.addEventListener('resize',()=>{ if(activeLink && !navList.matches(':hover')) moveIndicator(activeLink,true); });
+  onScroll();
+})();
 </script>
 </body>
 </html>
