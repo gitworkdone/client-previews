@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jameel's Exotic Fragrances — Look Good, Smell Good, Feel Good.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,300;1,9..144,400&family=Inter:wght@300;400;500;600&family=Italiana&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
+<style>
+  :root{
+    --black:#060503;
+    --ink:#0b0907;
+    --smoke:#14110d;
+    --gold:#c9a14a;
+    --gold-bright:#e7c173;
+    --gold-deep:#8a6a22;
+    --bone:#f4ede1;
+    --dim:#8a7f6e;
+    --line:rgba(201,161,74,.22);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{background:var(--black);color:var(--bone);font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  body{cursor:none}
+  a{color:inherit;text-decoration:none}
+  button{font-family:inherit;cursor:none;background:none;border:none;color:inherit}
+  img{max-width:100%;display:block}
+
+  /* Grain */
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:9998;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.78  0 0 0 0 0.63  0 0 0 0 0.29  0 0 0 0.22 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    opacity:.22;mix-blend-mode:overlay;
+  }
+
+  /* Cursor */
+  .cursor{position:fixed;width:8px;height:8px;background:var(--gold);border-radius:50%;z-index:10000;pointer-events:none;mix-blend-mode:difference;transform:translate(-50%,-50%);transition:width .25s,height .25s,background .25s}
+  .cursor-ring{position:fixed;width:38px;height:38px;border:1px solid var(--gold);border-radius:50%;z-index:9999;pointer-events:none;transform:translate(-50%,-50%);transition:width .3s,height .3s,border-color .3s}
+  .cursor.hov{width:4px;height:4px}
+  .cursor-ring.hov{width:70px;height:70px;border-color:var(--gold-bright)}
+  @media(hover:none){body{cursor:auto}.cursor,.cursor-ring{display:none}button,a{cursor:pointer!important}}
+
+  /* Typography */
+  .serif{font-family:'Fraunces',serif;font-weight:400;letter-spacing:-.04em}
+  .display{font-family:'Italiana',serif;letter-spacing:-.01em}
+  .eyebrow{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);font-weight:500}
+  h1,h2,h3{font-family:'Fraunces',serif;font-weight:400;letter-spacing:-.045em;line-height:.95}
+
+  /* Nav */
+  nav.top{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:22px 42px;transition:all .5s ease;
+    background:linear-gradient(180deg,rgba(6,5,3,.85) 0%,rgba(6,5,3,0) 100%);
+    backdrop-filter:blur(0);
+  }
+  nav.top.scrolled{background:rgba(6,5,3,.86);backdrop-filter:blur(18px);border-bottom:1px solid var(--line);padding:16px 42px}
+  .logo{font-family:'Italiana',serif;font-size:22px;letter-spacing:.18em;color:var(--bone)}
+  .logo em{color:var(--gold);font-style:normal}
+  .nav-links{display:flex;gap:44px;align-items:center}
+  .nav-links a{font-size:12px;letter-spacing:.22em;text-transform:uppercase;position:relative;color:var(--bone);opacity:.85;transition:opacity .3s}
+  .nav-links a:hover{opacity:1;color:var(--gold-bright)}
+  .nav-links a::after{content:"";position:absolute;bottom:-6px;left:0;width:0;height:1px;background:var(--gold);transition:width .4s}
+  .nav-links a:hover::after{width:100%}
+  .nav-cta{padding:12px 22px;border:1px solid var(--gold);color:var(--gold);font-size:11px;letter-spacing:.25em;text-transform:uppercase;transition:all .4s}
+  .nav-cta:hover{background:var(--gold);color:var(--black)}
+  .menu-btn{display:none}
+  @media(max-width:880px){
+    nav.top{padding:18px 22px}
+    .nav-links{display:none}
+    .menu-btn{display:flex;flex-direction:column;gap:5px;cursor:pointer}
+    .menu-btn span{width:24px;height:1px;background:var(--bone)}
+  }
+
+  /* HERO */
+  .hero{
+    min-height:100vh;position:relative;overflow:hidden;
+    display:flex;align-items:flex-end;padding:0 42px 80px;
+    background:radial-gradient(ellipse at 70% 40%,#1a140a 0%,#0a0805 45%,var(--black) 80%);
+  }
+  .hero-bg{position:absolute;inset:0;z-index:1}
+  .hero-bottle{
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-52%);
+    width:min(520px,60vw);aspect-ratio:1/1.6;z-index:2;
+    filter:drop-shadow(0 50px 80px rgba(201,161,74,.18));
+  }
+  .hero-glow{
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    width:700px;height:700px;border-radius:50%;z-index:1;
+    background:radial-gradient(circle,rgba(201,161,74,.28) 0%,rgba(201,161,74,0) 60%);
+    filter:blur(40px);
+    animation:pulse 6s ease-in-out infinite;
+  }
+  @keyframes pulse{0%,100%{opacity:.8;transform:translate(-50%,-50%) scale(1)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.1)}}
+
+  .hero-content{position:relative;z-index:5;width:100%;display:grid;grid-template-columns:1fr auto 1fr;align-items:end;gap:40px}
+  .hero-side-l{align-self:end}
+  .hero-side-r{align-self:end;text-align:right}
+  .hero-side p{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);max-width:220px;line-height:1.6}
+  .hero-side-r p{margin-left:auto}
+
+  .hero-title{
+    font-family:'Italiana',serif;
+    font-size:clamp(68px,14vw,220px);
+    line-height:.82;letter-spacing:-.02em;
+    text-align:center;color:var(--bone);
+    white-space:nowrap;
+  }
+  .hero-title .g{color:var(--gold);font-style:italic;font-family:'Fraunces',serif;font-weight:300}
+  .hero-tag{
+    position:absolute;top:32%;left:42px;z-index:6;
+    writing-mode:vertical-rl;transform:rotate(180deg);
+    font-size:11px;letter-spacing:.4em;color:var(--gold);text-transform:uppercase;
+  }
+  .hero-subline{
+    position:absolute;top:24%;right:42px;z-index:6;
+    text-align:right;max-width:280px;
+  }
+  .hero-subline .eyebrow{display:block;margin-bottom:14px}
+  .hero-subline p{font-family:'Fraunces',serif;font-size:18px;line-height:1.4;font-weight:300;color:var(--bone)}
+
+  .hero-ctas{display:flex;gap:20px;margin-top:36px;justify-content:center;flex-wrap:wrap}
+  .btn{
+    display:inline-flex;align-items:center;gap:14px;
+    padding:18px 32px;font-size:11px;letter-spacing:.28em;text-transform:uppercase;
+    border:1px solid var(--gold);color:var(--bone);background:transparent;
+    transition:all .5s cubic-bezier(.19,1,.22,1);position:relative;overflow:hidden;
+  }
+  .btn::before{content:"";position:absolute;inset:0;background:var(--gold);transform:translateY(101%);transition:transform .5s cubic-bezier(.19,1,.22,1);z-index:-1}
+  .btn:hover{color:var(--black);border-color:var(--gold)}
+  .btn:hover::before{transform:translateY(0)}
+  .btn.solid{background:var(--gold);color:var(--black);border-color:var(--gold)}
+  .btn.solid::before{background:var(--bone)}
+  .btn-arrow{width:18px;height:1px;background:currentColor;position:relative}
+  .btn-arrow::after{content:"";position:absolute;right:0;top:-3px;width:7px;height:7px;border-top:1px solid currentColor;border-right:1px solid currentColor;transform:rotate(45deg)}
+
+  .scroll-hint{
+    position:absolute;bottom:30px;left:50%;transform:translateX(-50%);
+    font-size:10px;letter-spacing:.4em;color:var(--gold);text-transform:uppercase;
+    display:flex;flex-direction:column;align-items:center;gap:10px;z-index:6;
+  }
+  .scroll-line{width:1px;height:40px;background:linear-gradient(180deg,var(--gold),transparent);animation:drop 2.4s ease-in-out infinite}
+  @keyframes drop{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+  /* Marquee */
+  .marquee{
+    border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    padding:24px 0;overflow:hidden;white-space:nowrap;background:var(--ink);
+  }
+  .marquee-track{display:inline-flex;gap:80px;animation:scroll 38s linear infinite;will-change:transform}
+  .marquee-track span{font-family:'Italiana',serif;font-size:28px;letter-spacing:.1em;color:var(--bone)}
+  .marquee-track em{color:var(--gold);font-style:normal}
+  @keyframes scroll{to{transform:translateX(-50%)}}
+
+  /* Trust */
+  .trust{padding:120px 42px;background:var(--ink);position:relative}
+  .trust-inner{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+  .stat{padding:40px;border-right:1px solid var(--line);text-align:center}
+  .stat:last-child{border-right:none}
+  .stat-num{font-family:'Italiana',serif;font-size:clamp(56px,7vw,96px);color:var(--gold);line-height:1;margin-bottom:14px}
+  .stat-label{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--dim)}
+  @media(max-width:880px){.trust-inner{grid-template-columns:repeat(2,1fr)}.stat{border-right:none;border-bottom:1px solid var(--line)}}
+
+  /* Sections base */
+  section{position:relative}
+  .section-head{max-width:1400px;margin:0 auto;padding:0 42px;display:flex;justify-content:space-between;align-items:flex-end;gap:40px;flex-wrap:wrap}
+  .section-head h2{font-size:clamp(48px,7vw,112px);max-width:900px}
+  .section-head p{max-width:360px;color:var(--dim);font-size:14px;line-height:1.7}
+
+  /* Shop */
+  .shop{padding:140px 0 160px;background:var(--black)}
+  .shop-head{padding-bottom:60px}
+  .shop-head h2 em{color:var(--gold);font-style:italic;font-family:'Italiana',serif;font-weight:400}
+
+  .filters{max-width:1400px;margin:0 auto 50px;padding:0 42px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:center;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding-top:22px;padding-bottom:22px}
+  .filter-label{font-size:10px;letter-spacing:.3em;color:var(--dim);text-transform:uppercase;margin-right:14px}
+  .chip{
+    padding:10px 20px;border:1px solid var(--line);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--dim);transition:all .3s;border-radius:40px;
+  }
+  .chip:hover{color:var(--gold-bright);border-color:var(--gold)}
+  .chip.active{background:var(--gold);color:var(--black);border-color:var(--gold)}
+
+  .grid{max-width:1400px;margin:0 auto;padding:0 42px;display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--line);border-left:1px solid var(--line)}
+  .card{
+    border-right:1px solid var(--line);border-bottom:1px solid var(--line);
+    padding:40px 32px 32px;position:relative;overflow:hidden;
+    transition:background .5s;
+  }
+  .card:hover{background:var(--smoke)}
+  .card-visual{
+    aspect-ratio:3/4;margin-bottom:28px;position:relative;overflow:hidden;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .card-visual::before{
+    content:"";position:absolute;inset:0;
+    background:radial-gradient(ellipse at center,rgba(201,161,74,.12) 0%,transparent 70%);
+    opacity:0;transition:opacity .6s;
+  }
+  .card:hover .card-visual::before{opacity:1}
+  .bottle{
+    width:62%;height:78%;position:relative;
+    transition:transform .8s cubic-bezier(.19,1,.22,1);
+  }
+  .card:hover .bottle{transform:translateY(-8px) rotate(-2deg)}
+  .bottle-body{
+    position:absolute;bottom:0;left:0;right:0;height:80%;
+    background:linear-gradient(160deg,var(--b1,#1a1410) 0%,var(--b2,#0a0805) 50%,var(--b3,#1a1410) 100%);
+    border-radius:6px 6px 10px 10px;
+    box-shadow:inset 0 0 30px rgba(0,0,0,.6),inset 10px 0 30px rgba(201,161,74,.15),0 20px 40px rgba(0,0,0,.5);
+    border:1px solid rgba(201,161,74,.15);
+  }
+  .bottle-body::after{
+    content:"";position:absolute;left:15%;right:15%;top:40%;height:30%;
+    background:linear-gradient(135deg,rgba(255,255,255,.12),transparent 60%);
+    border-radius:4px;
+  }
+  .bottle-label{
+    position:absolute;left:12%;right:12%;top:30%;padding:8px 4px;
+    text-align:center;color:var(--lb,var(--gold));
+    font-family:'Italiana',serif;font-size:9px;letter-spacing:.15em;
+    border-top:1px solid currentColor;border-bottom:1px solid currentColor;
+    line-height:1.2;
+  }
+  .bottle-cap{
+    position:absolute;top:0;left:30%;right:30%;height:18%;
+    background:linear-gradient(180deg,var(--c1,#2a2015),var(--c2,#0a0805));
+    border-radius:3px 3px 0 0;box-shadow:inset 0 0 10px rgba(0,0,0,.8);
+  }
+  .bottle-neck{
+    position:absolute;top:15%;left:38%;right:38%;height:8%;
+    background:var(--c2,#0a0805);
+  }
+
+  .card-brand{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+  .card-name{font-family:'Fraunces',serif;font-size:22px;line-height:1.15;color:var(--bone);margin-bottom:14px;font-weight:400}
+  .card-notes{font-size:12px;color:var(--dim);line-height:1.5;margin-bottom:18px;font-style:italic;font-family:'Fraunces',serif}
+  .card-foot{display:flex;justify-content:space-between;align-items:center;padding-top:18px;border-top:1px solid var(--line)}
+  .card-price{font-family:'Italiana',serif;font-size:22px;color:var(--gold-bright)}
+  .card-price small{font-size:10px;letter-spacing:.2em;color:var(--dim);text-transform:uppercase;margin-left:4px;font-family:'Inter',sans-serif}
+  .card-add{font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--bone);padding:8px 12px;border:1px solid var(--line);transition:all .3s}
+  .card-add:hover{background:var(--gold);color:var(--black);border-color:var(--gold)}
+  .card-tag{position:absolute;top:20px;right:20px;font-size:9px;letter-spacing:.25em;color:var(--gold);padding:5px 10px;border:1px solid var(--gold);text-transform:uppercase}
+
+  @media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:600px){.grid{grid-template-columns:1fr}}
+
+  /* Story */
+  .story{padding:160px 0;background:var(--ink);position:relative;overflow:hidden}
+  .story-grid{max-width:1400px;margin:0 auto;padding:0 42px;display:grid;grid-template-columns:5fr 6fr;gap:100px;align-items:center}
+  .story-visual{position:relative;aspect-ratio:4/5;background:linear-gradient(135deg,#1a140a 0%,#0a0805 100%);overflow:hidden}
+  .story-visual::before{
+    content:"";position:absolute;inset:20px;border:1px solid var(--gold);
+    mix-blend-mode:overlay;
+  }
+  .story-visual::after{
+    content:"J";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    font-family:'Italiana',serif;font-size:340px;color:var(--gold);opacity:.5;
+    line-height:1;
+  }
+  .story-visual-caption{
+    position:absolute;bottom:30px;left:30px;right:30px;z-index:5;
+    font-family:'Fraunces',serif;font-style:italic;font-size:13px;color:var(--bone);
+    letter-spacing:.05em;
+  }
+  .story-visual-caption span{display:block;font-size:10px;letter-spacing:.3em;color:var(--gold);text-transform:uppercase;font-style:normal;font-family:'Inter',sans-serif;margin-top:8px}
+  .story-text .eyebrow{margin-bottom:24px}
+  .story-text h2{font-size:clamp(44px,5.5vw,84px);margin-bottom:32px;line-height:.95}
+  .story-text h2 em{color:var(--gold);font-family:'Italiana',serif;font-style:italic;font-weight:400}
+  .story-text p{font-size:16px;line-height:1.8;color:var(--bone);margin-bottom:22px;font-weight:300;max-width:560px}
+  .story-text p:last-of-type{color:var(--dim)}
+  .story-sig{margin-top:40px;font-family:'Fraunces',serif;font-style:italic;font-size:28px;color:var(--gold)}
+  .story-sig small{display:block;font-size:11px;letter-spacing:.3em;color:var(--dim);text-transform:uppercase;font-style:normal;font-family:'Inter',sans-serif;margin-top:6px}
+  @media(max-width:900px){.story-grid{grid-template-columns:1fr;gap:50px}}
+
+  /* Collections featured (sticky) */
+  .collections{padding:0;background:var(--black);position:relative}
+  .col-hero{
+    height:100vh;position:sticky;top:0;overflow:hidden;
+    display:flex;align-items:center;justify-content:center;
+    background:radial-gradient(ellipse at 30% 50%,#1a140a,var(--black) 70%);
+  }
+  .col-scroll{position:relative;height:300vh}
+  .col-stack{position:relative;height:100vh}
+  .col-title{
+    font-family:'Italiana',serif;font-size:clamp(80px,16vw,240px);
+    color:var(--bone);line-height:.85;letter-spacing:-.02em;
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    white-space:nowrap;z-index:2;mix-blend-mode:difference;pointer-events:none;
+  }
+  .col-panels{position:absolute;inset:0;display:flex;align-items:center;gap:60px;padding:0 8vw;z-index:3;overflow:hidden}
+  .col-panel{flex:0 0 420px;aspect-ratio:3/4;position:relative;border:1px solid var(--line);padding:36px;display:flex;flex-direction:column;justify-content:space-between;background:linear-gradient(180deg,#100d09,#0a0806);transition:transform .6s}
+  .col-panel:hover{transform:translateY(-12px)}
+  .col-panel-num{font-family:'Italiana',serif;font-size:14px;color:var(--gold);letter-spacing:.4em}
+  .col-panel h3{font-family:'Italiana',serif;font-size:38px;color:var(--bone);line-height:1;margin-bottom:12px}
+  .col-panel p{font-size:13px;color:var(--dim);line-height:1.6;margin-bottom:20px}
+  .col-panel-cta{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);display:inline-flex;align-items:center;gap:10px}
+  .col-panel-visual{
+    flex:1;margin:24px 0;position:relative;
+    background:radial-gradient(ellipse at center,rgba(201,161,74,.15),transparent 70%);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .gift-icon{width:80px;height:80px;border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;font-family:'Italiana',serif;color:var(--gold);font-size:32px}
+
+  /* Testimonials */
+  .testimonials{padding:160px 42px;background:var(--ink);position:relative}
+  .test-grid{max-width:1400px;margin:60px auto 0;display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--line);border-left:1px solid var(--line)}
+  .test{padding:50px 44px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);position:relative;transition:background .5s}
+  .test:hover{background:var(--smoke)}
+  .test-stars{color:var(--gold);margin-bottom:24px;letter-spacing:.2em;font-size:14px}
+  .test-quote{font-family:'Fraunces',serif;font-size:20px;line-height:1.5;font-weight:300;color:var(--bone);margin-bottom:32px;font-style:italic}
+  .test-author{display:flex;align-items:center;gap:16px;padding-top:24px;border-top:1px solid var(--line)}
+  .test-avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold-deep));display:flex;align-items:center;justify-content:center;font-family:'Italiana',serif;color:var(--black);font-size:18px}
+  .test-name{font-size:14px;color:var(--bone);font-weight:500}
+  .test-name small{display:block;font-size:10px;letter-spacing:.25em;color:var(--dim);text-transform:uppercase;margin-top:4px;font-weight:400}
+  @media(max-width:900px){.test-grid{grid-template-columns:1fr}}
+
+  /* Feature callout */
+  .feature{
+    min-height:90vh;position:relative;overflow:hidden;
+    display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(180deg,var(--black) 0%,#140e06 50%,var(--black) 100%);
+    padding:120px 42px;
+    clip-path:polygon(0 4%,100% 0,100% 96%,0 100%);
+  }
+  .feature::before{
+    content:"";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    width:80vw;height:80vw;max-width:900px;max-height:900px;border-radius:50%;
+    background:radial-gradient(circle,rgba(201,161,74,.12),transparent 60%);
+  }
+  .feature-inner{position:relative;z-index:2;text-align:center;max-width:1000px}
+  .feature .eyebrow{margin-bottom:30px}
+  .feature h2{font-size:clamp(56px,9vw,140px);font-family:'Italiana',serif;color:var(--bone);line-height:.9;margin-bottom:36px;letter-spacing:-.02em}
+  .feature h2 em{color:var(--gold);font-style:italic;font-family:'Fraunces',serif;font-weight:300}
+  .feature p{font-family:'Fraunces',serif;font-size:20px;line-height:1.6;color:var(--dim);max-width:620px;margin:0 auto 50px;font-weight:300}
+
+  /* FAQ */
+  .faq{padding:160px 42px;background:var(--black)}
+  .faq-wrap{max-width:1100px;margin:0 auto}
+  .faq-head{text-align:center;margin-bottom:80px}
+  .faq-head h2{font-size:clamp(48px,7vw,100px);margin-bottom:16px}
+  .faq-head p{color:var(--dim);font-size:15px;max-width:400px;margin:0 auto}
+  .faq-item{border-top:1px solid var(--line);padding:32px 0;cursor:none}
+  .faq-item:last-child{border-bottom:1px solid var(--line)}
+  .faq-q{display:flex;justify-content:space-between;align-items:center;gap:40px;transition:color .3s}
+  .faq-q span{font-family:'Fraunces',serif;font-size:clamp(22px,3vw,32px);color:var(--bone);font-weight:400;flex:1;line-height:1.2}
+  .faq-item:hover .faq-q span{color:var(--gold-bright)}
+  .faq-toggle{width:40px;height:40px;border:1px solid var(--gold);border-radius:50%;position:relative;flex-shrink:0;transition:all .4s}
+  .faq-toggle::before,.faq-toggle::after{content:"";position:absolute;top:50%;left:50%;background:var(--gold);transition:transform .4s}
+  .faq-toggle::before{width:14px;height:1px;transform:translate(-50%,-50%)}
+  .faq-toggle::after{width:1px;height:14px;transform:translate(-50%,-50%)}
+  .faq-item.open .faq-toggle{background:var(--gold)}
+  .faq-item.open .faq-toggle::before,.faq-item.open .faq-toggle::after{background:var(--black)}
+  .faq-item.open .faq-toggle::after{transform:translate(-50%,-50%) scaleY(0)}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .6s cubic-bezier(.4,0,.2,1),padding .4s}
+  .faq-item.open .faq-a{max-height:300px;padding-top:22px}
+  .faq-a p{color:var(--dim);font-size:15px;line-height:1.75;max-width:780px}
+
+  /* CTA strip */
+  .cta-strip{
+    padding:140px 42px;background:linear-gradient(135deg,#1a140a 0%,#0a0805 100%);
+    text-align:center;position:relative;overflow:hidden;
+    border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  }
+  .cta-strip::before{
+    content:"SMELL EXPENSIVE ";position:absolute;white-space:nowrap;
+    top:10%;left:0;font-family:'Italiana',serif;font-size:200px;color:var(--gold);opacity:.04;
+    letter-spacing:.05em;pointer-events:none;line-height:1;
+  }
+  .cta-strip h2{font-size:clamp(56px,9vw,140px);font-family:'Italiana',serif;line-height:.9;margin-bottom:32px;color:var(--bone);letter-spacing:-.02em}
+  .cta-strip h2 em{color:var(--gold);font-family:'Fraunces',serif;font-style:italic;font-weight:300}
+  .cta-strip p{font-size:16px;color:var(--dim);max-width:520px;margin:0 auto 46px;line-height:1.7}
+
+  /* Footer */
+  footer{background:var(--black);padding:100px 42px 40px;border-top:1px solid var(--line)}
+  .foot-grid{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:60px;padding-bottom:60px;border-bottom:1px solid var(--line)}
+  .foot-brand h3{font-family:'Italiana',serif;font-size:42px;color:var(--bone);letter-spacing:.05em;margin-bottom:18px}
+  .foot-brand h3 em{color:var(--gold);font-style:normal}
+  .foot-brand p{color:var(--dim);font-size:14px;line-height:1.7;max-width:360px;font-family:'Fraunces',serif;font-style:italic}
+  .foot-col h4{font-size:11px;letter-spacing:.3em;color:var(--gold);text-transform:uppercase;margin-bottom:22px;font-family:'Inter',sans-serif;font-weight:500}
+  .foot-col ul{list-style:none;display:flex;flex-direction:column;gap:12px}
+  .foot-col a{font-size:14px;color:var(--bone);opacity:.75;transition:all .3s}
+  .foot-col a:hover{opacity:1;color:var(--gold-bright);padding-left:8px}
+  .foot-bottom{max-width:1400px;margin:40px auto 0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px}
+  .foot-bottom p{font-size:11px;letter-spacing:.15em;color:var(--dim);text-transform:uppercase}
+  @media(max-width:880px){.foot-grid{grid-template-columns:1fr 1fr;gap:40px}}
+  @media(max-width:500px){.foot-grid{grid-template-columns:1fr}}
+
+  /* Reveal */
+  .reveal{opacity:0;transform:translateY(40px);transition:opacity 1s cubic-bezier(.19,1,.22,1),transform 1s cubic-bezier(.19,1,.22,1)}
+  .reveal.in{opacity:1;transform:none}
+  .split-char{display:inline-block;opacity:0;transform:translateY(60%)}
+
+  @media(max-width:700px){
+    .hero{padding:0 22px 60px}
+    .hero-tag,.hero-subline{display:none}
+    .hero-content{grid-template-columns:1fr}
+    .hero-side-l,.hero-side-r{display:none}
+    .stat{padding:28px}
+    .section-head{padding:0 22px}
+    .grid,.filters{padding-left:22px;padding-right:22px}
+    .story{padding:100px 0}
+    .story-grid{padding:0 22px;gap:50px}
+    .testimonials,.faq,.cta-strip{padding-left:22px;padding-right:22px}
+    footer{padding:80px 22px 30px}
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor"></div>
+<div class="cursor-ring"></div>
+
+<nav class="top" id="nav">
+  <a href="#home" class="logo" data-hov>JAMEEL'S <em>✦</em> EXOTIC</a>
+  <div class="nav-links">
+    <a href="#shop" data-hov>Shop</a>
+    <a href="#collections" data-hov>Collections</a>
+    <a href="#about" data-hov>About</a>
+    <a href="#contact" data-hov>Contact</a>
+  </div>
+  <a href="#shop" class="nav-cta" data-hov>Find Your Scent</a>
+  <div class="menu-btn"><span></span><span></span></div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-glow"></div>
+
+  <div class="hero-tag">EST · Since Forever Fine</div>
+
+  <div class="hero-subline">
+    <span class="eyebrow">Vol. 01 — The Edit</span>
+    <p>Sample-sized designer &amp; luxury fragrances. Starting at $5. Because smelling like a million shouldn't cost one.</p>
+  </div>
+
+  <svg class="hero-bottle" viewBox="0 0 520 780" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+    <defs>
+      <linearGradient id="gBody" x1="0" x2="1" y1="0" y2="1">
+        <stop offset="0%" stop-color="#1a140a"/>
+        <stop offset="50%" stop-color="#0a0805"/>
+        <stop offset="100%" stop-color="#1f1810"/>
+      </linearGradient>
+      <linearGradient id="gShine" x1="0" x2="0" y1="0" y2="1">
+        <stop offset="0%" stop-color="#ffffff" stop-opacity="0.25"/>
+        <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+      </linearGradient>
+      <linearGradient id="gCap" x1="0" x2="0" y1="0" y2="1">
+        <stop offset="0%" stop-color="#c9a14a"/>
+        <stop offset="50%" stop-color="#8a6a22"/>
+        <stop offset="100%" stop-color="#5a4416"/>
+      </linearGradient>
+      <radialGradient id="gLiquid" cx="0.5" cy="0.5" r="0.6">
+        <stop offset="0%" stop-color="#e7c173" stop-opacity="0.8"/>
+        <stop offset="100%" stop-color="#8a6a22" stop-opacity="0.2"/>
+      </radialGradient>
+    </defs>
+    <!-- Cap -->
+    <rect x="210" y="30" width="100" height="120" rx="6" fill="url(#gCap)"/>
+    <rect x="220" y="45" width="80" height="4" fill="#e7c173" opacity="0.6"/>
+    <rect x="220" y="55" width="80" height="2" fill="#e7c173" opacity="0.4"/>
+    <!-- Neck -->
+    <rect x="235" y="150" width="50" height="40" fill="#1a140a"/>
+    <!-- Body -->
+    <path d="M 130 190 Q 100 200 100 240 L 100 720 Q 100 760 140 760 L 380 760 Q 420 760 420 720 L 420 240 Q 420 200 390 190 Z" fill="url(#gBody)" stroke="#c9a14a" stroke-width="0.8" stroke-opacity="0.4"/>
+    <!-- Liquid glow -->
+    <ellipse cx="260" cy="500" rx="140" ry="200" fill="url(#gLiquid)" opacity="0.6"/>
+    <!-- Label -->
+    <rect x="150" y="360" width="220" height="280" fill="none" stroke="#c9a14a" stroke-width="0.8" stroke-opacity="0.7"/>
+    <line x1="150" y1="395" x2="370" y2="395" stroke="#c9a14a" stroke-opacity="0.5"/>
+    <line x1="150" y1="610" x2="370" y2="610" stroke="#c9a14a" stroke-opacity="0.5"/>
+    <text x="260" y="385" text-anchor="middle" fill="#c9a14a" font-family="Italiana" font-size="14" letter-spacing="4">JAMEEL'S</text>
+    <text x="260" y="480" text-anchor="middle" fill="#e7c173" font-family="Italiana" font-size="44">EXOTIC</text>
+    <text x="260" y="525" text-anchor="middle" fill="#e7c173" font-family="Italiana" font-size="18" letter-spacing="3">— N° 001 —</text>
+    <text x="260" y="580" text-anchor="middle" fill="#c9a14a" font-family="Fraunces" font-style="italic" font-size="13">the signature</text>
+    <text x="260" y="630" text-anchor="middle" fill="#c9a14a" font-family="Italiana" font-size="11" letter-spacing="3">FRAGRANCE HOUSE</text>
+    <!-- Shine -->
+    <path d="M 135 200 Q 115 210 115 250 L 115 400 Q 115 380 145 370 L 165 360 Z" fill="url(#gShine)" opacity="0.7"/>
+  </svg>
+
+  <div class="hero-content">
+    <div class="hero-side-l">
+      <p>Over 70 scents. All authentic. <br>Try before you commit to a $300 bottle.</p>
+    </div>
+
+    <div class="hero-center">
+      <h1 class="hero-title"><span class="line">Smell <span class="g">expensive</span>.</span></h1>
+      <h1 class="hero-title"><span class="line">Spend like <span class="g">you didn't</span>.</span></h1>
+      <div class="hero-ctas">
+        <a href="#shop" class="btn solid" data-hov>Shop The Vault <span class="btn-arrow"></span></a>
+        <a href="#collections" class="btn" data-hov>View Collections</a>
+      </div>
+    </div>
+
+    <div class="hero-side-r">
+      <p>Creed · Baccarat Rouge · Tom Ford · Dior · Chanel · Kilian — every heavy hitter, bottled small.</p>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- Marquee -->
+<div class="marquee">
+  <div class="marquee-track">
+    <span>Creed <em>✦</em></span><span>Tom Ford <em>✦</em></span><span>Baccarat Rouge 540 <em>✦</em></span><span>Dior <em>✦</em></span><span>Chanel <em>✦</em></span><span>Kilian <em>✦</em></span><span>Hermès <em>✦</em></span><span>Versace <em>✦</em></span><span>Paco Rabanne <em>✦</em></span><span>Louis Vuitton <em>✦</em></span>
+    <span>Creed <em>✦</em></span><span>Tom Ford <em>✦</em></span><span>Baccarat Rouge 540 <em>✦</em></span><span>Dior <em>✦</em></span><span>Chanel <em>✦</em></span><span>Kilian <em>✦</em></span><span>Hermès <em>✦</em></span><span>Versace <em>✦</em></span><span>Paco Rabanne <em>✦</em></span><span>Louis Vuitton <em>✦</em></span>
+  </div>
+</div>
+
+<!-- TRUST -->
+<section class="trust">
+  <div class="trust-inner">
+    <div class="stat reveal"><div class="stat-num" data-count="70">0</div><div class="stat-label">Curated Scents</div></div>
+    <div class="stat reveal"><div class="stat-num" data-count="25">0</div><div class="stat-label">Luxury Houses</div></div>
+    <div class="stat reveal"><div class="stat-num" data-count="5">0</div><div class="stat-label">Starting Price ($)</div></div>
+    <div class="stat reveal"><div class="stat-num" data-count="4800">0</div><div class="stat-label">Scents Shipped</div></div>
+  </div>
+</section>
+
+<!-- SHOP -->
+<section class="shop" id="shop">
+  <div class="section-head shop-head reveal">
+    <h2>The <em>Vault</em>. <br>Unlocked.</h2>
+    <p>Every bottle on this page is the real thing, decanted into sample sizes so you can actually wear it before you commit. Pick three. Pick ten. Start with five bucks.</p>
+  </div>
+
+  <div class="filters reveal">
+    <span class="filter-label">Filter</span>
+    <button class="chip active" data-filter="all">All</button>
+    <button class="chip" data-filter="men">Men</button>
+    <button class="chip" data-filter="women">Women</button>
+    <button class="chip" data-filter="unisex">Unisex</button>
+    <button class="chip" data-filter="iconic">Iconic</button>
+    <button class="chip" data-filter="niche">Niche</button>
+  </div>
+
+  <div class="grid" id="grid"></div>
+</section>
+
+<!-- STORY -->
+<section class="story" id="about">
+  <div class="story-grid">
+    <div class="story-visual reveal">
+      <div class="story-visual-caption">
+        "The boutique is dim. The scents are loud."
+        <span>— Jameel, Founder</span>
+      </div>
+    </div>
+    <div class="story-text reveal">
+      <span class="eyebrow">The House of Jameel</span>
+      <h2>Built on one <em>simple</em> idea.</h2>
+      <p>Everybody deserves to smell like a million bucks — without spending it. I started this because I was tired of watching people blow $300 on a bottle they weren't sure about, or worse, never try the great ones at all.</p>
+      <p>I hunt down the heavy hitters — Creed Aventus, Baccarat Rouge 540, Tom Ford, Dior, Kilian — and decant them into sample sizes that start at five bucks. Authentic. Curated. Zero pretension. Just the best scents in the world, finally in reach.</p>
+      <div class="story-sig">— Jameel
+        <small>Founder &amp; Chief Nose</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COLLECTIONS (sticky / horizontal feel) -->
+<section class="collections" id="collections">
+  <div class="col-stack">
+    <div class="col-hero">
+      <div class="col-title">COLLECTIONS</div>
+      <div class="col-panels" id="colPanels">
+        <div class="col-panel">
+          <div>
+            <div class="col-panel-num">N° 01</div>
+            <h3>The Girly<br>Girl Edit</h3>
+          </div>
+          <div class="col-panel-visual"><div class="gift-icon">♡</div></div>
+          <div>
+            <p>Soft florals, warm gourmands, and pink-hour romance. Curated for her — or for the one who's been on your mind.</p>
+            <a href="#" class="col-panel-cta" data-hov>Explore — <span class="btn-arrow"></span></a>
+          </div>
+        </div>
+        <div class="col-panel">
+          <div>
+            <div class="col-panel-num">N° 02</div>
+            <h3>The Lamp<br>Sets</h3>
+          </div>
+          <div class="col-panel-visual"><div class="gift-icon">✦</div></div>
+          <div>
+            <p>Fragrance lamps paired with our signature oils. The centerpiece gift — dramatic, warm, unforgettable.</p>
+            <a href="#" class="col-panel-cta" data-hov>Explore — <span class="btn-arrow"></span></a>
+          </div>
+        </div>
+        <div class="col-panel">
+          <div>
+            <div class="col-panel-num">N° 03</div>
+            <h3>Burning<br>Oils</h3>
+          </div>
+          <div class="col-panel-visual"><div class="gift-icon">◈</div></div>
+          <div>
+            <p>Pure, concentrated, alcohol-free. A single drop fills the room. Old-world ritual, modern scent library.</p>
+            <a href="#" class="col-panel-cta" data-hov>Explore — <span class="btn-arrow"></span></a>
+          </div>
+        </div>
+        <div class="col-panel">
+          <div>
+            <div class="col-panel-num">N° 04</div>
+            <h3>Discovery<br>Set</h3>
+          </div>
+          <div class="col-panel-visual"><div class="gift-icon">✧</div></div>
+          <div>
+            <p>Five scents. Five stories. The smartest way to find the one that becomes yours. Pick your vibe — we'll ship it.</p>
+            <a href="#" class="col-panel-cta" data-hov>Explore — <span class="btn-arrow"></span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="section-head reveal">
+    <h2>Worn. Loved. <br><em>Told.</em></h2>
+    <p>Don't take our word for it. These are the people who smelled incredible last weekend.</p>
+  </div>
+  <div class="test-grid">
+    <div class="test reveal">
+      <div class="test-stars">★★★★★</div>
+      <p class="test-quote">"I finally tried Baccarat Rouge without gambling $400. Got the sample, wore it on a date, and yeah — she asked. Jameel turned me into a fragrance guy overnight."</p>
+      <div class="test-author"><div class="test-avatar">M</div><div class="test-name">Marcus T.<small>Atlanta, GA</small></div></div>
+    </div>
+    <div class="test reveal">
+      <div class="test-stars">★★★★★</div>
+      <p class="test-quote">"Three samples, $18 total, and I found my signature scent. The packaging made it feel like I was opening a gift from a real boutique. This is how fragrance should be sold."</p>
+      <div class="test-author"><div class="test-avatar">A</div><div class="test-name">Amara J.<small>Brooklyn, NY</small></div></div>
+    </div>
+    <div class="test reveal">
+      <div class="test-stars">★★★★★</div>
+      <p class="test-quote">"Authentic. Fast. Every scent is exactly what it says. I've been a fragrance nerd for ten years — this is the only sample site I trust. Jameel gets it."</p>
+      <div class="test-author"><div class="test-avatar">D</div><div class="test-name">Devon R.<small>Houston, TX</small></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURE -->
+<section class="feature">
+  <div class="feature-inner reveal">
+    <span class="eyebrow">Coming Soon · The Fragrance Quiz</span>
+    <h2>Don't know <em>what</em> you like? <br>We'll find you.</h2>
+    <p>Answer six questions. Tell us your vibe, your season, the feeling you want to leave behind in a room. Our fragrance quiz will hand you three scents made for your wrist. Dropping soon.</p>
+    <a href="#contact" class="btn" data-hov>Join The Waitlist <span class="btn-arrow"></span></a>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <div class="faq-wrap">
+    <div class="faq-head reveal">
+      <h2>Questions, <em>answered</em>.</h2>
+      <p>Everything you want to know before you add to cart.</p>
+    </div>
+    <div class="faq-item reveal">
+      <div class="faq-q"><span>Are these samples 100% authentic?</span><div class="faq-toggle"></div></div>
+      <div class="faq-a"><p>Every single one. We source directly from reputable channels and decant into clean, sealed sample vials. If a scent in our vault claims to be Creed Aventus, it's Creed Aventus — no knockoffs, no dupes, no exceptions.</p></div>
+    </div>
+    <div class="faq-item reveal">
+      <div class="faq-q"><span>How big is a "sample" — and how long does it last?</span><div class="faq-toggle"></div></div>
+      <div class="faq-a"><p>Our samples come in 2ml, 5ml, and 10ml sizes depending on the scent. A 5ml sample gives you roughly 60–80 sprays — enough for a month of real-world wear before you commit to a full bottle.</p></div>
+    </div>
+    <div class="faq-item reveal">
+      <div class="faq-q"><span>I don't know anything about fragrance. Where do I start?</span><div class="faq-toggle"></div></div>
+      <div class="faq-a"><p>Start with a Discovery Set, or shoot us a message on Contact. Tell us what you like — coffee, the ocean, leather jackets, vanilla lattes — and we'll point you at three scents that match. No gatekeeping here.</p></div>
+    </div>
+    <div class="faq-item reveal">
+      <div class="faq-q"><span>How fast do you ship?</span><div class="faq-toggle"></div></div>
+      <div class="faq-a"><p>Orders placed before 2pm EST ship the same day. Most U.S. customers receive theirs in 2–4 business days. Every order is hand-packed in our signature black and gold boxes.</p></div>
+    </div>
+    <div class="faq-item reveal">
+      <div class="faq-q"><span>Can I return something if I don't love it?</span><div class="faq-toggle"></div></div>
+      <div class="faq-a"><p>Because these are fragrance samples, we can't accept returns once opened. But that's the whole point of sampling — you risk $5, not $300. If anything arrives damaged, we'll replace it immediately.</p></div>
+    </div>
+    <div class="faq-item reveal">
+      <div class="faq-q"><span>Do you offer gift wrapping?</span><div class="faq-toggle"></div></div>
+      <div class="faq-a"><p>Every collection ships gift-ready in our black and gold presentation box. At checkout, add a handwritten card and we'll include it — no extra charge. Perfect for anniversaries, birthdays, or "just because."</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA STRIP -->
+<section class="cta-strip" id="contact">
+  <div class="reveal">
+    <span class="eyebrow">The Invitation</span>
+    <h2 style="margin-top:24px">Step into the <em>boutique</em>.</h2>
+    <p>The lights are low. The shelves are stocked. Your next signature is already waiting — you just have to try it on.</p>
+    <div class="hero-ctas" style="justify-content:center">
+      <a href="#shop" class="btn solid" data-hov>Shop The Vault <span class="btn-arrow"></span></a>
+      <a href="mailto:hello@jameelsexoticfragrances.com" class="btn" data-hov>Contact Jameel</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-grid">
+    <div class="foot-brand">
+      <h3>JAMEEL'S <em>✦</em> EXOTIC</h3>
+      <p>Look good. Smell good. Feel good. Authentic designer and luxury fragrance samples, starting at $5 — for every nose, not just the deep-pocketed ones.</p>
+    </div>
+    <div class="foot-col">
+      <h4>Shop</h4>
+      <ul>
+        <li><a data-hov href="#shop">Men</a></li>
+        <li><a data-hov href="#shop">Women</a></li>
+        <li><a data-hov href="#shop">Unisex</a></li>
+        <li><a data-hov href="#collections">Collections</a></li>
+        <li><a data-hov href="#collections">Burning Oils</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h4>House</h4>
+      <ul>
+        <li><a data-hov href="#about">About Jameel</a></li>
+        <li><a data-hov href="#contact">Contact</a></li>
+        <li><a data-hov href="#">Shipping</a></li>
+        <li><a data-hov href="#">Returns</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h4>Follow</h4>
+      <ul>
+        <li><a data-hov href="#">Instagram</a></li>
+        <li><a data-hov href="#">TikTok</a></li>
+        <li><a data-hov href="#">YouTube</a></li>
+        <li><a data-hov href="#">Email List</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <p>© 2025 Jameel's Exotic Fragrances</p>
+    <p>Look Good · Smell Good · Feel Good</p>
+    <p>Crafted with ♡ &amp; Gold</p>
+  </div>
+</footer>
+
+<script>
+// ---- Cursor ----
+const cursor=document.querySelector('.cursor'),ring=document.querySelector('.cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+window.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px'});
+function animate(){rx+=(mx-rx)*.15;ry+=(my-ry)*.15;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animate)}animate();
+document.querySelectorAll('a,button,[data-hov],.faq-item,.chip,.card').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cursor.classList.add('hov');ring.classList.add('hov')});
+  el.addEventListener('mouseleave',()=>{cursor.classList.remove('hov');ring.classList.remove('hov')});
+});
+
+// ---- Nav ----
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>60)});
+
+// ---- Products ----
+const products=[
+  {brand:'Creed',name:'Aventus',cat:'men',tag:'iconic',price:12,notes:'Pineapple, birch, musk — the modern classic',c1:'#c9a14a',c2:'#6a5020',b1:'#1a1410',b2:'#0a0805',b3:'#2a1f10',lb:'#c9a14a'},
+  {brand:'Maison Francis Kurkdjian',name:'Baccarat Rouge 540',cat:'unisex',tag:'iconic',price:15,notes:'Saffron, amberwood, cedar — the signature',c1:'#e7c173',c2:'#8a6a22',b1:'#8a1a0e',b2:'#4a0a05',b3:'#6a140a',lb:'#f4ede1'},
+  {brand:'Tom Ford',name:'Ombré Leather',cat:'unisex',tag:'iconic',price:10,notes:'Leather, cardamom, jasmine — dark &amp; confident',c1:'#2a2015',c2:'#0a0805',b1:'#0a0805',b2:'#000',b3:'#1a1410',lb:'#c9a14a'},
+  {brand:'Dior',name:'Sauvage Elixir',cat:'men',tag:'iconic',price:9,notes:'Grapefruit, lavender, amber — modern masculinity',c1:'#1a2030',c2:'#0a0f18',b1:'#0a0f18',b2:'#060810',b3:'#1a2030',lb:'#c9a14a'},
+  {brand:'Chanel',name:'Coco Mademoiselle',cat:'women',tag:'iconic',price:8,notes:'Rose, patchouli, citrus — timeless elegance',c1:'#c9a14a',c2:'#6a5020',b1:'#f4ede1',b2:'#d8c5a0',b3:'#c9a14a',lb:'#1a1410'},
+  {brand:'By Kilian',name:'Angels\' Share',cat:'unisex',tag:'niche',price:14,notes:'Cognac, cinnamon, tonka — intoxicating',c1:'#c9a14a',c2:'#6a5020',b1:'#1a0a05',b2:'#0a0502',b3:'#2a1205',lb:'#e7c173'},
+  {brand:'Parfums de Marly',name:'Layton',cat:'men',tag:'niche',price:11,notes:'Apple, bergamot, vanilla — royal &amp; rich',c1:'#1a2040',c2:'#0a0f20',b1:'#0f1428',b2:'#060810',b3:'#1a2040',lb:'#c9a14a'},
+  {brand:'Yves Saint Laurent',name:'Libre Intense',cat:'women',tag:'iconic',price:8,notes:'Lavender, orange blossom, vanilla — free',c1:'#c9a14a',c2:'#6a5020',b1:'#0a0805',b2:'#000',b3:'#1a1410',lb:'#e7c173'},
+  {brand:'Louis Vuitton',name:'Ombre Nomade',cat:'unisex',tag:'niche',price:18,notes:'Oud, incense, raspberry — desert nights',c1:'#2a1a10',c2:'#1a0a05',b1:'#2a1a10',b2:'#1a0a05',b3:'#3a2415',lb:'#e7c173'},
+  {brand:'Versace',name:'Eros',cat:'men',tag:'iconic',price:6,notes:'Mint, vanilla, tonka — bold Greek mythology',c1:'#1a3a20',c2:'#0a1a10',b1:'#0a2a15',b2:'#051810',b3:'#0f3020',lb:'#c9a14a'},
+  {brand:'Paco Rabanne',name:'Million Elixir',cat:'men',tag:'iconic',price:7,notes:'Mandarin, leather, vetiver — gilded',c1:'#c9a14a',c2:'#8a6a22',b1:'#1a1410',b2:'#0a0805',b3:'#2a2015',lb:'#e7c173'},
+  {brand:'Hermès',name:'Terre d\'Hermès',cat:'men',tag:'iconic',price:8,notes:'Orange, flint, cedar — earth &amp; sky',c1:'#c9a14a',c2:'#6a5020',b1:'#2a1810',b2:'#1a0e08',b3:'#3a2415',lb:'#e7c173'},
+  {brand:'Jean Paul Gaultier',name:'Scandal',cat:'women',tag:'iconic',price:7,notes:'Honey, gardenia, patchouli — playful seduction',c1:'#e7c173',c2:'#8a6a22',b1:'#f4e1a0',b2:'#d8b555',b3:'#e7c173',lb:'#1a1410'},
+  {brand:'Initio',name:'Oud for Greatness',cat:'unisex',tag:'niche',price:22,notes:'Oud, saffron, lavender — mystical power',c1:'#2a1005',c2:'#1a0502',b1:'#2a1005',b2:'#1a0502',b3:'#3a1808',lb:'#c9a14a'},
+  {brand:'Gucci',name:'Bloom',cat:'women',tag:'iconic',price:7,notes:'Jasmine, tuberose, rangoon creeper — botanical',c1:'#e8d0b0',c2:'#b09070',b1:'#f4e8d0',b2:'#e0c8a0',b3:'#e8d0b0',lb:'#6a4a20'},
+  {brand:'Xerjoff',name:'Naxos',cat:'unisex',tag:'niche',price:16,notes:'Lavender, tobacco, honey — Sicilian luxury',c1:'#c9a14a',c2:'#6a5020',b1:'#1a1005',b2:'#0a0502',b3:'#2a1808',lb:'#e7c173'}
+];
+
+const grid=document.getElementById('grid');
+function renderCards(filter='all'){
+  const filtered=filter==='all'?products:products.filter(p=>p.cat===filter||p.tag===filter);
+  grid.innerHTML=filtered.map((p,i)=>`
+    <article class="card" data-cat="${p.cat}" data-tag="${p.tag}">
+      ${p.tag==='iconic'?'<div class="card-tag">Iconic</div>':p.tag==='niche'?'<div class="card-tag">Niche</div>':''}
+      <div class="card-visual">
+        <div class="bottle" style="--b1:${p.b1};--b2:${p.b2};--b3:${p.b3};--c1:${p.c1};--c2:${p.c2};--lb:${p.lb}">
+          <div class="bottle-cap"></div>
+          <div class="bottle-neck"></div>
+          <div class="bottle-body">
+            <div class="bottle-label">${p.brand.toUpperCase()}<br><span style="font-size:13px;letter-spacing:.05em">${p.name}</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="card-brand">${p.brand}</div>
+      <h3 class="card-name">${p.name}</h3>
+      <p class="card-notes">${p.notes}</p>
+      <div class="card-foot">
+        <div class="card-price">$${p.price}<small>/ 2ML</small></div>
+        <button class="card-add" data-hov>Add +</button>
+      </div>
+    </article>
+  `).join('');
+  // re-bind hover cursor
+  grid.querySelectorAll('[data-hov], .card').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{cursor.classList.add('hov');ring.classList.add('hov')});
+    el.addEventListener('mouseleave',()=>{cursor.classList.remove('hov');ring.classList.remove('hov')});
+  });
+  // entrance
+  gsap.from('.card',{opacity:0,y:40,duration:.8,stagger:.06,ease:'power3.out'});
+}
+renderCards();
+
+document.querySelectorAll('.chip').forEach(c=>{
+  c.addEventListener('click',()=>{
+    document.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));
+    c.classList.add('active');
+    renderCards(c.dataset.filter);
+  });
+});
+
+// ---- Reveal ----
+const io=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}});
+},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+// ---- Counters ----
+const counters=document.querySelectorAll('[data-count]');
+const cio=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const el=e.target;const target=+el.dataset.count;
+      let v=0;const step=target/60;
+      const tick=()=>{v+=step;if(v<target){el.textContent=Math.floor(v).toLocaleString();requestAnimationFrame(tick)}else{el.textContent=target.toLocaleString()+(target>=1000?'+':'')}};
+      tick();cio.unobserve(el);
+    }
+  });
+},{threshold:.5});
+counters.forEach(c=>cio.observe(c));
+
+// ---- FAQ ----
+document.querySelectorAll('.faq-item').forEach(item=>{
+  item.addEventListener('click',()=>{
+    const open=item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
+    if(!open)item.classList.add('open');
+  });
+});
+
+// ---- GSAP hero ----
+gsap.registerPlugin(ScrollTrigger);
+gsap.from('.hero-title .line',{y:120,opacity:0,duration:1.3,stagger:.15,ease:'power4.out',delay:.3});
+gsap.from('.hero-ctas',{y:30,opacity:0,duration:1,delay:1.1,ease:'power3.out'});
+gsap.from('.hero-side p, .hero-subline',{y:20,opacity:0,duration:1,delay:1.3,stagger:.15,ease:'power3.out'});
+gsap.from('.hero-bottle',{scale:.85,opacity:0,duration:1.8,ease:'power3.out',delay:.1});
+gsap.from('nav.top',{y:-60,opacity:0,duration:1,ease:'power3.out'});
+
+// Hero parallax
+gsap.to('.hero-bottle',{yPercent:20,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
+gsap.to('.hero-glow',{yPercent:-30,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
+gsap.to('.hero-title',{y:-80,opacity:.2,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
+
+// Collections horizontal scroll effect
+const panels=document.getElementById('colPanels');
+if(panels){
+  const totalScroll=()=>panels.scrollWidth-window.innerWidth+100;
+  ScrollTrigger.create({
+    trigger:'.collections',
+    start:'top top',
+    end:()=>'+='+totalScroll(),
+    pin:'.col-stack',
+    scrub:1,
+    invalidateOnRefresh:true,
+    onUpdate:self=>{
+      gsap.set(panels,{x:-self.progress*totalScroll()});
+    }
+  });
+  gsap.to('.col-title',{x:()=>-totalScroll()*.3,ease:'none',scrollTrigger:{trigger:'.collections',start:'top top',end:()=>'+='+totalScroll(),scrub:1}});
+}
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    const href=a.getAttribute('href');if(href.length<2)return;
+    const target=document.querySelector(href);
+    if(target){e.preventDefault();gsap.to(window,{scrollTo:{y:target,offsetY:0},duration:1.4,ease:'power3.inOut'})}
+  });
+});
+</script>
+</body>
+</html>
