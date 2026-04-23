@@ -3,819 +3,256 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Binda's Landscaping — Ground, Water, Stone</title>
+<title>Binda's Landscaping — Atlanta</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <style>
 :root{
-  --ink:#0f1410;
-  --char:#1a1f1a;
-  --earth:#2a3026;
-  --moss:#3d4a33;
-  --sage:#7a8968;
-  --lichen:#a8b098;
-  --stone:#d4d0c4;
-  --paper:#ebe7dc;
-  --cream:#f2eee2;
-  --acid:#c9d86a;
-  --rust:#b5562a;
-  --sun:#e8a547;
+  --ink:#1a1d1a;
+  --char:#3a3e39;
+  --moss:#4a5943;
+  --sage:#8a9478;
+  --stone:#d8d4c8;
+  --paper:#f4f1e8;
+  --cream:#faf8f2;
+  --accent:#6b7a5a;
 }
 *{margin:0;padding:0;box-sizing:border-box}
-html,body{background:var(--cream);color:var(--ink);font-family:'Inter',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased;font-weight:400}
-body.locked{overflow:hidden}
-::selection{background:var(--acid);color:var(--ink)}
+html,body{background:var(--cream);color:var(--ink);font-family:'Inter',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased;font-weight:400;font-size:16px;line-height:1.6}
+::selection{background:var(--moss);color:var(--cream)}
 
-.mono{font-family:'JetBrains Mono',monospace}
 .serif{font-family:'Instrument Serif',serif;font-weight:400}
 
-/* Noise */
-.noise{position:fixed;inset:0;pointer-events:none;z-index:100;opacity:.08;mix-blend-mode:multiply}
-
-/* Ticker top */
-.ticker-top{position:fixed;top:0;left:0;right:0;z-index:55;background:var(--ink);color:var(--paper);padding:10px 0;overflow:hidden;border-bottom:1px solid var(--earth)}
-.ticker-track{display:flex;gap:60px;white-space:nowrap;animation:tickscroll 60s linear infinite;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.15em;text-transform:uppercase}
-.ticker-track span{display:flex;align-items:center;gap:60px}
-.ticker-track span::after{content:'◆';color:var(--acid)}
-@keyframes tickscroll{to{transform:translateX(-50%)}}
-
 /* Nav */
-nav.top{position:fixed;top:34px;left:0;right:0;z-index:50;padding:20px 32px;display:flex;justify-content:space-between;align-items:center}
-nav.top .logo-wrap{display:flex;align-items:center;gap:12px;background:var(--ink);color:var(--cream);padding:10px 18px;border-radius:2px}
-nav.top .logo-mark{width:20px;height:20px;position:relative}
-nav.top .logo-mark::before{content:'';position:absolute;inset:0;background:var(--acid);clip-path:polygon(50% 0%,100% 50%,50% 100%,0% 50%)}
-nav.top .logo-mark::after{content:'';position:absolute;inset:5px;background:var(--ink);clip-path:polygon(50% 0%,100% 50%,50% 100%,0% 50%)}
-nav.top .logo{font-family:'Instrument Serif',serif;font-size:20px;letter-spacing:-.01em;font-style:italic}
-nav.top .logo b{font-style:normal;font-weight:400}
-nav.top ul{display:flex;gap:4px;list-style:none;background:var(--paper);padding:6px;border-radius:60px;border:1px solid var(--stone)}
-nav.top a{color:var(--ink);text-decoration:none;font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:500;padding:10px 18px;border-radius:40px;transition:all .3s}
-nav.top a:hover{background:var(--ink);color:var(--cream)}
-nav.top .phone{background:var(--acid);color:var(--ink);padding:14px 22px;border-radius:60px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.08em;text-decoration:none;border:1px solid var(--ink);display:flex;align-items:center;gap:10px;font-weight:500}
-nav.top .phone::before{content:'';width:8px;height:8px;background:var(--ink);border-radius:50%;animation:pulse 2s infinite}
-@keyframes pulse{50%{opacity:.3}}
+nav.top{position:fixed;top:0;left:0;right:0;z-index:50;padding:24px 40px;display:flex;justify-content:space-between;align-items:center;background:rgba(250,248,242,.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(216,212,200,.5)}
+nav.top .logo{font-family:'Instrument Serif',serif;font-size:22px;letter-spacing:-.01em;color:var(--ink)}
+nav.top .logo i{color:var(--moss)}
+nav.top ul{display:flex;gap:36px;list-style:none}
+nav.top a{color:var(--char);text-decoration:none;font-size:14px;font-weight:400;transition:color .3s}
+nav.top a:hover{color:var(--moss)}
+nav.top .phone{color:var(--ink);font-size:14px;text-decoration:none;font-weight:500;border-bottom:1px solid var(--ink);padding-bottom:2px}
+nav.top .phone:hover{color:var(--moss);border-color:var(--moss)}
 
-/* Hero */
-.hero{min-height:100vh;position:relative;padding:180px 32px 32px;display:grid;grid-template-columns:1.4fr 1fr;gap:32px}
-.hero-main{display:flex;flex-direction:column;justify-content:space-between;position:relative}
-.hero-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:60px}
-.hero-tags .tag{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;padding:8px 14px;border:1px solid var(--earth);border-radius:40px;background:transparent}
-.hero-tags .tag.filled{background:var(--ink);color:var(--cream);border-color:var(--ink)}
-.hero-tags .tag.acid{background:var(--acid);border-color:var(--ink)}
+/* Hero — LAYER 1 */
+.hero{min-height:100vh;padding:140px 40px 80px;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;max-width:1400px;margin:0 auto}
+.hero-text .eyebrow{font-size:13px;letter-spacing:.15em;text-transform:uppercase;color:var(--moss);margin-bottom:28px;font-weight:500}
+.hero h1{font-family:'Instrument Serif',serif;font-size:clamp(48px,6.5vw,88px);line-height:1.02;letter-spacing:-.02em;font-weight:400;color:var(--ink);margin-bottom:32px}
+.hero h1 i{color:var(--moss)}
+.hero-text .lead{font-size:17px;line-height:1.65;color:var(--char);max-width:480px;margin-bottom:40px}
+.hero-cta{display:flex;gap:24px;align-items:center}
+.hero-cta .primary{background:var(--ink);color:var(--cream);padding:16px 32px;border-radius:2px;text-decoration:none;font-size:14px;font-weight:500;transition:background .3s}
+.hero-cta .primary:hover{background:var(--moss)}
+.hero-cta .ghost{color:var(--ink);text-decoration:none;font-size:14px;font-weight:500;border-bottom:1px solid var(--ink);padding-bottom:2px}
+.hero-cta .ghost:hover{color:var(--moss);border-color:var(--moss)}
 
-.hero h1{font-family:'Instrument Serif',serif;font-size:clamp(60px,10vw,152px);line-height:.92;letter-spacing:-.03em;font-weight:400;color:var(--ink)}
-.hero h1 .row{display:block;overflow:hidden}
-.hero h1 .row > span{display:inline-block;will-change:transform}
-.hero h1 i{font-style:italic;color:var(--moss)}
-.hero h1 .circle{display:inline-flex;align-items:center;justify-content:center;width:.95em;height:.95em;border:3px solid var(--ink);border-radius:50%;font-style:normal;margin:0 .08em;vertical-align:middle;font-size:.6em}
-.hero h1 .strike{position:relative;display:inline-block}
-.hero h1 .strike::after{content:'';position:absolute;left:-2%;right:-2%;top:55%;height:6px;background:var(--rust);transform:scaleX(0);transform-origin:left;animation:strikein 1.2s 1.8s forwards cubic-bezier(.7,0,.3,1)}
-@keyframes strikein{to{transform:scaleX(1)}}
+.hero-img{aspect-ratio:4/5;overflow:hidden;border-radius:2px;position:relative}
+.hero-img img{width:100%;height:100%;object-fit:cover}
 
-.hero-bottom{display:grid;grid-template-columns:1fr auto;gap:40px;align-items:end;padding-top:40px;border-top:1px solid var(--stone);margin-top:40px}
-.hero-bottom .desc{font-size:15px;line-height:1.55;max-width:380px;color:var(--char)}
-.hero-bottom .desc b{font-weight:500}
-.hero-cta{display:flex;gap:10px}
-.hero-cta a{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;padding:16px 24px;border-radius:40px;text-decoration:none;display:inline-flex;align-items:center;gap:10px;border:1px solid var(--ink);transition:all .4s}
-.hero-cta .primary{background:var(--ink);color:var(--cream)}
-.hero-cta .primary:hover{background:var(--moss);border-color:var(--moss)}
-.hero-cta .ghost:hover{background:var(--ink);color:var(--cream)}
+/* Section base */
+section{padding:120px 40px;max-width:1400px;margin:0 auto}
+.sec-head{margin-bottom:80px;max-width:720px}
+.sec-head .eyebrow{font-size:13px;letter-spacing:.15em;text-transform:uppercase;color:var(--moss);margin-bottom:20px;font-weight:500}
+.sec-head h2{font-family:'Instrument Serif',serif;font-size:clamp(40px,5vw,64px);line-height:1.05;letter-spacing:-.02em;font-weight:400;color:var(--ink);margin-bottom:20px}
+.sec-head h2 i{color:var(--moss)}
+.sec-head p{font-size:17px;line-height:1.65;color:var(--char);max-width:560px}
 
-/* Hero side */
-.hero-side{display:grid;grid-template-rows:2fr 1fr;gap:16px}
-.hero-photo{position:relative;border-radius:4px;overflow:hidden;background:var(--stone)}
-.hero-photo img{width:100%;height:100%;object-fit:cover}
-.hero-photo .lbl{position:absolute;top:16px;left:16px;background:var(--cream);padding:8px 12px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.15em;text-transform:uppercase;border-radius:2px}
-.hero-photo .coord{position:absolute;bottom:16px;right:16px;background:rgba(15,20,16,.85);color:var(--cream);padding:10px 14px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;border-radius:2px;backdrop-filter:blur(8px)}
-
-.hero-card{background:var(--ink);color:var(--cream);padding:24px;border-radius:4px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
-.hero-card::before{content:'';position:absolute;top:-30px;right:-30px;width:140px;height:140px;background:var(--acid);border-radius:50%;opacity:.9}
-.hero-card .num{font-family:'Instrument Serif',serif;font-size:80px;line-height:.9;font-style:italic;position:relative;z-index:1;color:var(--cream)}
-.hero-card .num sup{font-size:24px;vertical-align:super;color:var(--acid)}
-.hero-card .lbl{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.15em;text-transform:uppercase;opacity:.7;position:relative;z-index:1}
-.hero-card .desc{font-family:'Instrument Serif',serif;font-size:18px;font-style:italic;line-height:1.3;margin-top:12px;position:relative;z-index:1}
-
-/* Section label */
-.sec-label{display:flex;align-items:center;gap:14px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--moss);margin-bottom:24px}
-.sec-label::before{content:'';width:10px;height:10px;background:var(--acid);border:1px solid var(--ink);transform:rotate(45deg)}
-
-/* Manifesto strip */
-.manifesto{padding:80px 32px;border-top:1px solid var(--stone);border-bottom:1px solid var(--stone);background:var(--paper)}
-.manifesto-inner{display:grid;grid-template-columns:1fr 2fr;gap:60px;align-items:start}
-.manifesto h2{font-family:'Instrument Serif',serif;font-size:clamp(36px,5vw,72px);line-height:.95;letter-spacing:-.02em;font-weight:400}
-.manifesto h2 i{color:var(--moss)}
-.manifesto .pts{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:24px}
-.manifesto .pt{border-top:1px solid var(--ink);padding-top:16px}
-.manifesto .pt .n{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--moss);margin-bottom:10px}
-.manifesto .pt p{font-size:14px;line-height:1.5;color:var(--char)}
-
-/* Stats */
-.stats{padding:100px 32px;background:var(--ink);color:var(--cream);position:relative;overflow:hidden}
-.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid rgba(235,231,220,.2)}
-.stat-box{padding:40px 24px;border-right:1px solid rgba(235,231,220,.15);position:relative;min-height:200px;display:flex;flex-direction:column;justify-content:space-between}
-.stat-box:last-child{border-right:none}
-.stat-box .k{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--lichen)}
-.stat-box .n{font-family:'Instrument Serif',serif;font-size:clamp(56px,7vw,104px);line-height:.85;letter-spacing:-.03em;font-style:italic}
-.stat-box .n em{color:var(--acid);font-style:normal}
-.stat-box .sub{font-size:13px;line-height:1.4;opacity:.65;max-width:200px}
-
-/* Services */
-.services{padding:120px 32px}
-.serv-head{display:grid;grid-template-columns:1fr 1.5fr;gap:60px;align-items:end;margin-bottom:60px}
-.serv-head h2{font-family:'Instrument Serif',serif;font-size:clamp(48px,7.5vw,120px);line-height:.9;letter-spacing:-.025em;font-weight:400}
-.serv-head h2 i{color:var(--moss)}
-
-.serv-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-.serv-card{background:var(--paper);border:1px solid var(--stone);border-radius:6px;padding:24px;display:flex;flex-direction:column;gap:20px;transition:all .5s;position:relative;overflow:hidden;min-height:420px}
-.serv-card:hover{background:var(--ink);color:var(--cream);border-color:var(--ink);transform:translateY(-4px)}
-.serv-card .ph{aspect-ratio:4/3;border-radius:3px;overflow:hidden;background:var(--stone)}
-.serv-card .ph img{width:100%;height:100%;object-fit:cover;transition:transform .8s}
-.serv-card:hover .ph img{transform:scale(1.08)}
-.serv-card .n{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.15em;text-transform:uppercase;opacity:.6}
-.serv-card h3{font-family:'Instrument Serif',serif;font-size:28px;line-height:1;letter-spacing:-.02em;font-weight:400}
-.serv-card h3 i{color:var(--moss);transition:color .5s}
-.serv-card:hover h3 i{color:var(--acid)}
-.serv-card p{font-size:13px;line-height:1.55;opacity:.75;flex-grow:1}
-.serv-card .go{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;display:flex;justify-content:space-between;align-items:center;padding-top:16px;border-top:1px solid var(--stone);transition:border-color .5s}
-.serv-card:hover .go{border-top-color:rgba(235,231,220,.2)}
-
-/* Process */
-.process{padding:120px 32px;background:var(--paper);border-top:1px solid var(--stone);border-bottom:1px solid var(--stone)}
-.process-head{max-width:900px;margin-bottom:80px}
-.process-head h2{font-family:'Instrument Serif',serif;font-size:clamp(44px,6vw,96px);line-height:.92;letter-spacing:-.025em;font-weight:400}
-.process-head h2 i{color:var(--moss)}
-.process-list{display:grid;gap:0;border-top:1px solid var(--ink)}
-.proc-item{display:grid;grid-template-columns:100px 1fr 2fr 1fr;gap:40px;padding:40px 0;border-bottom:1px solid var(--stone);align-items:center;transition:all .4s;position:relative}
-.proc-item:hover{background:var(--ink);color:var(--cream);padding-left:20px;padding-right:20px}
-.proc-item .n{font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.12em}
-.proc-item h4{font-family:'Instrument Serif',serif;font-size:32px;font-weight:400;letter-spacing:-.02em;line-height:1}
-.proc-item h4 i{color:var(--moss);transition:color .4s}
-.proc-item:hover h4 i{color:var(--acid)}
-.proc-item p{font-size:14px;line-height:1.55;opacity:.8;max-width:500px}
-.proc-item .t{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;text-align:right;opacity:.6}
+/* Services grid */
+.services-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:48px}
+.service{display:flex;flex-direction:column;gap:20px}
+.service-img{aspect-ratio:4/3;overflow:hidden;border-radius:2px;background:var(--stone)}
+.service-img img{width:100%;height:100%;object-fit:cover;transition:transform .8s ease}
+.service:hover .service-img img{transform:scale(1.04)}
+.service h3{font-family:'Instrument Serif',serif;font-size:28px;font-weight:400;letter-spacing:-.01em;color:var(--ink)}
+.service p{font-size:15px;line-height:1.65;color:var(--char)}
 
 /* Editorial split */
-.editorial{padding:140px 32px;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
-.editorial-img{position:relative;aspect-ratio:4/5;border-radius:6px;overflow:hidden}
+.editorial{padding:120px 40px;background:var(--paper);margin:0;max-width:none}
+.editorial-inner{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.editorial-img{aspect-ratio:4/5;overflow:hidden;border-radius:2px}
 .editorial-img img{width:100%;height:100%;object-fit:cover}
-.editorial-img .stamp{position:absolute;bottom:24px;left:24px;right:24px;display:flex;justify-content:space-between;align-items:center;background:rgba(15,20,16,.88);backdrop-filter:blur(10px);color:var(--cream);padding:16px 20px;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.15em;text-transform:uppercase}
-.editorial-img .stamp .dot{width:8px;height:8px;background:var(--acid);border-radius:50%}
-
-.editorial-text .lbl{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--moss);margin-bottom:24px;display:flex;align-items:center;gap:10px}
-.editorial-text .lbl::before{content:'';width:30px;height:1px;background:var(--ink)}
-.editorial-text h2{font-family:'Instrument Serif',serif;font-size:clamp(40px,5vw,80px);line-height:.98;letter-spacing:-.025em;font-weight:400;margin-bottom:32px}
+.editorial-text .eyebrow{font-size:13px;letter-spacing:.15em;text-transform:uppercase;color:var(--moss);margin-bottom:20px;font-weight:500}
+.editorial-text h2{font-family:'Instrument Serif',serif;font-size:clamp(36px,4.5vw,56px);line-height:1.08;letter-spacing:-.02em;font-weight:400;color:var(--ink);margin-bottom:28px}
 .editorial-text h2 i{color:var(--moss)}
-.editorial-text p{font-size:16px;line-height:1.65;margin-bottom:18px;color:var(--char);max-width:500px}
-.editorial-text .sig{margin-top:40px;padding-top:30px;border-top:1px solid var(--stone);display:flex;align-items:center;gap:16px}
-.sig-sym{width:48px;height:48px;background:var(--acid);border:1px solid var(--ink);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Instrument Serif',serif;font-style:italic;font-size:22px}
-.sig .name{font-family:'Instrument Serif',serif;font-style:italic;font-size:20px}
-.sig .role{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--moss);margin-top:4px}
-
-/* Big quote */
-.bigq{padding:140px 32px;background:var(--ink);color:var(--cream);text-align:center;position:relative;overflow:hidden}
-.bigq::before{content:'"';position:absolute;top:40px;left:50%;transform:translateX(-50%);font-family:'Instrument Serif',serif;font-style:italic;font-size:300px;line-height:.5;color:var(--acid);opacity:.3}
-.bigq q{font-family:'Instrument Serif',serif;font-size:clamp(36px,5.5vw,88px);line-height:1.05;letter-spacing:-.02em;font-weight:400;font-style:italic;position:relative;z-index:1;quotes:none;display:block;max-width:18ch;margin:0 auto}
-.bigq q::before,.bigq q::after{content:''}
-.bigq .attr{margin-top:40px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.15em;text-transform:uppercase;opacity:.7;position:relative;z-index:1}
+.editorial-text p{font-size:16px;line-height:1.7;color:var(--char);margin-bottom:20px;max-width:480px}
+.editorial-text .sig{margin-top:36px;padding-top:28px;border-top:1px solid var(--stone);font-size:15px}
+.editorial-text .sig b{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;font-size:19px;display:block;color:var(--ink)}
+.editorial-text .sig span{color:var(--moss);font-size:13px;letter-spacing:.08em;text-transform:uppercase}
 
 /* Gallery */
-.gallery{padding:120px 32px}
-.gal-head{display:flex;justify-content:space-between;align-items:end;margin-bottom:48px;gap:40px;flex-wrap:wrap}
-.gal-head h2{font-family:'Instrument Serif',serif;font-size:clamp(40px,5.5vw,80px);line-height:.95;letter-spacing:-.025em;font-weight:400;max-width:14ch}
-.gal-head h2 i{color:var(--moss)}
-.gal-head .meta{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--moss);text-align:right}
-.gal-grid{display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:140px;gap:12px}
-.gal-item{position:relative;border-radius:4px;overflow:hidden;background:var(--stone)}
-.gal-item img{width:100%;height:100%;object-fit:cover;transition:transform .8s}
-.gal-item:hover img{transform:scale(1.06)}
-.gal-item .cap{position:absolute;bottom:12px;left:12px;background:var(--cream);padding:6px 10px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;border-radius:2px}
-.gal-a{grid-column:span 3;grid-row:span 2}
-.gal-b{grid-column:span 2;grid-row:span 2}
-.gal-c{grid-column:span 1;grid-row:span 2}
-.gal-d{grid-column:span 2}
-.gal-e{grid-column:span 2}
-.gal-f{grid-column:span 2}
-
-/* Testimonials */
-.testis{padding:120px 32px;background:var(--paper);border-top:1px solid var(--stone);border-bottom:1px solid var(--stone)}
-.testi-head{display:flex;justify-content:space-between;align-items:end;margin-bottom:60px;gap:40px;flex-wrap:wrap}
-.testi-head h2{font-family:'Instrument Serif',serif;font-size:clamp(40px,5.5vw,80px);line-height:.95;letter-spacing:-.025em;font-weight:400}
-.testi-head h2 i{color:var(--moss)}
-.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.testi{background:var(--cream);border:1px solid var(--stone);border-radius:6px;padding:32px;display:flex;flex-direction:column;gap:20px;min-height:340px;transition:all .4s}
-.testi:hover{background:var(--ink);color:var(--cream);border-color:var(--ink)}
-.testi:hover .who .role{color:var(--lichen)}
-.testi .top{display:flex;justify-content:space-between;align-items:center}
-.testi .stars{color:var(--rust);font-size:13px;letter-spacing:2px}
-.testi:hover .stars{color:var(--acid)}
-.testi .tag{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:5px 10px;background:var(--paper);border-radius:20px;color:var(--moss)}
-.testi:hover .tag{background:var(--earth);color:var(--lichen)}
-.testi blockquote{font-family:'Instrument Serif',serif;font-size:22px;line-height:1.3;letter-spacing:-.01em;font-style:italic;flex-grow:1}
-.testi .who{display:flex;align-items:center;gap:12px;padding-top:16px;border-top:1px solid var(--stone);transition:border-color .4s}
-.testi:hover .who{border-top-color:rgba(235,231,220,.15)}
-.testi .av{width:40px;height:40px;border-radius:50%;background:var(--stone);overflow:hidden;flex-shrink:0}
-.testi .av img{width:100%;height:100%;object-fit:cover}
-.testi .name{font-weight:500;font-size:14px}
-.testi .role{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--moss);margin-top:3px;transition:color .4s}
-
-/* About */
-.about{padding:120px 32px;display:grid;grid-template-columns:1.2fr 1fr;gap:80px;align-items:start}
-.about-left h2{font-family:'Instrument Serif',serif;font-size:clamp(44px,6vw,96px);line-height:.92;letter-spacing:-.025em;font-weight:400;margin-bottom:40px}
-.about-left h2 i{color:var(--moss)}
-.about-left p{font-size:16px;line-height:1.65;color:var(--char);max-width:540px;margin-bottom:20px}
-.about-vals{display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-top:48px;border:1px solid var(--ink)}
-.val{padding:24px;background:var(--paper);border-right:1px solid var(--stone);border-bottom:1px solid var(--stone)}
-.val:nth-child(2n){border-right:none}
-.val:nth-last-child(-n+2){border-bottom:none}
-.val .v{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--moss);margin-bottom:12px;display:flex;align-items:center;gap:8px}
-.val .v::before{content:'';width:6px;height:6px;background:var(--acid);border:1px solid var(--ink)}
-.val p{font-size:14px;line-height:1.55}
-.about-right{position:sticky;top:120px;display:flex;flex-direction:column;gap:16px}
-.about-right img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:4px}
-.about-right .card{background:var(--ink);color:var(--cream);padding:20px;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;display:flex;justify-content:space-between;align-items:center}
-.about-right .card b{font-family:'Instrument Serif',serif;font-size:24px;font-style:italic;color:var(--acid);letter-spacing:0;font-weight:400;text-transform:none}
-
-/* FAQ */
-.faq{padding:120px 32px;background:var(--ink);color:var(--cream)}
-.faq-head{display:grid;grid-template-columns:1fr 1.5fr;gap:60px;align-items:end;margin-bottom:60px}
-.faq-head h2{font-family:'Instrument Serif',serif;font-size:clamp(44px,6vw,96px);line-height:.92;letter-spacing:-.025em;font-weight:400}
-.faq-head h2 i{color:var(--acid)}
-.faq-head p{font-size:15px;line-height:1.55;opacity:.7;max-width:440px}
-.faq-list{border-top:1px solid rgba(235,231,220,.2)}
-.faq-item{border-bottom:1px solid rgba(235,231,220,.2);padding:28px 0;cursor:pointer;transition:padding .4s}
-.faq-item:hover{padding-left:16px;padding-right:16px}
-.faq-q{display:flex;justify-content:space-between;align-items:center;gap:24px;font-family:'Instrument Serif',serif;font-size:clamp(22px,2.4vw,32px);font-weight:400;letter-spacing:-.015em}
-.faq-q .num{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.15em;opacity:.5;margin-right:20px}
-.faq-q .q-txt{flex-grow:1}
-.faq-q .p{width:32px;height:32px;border:1px solid var(--cream);border-radius:50%;position:relative;flex-shrink:0;transition:all .4s}
-.faq-item:hover .p{background:var(--acid);border-color:var(--acid)}
-.faq-q .p::before,.faq-q .p::after{content:'';position:absolute;background:var(--cream);top:50%;left:50%;transform:translate(-50%,-50%);transition:all .4s}
-.faq-item:hover .p::before,.faq-item:hover .p::after{background:var(--ink)}
-.faq-q .p::before{width:12px;height:1px}
-.faq-q .p::after{width:1px;height:12px}
-.faq-item.open .p::after{transform:translate(-50%,-50%) scaleY(0)}
-.faq-item.open .p{background:var(--acid);border-color:var(--acid)}
-.faq-item.open .p::before{background:var(--ink)}
-.faq-a{max-height:0;overflow:hidden;transition:max-height .5s ease,padding .5s ease;font-size:15px;line-height:1.6;opacity:.8;padding-left:50px;max-width:70ch}
-.faq-item.open .faq-a{max-height:300px;padding-top:18px}
+.gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.gal-item{aspect-ratio:4/5;overflow:hidden;border-radius:2px;background:var(--stone)}
+.gal-item img{width:100%;height:100%;object-fit:cover;transition:transform .9s ease}
+.gal-item:hover img{transform:scale(1.05)}
+.gal-item.wide{grid-column:span 2;aspect-ratio:8/5}
 
 /* Contact */
-.contact{padding:120px 32px;display:grid;grid-template-columns:1fr 1fr;gap:60px}
-.contact-left h2{font-family:'Instrument Serif',serif;font-size:clamp(44px,6vw,96px);line-height:.92;letter-spacing:-.025em;font-weight:400;margin-bottom:32px}
-.contact-left h2 i{color:var(--moss)}
-.contact-left .intro{font-size:16px;line-height:1.65;max-width:440px;color:var(--char);margin-bottom:60px}
-.info-blocks{display:grid;gap:4px;border:1px solid var(--ink)}
-.info-row{padding:24px;background:var(--paper);border-bottom:1px solid var(--stone);display:grid;grid-template-columns:140px 1fr;gap:20px;align-items:center}
-.info-row:last-child{border-bottom:none}
-.info-row .k{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--moss)}
-.info-row .v{font-family:'Instrument Serif',serif;font-size:22px;letter-spacing:-.01em}
-.info-row .v i{color:var(--moss)}
+.contact{padding:120px 40px;background:var(--ink);color:var(--cream);margin:0;max-width:none}
+.contact-inner{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+.contact-left .eyebrow{font-size:13px;letter-spacing:.15em;text-transform:uppercase;color:var(--sage);margin-bottom:20px;font-weight:500}
+.contact-left h2{font-family:'Instrument Serif',serif;font-size:clamp(40px,5vw,64px);line-height:1.05;letter-spacing:-.02em;font-weight:400;margin-bottom:28px}
+.contact-left h2 i{color:var(--sage)}
+.contact-left p{font-size:16px;line-height:1.7;opacity:.8;margin-bottom:40px;max-width:440px}
+.contact-info{display:flex;flex-direction:column;gap:20px;padding-top:32px;border-top:1px solid rgba(250,248,242,.15)}
+.contact-info div{display:grid;grid-template-columns:140px 1fr;gap:20px;align-items:center}
+.contact-info .k{font-size:12px;letter-spacing:.12em;text-transform:uppercase;opacity:.55}
+.contact-info .v{font-family:'Instrument Serif',serif;font-size:20px}
 
-.form-wrap{background:var(--ink);color:var(--cream);border-radius:6px;padding:40px;position:relative;overflow:hidden}
-.form-wrap::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;background:var(--acid);border-radius:50%;opacity:.15}
-.form-wrap h3{font-family:'Instrument Serif',serif;font-size:32px;font-weight:400;letter-spacing:-.02em;margin-bottom:8px;position:relative}
-.form-wrap h3 i{color:var(--acid)}
-.form-wrap .sub{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.15em;text-transform:uppercase;opacity:.6;margin-bottom:32px;position:relative}
-.form{display:flex;flex-direction:column;gap:24px;position:relative}
-.form label{display:block;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--lichen);margin-bottom:8px}
-.form input,.form textarea,.form select{width:100%;background:transparent;border:none;border-bottom:1px solid rgba(235,231,220,.25);padding:10px 0;font-size:16px;font-family:'Inter',sans-serif;color:var(--cream);outline:none;transition:border-color .3s}
-.form input::placeholder,.form textarea::placeholder{color:rgba(235,231,220,.4)}
-.form input:focus,.form textarea:focus,.form select:focus{border-color:var(--acid)}
+.form{display:flex;flex-direction:column;gap:24px}
+.form label{display:block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--sage);margin-bottom:10px;font-weight:500}
+.form input,.form textarea{width:100%;background:transparent;border:none;border-bottom:1px solid rgba(250,248,242,.25);padding:10px 0;font-size:16px;font-family:'Inter',sans-serif;color:var(--cream);outline:none;transition:border-color .3s}
+.form input::placeholder,.form textarea::placeholder{color:rgba(250,248,242,.4)}
+.form input:focus,.form textarea:focus{border-color:var(--sage)}
 .form textarea{min-height:90px;resize:vertical}
-.form-submit{background:var(--acid);color:var(--ink);border:none;padding:18px 28px;border-radius:40px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;font-weight:500;margin-top:16px;display:flex;align-items:center;justify-content:center;gap:12px;transition:all .4s}
-.form-submit:hover{background:var(--cream)}
-
-/* CTA */
-.cta-band{padding:140px 32px;text-align:center;background:var(--acid);color:var(--ink);position:relative;overflow:hidden;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink)}
-.cta-band::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:800px;height:800px;border:1px solid var(--ink);border-radius:50%;opacity:.15}
-.cta-band::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:500px;height:500px;border:1px solid var(--ink);border-radius:50%;opacity:.2}
-.cta-band .sm{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;margin-bottom:32px;position:relative}
-.cta-band h2{font-family:'Instrument Serif',serif;font-size:clamp(56px,9vw,160px);line-height:.88;letter-spacing:-.035em;font-weight:400;margin-bottom:48px;position:relative}
-.cta-band h2 i{font-style:italic}
-.cta-band .btn-big{position:relative;display:inline-flex;align-items:center;gap:14px;padding:22px 40px;background:var(--ink);color:var(--cream);border:none;border-radius:60px;font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;text-decoration:none;transition:background .4s;font-weight:500}
-.cta-band .btn-big:hover{background:var(--moss)}
-.cta-band .btn-big .arw{transition:transform .3s}
-.cta-band .btn-big:hover .arw{transform:translateX(4px)}
-
-/* Admin */
-.admin{padding:120px 32px;background:var(--paper);border-top:1px solid var(--stone)}
-.admin-head{display:flex;justify-content:space-between;align-items:end;margin-bottom:48px;flex-wrap:wrap;gap:20px}
-.admin-head h2{font-family:'Instrument Serif',serif;font-size:clamp(40px,5.5vw,80px);line-height:.9;letter-spacing:-.025em;font-weight:400}
-.admin-head h2 i{color:var(--moss)}
-.admin-head .sub{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--moss);margin-bottom:14px}
-.tabs{display:flex;gap:4px;background:var(--cream);padding:5px;border-radius:60px;border:1px solid var(--ink)}
-.tabs button{border:none;background:transparent;padding:12px 22px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);border-radius:40px;cursor:pointer;font-weight:500;transition:all .3s}
-.tabs button.active{background:var(--ink);color:var(--cream)}
-.admin-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:16px}
-.panel{background:var(--cream);border-radius:6px;padding:32px;border:1px solid var(--stone)}
-.panel h3{font-family:'Instrument Serif',serif;font-size:28px;font-weight:400;letter-spacing:-.02em;margin-bottom:6px}
-.panel h3 i{color:var(--moss)}
-.panel .ph{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--moss);margin-bottom:28px}
-.field{margin-bottom:18px}
-.field-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.field label{display:block;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--moss);margin-bottom:8px}
-.field input,.field textarea{width:100%;background:transparent;border:none;border-bottom:1px solid var(--stone);padding:9px 0;font-size:15px;font-family:'Inter',sans-serif;color:var(--ink);outline:none;transition:border-color .3s}
-.field input:focus,.field textarea:focus{border-color:var(--ink)}
-.field textarea{border:1px solid var(--stone);border-radius:4px;padding:12px;min-height:72px;resize:vertical}
-.btn-gen{background:var(--ink);color:var(--cream);border:none;padding:15px 26px;border-radius:40px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;margin-top:16px;font-weight:500;display:inline-flex;align-items:center;gap:10px;transition:background .3s}
-.btn-gen:hover{background:var(--moss)}
-.btn-gen::after{content:'↗'}
-
-.preview{background:var(--cream);border-radius:6px;padding:32px;border:1px solid var(--stone);min-height:600px}
-.doc{background:#fff;padding:36px;border-radius:4px;border:1px solid var(--stone);font-size:13px;position:relative}
-.doc::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--moss) 0%,var(--acid) 50%,var(--rust) 100%)}
-.doc-head{display:flex;justify-content:space-between;align-items:start;padding-bottom:20px;border-bottom:1px solid var(--ink);margin-bottom:24px}
-.doc-head .brand{font-family:'Instrument Serif',serif;font-size:24px;font-style:italic;line-height:1}
-.doc-head .brand small{display:block;font-family:'JetBrains Mono',monospace;font-style:normal;font-size:9px;letter-spacing:.15em;text-transform:uppercase;opacity:.6;margin-top:6px;letter-spacing:.15em}
-.doc-head .num{text-align:right;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--moss)}
-.doc-head .num strong{display:block;font-size:16px;color:var(--ink);margin-top:6px;letter-spacing:.02em;font-weight:500}
-.doc-cols{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px}
-.doc-col h5{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--moss);margin-bottom:8px;font-weight:500}
-.doc-col p{font-size:12px;line-height:1.5}
-.doc-table{width:100%;border-collapse:collapse;margin-bottom:16px}
-.doc-table th{text-align:left;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--moss);padding:10px 8px;border-bottom:1px solid var(--ink);font-weight:500}
-.doc-table td{padding:12px 8px;font-size:12px;border-bottom:1px solid var(--stone)}
-.doc-total{display:flex;justify-content:flex-end;gap:40px;padding-top:14px;font-size:12px;font-family:'JetBrains Mono',monospace;letter-spacing:.05em}
-.doc-total strong{font-family:'Instrument Serif',serif;font-size:26px;font-style:italic;font-weight:400;letter-spacing:-.01em}
+.form-submit{background:var(--cream);color:var(--ink);border:none;padding:16px 32px;border-radius:2px;font-size:14px;cursor:pointer;font-weight:500;margin-top:12px;align-self:flex-start;transition:all .3s}
+.form-submit:hover{background:var(--sage);color:var(--cream)}
 
 /* Footer */
-footer{background:var(--ink);color:var(--cream);padding:80px 32px 32px;position:relative}
-.foot-big{font-family:'Instrument Serif',serif;font-size:clamp(60px,13vw,220px);line-height:.85;letter-spacing:-.04em;font-weight:400;margin-bottom:80px;padding-bottom:60px;border-bottom:1px solid rgba(235,231,220,.15)}
-.foot-big i{color:var(--acid)}
-.foot-cols{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;padding-bottom:60px;border-bottom:1px solid rgba(235,231,220,.15)}
-.foot-cols h4{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;opacity:.5;margin-bottom:20px;font-weight:500}
-.foot-cols ul{list-style:none;display:flex;flex-direction:column;gap:10px}
-.foot-cols a{color:inherit;text-decoration:none;font-size:14px;opacity:.8;transition:all .3s;display:inline-flex;align-items:center;gap:6px}
-.foot-cols a:hover{opacity:1;color:var(--acid)}
-.foot-brand p{font-size:14px;opacity:.6;line-height:1.6;max-width:320px;margin-top:12px}
-.foot-brand .lg{font-family:'Instrument Serif',serif;font-size:32px;font-style:italic;letter-spacing:-.01em}
-.foot-bottom{padding-top:28px;display:flex;justify-content:space-between;align-items:center;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.15em;text-transform:uppercase;opacity:.5;flex-wrap:wrap;gap:16px}
+footer{background:var(--cream);padding:60px 40px 40px;border-top:1px solid var(--stone)}
+.foot-inner{max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:24px}
+.foot-inner .brand{font-family:'Instrument Serif',serif;font-size:22px;color:var(--ink)}
+.foot-inner .brand i{color:var(--moss)}
+.foot-inner .meta{font-size:13px;color:var(--char);opacity:.7}
 
 @media(max-width:960px){
-  nav.top{padding:16px 20px;top:34px}
+  nav.top{padding:16px 20px}
   nav.top ul{display:none}
-  .hero{grid-template-columns:1fr;padding:160px 20px 32px}
-  .hero-bottom{grid-template-columns:1fr;gap:24px}
-  .manifesto-inner,.editorial,.about,.contact,.admin-grid,.faq-head,.serv-head{grid-template-columns:1fr;gap:32px}
-  .manifesto .pts{grid-template-columns:1fr}
-  .stats-grid,.serv-grid,.testi-grid,.foot-cols{grid-template-columns:1fr 1fr}
-  .stat-box{border-right:none;border-bottom:1px solid rgba(235,231,220,.15)}
-  .proc-item{grid-template-columns:60px 1fr;gap:16px}
-  .proc-item p,.proc-item .t{display:none}
-  .gal-grid{grid-template-columns:repeat(2,1fr)}
-  .gal-a,.gal-b,.gal-c,.gal-d,.gal-e,.gal-f{grid-column:span 1;grid-row:span 1}
-  .manifesto,.stats,.services,.process,.editorial,.bigq,.gallery,.testis,.about,.faq,.contact,.cta-band,.admin,footer{padding-left:20px;padding-right:20px}
-  .info-row{grid-template-columns:1fr;gap:8px}
+  .hero,.editorial-inner,.contact-inner{grid-template-columns:1fr;gap:48px;padding:100px 20px 60px}
+  section{padding:80px 20px}
+  .editorial,.contact{padding:80px 20px}
+  .services-grid{grid-template-columns:1fr;gap:40px}
+  .gallery-grid{grid-template-columns:1fr 1fr}
+  .gal-item.wide{grid-column:span 2}
+  .contact-info div{grid-template-columns:1fr;gap:4px}
 }
 </style>
 </head>
 <body>
 
-<svg class="noise"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2"/><feColorMatrix values="0 0 0 0 0.1  0 0 0 0 0.15  0 0 0 0 0.1  0 0 0 0.6 0"/></filter><rect width="100%" height="100%" filter="url(#n)"/></svg>
-
-<!-- Top ticker -->
-<div class="ticker-top">
-  <div class="ticker-track">
-    <span>Available for Spring 2025</span><span>Atlanta · Decatur · Brookhaven · Buckhead</span><span>Licensed & Insured GA</span><span>17 Years of Ground Work</span><span>Call (678) 983-0827</span>
-    <span>Available for Spring 2025</span><span>Atlanta · Decatur · Brookhaven · Buckhead</span><span>Licensed & Insured GA</span><span>17 Years of Ground Work</span><span>Call (678) 983-0827</span>
-  </div>
-</div>
-
 <nav class="top">
-  <div class="logo-wrap">
-    <div class="logo-mark"></div>
-    <div class="logo"><b>Binda's</b> <i>landscaping</i></div>
-  </div>
+  <div class="logo"><b>Binda's</b> <i>Landscaping</i></div>
   <ul>
-    <li><a href="#home">Home</a></li>
     <li><a href="#services">Services</a></li>
-    <li><a href="#process">Process</a></li>
     <li><a href="#about">About</a></li>
+    <li><a href="#work">Work</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#admin">Studio</a></li>
   </ul>
-  <a href="#contact" class="phone">+1 (678) 983-0827</a>
+  <a href="#contact" class="phone">(678) 983-0827</a>
 </nav>
 
 <!-- HERO -->
 <section class="hero" id="home">
-  <div class="hero-main">
-    <div>
-      <div class="hero-tags">
-        <span class="tag filled">◆ Est. 2008</span>
-        <span class="tag">Atlanta, GA</span>
-        <span class="tag acid">Booking Spring '25</span>
-        <span class="tag">Drainage · Grading · Stone</span>
-      </div>
-      <h1>
-        <span class="row"><span>Landscapes</span></span>
-        <span class="row"><span>that <i>listen</i> <span class="circle">*</span></span></span>
-        <span class="row"><span><i>before</i> they</span></span>
-        <span class="row"><span>speak.</span></span>
-      </h1>
-    </div>
-    <div class="hero-bottom">
-      <p class="desc"><b>Binda's Landscaping</b> — a small, referral-led practice shaping ground, water, and stone across metro Atlanta. Led by Manoj Kumar. Seventeen years of quiet, structural work.</p>
-      <div class="hero-cta">
-        <a href="#contact" class="primary">Book walk-through →</a>
-        <a href="#services" class="ghost">See work</a>
-      </div>
+  <div class="hero-text">
+    <div class="eyebrow">Atlanta · Since 2008</div>
+    <h1>Landscapes built to <i>live with</i>, season after season.</h1>
+    <p class="lead">A small, referral-led landscape practice shaping gardens, drainage, and stone for Atlanta's finest homes. Led by Manoj Kumar — seventeen years of patient ground work.</p>
+    <div class="hero-cta">
+      <a href="#contact" class="primary">Book a walk-through</a>
+      <a href="#work" class="ghost">See our work →</a>
     </div>
   </div>
-
-  <div class="hero-side">
-    <div class="hero-photo">
-      <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=85&fit=crop" alt="Landscape design">
-      <div class="lbl">◆ Project 047 · Virginia-Highland</div>
-      <div class="coord">33.7833° N / 84.3580° W</div>
-    </div>
-    <div class="hero-card">
-      <div>
-        <div class="lbl">Neighborhood rating</div>
-        <div class="num">4.9<sup>★</sup></div>
-      </div>
-      <div class="desc">"The regrading was <em>surgical.</em>"</div>
-    </div>
-  </div>
-</section>
-
-<!-- MANIFESTO -->
-<section class="manifesto">
-  <div class="manifesto-inner">
-    <div class="sec-label">[ Manifesto / 001 ]</div>
-    <div>
-      <h2>A yard is not decoration — it's a <i>living agreement</i> between the home, the weather, and the slope beneath it.</h2>
-      <div class="pts">
-        <div class="pt"><div class="n">[ 01 ]</div><p>We begin with where the water wants to go. Everything else follows that answer.</p></div>
-        <div class="pt"><div class="n">[ 02 ]</div><p>We remove more than we add. Restraint holds longer than ornament.</p></div>
-        <div class="pt"><div class="n">[ 03 ]</div><p>One partner, start to finish. Manoj walks every property himself.</p></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- STATS -->
-<section class="stats reveal">
-  <div class="stats-grid">
-    <div class="stat-box">
-      <div class="k">[ 01 ] Years</div>
-      <div>
-        <div class="n">17<em>+</em></div>
-        <div class="sub" style="margin-top:14px">On the ground, under the shovel, across every neighborhood.</div>
-      </div>
-    </div>
-    <div class="stat-box">
-      <div class="k">[ 02 ] Properties</div>
-      <div>
-        <div class="n">420</div>
-        <div class="sub" style="margin-top:14px">Residential and commercial grading projects completed.</div>
-      </div>
-    </div>
-    <div class="stat-box">
-      <div class="k">[ 03 ] Rating</div>
-      <div>
-        <div class="n">4.9<em>★</em></div>
-        <div class="sub" style="margin-top:14px">On Nextdoor, across the Atlanta metro neighborhoods.</div>
-      </div>
-    </div>
-    <div class="stat-box">
-      <div class="k">[ 04 ] Warranty</div>
-      <div>
-        <div class="n">12<em>mo</em></div>
-        <div class="sub" style="margin-top:14px">Functional warranty. We come back. No asterisk.</div>
-      </div>
-    </div>
+  <div class="hero-img">
+    <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1400&q=90&fit=crop" alt="Luxury Atlanta home landscape">
   </div>
 </section>
 
 <!-- SERVICES -->
-<section class="services" id="services">
-  <div class="serv-head reveal">
-    <div class="sec-label">[ Services / 002 ]</div>
-    <h2>Ground work. Water work. Stone work. <i>Done once, done right.</i></h2>
+<section id="services">
+  <div class="sec-head">
+    <div class="eyebrow">What we do</div>
+    <h2>Ground work, water work, <i>stone work.</i></h2>
+    <p>Four quiet disciplines, practiced with care across metro Atlanta's highest-end residential properties.</p>
   </div>
-  <div class="serv-grid">
-    <div class="serv-card reveal">
-      <div class="ph"><img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=900&q=85&fit=crop" alt=""></div>
-      <div class="n">[ 01 / 04 ]</div>
-      <h3>Grading &amp; <i>Regrading</i></h3>
-      <p>Correcting slopes that push rain toward the foundation. We return the land to a calm, considered pitch — invisible, correct.</p>
-      <div class="go"><span>Residential &amp; Commercial</span><span>→</span></div>
+  <div class="services-grid">
+    <div class="service">
+      <div class="service-img"><img src="https://images.unsplash.com/photo-1558904541-efa843a96f01?w=1200&q=90&fit=crop" alt="Professional landscaping"></div>
+      <h3>Landscape Design</h3>
+      <p>Considered gardens that read as inevitable — planted for the way Atlanta actually lives through the year. Full design, installation, and seasonal care.</p>
     </div>
-    <div class="serv-card reveal">
-      <div class="ph"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=85&fit=crop" alt=""></div>
-      <div class="n">[ 02 / 04 ]</div>
-      <h3>Drainage <i>Systems</i></h3>
-      <p>French drains, channels, catch basins. Engineered below, invisible above — designed for decades of Georgia rain.</p>
-      <div class="go"><span>Surface &amp; Subsurface</span><span>→</span></div>
+    <div class="service">
+      <div class="service-img"><img src="https://images.unsplash.com/photo-1444858345786-0e0bc1d3f759?w=1200&q=90&fit=crop" alt="Flower beds and planting"></div>
+      <h3>Flowers &amp; Planting</h3>
+      <p>Layered perennial beds, native pollinator gardens, and formal plantings sourced from regional growers. Built to return, year after year.</p>
     </div>
-    <div class="serv-card reveal">
-      <div class="ph"><img src="https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?w=900&q=85&fit=crop" alt=""></div>
-      <div class="n">[ 03 / 04 ]</div>
-      <h3>Water <i>Management</i></h3>
-      <p>Gutter runoff, storm overflow, foundation protection — redirected and resolved. The basement stays dry, the wall stays sound.</p>
-      <div class="go"><span>Foundation Protection</span><span>→</span></div>
+    <div class="service">
+      <div class="service-img"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=90&fit=crop" alt="Drainage and regrading"></div>
+      <h3>Drainage &amp; Regrading</h3>
+      <p>French drains, channels, catch basins. Engineered below, invisible above — designed for decades of Georgia rain and the quiet protection of your foundation.</p>
     </div>
-    <div class="serv-card reveal">
-      <div class="ph"><img src="https://images.unsplash.com/photo-1558904541-efa843a96f01?w=900&q=85&fit=crop" alt=""></div>
-      <div class="n">[ 04 / 04 ]</div>
-      <h3>General <i>Contracting</i></h3>
-      <p>One landscape partner for the entire outdoor scope — retaining walls, seasonal planting, stone, plus the quiet things you'd miss.</p>
-      <div class="go"><span>Full-scope Projects</span><span>→</span></div>
+    <div class="service">
+      <div class="service-img"><img src="https://images.unsplash.com/photo-1599685315640-4a8d3bde0986?w=1200&q=90&fit=crop" alt="Retaining wall stonework"></div>
+      <h3>Retaining Walls</h3>
+      <p>Natural stone and engineered walls that hold the slope and read as architecture. Hand-built by a crew that has laid stone across Atlanta for a decade.</p>
     </div>
   </div>
 </section>
 
-<!-- PROCESS -->
-<section class="process" id="process">
-  <div class="process-head reveal">
-    <div class="sec-label">[ Process / 003 ]</div>
-    <h2>Four <i>movements</i>, start to finish.</h2>
-  </div>
-  <div class="process-list">
-    <div class="proc-item reveal">
-      <div class="n">[ 01 ]</div>
-      <h4>The <i>Walk</i></h4>
-      <p>Manoj walks the property with you. He listens to the problem, watches where the water pools, and takes the slope by eye and by grade rod.</p>
-      <div class="t">Day 1 · Complimentary</div>
+<!-- EDITORIAL / ABOUT -->
+<section class="editorial" id="about">
+  <div class="editorial-inner">
+    <div class="editorial-img">
+      <img src="https://images.unsplash.com/photo-1416339442236-8ceb164046f8?w=1200&q=90&fit=crop" alt="Garden path">
     </div>
-    <div class="proc-item reveal">
-      <div class="n">[ 02 ]</div>
-      <h4>The <i>Proposal</i></h4>
-      <p>A written, line-itemed proposal arrives within 48 hours. No templates, no upsell — just the scope, the sequence, and the number.</p>
-      <div class="t">Day 2 · Within 48hrs</div>
-    </div>
-    <div class="proc-item reveal">
-      <div class="n">[ 03 ]</div>
-      <h4>The <i>Build</i></h4>
-      <p>Three to seven working days for most residential grading. A small, consistent crew. Manoj on-site every day, all day.</p>
-      <div class="t">Week 1–2 · On-site</div>
-    </div>
-    <div class="proc-item reveal">
-      <div class="n">[ 04 ]</div>
-      <h4>The <i>Return</i></h4>
-      <p>One-year functional warranty. We come back for a walk after the first big storm. We adjust what needs adjusting. No cost.</p>
-      <div class="t">Month 12 · Warranty walk</div>
-    </div>
-  </div>
-</section>
-
-<!-- EDITORIAL -->
-<section class="editorial" id="founder">
-  <div class="editorial-img reveal">
-    <img src="https://images.unsplash.com/photo-1416339442236-8ceb164046f8?w=1200&q=85&fit=crop" alt="">
-    <div class="stamp"><span>Manoj Kumar · Founder</span><span class="dot"></span><span>Est. 2008</span></div>
-  </div>
-  <div class="editorial-text reveal">
-    <div class="lbl">A note from the founder</div>
-    <h2>The land already <i>knows</i> what it wants. I listen first, dig second.</h2>
-    <p>I started Binda's seventeen years ago with one truck and a belief that the yard is a structural thing, not a decorative one. Most of the problems people call me about were written into the slope years before they moved in.</p>
-    <p>My job is to read that, then resolve it. Quietly. Without drama. In a way the next rainstorm confirms.</p>
-    <div class="sig">
-      <div class="sig-sym">M</div>
-      <div>
-        <div class="name">Manoj Kumar</div>
-        <div class="role">Founder · Principal</div>
+    <div class="editorial-text">
+      <div class="eyebrow">A note from the founder</div>
+      <h2>The land already knows what it <i>wants.</i> I listen first, dig second.</h2>
+      <p>I started Binda's seventeen years ago with one truck and a belief that the yard is a structural thing, not a decorative one. Most of the problems people call me about were written into the slope years before they moved in.</p>
+      <p>My job is to read that, then resolve it. Quietly. Without drama. In a way the next rainstorm confirms.</p>
+      <div class="sig">
+        <b>Manoj Kumar</b>
+        <span>Founder · Principal</span>
       </div>
     </div>
   </div>
 </section>
 
-<!-- BIG QUOTE -->
-<section class="bigq reveal">
-  <q>We leave the ground <i>quieter</i> than we found it.</q>
-  <div class="attr">— A working promise, since 2008</div>
-</section>
-
-<!-- GALLERY -->
-<section class="gallery">
-  <div class="gal-head reveal">
-    <div>
-      <div class="sec-label">[ Portfolio / 004 ]</div>
-      <h2>Seventeen years, quietly <i>documented.</i></h2>
-    </div>
-    <div class="meta">
-      <div>Selected works · 2019–2024</div>
-      <div style="margin-top:6px;opacity:.6">— Metro Atlanta</div>
-    </div>
+<!-- GALLERY / WORK -->
+<section id="work">
+  <div class="sec-head">
+    <div class="eyebrow">Selected work</div>
+    <h2>Seventeen years, quietly <i>documented.</i></h2>
+    <p>A small sampling of projects across Buckhead, Druid Hills, Virginia-Highland, and Brookhaven.</p>
   </div>
-  <div class="gal-grid">
-    <div class="gal-item gal-a reveal"><img src="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=1400&q=85&fit=crop" alt=""><div class="cap">◆ Virginia-Highland</div></div>
-    <div class="gal-item gal-b reveal"><img src="https://images.unsplash.com/photo-1574263867128-a3d5c1b1deac?w=1200&q=85&fit=crop" alt=""><div class="cap">◆ Druid Hills</div></div>
-    <div class="gal-item gal-c reveal"><img src="https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=800&q=85&fit=crop" alt=""></div>
-    <div class="gal-item gal-d reveal"><img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=1000&q=85&fit=crop" alt=""><div class="cap">◆ Decatur</div></div>
-    <div class="gal-item gal-e reveal"><img src="https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?w=1000&q=85&fit=crop" alt=""></div>
-    <div class="gal-item gal-f reveal"><img src="https://images.unsplash.com/photo-1558904541-efa843a96f01?w=1000&q=85&fit=crop" alt=""><div class="cap">◆ Buckhead</div></div>
-  </div>
-</section>
-
-<!-- TESTIMONIALS -->
-<section class="testis">
-  <div class="testi-head reveal">
-    <div>
-      <div class="sec-label">[ Voices / 005 ]</div>
-      <h2>What the <i>neighborhood</i> has said.</h2>
-    </div>
-    <div class="mono" style="font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--moss);text-align:right;line-height:1.8">
-      <div>— 4.9 ★ on Nextdoor</div>
-      <div style="opacity:.6">— Verified homeowner reviews</div>
-    </div>
-  </div>
-  <div class="testi-grid">
-    <div class="testi reveal">
-      <div class="top"><div class="stars">★★★★★</div><div class="tag">Drainage</div></div>
-      <blockquote>After three contractors told us we had to accept the flooding, Manoj walked the property once and said he could fix it. He did. Two rainy seasons — bone dry.</blockquote>
-      <div class="who">
-        <div class="av"><img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&q=80&fit=crop" alt=""></div>
-        <div><div class="name">Claire H.</div><div class="role">Virginia-Highland</div></div>
-      </div>
-    </div>
-    <div class="testi reveal">
-      <div class="top"><div class="stars">★★★★★</div><div class="tag">Regrading</div></div>
-      <blockquote>Binda's is the reason our basement stopped weeping after storms. The regrading was surgical. Neighbors keep asking who we used.</blockquote>
-      <div class="who">
-        <div class="av"><img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=200&q=80&fit=crop" alt=""></div>
-        <div><div class="name">David &amp; Rhea T.</div><div class="role">Druid Hills</div></div>
-      </div>
-    </div>
-    <div class="testi reveal">
-      <div class="top"><div class="stars">★★★★★</div><div class="tag">Commercial</div></div>
-      <blockquote>We manage a small commercial property and the runoff was a liability. The team delivered a clean, quiet solution that looked like it had always been there.</blockquote>
-      <div class="who">
-        <div class="av"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80&fit=crop" alt=""></div>
-        <div><div class="name">Michael P.</div><div class="role">Buckhead · Prop. Mgr</div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ABOUT -->
-<section class="about" id="about">
-  <div class="about-left reveal">
-    <div class="sec-label">[ Practice / 006 ]</div>
-    <h2>A small, <i>patient</i> studio of landscape craftsmen.</h2>
-    <p>Binda's is not a lawn-care franchise. We're a referral-led practice built for homeowners who care about the long, quiet life of their property.</p>
-    <p>Most of our clients come from a neighbor pointing over a fence. That's the only marketing we've ever trusted.</p>
-    <div class="about-vals">
-      <div class="val"><div class="v">Principle 01</div><p>Water first. Every project begins with where the water wants to go.</p></div>
-      <div class="val"><div class="v">Principle 02</div><p>Restraint. We remove more than we add. Simplicity holds longer.</p></div>
-      <div class="val"><div class="v">Principle 03</div><p>One partner. A single point of contact from first walk to final rake.</p></div>
-      <div class="val"><div class="v">Principle 04</div><p>The quiet warranty. We come back. We stand behind it.</p></div>
-    </div>
-  </div>
-  <div class="about-right reveal">
-    <img src="https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=1200&q=85&fit=crop" alt="">
-    <div class="card"><span>Licensed &amp; insured</span><b>GA — since '08</b></div>
-  </div>
-</section>
-
-<!-- FAQ -->
-<section class="faq">
-  <div class="faq-head reveal">
-    <div>
-      <div class="sec-label" style="color:var(--lichen)">[ Questions / 007 ]</div>
-      <h2>Answers, <i>plainly</i> given.</h2>
-    </div>
-    <p>If yours isn't here, call Manoj directly. He picks up — and usually before the third ring.</p>
-  </div>
-  <div class="faq-list reveal">
-    <div class="faq-item">
-      <div class="faq-q"><span class="num">01</span><span class="q-txt">Do you serve outside of Atlanta proper?</span><span class="p"></span></div>
-      <div class="faq-a">Our primary service area is metro Atlanta and the surrounding neighborhoods — Decatur, Brookhaven, Buckhead, Druid Hills. We occasionally travel further for larger regrading projects. Please ask.</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q"><span class="num">02</span><span class="q-txt">How long does a drainage correction take?</span><span class="p"></span></div>
-      <div class="faq-a">Most residential grading and drainage projects are completed in three to seven working days, depending on scope, soil conditions, and weather.</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q"><span class="num">03</span><span class="q-txt">Do you handle commercial properties?</span><span class="p"></span></div>
-      <div class="faq-a">Yes. We regularly work with property managers, small commercial buildings, and HOAs on drainage, grading, and full-service landscape contracting.</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q"><span class="num">04</span><span class="q-txt">What does an estimate involve?</span><span class="p"></span></div>
-      <div class="faq-a">Manoj walks the property with you, listens to the problem, and sends a written proposal within 48 hours. Estimates are complimentary for Atlanta-area projects.</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q"><span class="num">05</span><span class="q-txt">Is your work warrantied?</span><span class="p"></span></div>
-      <div class="faq-a">Drainage and grading work carries a one-year functional warranty. We return for adjustments at no cost if the issue persists.</div>
-    </div>
+  <div class="gallery-grid">
+    <div class="gal-item wide"><img src="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=1400&q=90&fit=crop" alt="Atlanta garden"></div>
+    <div class="gal-item"><img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&q=90&fit=crop" alt="Flower garden"></div>
+    <div class="gal-item"><img src="https://images.unsplash.com/photo-1591857177580-dc82b9ac4e1e?w=800&q=90&fit=crop" alt="Stone retaining wall"></div>
+    <div class="gal-item"><img src="https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?w=800&q=90&fit=crop" alt="Drainage work"></div>
+    <div class="gal-item wide"><img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=1400&q=90&fit=crop" alt="Home landscape"></div>
   </div>
 </section>
 
 <!-- CONTACT -->
 <section class="contact" id="contact">
-  <div class="contact-left reveal">
-    <div class="sec-label">[ Begin / 008 ]</div>
-    <h2>Tell us about the <i>ground</i> you're standing on.</h2>
-    <p class="intro">Call Manoj directly, or send a note. We'll walk the property within the week — usually sooner.</p>
-    <div class="info-blocks">
-      <div class="info-row"><div class="k">[ Direct ]</div><div class="v">+1 <i>(678)</i> 983-0827</div></div>
-      <div class="info-row"><div class="k">[ Email ]</div><div class="v">hello@<i>bindas</i>.land</div></div>
-      <div class="info-row"><div class="k">[ Service Area ]</div><div class="v">Metro <i>Atlanta</i>, Georgia</div></div>
-      <div class="info-row"><div class="k">[ Hours ]</div><div class="v">Mon–Sat <i>·</i> 7a–6p</div></div>
+  <div class="contact-inner">
+    <div class="contact-left">
+      <div class="eyebrow">Begin</div>
+      <h2>Tell us about the <i>ground</i> you're standing on.</h2>
+      <p>Call Manoj directly, or send a note. We'll walk the property within the week — usually sooner.</p>
+      <div class="contact-info">
+        <div><span class="k">Direct</span><span class="v">(678) 983-0827</span></div>
+        <div><span class="k">Email</span><span class="v">hello@bindas.land</span></div>
+        <div><span class="k">Service area</span><span class="v">Metro Atlanta, GA</span></div>
+        <div><span class="k">Hours</span><span class="v">Mon–Sat · 7a–6p</span></div>
+      </div>
     </div>
-  </div>
-  <div class="form-wrap reveal">
-    <h3>New <i>inquiry</i> <span style="font-family:'JetBrains Mono',monospace;font-style:normal;font-size:14px;letter-spacing:.12em;color:var(--acid);vertical-align:middle;margin-left:8px">→</span></h3>
-    <div class="sub">A site visit within the week</div>
     <form class="form" onsubmit="event.preventDefault();alert('Thank you — Manoj will be in touch within 48 hours.')">
-      <div><label>[ Your name ]</label><input type="text" placeholder="First &amp; last" required></div>
-      <div><label>[ Property address ]</label><input type="text" placeholder="Street, city, zip" required></div>
-      <div><label>[ Phone ]</label><input type="tel" placeholder="(000) 000-0000"></div>
-      <div><label>[ What's happening on the land? ]</label><textarea placeholder="Puddles, runoff, slope, retaining walls..."></textarea></div>
-      <button type="submit" class="form-submit">Request a walk-through<span>→</span></button>
+      <div><label>Your name</label><input type="text" placeholder="First &amp; last" required></div>
+      <div><label>Property address</label><input type="text" placeholder="Street, city, zip" required></div>
+      <div><label>Phone</label><input type="tel" placeholder="(000) 000-0000"></div>
+      <div><label>What's happening on the land?</label><textarea placeholder="Drainage, planting, retaining walls, full landscape..."></textarea></div>
+      <button type="submit" class="form-submit">Request a walk-through</button>
     </form>
-  </div>
-</section>
-
-<!-- CTA -->
-<section class="cta-band">
-  <div class="sm">[ ◆ If your yard is asking a question ]</div>
-  <h2>we've <i>heard it</i><br>before.</h2>
-  <a href="#contact" class="btn-big"><span>Schedule a site visit</span><span class="arw">→</span></a>
-</section>
-
-<!-- ADMIN -->
-<section class="admin" id="admin">
-  <div class="admin-head">
-    <div>
-      <div class="sub">[ Studio · Internal / 009 ]</div>
-      <h2>Proposals &amp; <i>invoicing</i>.</h2>
-    </div>
-    <div class="tabs">
-      <button class="active" data-tab="proposal">Proposal</button>
-      <button data-tab="invoice">Invoice</button>
-    </div>
-  </div>
-
-  <div class="admin-grid">
-    <div class="panel">
-      <h3>New <i id="panelTitleWord">Proposal</i></h3>
-      <div class="ph" id="panelSub">[ Draft a site proposal ]</div>
-
-      <div class="field-row">
-        <div class="field"><label>[ Client name ]</label><input type="text" id="cName" value="C. Holloway"></div>
-        <div class="field"><label>[ Doc no. ]</label><input type="text" id="cNum" value="P-2025-047"></div>
-      </div>
-
-      <div class="field"><label>[ Property address ]</label><input type="text" id="cAddr" value="1132 Virginia Ave NE, Atlanta GA 30306"></div>
-
-      <div class="field"><label>[ Project summary ]</label><textarea id="cDesc">Regrade rear yard slope; install French drain along east property line; redirect two downspouts.</textarea></div>
-
-      <div class="field-row">
-        <div class="field"><label>[ Line item ]</label><input type="text" id="item1" value="Yard Regrading (~1,400 sqft)"></div>
-        <div class="field"><label>[ Amount ]</label><input type="number" id="amt1" value="3800"></div>
-      </div>
-      <div class="field-row">
-        <div class="field"><label>[ Line item ]</label><input type="text" id="item2" value="French Drain — 60 LF"></div>
-        <div class="field"><label>[ Amount ]</label><input type="number" id="amt2" value="2400"></div>
-      </div>
-      <div class="field-row">
-        <div class="field"><label>[ Line item ]</label><input type="text" id="item3" value="Downspout redirection (2x)"></div>
-        <div class="field"><label>[ Amount ]</label><input type="number" id="amt3" value="650"></div>
-      </div>
-
-      <button class="btn-gen" onclick="updateDoc()">Generate Document</button>
-    </div>
-
-    <div class="preview">
-      <div class="doc" id="doc">
-        <div class="doc-head">
-          <div class="brand">Binda's Landscaping<small>Atlanta · Since 2008</small></div>
-          <div class="num"><span id="dType">Proposal</span><strong id="dNum">P-2025-047</strong></div>
-        </div>
-        <div class="doc-cols">
-          <div class="doc-col"><h5>Prepared For</h5><p id="dName">C. Holloway</p><p id="dAddr" style="opacity:.7;margin-top:4px">1132 Virginia Ave NE, Atlanta GA 30306</p></div>
-          <div class="doc-col"><h5>Prepared By</h5><p>Manoj Kumar</p><p style="opacity:.7;margin-top:4px">+1 (678) 983-0827</p></div>
-        </div>
-        <div class="doc-col" style="margin-bottom:22px"><h5>Scope</h5><p id="dDesc" style="line-height:1.55;margin-top:6px">Regrade rear yard slope; install French drain along east property line; redirect two downspouts.</p></div>
-        <table class="doc-table">
-          <thead><tr><th>Description</th><th style="text-align:right">Amount</th></tr></thead>
-          <tbody id="dRows"></tbody>
-        </table>
-        <div class="doc-total"><span style="opacity:.7">TOTAL DUE</span><strong id="dTotal">$6,850</strong></div>
-      </div>
-    </div>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <div class="foot-big">Quiet work, <i>well kept.</i></div>
-  <div class="foot-cols">
-    <div class="foot-brand">
-      <div class="lg"><em>Binda's</em> Landscaping</div>
-      <p>A small, referral-led landscape practice serving metro Atlanta. Led by Manoj Kumar since 2008.</p>
-    </div>
-    <div><h4>Navigate</h4><ul><li><a href="#home">→ Home</a></li><li><a href="#services">→ Services</a></li><li><a href="#process">→ Process</a></li><li><a href="#about">→ About</a></li></ul></div>
-    <div><h4>Services</h4><ul><li><a href="#">→ Regrading</a></li><li><a href="#">→ Drainage</a></li><li><a href="#">→ Water Mgmt</a></li><li><a href="#">→ Contracting</a></li></ul></div>
-    <div><h4>Connect</h4><ul><li><a href="#">→ Nextdoor</a></li><li><a href="#">→ (678) 983-0827</a></li><li><a href="#">→ hello@bindas.land</a></li><li><a href="#">→ Atlanta, GA</a></li></ul></div>
-  </div>
-  <div class="foot-bottom">
-    <span>© 2025 Binda's Landscaping · Licensed &amp; insured in GA</span>
-    <span>◆ Quiet work, well kept</span>
+  <div class="foot-inner">
+    <div class="brand"><b>Binda's</b> <i>Landscaping</i></div>
+    <div class="meta">© 2025 · Licensed &amp; insured in Georgia · Atlanta</div>
   </div>
 </footer>
 
@@ -824,67 +261,26 @@ gsap.registerPlugin(ScrollTrigger);
 
 // Hero entrance
 window.addEventListener('load',()=>{
-  const lines = document.querySelectorAll('.hero h1 .row > span');
-  lines.forEach((s,i)=>{
-    gsap.fromTo(s,{y:'110%',opacity:0},{y:'0%',opacity:1,duration:1.2,ease:'expo.out',delay:0.3 + i*0.1});
-  });
-  gsap.from('.hero-tags .tag',{opacity:0,y:12,duration:.8,delay:.15,stagger:.05});
-  gsap.from('.hero-bottom > *',{opacity:0,y:24,duration:1,delay:1.1,stagger:.1});
-  gsap.from('.hero-side > *',{opacity:0,x:40,duration:1.1,delay:.6,stagger:.15,ease:'power3.out'});
+  gsap.from('.hero-text .eyebrow',{opacity:0,y:20,duration:.9,delay:.2,ease:'power3.out'});
+  gsap.from('.hero h1',{opacity:0,y:30,duration:1.1,delay:.35,ease:'power3.out'});
+  gsap.from('.hero-text .lead',{opacity:0,y:20,duration:1,delay:.6,ease:'power3.out'});
+  gsap.from('.hero-cta',{opacity:0,y:20,duration:1,delay:.8,ease:'power3.out'});
+  gsap.from('.hero-img',{opacity:0,scale:1.04,duration:1.4,delay:.3,ease:'power3.out'});
 });
 
-// Reveal
-document.querySelectorAll('.reveal').forEach(el=>{
-  gsap.fromTo(el,{opacity:0,y:50},{opacity:1,y:0,duration:1.1,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 88%'}});
-});
-
-// FAQ
-document.querySelectorAll('.faq-item').forEach(it=>{
-  it.addEventListener('click',()=>it.classList.toggle('open'));
-});
-
-// Admin
-let docType = 'Proposal';
-document.querySelectorAll('.tabs button').forEach(b=>{
-  b.addEventListener('click',()=>{
-    document.querySelectorAll('.tabs button').forEach(x=>x.classList.remove('active'));
-    b.classList.add('active');
-    docType = b.dataset.tab === 'invoice' ? 'Invoice' : 'Proposal';
-    document.getElementById('panelTitleWord').textContent = docType;
-    document.getElementById('panelSub').textContent = docType === 'Invoice' ? '[ Bill a completed project ]' : '[ Draft a site proposal ]';
-    document.getElementById('cNum').value = (docType === 'Invoice' ? 'I-' : 'P-') + '2025-047';
-    updateDoc();
+// Reveal sections
+gsap.utils.toArray('section').forEach(sec=>{
+  const heads = sec.querySelectorAll('.sec-head, .editorial-text, .contact-left, .service, .gal-item');
+  heads.forEach(el=>{
+    gsap.fromTo(el,{opacity:0,y:40},{opacity:1,y:0,duration:1,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 88%'}});
   });
 });
 
-function money(n){return '$'+n.toLocaleString('en-US')}
-function updateDoc(){
-  document.getElementById('dType').textContent = docType;
-  document.getElementById('dNum').textContent = document.getElementById('cNum').value;
-  document.getElementById('dName').textContent = document.getElementById('cName').value;
-  document.getElementById('dAddr').textContent = document.getElementById('cAddr').value;
-  document.getElementById('dDesc').textContent = document.getElementById('cDesc').value;
-  const rows = [
-    [document.getElementById('item1').value, +document.getElementById('amt1').value||0],
-    [document.getElementById('item2').value, +document.getElementById('amt2').value||0],
-    [document.getElementById('item3').value, +document.getElementById('amt3').value||0]
-  ];
-  let total = 0;
-  const tb = document.getElementById('dRows');
-  tb.innerHTML = '';
-  rows.forEach(r=>{
-    total += r[1];
-    tb.innerHTML += `<tr><td>${r[0]}</td><td style="text-align:right">${money(r[1])}</td></tr>`;
-  });
-  document.getElementById('dTotal').textContent = money(total);
-}
-updateDoc();
-
-// Smooth anchor
+// Smooth anchors
 document.querySelectorAll('a[href^="#"]').forEach(a=>{
   a.addEventListener('click',e=>{
     const t = document.querySelector(a.getAttribute('href'));
-    if(t){e.preventDefault();window.scrollTo({top:t.offsetTop-20,behavior:'smooth'})}
+    if(t){e.preventDefault();window.scrollTo({top:t.offsetTop-60,behavior:'smooth'})}
   });
 });
 </script>
