@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jameel's Exotic Fragrances — Look Good, Smell Good, Feel Good.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,900;1,9..144,400;1,9..144,900&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+  :root{
+    --black:#060404;
+    --ink:#0b0808;
+    --gold:#d4a537;
+    --gold-deep:#a77a1c;
+    --gold-lite:#f2d07b;
+    --cream:#f4ecd8;
+    --white:#ffffff;
+    --smoke:#1a1412;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{background:var(--black);color:var(--cream);font-family:'Fraunces',serif;overflow-x:hidden}
+  body{font-feature-settings:"ss01","ss02";-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+
+  /* GRAIN */
+  .grain{position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.18;mix-blend-mode:overlay}
+  .grain svg{width:100%;height:100%}
+
+  /* NAV */
+  nav.top{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:22px 40px;
+    backdrop-filter:blur(14px);
+    background:linear-gradient(180deg,rgba(6,4,4,.75),rgba(6,4,4,.15));
+    border-bottom:1px solid rgba(212,165,55,.12);
+  }
+  .logo{font-weight:900;font-size:20px;letter-spacing:-0.03em;color:var(--cream)}
+  .logo em{font-style:italic;color:var(--gold);font-weight:400}
+  .nav-links{display:flex;gap:34px;font-size:13px;text-transform:uppercase;letter-spacing:.18em;font-weight:600}
+  .nav-links a{position:relative;padding:6px 0;transition:color .3s}
+  .nav-links a::after{content:"";position:absolute;left:0;bottom:0;height:1px;width:0;background:var(--gold);transition:width .4s ease}
+  .nav-links a:hover{color:var(--gold)}
+  .nav-links a:hover::after{width:100%}
+  .nav-cta{border:1px solid var(--gold);color:var(--gold);padding:10px 20px;font-size:12px;letter-spacing:.2em;text-transform:uppercase;border-radius:40px;transition:all .4s;font-weight:600}
+  .nav-cta:hover{background:var(--gold);color:var(--black)}
+
+  /* HERO TRIPTYCH */
+  .hero{
+    min-height:100vh;padding:120px 40px 60px;
+    display:grid;grid-template-columns:minmax(220px,1fr) 2.4fr minmax(220px,1fr);
+    gap:40px;align-items:stretch;position:relative;
+  }
+  .hero::before{
+    content:"";position:absolute;inset:0;z-index:0;
+    background:radial-gradient(ellipse at 20% 30%, rgba(212,165,55,.18), transparent 55%),
+               radial-gradient(ellipse at 80% 70%, rgba(167,122,28,.14), transparent 60%);
+    pointer-events:none;
+  }
+  .hero > *{position:relative;z-index:1}
+
+  .hero-left{display:flex;flex-direction:column;justify-content:space-between;padding-top:20px}
+  .eyebrow{font-size:11px;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);font-weight:600;display:flex;align-items:center;gap:12px}
+  .eyebrow .dot{width:6px;height:6px;background:var(--gold);border-radius:50%;animation:pulse 2s infinite}
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.6)}}
+
+  .hero-left p.lead{
+    font-size:14px;line-height:1.65;color:rgba(244,236,216,.72);margin-top:28px;max-width:260px;
+    font-weight:400;
+  }
+  .hero-left .numbers{margin-top:40px;display:flex;flex-direction:column;gap:16px}
+  .hero-left .num{display:flex;align-items:baseline;gap:12px;border-top:1px solid rgba(212,165,55,.2);padding-top:14px}
+  .hero-left .num b{font-size:32px;font-weight:900;color:var(--gold);letter-spacing:-0.04em;font-style:italic}
+  .hero-left .num span{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:rgba(244,236,216,.7)}
+
+  .hero-center{position:relative;display:flex;flex-direction:column;justify-content:flex-end}
+  .hero-img-wrap{
+    position:absolute;inset:0;border-radius:4px;overflow:hidden;
+    box-shadow:0 60px 120px rgba(0,0,0,.7), inset 0 0 120px rgba(0,0,0,.4);
+  }
+  .hero-img-wrap img{width:100%;height:100%;object-fit:cover;filter:contrast(1.05) saturate(.95) brightness(.75)}
+  .hero-img-wrap::after{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg,rgba(6,4,4,.15) 0%, transparent 40%, rgba(6,4,4,.85) 100%);
+  }
+  .hero-headline{
+    position:relative;z-index:2;padding:0 0 40px 0;
+    font-weight:900;font-style:italic;letter-spacing:-0.055em;line-height:.86;
+    font-size:clamp(56px,11vw,170px);color:var(--cream);
+    text-shadow:0 4px 40px rgba(0,0,0,.5);
+  }
+  .hero-headline .gold{color:var(--gold);font-style:italic;font-weight:400}
+  .hero-headline .word{display:inline-block;overflow:hidden;vertical-align:bottom}
+  .hero-headline .word span{display:inline-block}
+
+  .hero-right{display:flex;flex-direction:column;justify-content:space-between;padding-top:20px}
+  .hero-right .mini-card{
+    border:1px solid rgba(212,165,55,.25);
+    padding:20px;border-radius:3px;
+    background:linear-gradient(180deg,rgba(26,20,18,.6),rgba(6,4,4,.3));
+    backdrop-filter:blur(6px);
+  }
+  .hero-right .mini-card .label{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+  .hero-right .mini-card h4{font-size:20px;font-style:italic;font-weight:600;letter-spacing:-0.02em;line-height:1.15;margin-bottom:10px}
+  .hero-right .mini-card p{font-size:12px;line-height:1.6;color:rgba(244,236,216,.65)}
+  .hero-right .mini-card .price{margin-top:14px;font-size:24px;font-weight:900;color:var(--gold);font-style:italic;letter-spacing:-0.03em}
+  .hero-right .mini-card .price small{font-size:11px;font-weight:400;color:rgba(244,236,216,.5);letter-spacing:.15em;text-transform:uppercase;margin-left:6px}
+
+  .hero-cta-row{display:flex;gap:12px;margin-top:24px}
+  .btn-gold{
+    background:var(--gold);color:var(--black);padding:16px 22px;
+    border-radius:40px;font-size:12px;letter-spacing:.22em;text-transform:uppercase;font-weight:700;
+    display:inline-flex;align-items:center;gap:10px;transition:all .5s cubic-bezier(.2,.9,.3,1);
+    font-family:inherit;
+  }
+  .btn-gold:hover{background:var(--gold-lite);transform:translateY(-2px);box-shadow:0 14px 34px rgba(212,165,55,.35)}
+  .btn-ghost{
+    border:1px solid rgba(244,236,216,.4);padding:16px 22px;border-radius:40px;
+    font-size:12px;letter-spacing:.22em;text-transform:uppercase;font-weight:600;transition:all .4s;
+  }
+  .btn-ghost:hover{border-color:var(--gold);color:var(--gold)}
+
+  .hero-ticker{
+    position:absolute;bottom:0;left:0;right:0;padding:16px 40px;
+    display:flex;gap:60px;overflow:hidden;border-top:1px solid rgba(212,165,55,.15);
+    font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:rgba(244,236,216,.55);
+    background:rgba(6,4,4,.8);backdrop-filter:blur(10px);
+  }
+  .ticker-track{display:flex;gap:60px;animation:tick 40s linear infinite;white-space:nowrap}
+  .ticker-track span{display:flex;align-items:center;gap:60px}
+  .ticker-track span::after{content:"✦";color:var(--gold)}
+  @keyframes tick{to{transform:translateX(-50%)}}
+
+  /* SECTION BASE */
+  section{padding:140px 40px;position:relative}
+  .section-label{
+    display:inline-flex;align-items:center;gap:14px;
+    font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);font-weight:600;
+    margin-bottom:28px;
+  }
+  .section-label::before{content:"";width:40px;height:1px;background:var(--gold)}
+  .section-title{
+    font-size:clamp(42px,7.5vw,110px);font-weight:900;font-style:italic;
+    letter-spacing:-0.05em;line-height:.9;
+  }
+  .section-title .italic{font-style:italic;font-weight:400;color:var(--gold)}
+
+  /* MARQUEE TRUST */
+  .trust{padding:60px 0;border-top:1px solid rgba(212,165,55,.15);border-bottom:1px solid rgba(212,165,55,.15);overflow:hidden}
+  .trust-track{display:flex;gap:80px;animation:tick 30s linear infinite;font-size:clamp(32px,5vw,72px);font-weight:900;font-style:italic;letter-spacing:-0.04em;color:rgba(244,236,216,.25);white-space:nowrap}
+  .trust-track span{display:flex;gap:80px;align-items:center}
+  .trust-track span::after{content:"✦";color:var(--gold);font-size:.5em}
+
+  /* CORE SHOWCASE — asymmetric */
+  .showcase{padding:160px 40px}
+  .showcase-head{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:end;margin-bottom:70px}
+  .showcase-head p{max-width:460px;font-size:17px;line-height:1.6;color:rgba(244,236,216,.72);justify-self:end}
+  .showcase-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:24px}
+  .card{
+    position:relative;border-radius:3px;overflow:hidden;
+    background:var(--smoke);transition:transform .6s cubic-bezier(.2,.9,.3,1);
+  }
+  .card img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s ease, filter .6s;filter:brightness(.75) saturate(.9)}
+  .card:hover img{transform:scale(1.06);filter:brightness(.95) saturate(1.05)}
+  .card::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%,rgba(6,4,4,.9) 100%);pointer-events:none}
+  .card-body{position:absolute;left:0;right:0;bottom:0;padding:28px;z-index:2}
+  .card .tag{display:inline-block;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;font-weight:700}
+  .card h3{font-size:28px;font-style:italic;font-weight:700;letter-spacing:-0.02em;line-height:1.05;margin-bottom:6px}
+  .card p.meta{font-size:12px;color:rgba(244,236,216,.6);letter-spacing:.08em}
+  .card .price-chip{position:absolute;top:20px;right:20px;background:var(--gold);color:var(--black);padding:8px 14px;border-radius:40px;font-size:12px;font-weight:800;letter-spacing:.05em;z-index:3}
+
+  .c1{grid-column:span 5;aspect-ratio:4/5}
+  .c2{grid-column:span 4;aspect-ratio:4/5;margin-top:80px}
+  .c3{grid-column:span 3;aspect-ratio:3/4}
+  .c4{grid-column:span 4;aspect-ratio:4/3}
+  .c5{grid-column:span 5;aspect-ratio:16/11}
+  .c6{grid-column:span 3;aspect-ratio:3/4;margin-top:-40px}
+
+  /* STORY */
+  .story{padding:180px 40px;display:grid;grid-template-columns:1.1fr 1fr;gap:100px;align-items:center}
+  .story-img{position:relative;aspect-ratio:4/5;overflow:hidden;border-radius:3px}
+  .story-img img{width:100%;height:100%;object-fit:cover;filter:contrast(1.1) brightness(.85)}
+  .story-img::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 120px rgba(0,0,0,.5)}
+  .story-quote{position:absolute;bottom:30px;left:30px;right:30px;font-family:'Fraunces';font-style:italic;font-size:18px;line-height:1.4;color:var(--cream);z-index:2}
+  .story-content h2{margin-bottom:32px}
+  .story-content p{font-size:18px;line-height:1.7;color:rgba(244,236,216,.78);margin-bottom:22px;max-width:520px}
+  .story-signature{margin-top:30px;font-style:italic;font-size:24px;color:var(--gold);font-weight:400}
+
+  /* COLLECTIONS FULL BLEED */
+  .collections{padding:0;position:relative}
+  .collections-inner{padding:140px 40px 120px;position:relative;background:linear-gradient(180deg,var(--black) 0%,var(--smoke) 40%,var(--black) 100%)}
+  .coll-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:60px}
+  .coll-card{position:relative;aspect-ratio:3/4;overflow:hidden;border-radius:3px;cursor:pointer}
+  .coll-card img{width:100%;height:100%;object-fit:cover;transition:transform 1.4s ease;filter:brightness(.7)}
+  .coll-card:hover img{transform:scale(1.08)}
+  .coll-card::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(6,4,4,.95));pointer-events:none}
+  .coll-card .body{position:absolute;bottom:0;left:0;right:0;padding:36px;z-index:2}
+  .coll-card .body small{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);font-weight:700;display:block;margin-bottom:12px}
+  .coll-card .body h3{font-size:36px;font-style:italic;font-weight:700;letter-spacing:-0.03em;line-height:1;margin-bottom:8px}
+  .coll-card .body p{font-size:13px;color:rgba(244,236,216,.7);line-height:1.5}
+  .coll-card .arrow{position:absolute;top:30px;right:30px;width:44px;height:44px;border:1px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:18px;z-index:3;transition:all .4s}
+  .coll-card:hover .arrow{background:var(--gold);color:var(--black);transform:rotate(-45deg)}
+
+  /* STATEMENT BANNER */
+  .statement{padding:180px 40px;text-align:center;position:relative;overflow:hidden}
+  .statement::before{
+    content:"";position:absolute;inset:0;
+    background:radial-gradient(ellipse at center, rgba(212,165,55,.18), transparent 60%);
+  }
+  .statement h2{position:relative;font-size:clamp(54px,11vw,180px);font-weight:900;font-style:italic;letter-spacing:-0.055em;line-height:.85}
+  .statement h2 .line{display:block;overflow:hidden}
+  .statement h2 .gold{color:var(--gold);font-style:italic;font-weight:400}
+  .statement p{position:relative;margin-top:40px;font-size:16px;letter-spacing:.25em;text-transform:uppercase;color:rgba(244,236,216,.6);font-weight:600}
+
+  /* TESTIMONIALS */
+  .testi{padding:160px 40px}
+  .testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:70px}
+  .testi-card{
+    border:1px solid rgba(212,165,55,.2);padding:40px 32px;border-radius:3px;
+    background:linear-gradient(180deg,rgba(26,20,18,.5),rgba(6,4,4,.2));
+    transition:all .5s;
+    position:relative;
+  }
+  .testi-card:hover{border-color:var(--gold);transform:translateY(-6px)}
+  .testi-card .stars{color:var(--gold);font-size:14px;letter-spacing:.25em;margin-bottom:20px}
+  .testi-card blockquote{font-size:18px;line-height:1.5;font-style:italic;color:var(--cream);margin-bottom:28px;font-weight:400}
+  .testi-card blockquote::before{content:"";display:block;width:30px;height:1px;background:var(--gold);margin-bottom:20px}
+  .testi-card .who{display:flex;align-items:center;gap:12px}
+  .testi-card .who .name{font-size:14px;font-weight:700;letter-spacing:-0.01em}
+  .testi-card .who .loc{font-size:11px;color:rgba(244,236,216,.55);letter-spacing:.15em;text-transform:uppercase}
+  .avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold-deep));display:flex;align-items:center;justify-content:center;color:var(--black);font-weight:900;font-size:16px;font-style:italic}
+
+  /* FAQ */
+  .faq{padding:160px 40px;display:grid;grid-template-columns:1fr 1.3fr;gap:80px;align-items:start}
+  .faq-list{border-top:1px solid rgba(212,165,55,.2)}
+  .faq-item{border-bottom:1px solid rgba(212,165,55,.2);padding:28px 0;cursor:pointer}
+  .faq-q{display:flex;justify-content:space-between;align-items:center;gap:30px;font-size:22px;font-weight:600;letter-spacing:-0.02em;font-style:italic;transition:color .3s}
+  .faq-item:hover .faq-q{color:var(--gold)}
+  .faq-q .plus{color:var(--gold);font-size:28px;transition:transform .4s;flex-shrink:0}
+  .faq-item.open .plus{transform:rotate(45deg)}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .5s ease, padding .5s ease;color:rgba(244,236,216,.72);font-size:15px;line-height:1.65}
+  .faq-item.open .faq-a{max-height:300px;padding-top:20px}
+
+  /* FINAL CTA */
+  .final{padding:180px 40px;text-align:center;position:relative;border-top:1px solid rgba(212,165,55,.2);border-bottom:1px solid rgba(212,165,55,.2)}
+  .final::before{
+    content:"";position:absolute;inset:0;
+    background:radial-gradient(ellipse at 50% 100%, rgba(212,165,55,.22), transparent 70%);
+  }
+  .final .content{position:relative}
+  .final h2{font-size:clamp(48px,9vw,140px);font-weight:900;font-style:italic;letter-spacing:-0.05em;line-height:.88;margin-bottom:40px}
+  .final h2 .gold{color:var(--gold);font-weight:400}
+  .final .btn-gold{font-size:14px;padding:22px 34px}
+
+  /* FOOTER */
+  footer{padding:100px 40px 40px;background:var(--ink);position:relative}
+  .foot-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:60px;padding-bottom:70px;border-bottom:1px solid rgba(212,165,55,.2)}
+  .foot-brand .logo{font-size:28px;margin-bottom:20px}
+  .foot-brand p{font-size:14px;line-height:1.65;color:rgba(244,236,216,.65);max-width:340px;margin-bottom:24px;font-style:italic}
+  .foot-col h5{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:22px}
+  .foot-col a{display:block;padding:8px 0;font-size:14px;color:rgba(244,236,216,.75);transition:color .3s}
+  .foot-col a:hover{color:var(--gold)}
+  .foot-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:40px;font-size:12px;color:rgba(244,236,216,.5);letter-spacing:.12em}
+  .foot-bottom .tag{font-style:italic;font-size:16px;color:var(--gold)}
+
+  /* RESPONSIVE */
+  @media(max-width:960px){
+    .hero{grid-template-columns:1fr;padding:110px 24px 40px}
+    .hero-center{min-height:70vh;margin:20px 0}
+    section{padding:90px 24px}
+    .showcase-head{grid-template-columns:1fr;gap:20px}
+    .showcase-head p{justify-self:start}
+    .showcase-grid{grid-template-columns:repeat(2,1fr);gap:14px}
+    .c1,.c2,.c3,.c4,.c5,.c6{grid-column:span 2;margin-top:0;aspect-ratio:4/5}
+    .story{grid-template-columns:1fr;gap:60px;padding:90px 24px}
+    .coll-grid{grid-template-columns:1fr;gap:16px}
+    .testi-grid{grid-template-columns:1fr;gap:16px}
+    .faq{grid-template-columns:1fr;gap:40px;padding:90px 24px}
+    .foot-top{grid-template-columns:1fr 1fr;gap:40px}
+    .nav-links{display:none}
+    footer{padding:70px 24px 30px}
+    .foot-bottom{flex-direction:column;gap:16px;text-align:center}
+  }
+</style>
+</head>
+<body>
+
+<div class="grain">
+  <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+    <filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/><feColorMatrix values="0 0 0 0 0.83 0 0 0 0 0.65 0 0 0 0 0.22 0 0 0 0.55 0"/></filter>
+    <rect width="100%" height="100%" filter="url(#n)"/>
+  </svg>
+</div>
+
+<nav class="top">
+  <div class="logo">Jameel's <em>Exotic</em></div>
+  <div class="nav-links">
+    <a href="#home">Home</a>
+    <a href="#shop">Shop</a>
+    <a href="#collections">Collections</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <a href="#shop" class="nav-cta">Shop Samples</a>
+</nav>
+
+<!-- HERO TRIPTYCH -->
+<header class="hero" id="home">
+  <aside class="hero-left">
+    <div>
+      <div class="eyebrow"><span class="dot"></span> Est. For The Discerning Nose</div>
+      <p class="lead">Sample the scents that turn heads — Creed Aventus, Baccarat Rouge 540, Tom Ford — in sizes that let you try before you invest the other $295.</p>
+    </div>
+    <div class="numbers">
+      <div class="num"><b>70+</b><span>Designer &amp; Niche Scents</span></div>
+      <div class="num"><b>$5</b><span>Starting Sample Price</span></div>
+      <div class="num"><b>100%</b><span>Authentic, Decanted by Hand</span></div>
+    </div>
+  </aside>
+
+  <div class="hero-center">
+    <div class="hero-img-wrap">
+      <img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?w=1600&q=85&auto=format&fit=crop" alt="Luxury fragrance">
+    </div>
+    <h1 class="hero-headline">
+      <span class="word"><span>Smell</span></span><br>
+      <span class="word"><span>like a</span></span>
+      <span class="word"><span class="gold">million.</span></span><br>
+      <span class="word"><span>Spend like</span></span>
+      <span class="word"><span class="gold">five.</span></span>
+    </h1>
+  </div>
+
+  <aside class="hero-right">
+    <div class="mini-card">
+      <div class="label">House Favorite</div>
+      <h4>Baccarat Rouge 540</h4>
+      <p>Saffron, ambergris, cedar. The scent that built its own mythology.</p>
+      <div class="price">$12<small>/ 5ml decant</small></div>
+    </div>
+    <div>
+      <div class="hero-cta-row">
+        <a href="#shop" class="btn-gold">Enter Shop →</a>
+      </div>
+      <div class="hero-cta-row">
+        <a href="#quiz" class="btn-ghost">Find Your Scent · Soon</a>
+      </div>
+    </div>
+  </aside>
+
+  <div class="hero-ticker">
+    <div class="ticker-track">
+      <span>Creed</span><span>Tom Ford</span><span>Baccarat Rouge</span><span>Chanel</span><span>Parfums de Marly</span><span>Louis Vuitton</span><span>Hermès</span><span>Paco Rabanne</span><span>Dior</span><span>Versace</span>
+      <span>Creed</span><span>Tom Ford</span><span>Baccarat Rouge</span><span>Chanel</span><span>Parfums de Marly</span><span>Louis Vuitton</span><span>Hermès</span><span>Paco Rabanne</span><span>Dior</span><span>Versace</span>
+    </div>
+  </div>
+</header>
+
+<!-- TRUST MARQUEE -->
+<section class="trust" style="padding:50px 0">
+  <div class="trust-track">
+    <span>Creed Aventus ✦ Tom Ford ✦ Chanel ✦ Dior ✦ Hermès ✦ Versace ✦ Gucci ✦ Louis Vuitton ✦ Paco Rabanne ✦ Parfums de Marly ✦</span>
+    <span>Creed Aventus ✦ Tom Ford ✦ Chanel ✦ Dior ✦ Hermès ✦ Versace ✦ Gucci ✦ Louis Vuitton ✦ Paco Rabanne ✦ Parfums de Marly ✦</span>
+  </div>
+</section>
+
+<!-- CORE SHOWCASE -->
+<section class="showcase" id="shop">
+  <div class="showcase-head">
+    <div>
+      <div class="section-label">The Shop · 001</div>
+      <h2 class="section-title">Heavy hitters.<br><span class="italic">Tiny price tags.</span></h2>
+    </div>
+    <p>Every bottle on the wall costs three figures. Every sample in our shop starts at five bucks. Find the one you'll wear for the next decade — then go buy the full 100ml with your eyes open.</p>
+  </div>
+
+  <div class="showcase-grid">
+    <article class="card c1">
+      <div class="price-chip">$12</div>
+      <img src="https://images.unsplash.com/photo-1541643600914-78b084683601?w=1000&q=85&auto=format&fit=crop" alt="Creed Aventus">
+      <div class="card-body">
+        <div class="tag">Men · Bestseller</div>
+        <h3>Creed Aventus</h3>
+        <p class="meta">Pineapple · Birch · Musk — the confidence starter pack.</p>
+      </div>
+    </article>
+    <article class="card c2">
+      <div class="price-chip">$14</div>
+      <img src="https://images.unsplash.com/photo-1587017539504-67cfbddac569?w=1000&q=85&auto=format&fit=crop" alt="Baccarat Rouge 540">
+      <div class="card-body">
+        <div class="tag">Unisex · Icon</div>
+        <h3>Baccarat Rouge 540</h3>
+        <p class="meta">Saffron · Ambergris · Cedar</p>
+      </div>
+    </article>
+    <article class="card c3">
+      <div class="price-chip">$8</div>
+      <img src="https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=1000&q=85&auto=format&fit=crop" alt="Tom Ford Ombre">
+      <div class="card-body">
+        <div class="tag">Men</div>
+        <h3>Ombré Leather</h3>
+        <p class="meta">Leather · Jasmine · Patchouli</p>
+      </div>
+    </article>
+    <article class="card c4">
+      <div class="price-chip">$9</div>
+      <img src="https://images.unsplash.com/photo-1563170351-be82bc888aa4?w=1200&q=85&auto=format&fit=crop" alt="Chanel">
+      <div class="card-body">
+        <div class="tag">Women</div>
+        <h3>Coco Mademoiselle</h3>
+        <p class="meta">Orange · Rose · Patchouli</p>
+      </div>
+    </article>
+    <article class="card c5">
+      <div class="price-chip">$7</div>
+      <img src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=1400&q=85&auto=format&fit=crop" alt="Dior Sauvage">
+      <div class="card-body">
+        <div class="tag">Men · Daily</div>
+        <h3>Dior Sauvage Elixir</h3>
+        <p class="meta">Licorice · Lavender · Cardamom</p>
+      </div>
+    </article>
+    <article class="card c6">
+      <div class="price-chip">$10</div>
+      <img src="https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=1000&q=85&auto=format&fit=crop" alt="Delina">
+      <div class="card-body">
+        <div class="tag">Women</div>
+        <h3>Delina Exclusif</h3>
+        <p class="meta">Lychee · Rose · Oud</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- STORY -->
+<section class="story" id="about">
+  <div class="story-img">
+    <img src="https://images.unsplash.com/photo-1528740561666-dc2479dc08ab?w=1200&q=85&auto=format&fit=crop" alt="Jameel founder">
+    <div class="story-quote">"Nobody should have to drop $300 to find out a scent wasn't them."</div>
+  </div>
+  <div class="story-content">
+    <div class="section-label">The Founder · 002</div>
+    <h2 class="section-title">My name is<br><span class="italic">Jameel.</span></h2>
+    <p style="margin-top:40px">I built this boutique around one stubborn idea: everybody deserves to smell like a million bucks without spending it. So I started decanting the scents nobody could justify buying blind — Creed, Baccarat, Tom Ford — into sizes that let you actually live with them first.</p>
+    <p>Over 70 fragrances now. Every decant hand-filled, labeled, and sent from me. No middleman, no markup theater. Just the real thing, in a size that respects your wallet.</p>
+    <div class="story-signature">— Jameel</div>
+  </div>
+</section>
+
+<!-- COLLECTIONS FULL BLEED -->
+<section class="collections" id="collections">
+  <div class="collections-inner">
+    <div style="text-align:center;max-width:720px;margin:0 auto">
+      <div class="section-label" style="justify-content:center">Curated Sets · 003</div>
+      <h2 class="section-title">Gift <span class="italic">a feeling.</span></h2>
+      <p style="margin-top:30px;font-size:17px;line-height:1.6;color:rgba(244,236,216,.7)">Hand-built collections and lamp sets, wrapped and ready. Because "I grabbed this for you" hits harder than a gift card ever will.</p>
+    </div>
+
+    <div class="coll-grid">
+      <article class="coll-card">
+        <img src="https://images.unsplash.com/photo-1615634376658-c80abf877da3?w=1200&q=85&auto=format&fit=crop" alt="Girly Girl">
+        <div class="arrow">↗</div>
+        <div class="body">
+          <small>Collection 01</small>
+          <h3>Girly Girl</h3>
+          <p>Six feminine icons. Florals, fruits, and the one everybody asks about.</p>
+        </div>
+      </article>
+      <article class="coll-card">
+        <img src="https://images.unsplash.com/photo-1602928321679-560bb453f190?w=1200&q=85&auto=format&fit=crop" alt="Lamp Set">
+        <div class="arrow">↗</div>
+        <div class="body">
+          <small>Gift Set 02</small>
+          <h3>The Lamp Ritual</h3>
+          <p>Ceramic lamp, burning oil, and a signature scent. The room you walk into at 9pm.</p>
+        </div>
+      </article>
+      <article class="coll-card">
+        <img src="https://images.unsplash.com/photo-1610461888750-10bfc601b874?w=1200&q=85&auto=format&fit=crop" alt="Men Starter">
+        <div class="arrow">↗</div>
+        <div class="body">
+          <small>Collection 03</small>
+          <h3>The Gentleman's Starter</h3>
+          <p>Aventus, Sauvage, Ombré, Bleu. The four scents everyone should smell at least once.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- STATEMENT -->
+<section class="statement">
+  <h2>
+    <span class="line">Look good.</span>
+    <span class="line"><span class="gold">Smell good.</span></span>
+    <span class="line">Feel good.</span>
+  </h2>
+  <p>— And let them notice first.</p>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testi">
+  <div style="text-align:center;max-width:700px;margin:0 auto">
+    <div class="section-label" style="justify-content:center">The Verdict · 004</div>
+    <h2 class="section-title">Real noses.<br><span class="italic">Real reactions.</span></h2>
+  </div>
+  <div class="testi-grid">
+    <div class="testi-card">
+      <div class="stars">★ ★ ★ ★ ★</div>
+      <blockquote>Wore Aventus to a wedding and two different people chased me down for the name. $12 for that kind of moment? Unreal.</blockquote>
+      <div class="who">
+        <div class="avatar">M</div>
+        <div><div class="name">Marcus T.</div><div class="loc">Atlanta, GA</div></div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="stars">★ ★ ★ ★ ★</div>
+      <blockquote>I was Sephora-broke before Jameel. Now I've got eight decants in rotation and I haven't dropped $300 blind once.</blockquote>
+      <div class="who">
+        <div class="avatar">A</div>
+        <div><div class="name">Alana R.</div><div class="loc">Brooklyn, NY</div></div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="stars">★ ★ ★ ★ ★</div>
+      <blockquote>Bought the Girly Girl collection for my sister's birthday. She cried. Actually cried. Packaging is ridiculous in the best way.</blockquote>
+      <div class="who">
+        <div class="avatar">D</div>
+        <div><div class="name">Devon W.</div><div class="loc">Houston, TX</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <div>
+    <div class="section-label">The Details · 005</div>
+    <h2 class="section-title">Ask us<br><span class="italic">anything.</span></h2>
+    <p style="margin-top:30px;color:rgba(244,236,216,.65);font-size:15px;line-height:1.65;max-width:360px">Questions before you buy? Smart. That's exactly how we'd want you to shop.</p>
+  </div>
+  <div class="faq-list">
+    <div class="faq-item open">
+      <div class="faq-q">Are these authentic fragrances? <span class="plus">+</span></div>
+      <div class="faq-a">100%. Every bottle I decant from is the real thing, sourced from authorized channels and verified before a single drop leaves. If you can spot a fake, so can I — and I don't sell them.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">What size are the samples? <span class="plus">+</span></div>
+      <div class="faq-a">Most decants come in 2ml, 5ml, and 10ml options. 5ml is the sweet spot — enough for a full week of wears so you know whether it's really you.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">How fast does shipping go out? <span class="plus">+</span></div>
+      <div class="faq-a">Orders ship within 48 hours, hand-packed by me. U.S. domestic typically lands in 3–5 business days with tracking.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Do you carry women's scents too? <span class="plus">+</span></div>
+      <div class="faq-a">Yes — Chanel, Delina, YSL, Baccarat, Maison Francis Kurkdjian, and plenty more. The full catalog spans men's, women's, and unisex across 70+ scents.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Is there a fragrance quiz? <span class="plus">+</span></div>
+      <div class="faq-a">Coming soon. A short quiz that asks about your mood, the scents you've loved, the vibe you want — then points you to three decants worth trying. Keep an eye out.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final" id="contact">
+  <div class="content">
+    <h2>Your <span class="gold">signature</span><br>is one sample away.</h2>
+    <a href="#shop" class="btn-gold">Shop All 70+ Scents →</a>
+    <p style="margin-top:40px;font-size:12px;letter-spacing:.25em;text-transform:uppercase;color:rgba(244,236,216,.5)">Or reach out — hello@jameelsexoticfragrances.com</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-top">
+    <div class="foot-brand">
+      <div class="logo">Jameel's <em>Exotic</em></div>
+      <p>Luxury fragrance, decanted by hand and sent with intention. Samples from $5. Because smelling like a million shouldn't cost one.</p>
+      <div class="hero-cta-row"><a href="#shop" class="btn-gold">Enter Shop →</a></div>
+    </div>
+    <div class="foot-col">
+      <h5>Shop</h5>
+      <a href="#">Men's</a>
+      <a href="#">Women's</a>
+      <a href="#">Unisex</a>
+      <a href="#">Collections</a>
+      <a href="#">Lamp Sets</a>
+    </div>
+    <div class="foot-col">
+      <h5>House</h5>
+      <a href="#about">About Jameel</a>
+      <a href="#">Authenticity</a>
+      <a href="#">Shipping</a>
+      <a href="#">Returns</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="foot-col">
+      <h5>Follow</h5>
+      <a href="#">Instagram</a>
+      <a href="#">TikTok</a>
+      <a href="#">YouTube</a>
+      <a href="#">Newsletter</a>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2025 Jameel's Exotic Fragrances. All rights reserved.</span>
+    <span class="tag">Look Good. Smell Good. Feel Good.</span>
+    <span>Privacy · Terms</span>
+  </div>
+</footer>
+
+<script>
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Hero headline reveal
+  gsap.from(".hero-headline .word span", {
+    y: "110%", opacity: 0, duration: 1.1, stagger: 0.09, ease: "power4.out", delay: 0.15
+  });
+  gsap.from(".hero-left > *, .hero-right > *", {
+    y: 30, opacity: 0, duration: 1, stagger: 0.12, ease: "power3.out", delay: 0.4
+  });
+  gsap.from(".hero-img-wrap img", { scale: 1.2, duration: 2.2, ease: "power3.out", delay: 0.1 });
+  gsap.from("nav.top", { y: -40, opacity: 0, duration: 1, ease: "power3.out" });
+
+  // Section titles
+  gsap.utils.toArray(".section-title").forEach(el => {
+    gsap.from(el, {
+      scrollTrigger: { trigger: el, start: "top 85%" },
+      y: 60, opacity: 0, duration: 1.1, ease: "power3.out"
+    });
+  });
+
+  // Cards stagger
+  gsap.utils.toArray(".showcase-grid .card").forEach((card, i) => {
+    gsap.from(card, {
+      scrollTrigger: { trigger: card, start: "top 90%" },
+      y: 80, opacity: 0, duration: 1, delay: i * 0.06, ease: "power3.out"
+    });
+  });
+
+  gsap.utils.toArray(".coll-card").forEach((card, i) => {
+    gsap.from(card, {
+      scrollTrigger: { trigger: ".coll-grid", start: "top 85%" },
+      y: 80, opacity: 0, duration: 1, delay: i * 0.12, ease: "power3.out"
+    });
+  });
+
+  gsap.utils.toArray(".testi-card").forEach((card, i) => {
+    gsap.from(card, {
+      scrollTrigger: { trigger: ".testi-grid", start: "top 85%" },
+      y: 60, opacity: 0, duration: 0.9, delay: i * 0.1, ease: "power3.out"
+    });
+  });
+
+  // Statement lines
+  gsap.from(".statement h2 .line", {
+    scrollTrigger: { trigger: ".statement", start: "top 75%" },
+    y: "100%", opacity: 0, duration: 1.1, stagger: 0.15, ease: "power4.out"
+  });
+
+  // Story
+  gsap.from(".story-img", {
+    scrollTrigger: { trigger: ".story", start: "top 80%" },
+    x: -60, opacity: 0, duration: 1.2, ease: "power3.out"
+  });
+  gsap.from(".story-content p, .story-signature", {
+    scrollTrigger: { trigger: ".story-content", start: "top 80%" },
+    y: 30, opacity: 0, duration: 0.9, stagger: 0.12, ease: "power3.out"
+  });
+
+  // FAQ accordion
+  document.querySelectorAll(".faq-item").forEach(item => {
+    item.addEventListener("click", () => {
+      const wasOpen = item.classList.contains("open");
+      document.querySelectorAll(".faq-item").forEach(i => i.classList.remove("open"));
+      if (!wasOpen) item.classList.add("open");
+    });
+  });
+
+  // Magnetic CTAs
+  document.querySelectorAll(".btn-gold, .btn-ghost, .nav-cta").forEach(btn => {
+    btn.addEventListener("mousemove", e => {
+      const r = btn.getBoundingClientRect();
+      const x = e.clientX - r.left - r.width / 2;
+      const y = e.clientY - r.top - r.height / 2;
+      gsap.to(btn, { x: x * 0.25, y: y * 0.3, duration: 0.4, ease: "power2.out" });
+    });
+    btn.addEventListener("mouseleave", () => {
+      gsap.to(btn, { x: 0, y: 0, duration: 0.6, ease: "elastic.out(1,0.4)" });
+    });
+  });
+
+  // Parallax hero image
+  gsap.to(".hero-img-wrap img", {
+    yPercent: 15,
+    ease: "none",
+    scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true }
+  });
+</script>
+</body>
+</html>
