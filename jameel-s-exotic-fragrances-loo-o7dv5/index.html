@@ -66,6 +66,24 @@ nav.top ul li a.nav-active-indicator{color:#0A0A0A !important}
 .nav-cta:hover::before{transform:translateY(0)}
 .nav-cta span{position:relative;z-index:2}
 
+/* Mobile menu toggle (hidden on desktop) */
+.mobile-toggle{display:none;width:42px;height:42px;position:relative;z-index:2;background:transparent;border:1px solid rgba(10,10,10,.15);border-radius:999px;align-items:center;justify-content:center;flex-direction:column;gap:5px;transition:all .3s}
+nav.top.scrolled .mobile-toggle{border-color:rgba(255,255,255,.25)}
+.mobile-toggle span{display:block;width:16px;height:1.5px;background:var(--ink);transition:all .3s}
+nav.top.scrolled .mobile-toggle span{background:#fff}
+.mobile-toggle.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.mobile-toggle.open span:nth-child(2){opacity:0}
+.mobile-toggle.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+
+/* Mobile menu drawer */
+.mobile-menu{position:fixed;top:0;left:0;right:0;bottom:0;background:var(--ink);z-index:85;padding:100px 32px 40px;display:flex;flex-direction:column;justify-content:space-between;transform:translateY(-100%);transition:transform .55s cubic-bezier(.7,0,.3,1);visibility:hidden}
+.mobile-menu.open{transform:translateY(0);visibility:visible}
+.mobile-menu ul{list-style:none;display:flex;flex-direction:column;gap:4px}
+.mobile-menu ul a{display:block;padding:18px 0;font-family:'Fraunces',serif;font-size:32px;font-weight:400;letter-spacing:-.02em;color:#fff;border-bottom:1px solid rgba(255,255,255,.1);transition:color .3s}
+.mobile-menu ul a:hover,.mobile-menu ul a:active{color:var(--hot-pink)}
+.mobile-menu .m-cta{margin-top:32px;background:var(--hot-pink);color:#0A0A0A;padding:20px 32px;text-align:center;font-size:11px;letter-spacing:.3em;text-transform:uppercase;font-weight:500}
+.mobile-menu .m-foot{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:rgba(255,255,255,.4);text-align:center;padding-top:24px}
+
 /* ===== HERO ===== */
 .hero{position:relative;min-height:100vh;overflow:hidden;background:#FFFFFF}
 .hero::before{content:"";position:absolute;inset:0;background:
@@ -79,8 +97,8 @@ nav.top ul li a.nav-active-indicator{color:#0A0A0A !important}
 .hero-img-wrap img{width:100%;height:100%;object-fit:cover;filter:grayscale(.3) contrast(1.05) sepia(.35) saturate(1.1)}
 
 .hero-content{position:relative;z-index:4;padding:120px 48px 70px;min-height:100vh;display:flex;flex-direction:column;justify-content:center;gap:20px}
-.hero-eyebrow{display:inline-flex;align-items:center;gap:12px;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink);font-weight:500;background:transparent;padding:8px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);width:fit-content}
-.hero-eyebrow .dot{width:6px;height:6px;background:var(--hot-pink);border-radius:50%}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:12px;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink);font-weight:500;background:transparent;padding:8px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);width:fit-content;max-width:100%}
+.hero-eyebrow .dot{width:6px;height:6px;background:var(--hot-pink);border-radius:50%;flex-shrink:0}
 
 .hero h1{font-family:'Fraunces',serif;font-weight:400;font-size:clamp(48px,8vw,120px);line-height:.96;letter-spacing:-.035em;color:var(--ink);margin-top:4px;position:relative;z-index:4}
 .hero h1 .line{display:block;overflow:hidden}
@@ -267,9 +285,9 @@ footer{background:var(--ink);padding:120px 48px 48px;color:#fff}
 .foot-col ul a{color:rgba(255,255,255,.65);font-size:13px;transition:color .3s;letter-spacing:.01em}
 .foot-col ul a:hover{color:var(--hot-pink)}
 .foot-newsletter{display:flex;gap:0;margin-top:22px;background:transparent;border-radius:0;padding:0;max-width:340px;border-bottom:1px solid rgba(255,255,255,.25)}
-.foot-newsletter input{flex:1;background:transparent;border:none;outline:none;color:#fff;font-family:inherit;font-size:13px;padding:14px 0}
+.foot-newsletter input{flex:1;background:transparent;border:none;outline:none;color:#fff;font-family:inherit;font-size:13px;padding:14px 0;min-width:0}
 .foot-newsletter input::placeholder{color:rgba(255,255,255,.35)}
-.foot-newsletter button{background:transparent;color:#fff;font-size:11px;letter-spacing:.25em;text-transform:uppercase;font-weight:500;padding:14px 0 14px 22px;border-radius:0;transition:all .3s}
+.foot-newsletter button{background:transparent;color:#fff;font-size:11px;letter-spacing:.25em;text-transform:uppercase;font-weight:500;padding:14px 0 14px 22px;border-radius:0;transition:all .3s;white-space:nowrap}
 .foot-newsletter button:hover{color:var(--hot-pink)}
 .foot-bot{max-width:1400px;margin:40px auto 0;display:flex;justify-content:space-between;align-items:center;font-size:10px;color:rgba(255,255,255,.4);letter-spacing:.18em;flex-wrap:wrap;gap:20px;text-transform:uppercase;font-weight:500}
 .foot-bot .social{display:flex;gap:22px}
@@ -278,9 +296,14 @@ footer{background:var(--ink);padding:120px 48px 48px;color:#fff}
 
 /* ===== REVEAL / UTIL ===== */
 .reveal{opacity:0;transform:translateY(40px)}
+
+/* ============================================
+   PORTRAIT MOBILE — comprehensive responsive
+   ============================================ */
 @media(max-width:900px){
-  nav.top ul{display:none}
-  nav.top{padding:18px 24px}
+  nav.top ul,nav.top > .nav-cta{display:none}
+  nav.top{padding:16px 20px}
+  .mobile-toggle{display:flex}
   .hero h1{font-size:clamp(40px,11vw,72px)}
   .hero-img-wrap{width:70vw;height:36vh;right:50%;transform:translate(50%,-50%)}
   .hero-content{padding:110px 24px 90px;gap:16px}
@@ -296,6 +319,155 @@ footer{background:var(--ink);padding:120px 48px 48px;color:#fff}
   .p2,.p3,.p4,.p6{grid-column:span 3;grid-row:span 2}
   .trust,.showcase,.story,.collections,.testimonials,.faq,.final,.quiz,.statement{padding-left:24px;padding-right:24px}
   .quiz-inner{padding:50px 30px}
+}
+
+/* Portrait phones — tighter optimization */
+@media(max-width:640px){
+  /* Nav */
+  nav.top{padding:14px 18px}
+  nav.top .logo{font-size:19px}
+
+  /* Hero — stack image above text for portrait flow */
+  .hero{min-height:auto}
+  .hero-content{padding:96px 20px 110px;min-height:auto;gap:18px;justify-content:flex-start}
+  .hero-img-wrap{position:relative;top:auto;right:auto;left:auto;transform:none;width:100%;height:48vh;max-height:420px;margin:0 auto;order:-1}
+  .hero h1{font-size:clamp(42px,12.5vw,68px);line-height:.98;letter-spacing:-.03em}
+  .hero-eyebrow{font-size:9.5px;letter-spacing:.22em;padding:8px 0;gap:10px}
+  .hero-foot{flex-direction:column;align-items:stretch;gap:24px;margin-top:8px}
+  .hero-foot p{max-width:100%;font-size:13.5px;line-height:1.65}
+  .hero-cta{justify-content:center;padding:20px 28px;font-size:10.5px;letter-spacing:.25em;width:100%}
+  .hero-marquee{padding:14px 0}
+  .marquee-track{font-size:12px;gap:36px}
+
+  /* Trust */
+  .trust{padding:80px 20px}
+  .trust-grid{grid-template-columns:1fr 1fr;gap:0}
+  .trust-item{padding:32px 16px;border-right:1px solid rgba(10,10,10,.08)}
+  .trust-item:nth-child(odd){border-right:1px solid rgba(10,10,10,.08)}
+  .trust-item:nth-child(even){border-right:none}
+  .trust-item:nth-child(3),.trust-item:nth-child(4){border-bottom:none}
+  .trust-item .num{font-size:clamp(34px,9vw,52px)}
+  .trust-item .label{font-size:9.5px;letter-spacing:.2em;margin-top:10px}
+
+  /* Section heads */
+  .section-head{margin-bottom:48px;gap:24px;flex-direction:column;align-items:flex-start}
+  .section-head .tag,.story-text .tag,.test-head .tag,.quiz-left .tag{font-size:10px;letter-spacing:.25em;margin-bottom:20px}
+  .section-head h2,.test-head h2{font-size:clamp(30px,8vw,42px);line-height:1.08}
+  .section-head .side{max-width:100%;font-size:13.5px}
+
+  /* Showcase */
+  .showcase{padding:90px 20px 80px}
+  .filters{margin-bottom:36px;gap:8px;overflow-x:auto;flex-wrap:nowrap;-webkit-overflow-scrolling:touch;padding-bottom:8px;margin-left:-20px;margin-right:-20px;padding-left:20px;padding-right:20px;scrollbar-width:none}
+  .filters::-webkit-scrollbar{display:none}
+  .pill{padding:10px 18px;font-size:10px;letter-spacing:.2em;white-space:nowrap;flex-shrink:0}
+
+  /* Product grid — single column portrait */
+  .product-grid{grid-template-columns:1fr;grid-auto-rows:auto;gap:12px}
+  .p1,.p2,.p3,.p4,.p5,.p6{grid-column:span 1;grid-row:auto;aspect-ratio:4/5}
+  .product .meta{padding:20px}
+  .product .brand{font-size:9px;letter-spacing:.22em;padding:5px 11px}
+  .product .bottom{opacity:1;transform:translateY(0);padding:14px 16px}
+  .product .name{font-size:18px}
+  .product .price{font-size:10px;margin-top:6px}
+  .product .badge{top:14px;right:14px;font-size:9px;padding:5px 11px}
+
+  /* Story */
+  .story{padding:90px 20px}
+  .story-inner{gap:48px}
+  .story-img{height:400px}
+  .story-img .caption{bottom:18px;left:18px;font-size:9.5px;letter-spacing:.22em;padding:8px 14px}
+  .story-text h3{font-size:clamp(28px,7.5vw,38px);margin-bottom:24px}
+  .story-text p{font-size:14px;line-height:1.75;margin-bottom:18px}
+  .story-text .sig{font-size:26px;margin-top:30px}
+  .story-text .role{font-size:10px;letter-spacing:.25em}
+
+  /* Collections */
+  .collections{padding:90px 20px}
+  .coll-head{margin-bottom:48px}
+  .coll-head h2{font-size:clamp(34px,9vw,52px)}
+  .coll-head p{font-size:14px;margin-top:20px}
+  .coll-grid{gap:14px}
+  .coll-card{aspect-ratio:4/5}
+  .coll-card .info{padding:24px}
+  .coll-card .label{font-size:9.5px;letter-spacing:.25em;margin-bottom:10px}
+  .coll-card h4{font-size:24px;margin-bottom:10px}
+  .coll-card .desc{font-size:12.5px;line-height:1.6;margin-bottom:16px}
+  .coll-card .link{font-size:10px;letter-spacing:.25em;padding:10px 0}
+
+  /* Quiz */
+  .quiz{padding:70px 20px}
+  .quiz-inner{padding:44px 26px;gap:30px;flex-direction:column;align-items:flex-start}
+  .quiz-left h3{font-size:clamp(26px,7vw,36px)}
+  .quiz-left p{font-size:13.5px;margin-top:18px}
+  .quiz-btn{padding:18px 28px;font-size:10px;letter-spacing:.25em;width:100%;justify-content:center}
+
+  /* Testimonials */
+  .testimonials{padding:90px 20px}
+  .test-head{margin-bottom:48px}
+  .test-grid{gap:14px}
+  .test-card{padding:30px 24px}
+  .test-card .quote{font-size:17px;line-height:1.5;margin-bottom:24px}
+  .test-card .stars{margin-bottom:18px;font-size:13px}
+  .test-card .author{padding-top:18px;gap:14px}
+  .test-card .avatar{width:40px;height:40px}
+  .test-card .name{font-size:12.5px}
+  .test-card .loc{font-size:9.5px;letter-spacing:.22em}
+
+  /* Statement */
+  .statement{padding:110px 20px}
+  .statement h2{font-size:clamp(36px,9.5vw,56px);line-height:1.05}
+  .statement p{margin-top:32px;font-size:10px;letter-spacing:.3em}
+
+  /* FAQ */
+  .faq{padding:90px 20px}
+  .faq-wrap{gap:40px}
+  .faq-wrap .left h2{font-size:clamp(28px,8vw,40px)}
+  .faq-wrap .left p{font-size:13.5px;margin-top:18px}
+  .faq-item{padding:22px 0}
+  .faq-q{gap:18px}
+  .faq-q h4{font-size:16px;line-height:1.35}
+  .faq-a{font-size:13.5px;line-height:1.7}
+
+  /* Final */
+  .final{padding:110px 20px}
+  .final h2{font-size:clamp(38px,10.5vw,64px)}
+  .final p{font-size:14px;margin-top:24px}
+  .final .cta-row{margin-top:36px;gap:12px;flex-direction:column}
+  .btn-primary,.btn-ghost{padding:18px 28px;font-size:10.5px;letter-spacing:.25em;width:100%;justify-content:center;text-align:center}
+
+  /* Footer */
+  footer{padding:80px 20px 36px}
+  .foot-top{grid-template-columns:1fr;gap:44px;padding-bottom:48px}
+  .foot-top h3{font-size:clamp(26px,7.5vw,34px);margin-bottom:20px}
+  .foot-col h5{font-size:10px;letter-spacing:.25em;margin-bottom:18px}
+  .foot-col ul{gap:12px}
+  .foot-col ul a{font-size:13px}
+  .foot-newsletter{max-width:100%;margin-top:18px}
+  .foot-newsletter input{font-size:14px}
+  .foot-newsletter button{font-size:10px;letter-spacing:.22em;padding-left:16px}
+  .foot-bot{margin-top:32px;flex-direction:column;align-items:flex-start;gap:18px;font-size:9.5px;letter-spacing:.18em}
+  .foot-bot .social{gap:18px}
+}
+
+/* Very small portrait phones */
+@media(max-width:380px){
+  nav.top{padding:12px 14px}
+  .hero-content{padding:90px 16px 100px}
+  .hero h1{font-size:clamp(36px,12vw,52px)}
+  .trust,.showcase,.story,.collections,.testimonials,.faq,.final,.quiz,.statement,footer{padding-left:16px;padding-right:16px}
+  .trust-grid{grid-template-columns:1fr}
+  .trust-item{border-right:none !important;border-bottom:1px solid rgba(10,10,10,.08)}
+  .trust-item:last-child{border-bottom:none}
+  .quiz-inner{padding:36px 22px}
+  .mobile-menu{padding:90px 24px 32px}
+  .mobile-menu ul a{font-size:28px;padding:16px 0}
+}
+
+/* Landscape phones — keep compact */
+@media(max-height:500px) and (orientation:landscape) and (max-width:900px){
+  .hero-content{padding:90px 24px 80px;min-height:auto}
+  .hero-img-wrap{position:absolute;width:40vw;height:60vh;right:6%;left:auto;transform:translateY(-50%);top:50%;order:0}
+  .hero h1{font-size:clamp(36px,7vw,56px)}
 }
 </style>
 </head>
@@ -318,7 +490,24 @@ footer{background:var(--ink);padding:120px 48px 48px;color:#fff}
     <li><a href="#contact" data-navlink>Contact</a></li>
   </ul>
   <a href="#shop" class="nav-cta"><span>Shop Samples</span></a>
+  <button class="mobile-toggle" id="mobileToggle" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- Mobile menu drawer -->
+<div class="mobile-menu" id="mobileMenu">
+  <ul>
+    <li><a href="#shop" data-mlink>Shop</a></li>
+    <li><a href="#collections" data-mlink>Collections</a></li>
+    <li><a href="#about" data-mlink>About</a></li>
+    <li><a href="#contact" data-mlink>Contact</a></li>
+  </ul>
+  <div>
+    <a href="#shop" class="m-cta" data-mlink>Shop Samples →</a>
+    <div class="m-foot" style="margin-top:24px">Look Good · Smell Good · Feel Good</div>
+  </div>
+</div>
 
 <!-- HERO -->
 <section class="hero" id="home">
@@ -685,6 +874,26 @@ document.querySelectorAll('.faq-item').forEach(item=>{
     if(!open)item.classList.add('open');
   });
 });
+
+/* ===== MOBILE MENU ===== */
+(function(){
+  const toggle = document.getElementById('mobileToggle');
+  const menu = document.getElementById('mobileMenu');
+  if(!toggle || !menu) return;
+  function close(){
+    toggle.classList.remove('open');
+    menu.classList.remove('open');
+    document.body.style.overflow='';
+  }
+  toggle.addEventListener('click',()=>{
+    const isOpen = menu.classList.toggle('open');
+    toggle.classList.toggle('open',isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+  menu.querySelectorAll('[data-mlink]').forEach(a=>{
+    a.addEventListener('click',close);
+  });
+})();
 
 /* ===== COOL NAV — Magnetic indicator + scroll morph + active section tracking ===== */
 (function(){
