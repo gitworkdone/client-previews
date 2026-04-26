@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PreciousPuppies - Dog Grooming & Pet Services</title>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -14,15 +12,10 @@
             box-sizing: border-box;
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
-
         body {
-            font-family: 'Quicksand', sans-serif;
-            color: #2c3e50;
-            background: linear-gradient(135deg, #fff9e6 0%, #ffe8cc 100%);
-            min-height: 100vh;
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
         }
 
         /* Navigation */
@@ -30,488 +23,332 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.98);
             padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #FF6B9D 0%, #FFC75F 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         nav ul {
-            list-style: none;
             display: flex;
-            justify-content: center;
-            gap: 3rem;
-            align-items: center;
-            flex-wrap: wrap;
+            list-style: none;
+            gap: 2rem;
         }
 
         nav a {
             text-decoration: none;
-            color: #2c3e50;
+            color: #333;
             font-weight: 600;
-            font-family: 'Poppins', sans-serif;
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
-            position: relative;
+            transition: color 0.3s ease;
+            cursor: pointer;
         }
 
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 3px;
-            background: linear-gradient(90deg, #ff6b9d, #ffa502);
-            transition: width 0.3s ease;
-        }
-
-        nav a:hover::after {
-            width: 100%;
-        }
-
-        .logo {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #ff6b9d, #ffa502);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        nav a:hover {
+            color: #FF6B9D;
         }
 
         /* Hero Section */
         .hero {
-            margin-top: 80px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+            height: 100vh;
+            background: linear-gradient(rgba(255, 107, 157, 0.3), rgba(255, 199, 95, 0.3)), url('https://images.unsplash.com/photo-1534361960057-19889db9621e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxoYXBweSUyMGRvZ3xlbnwwfHx8fDE3NzcxODAzMzh8MA&ixlib=rb-4.1.0&q=80&w=1080') center/cover;
+            display: flex;
             align-items: center;
-            gap: 3rem;
-            padding: 4rem 5%;
-            min-height: calc(100vh - 80px);
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding-top: 60px;
         }
 
         .hero-content {
-            z-index: 10;
+            max-width: 700px;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            color: #333;
         }
 
         .hero h1 {
-            font-family: 'Poppins', sans-serif;
-            font-size: clamp(2.5rem, 8vw, 4.5rem);
-            font-weight: 800;
-            margin-bottom: 1.5rem;
-            line-height: 1.2;
-            background: linear-gradient(135deg, #ff6b9d, #ffa502, #ffcc00);
+            font-family: 'Fredoka', sans-serif;
+            font-size: clamp(2rem, 8vw, 3.5rem);
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #FF6B9D 0%, #FFC75F 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            font-weight: 700;
         }
 
         .hero p {
             font-size: 1.1rem;
-            color: #555;
             margin-bottom: 2rem;
-            line-height: 1.6;
-            max-width: 90%;
+            color: #666;
         }
 
-        .hero-buttons {
-            display: flex;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: 50px;
-            font-weight: 700;
-            cursor: pointer;
-            font-family: 'Poppins', sans-serif;
-            transition: all 0.3s ease;
-            font-size: 1rem;
-            text-decoration: none;
+        .cta-button {
             display: inline-block;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #ff6b9d, #ff4757);
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, #FF6B9D 0%, #FFC75F 100%);
             color: white;
-            box-shadow: 0 10px 30px rgba(255, 107, 157, 0.3);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(255, 107, 157, 0.4);
-        }
-
-        .btn-secondary {
-            background: white;
-            color: #ff6b9d;
-            border: 2px solid #ff6b9d;
-        }
-
-        .btn-secondary:hover {
-            background: #ff6b9d;
-            color: white;
-            transform: translateY(-3px);
-        }
-
-        .hero-image {
-            position: relative;
-            height: 500px;
-        }
-
-        .hero-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 30px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-        }
-
-        /* About Section */
-        .about {
-            padding: 6rem 5%;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
-
-        .about-image {
-            height: 450px;
-            border-radius: 30px;
-            overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-        }
-
-        .about-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .about-content h2 {
-            font-family: 'Poppins', sans-serif;
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            font-weight: 800;
-            margin-bottom: 1.5rem;
-            color: #ff6b9d;
-        }
-
-        .about-content p {
-            font-size: 1.05rem;
-            color: #555;
-            line-height: 1.8;
-            margin-bottom: 1.5rem;
-        }
-
-        .about-list {
-            list-style: none;
-            margin-top: 2rem;
-        }
-
-        .about-list li {
-            padding: 0.8rem 0;
-            padding-left: 2rem;
-            position: relative;
-            color: #555;
-            font-size: 1.05rem;
-        }
-
-        .about-list li::before {
-            content: '✨';
-            position: absolute;
-            left: 0;
-            font-size: 1.3rem;
-        }
-
-        /* Portfolio Section */
-        .portfolio {
-            padding: 6rem 5%;
-            background: linear-gradient(135deg, rgba(255, 107, 157, 0.05), rgba(255, 165, 2, 0.05));
-        }
-
-        .portfolio h2 {
-            font-family: 'Poppins', sans-serif;
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            font-weight: 800;
-            text-align: center;
-            margin-bottom: 0.5rem;
-            color: #ff6b9d;
-        }
-
-        .section-subtitle {
-            text-align: center;
-            color: #888;
-            font-size: 1.1rem;
-            margin-bottom: 4rem;
-        }
-
-        .portfolio-carousel {
-            position: relative;
-            max-width: 900px;
-            margin: 0 auto;
-            height: 500px;
-            border-radius: 30px;
-            overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-        }
-
-        .carousel-item {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            transition: opacity 0.8s ease-in-out;
-        }
-
-        .carousel-item.active {
-            opacity: 1;
-            z-index: 10;
-        }
-
-        .carousel-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .carousel-controls {
-            position: absolute;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 1rem;
-            z-index: 20;
-        }
-
-        .carousel-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.5);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 2px solid white;
-        }
-
-        .carousel-dot.active {
-            background: white;
-            transform: scale(1.3);
-        }
-
-        .carousel-arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 50px;
-            height: 50px;
-            background: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             border: none;
-            border-radius: 50%;
             cursor: pointer;
-            font-size: 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            color: #ff6b9d;
-            font-weight: bold;
-            z-index: 20;
+            font-size: 1rem;
         }
 
-        .carousel-arrow:hover {
-            background: white;
-            transform: translateY(-50%) scale(1.1);
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 107, 157, 0.4);
         }
 
-        .carousel-arrow.prev {
-            left: 1.5rem;
+        /* Sections */
+        section {
+            padding: 5rem 2rem;
         }
 
-        .carousel-arrow.next {
-            right: 1.5rem;
+        section h2 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #333;
         }
 
         /* Services Section */
         .services {
-            padding: 6rem 5%;
-        }
-
-        .services h2 {
-            font-family: 'Poppins', sans-serif;
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            font-weight: 800;
-            text-align: center;
-            margin-bottom: 0.5rem;
-            color: #ff6b9d;
+            background: linear-gradient(to bottom, #FFF8E7, #FFF0F5);
         }
 
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 3rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
             max-width: 1200px;
-            margin: 4rem auto 0;
+            margin: 0 auto;
         }
 
         .service-card {
             background: white;
-            border-radius: 25px;
-            overflow: hidden;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
-            transition: all 0.3s ease;
-            cursor: pointer;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .service-card:hover {
-            transform: translateY(-15px);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(255, 107, 157, 0.2);
         }
 
-        .service-card-image {
+        .service-card img {
             width: 100%;
             height: 250px;
-            overflow: hidden;
-        }
-
-        .service-card-image img {
-            width: 100%;
-            height: 100%;
             object-fit: cover;
-            transition: transform 0.3s ease;
-        }
-
-        .service-card:hover .service-card-image img {
-            transform: scale(1.1);
-        }
-
-        .service-card-content {
-            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
         }
 
         .service-card h3 {
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Fredoka', sans-serif;
             font-size: 1.5rem;
-            font-weight: 700;
             margin-bottom: 1rem;
-            color: #ff6b9d;
+            color: #FF6B9D;
         }
 
         .service-card p {
             color: #666;
-            line-height: 1.6;
             font-size: 0.95rem;
+            line-height: 1.8;
         }
 
-        /* Testimonials */
+        /* About Section */
+        .about {
+            background: linear-gradient(to bottom, #FFF0F5, #E6F3FF);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .about-text h3 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 2rem;
+            color: #FFC75F;
+            margin-bottom: 1rem;
+        }
+
+        .about-text p {
+            color: #666;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        .about-image {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Portfolio Section */
+        .portfolio {
+            background: linear-gradient(to bottom, #E6F3FF, #FFF8E7);
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .portfolio-item {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .portfolio-item:hover {
+            transform: scale(1.05);
+        }
+
+        .portfolio-img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            transition: opacity 0.5s ease-in-out;
+            display: block;
+        }
+
+        .portfolio-item h3 {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            color: white;
+            padding: 2rem 1rem 1rem;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.3rem;
+            margin: 0;
+        }
+
+        /* Testimonials Section */
         .testimonials {
-            padding: 6rem 5%;
-            background: linear-gradient(135deg, rgba(255, 107, 157, 0.05), rgba(255, 165, 2, 0.05));
-        }
-
-        .testimonials h2 {
-            font-family: 'Poppins', sans-serif;
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            font-weight: 800;
-            text-align: center;
-            margin-bottom: 0.5rem;
-            color: #ff6b9d;
+            background: linear-gradient(to bottom, #FFF0F5, #FFF8E7);
         }
 
         .testimonials-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
             max-width: 1200px;
-            margin: 4rem auto 0;
+            margin: 0 auto;
         }
 
-        .testimonial-item {
+        .testimonial {
             background: white;
             padding: 2rem;
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
-            transition: all 0.3s ease;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            text-align: center;
         }
 
-        .testimonial-item:hover {
-            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.12);
-            transform: translateY(-5px);
+        .testimonial img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 1rem;
+        }
+
+        .testimonial p {
+            color: #666;
+            font-style: italic;
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        .testimonial .author {
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 600;
+            color: #FF6B9D;
+            font-style: normal;
         }
 
         .stars {
-            color: #ffcc00;
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
+            color: #FFC75F;
+            margin-bottom: 0.5rem;
         }
 
-        .testimonial-text {
-            color: #555;
-            font-size: 0.95rem;
-            line-height: 1.6;
-            margin-bottom: 1.5rem;
-            font-style: italic;
-        }
-
-        .testimonial-author {
-            font-weight: 700;
-            color: #ff6b9d;
-            font-size: 0.95rem;
-        }
-
-        /* FAQ */
+        /* FAQ Section */
         .faq {
-            padding: 6rem 5%;
-            background: linear-gradient(135deg, rgba(255, 165, 2, 0.05), rgba(255, 107, 157, 0.05));
-        }
-
-        .faq h2 {
-            font-family: 'Poppins', sans-serif;
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            font-weight: 800;
-            text-align: center;
-            margin-bottom: 4rem;
-            color: #ff6b9d;
+            background: linear-gradient(to bottom, #E6F3FF, #FFF0F5);
         }
 
         .faq-container {
-            max-width: 700px;
+            max-width: 800px;
             margin: 0 auto;
         }
 
         .faq-item {
             background: white;
-            margin-bottom: 1.5rem;
-            border-radius: 15px;
+            margin-bottom: 1rem;
+            border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
         }
 
         .faq-question {
             padding: 1.5rem;
+            background: linear-gradient(135deg, #FF6B9D 0%, #FFC75F 100%);
+            color: white;
             cursor: pointer;
+            font-weight: 600;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-weight: 600;
-            color: #2c3e50;
             transition: all 0.3s ease;
-            background: white;
         }
 
         .faq-question:hover {
-            background: linear-gradient(135deg, rgba(255, 107, 157, 0.05), rgba(255, 165, 2, 0.05));
+            padding-left: 2rem;
         }
 
         .faq-icon {
             font-size: 1.5rem;
             transition: transform 0.3s ease;
-            color: #ff6b9d;
         }
 
         .faq-item.active .faq-icon {
@@ -522,202 +359,155 @@
             padding: 0 1.5rem;
             max-height: 0;
             overflow: hidden;
-            transition: all 0.3s ease;
+            transition: max-height 0.3s ease, padding 0.3s ease;
             color: #666;
-            line-height: 1.6;
         }
 
         .faq-item.active .faq-answer {
-            padding: 0 1.5rem 1.5rem 1.5rem;
-            max-height: 500px;
+            max-height: 300px;
+            padding: 1.5rem;
         }
 
-        /* Contact CTA */
-        .contact-cta {
-            padding: 6rem 5%;
-            text-align: center;
-            background: linear-gradient(135deg, #ff6b9d, #ffa502);
+        /* Contact Section */
+        .contact {
+            background: linear-gradient(135deg, #FF6B9D 0%, #FFC75F 100%);
             color: white;
+            text-align: center;
         }
 
-        .contact-cta h2 {
-            font-family: 'Poppins', sans-serif;
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            font-weight: 800;
-            margin-bottom: 1.5rem;
+        .contact h2 {
+            color: white;
+            margin-bottom: 2rem;
         }
 
-        .contact-cta p {
-            font-size: 1.1rem;
-            margin-bottom: 2.5rem;
+        .contact-form {
             max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            line-height: 1.6;
+            margin: 0 auto;
         }
 
-        .btn-light {
-            background: white;
-            color: #ff6b9d;
-            padding: 1rem 2.5rem;
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
             border: none;
-            border-radius: 50px;
-            font-weight: 700;
+            border-radius: 8px;
             font-family: 'Poppins', sans-serif;
-            cursor: pointer;
-            transition: all 0.3s ease;
             font-size: 1rem;
         }
 
-        .btn-light:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: white;
+            color: #FF6B9D;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
 
         /* Footer */
         footer {
-            background: #2c3e50;
+            background: #333;
             color: white;
-            padding: 3rem 5%;
             text-align: center;
+            padding: 2rem;
         }
 
         footer p {
-            margin: 0.5rem 0;
-        }
-
-        .footer-links {
-            margin: 1.5rem 0;
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .footer-links a {
-            color: #ffa502;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .footer-links a:hover {
-            color: #ff6b9d;
+            margin-bottom: 0.5rem;
         }
 
         /* Responsive */
         @media (max-width: 768px) {
             nav ul {
                 gap: 1rem;
+                font-size: 0.9rem;
             }
 
-            nav a {
-                font-size: 0.85rem;
+            section {
+                padding: 3rem 1rem;
             }
 
-            .hero {
-                grid-template-columns: 1fr;
-                padding: 2rem 5%;
-                min-height: auto;
+            section h2 {
+                font-size: 1.8rem;
+                margin-bottom: 2rem;
             }
 
-            .hero-image {
-                height: 350px;
-                order: -1;
-            }
-
-            .about {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-                padding: 4rem 5%;
-            }
-
-            .about-image {
-                height: 350px;
-            }
-
-            .portfolio-carousel {
-                height: 350px;
-            }
-
-            .carousel-arrow {
-                width: 40px;
-                height: 40px;
-                font-size: 1.2rem;
-            }
-
-            .carousel-arrow.prev {
-                left: 1rem;
-            }
-
-            .carousel-arrow.next {
-                right: 1rem;
-            }
-
-            .services-grid {
+            .about-content {
                 grid-template-columns: 1fr;
                 gap: 2rem;
             }
 
-            .testimonials-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .contact-cta {
-                padding: 4rem 5%;
-            }
-        }
-
-        @media (max-width: 480px) {
-            nav {
-                padding: 0.8rem 1rem;
-            }
-
-            nav ul {
-                gap: 0.5rem;
-            }
-
-            .logo {
-                font-size: 1.2rem;
-            }
-
-            nav a {
-                font-size: 0.75rem;
+            .hero-content {
+                padding: 1.5rem;
             }
 
             .hero h1 {
                 font-size: 2rem;
             }
 
-            .hero-buttons {
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav {
                 flex-direction: column;
+                gap: 1rem;
             }
 
-            .btn {
-                width: 100%;
-                text-align: center;
+            nav ul {
+                flex-direction: column;
+                gap: 0.5rem;
             }
 
-            .about-list li {
-                font-size: 0.95rem;
+            .logo {
+                font-size: 1.5rem;
             }
 
-            .portfolio-carousel {
+            section h2 {
+                font-size: 1.5rem;
+            }
+
+            .service-card img {
+                height: 200px;
+            }
+
+            .portfolio-img {
                 height: 250px;
-            }
-
-            .carousel-arrow {
-                width: 35px;
-                height: 35px;
-                font-size: 1rem;
-            }
-
-            .carousel-controls {
-                bottom: 1rem;
-            }
-
-            .carousel-dot {
-                width: 10px;
-                height: 10px;
             }
         }
     </style>
@@ -725,135 +515,107 @@
 <body>
     <!-- Navigation -->
     <nav>
+        <div class="logo">🐾 PreciousPuppies</div>
         <ul>
-            <li><a href="#" class="logo">🐾 PreciousPuppies</a></li>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#services">Services</a></li>
-            <li><a href="#portfolio">Portfolio</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a onclick="scrollToSection('home')">Home</a></li>
+            <li><a onclick="scrollToSection('services')">Services</a></li>
+            <li><a onclick="scrollToSection('portfolio')">Portfolio</a></li>
+            <li><a onclick="scrollToSection('contact')">Contact</a></li>
         </ul>
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="hero">
+    <section class="hero" id="home">
         <div class="hero-content">
-            <h1>Where Every Pup Gets Royal Treatment</h1>
-            <p>We believe every furry friend deserves to feel pampered and loved. From expert grooming to adorable portraits, we create moments that make tails wag with joy.</p>
-            <div class="hero-buttons">
-                <button class="btn btn-primary" onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">Book Now</button>
-                <button class="btn btn-secondary" onclick="document.getElementById('services').scrollIntoView({behavior: 'smooth'})">Learn More</button>
-            </div>
-        </div>
-        <div class="hero-image">
-            <img src="https://images.unsplash.com/photo-1534361960057-19889db9621e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxoYXBweSUyMGRvZ3xlbnwwfHx8fDE3NzcxNzk0NjF8MA&ixlib=rb-4.0.0&q=80&w=1080" alt="shallow focus photography of white shih tzu puppy running on the grass">
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="about">
-        <div class="about-image">
-            <img src="https://images.unsplash.com/photo-1537204696486-967f1b7198c8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwyfHxoYXBweSUyMGRvZ3xlbnwwfHx8fDE3NzcxNzk0NjF8MA&ixlib=rb-4.0.0&q=80&w=1080" alt="adult yellow Labrador retriever">
-        </div>
-        <div class="about-content">
-            <h2>Your Pup's New Best Friend</h2>
-            <p>At PreciousPuppies, we're not just groomers—we're pet parents too. Our team treats every dog like part of our own family, creating a warm, welcoming space where your pup can relax and enjoy professional care.</p>
-            <p>Whether your furry friend needs a fresh cut, professional grooming, or a special portrait session, we deliver excellence with love at every step.</p>
-            <ul class="about-list">
-                <li>Expert grooming for all breeds and sizes</li>
-                <li>Premium pet accessories and supplies</li>
-                <li>Professional puppy portrait photography</li>
-                <li>Gentle, compassionate care always</li>
-            </ul>
-        </div>
-    </section>
-
-    <!-- Portfolio Section -->
-    <section id="portfolio" class="portfolio">
-        <h2>Our Portfolio</h2>
-        <p class="section-subtitle">See our work shine with beautiful grooming and portrait moments</p>
-        
-        <div class="portfolio-carousel">
-            <div class="carousel-item active">
-                <img src="https://images.unsplash.com/photo-1679067652135-324b9535d288?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwzfHxoYXBweSUyMGRvZ3xlbnwwfHx8fDE3NzcxODAzMzh8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="a dog running through a field of yellow flowers">
-            </div>
-            <div class="carousel-item">
-                <img src="https://images.unsplash.com/photo-1624956578877-4948166c5dcb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHw0fHxoYXBweSUyMGRvZ3xlbnwwfHx8fDE3NzcxODAzMzh8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="brown long coated dog on green grass field during daytime">
-            </div>
-            <div class="carousel-item">
-                <img src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHw1fHxoYXBweSUyMGRvZ3xlbnwwfHx8fDE3NzcxODAzMzh8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="dog's face">
-            </div>
-
-            <button class="carousel-arrow prev" onclick="previousSlide()">❮</button>
-            <button class="carousel-arrow next" onclick="nextSlide()">❯</button>
-
-            <div class="carousel-controls">
-                <span class="carousel-dot active" onclick="goToSlide(0)"></span>
-                <span class="carousel-dot" onclick="goToSlide(1)"></span>
-                <span class="carousel-dot" onclick="goToSlide(2)"></span>
-            </div>
+            <h1>Welcome to PreciousPuppies</h1>
+            <p>Premium grooming, beautiful portraits, and adorable accessories for your furry family members</p>
+            <button class="cta-button" onclick="scrollToSection('services')">Explore Services</button>
         </div>
     </section>
 
     <!-- Services Section -->
-    <section id="services" class="services">
+    <section class="services" id="services">
         <h2>Our Services</h2>
-        <p class="section-subtitle">Everything your pup needs to look and feel amazing</p>
-        
         <div class="services-grid">
             <div class="service-card">
-                <div class="service-card-image">
-                    <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
-                </div>
-                <div class="service-card-content">
-                    <h3>Professional Grooming</h3>
-                    <p>Full-service grooming tailored to your pup's breed and coat type. We use gentle techniques, premium products, and expert styling to keep your furry friend looking and feeling their best.</p>
-                </div>
+                <img src="https://images.unsplash.com/photo-1537204696486-967f1b7198c8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwyfHxoYXBweSUyMGRvZ3xlbnwwfHx8fDE3NzcxODAzMzh8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="adult yellow Labrador retriever">
+                <h3>Professional Grooming</h3>
+                <p>Expert bathing, trimming, and styling services tailored to your pup's breed and temperament. We use premium, gentle products to keep coats healthy and beautiful.</p>
             </div>
-
             <div class="service-card">
-                <div class="service-card-image">
-                    <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);"></div>
-                </div>
-                <div class="service-card-content">
-                    <h3>Pet Accessories</h3>
-                    <p>Discover our curated collection of premium accessories designed with love for your beloved companion. From stylish collars to cozy bedding, we have everything to spoil your pup.</p>
-                </div>
+                <img src="https://images.unsplash.com/photo-1679067652135-324b9535d288?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwzfHxoYXBweSUyMGRvZ3xlbnwwfHx8fDE3NzcxODAzMzh8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="a dog running through a field of yellow flowers">
+                <h3>Puppy Portraits</h3>
+                <p>Capture precious moments with professional photography sessions. Perfect for holiday cards, social media, or simply preserving memories of your furry best friend.</p>
             </div>
-
             <div class="service-card">
-                <div class="service-card-image">
-                    <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);"></div>
-                </div>
-                <div class="service-card-content">
-                    <h3>Puppy Portraits</h3>
-                    <p>Capture precious moments with professional portrait photography. We create stunning, lasting memories of your furry friend that you'll treasure for years to come.</p>
-                </div>
+                <img src="https://images.unsplash.com/photo-1624956578877-4948166c5dcb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHw0fHxoYXBweSUyMGRvZ3xlbnwwfHx8fDE3NzcxODAzMzh8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="brown long coated dog on green grass field during daytime">
+                <h3>Pet Accessories</h3>
+                <p>Discover our curated collection of quality toys, beds, collars, and apparel. Every item is chosen with your pet's comfort and happiness in mind.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about">
+        <div class="about-content">
+            <div class="about-text">
+                <h2 style="text-align: left; margin-top: 0;">About PreciousPuppies</h2>
+                <h3>Your Pup's Home Away From Home</h3>
+                <p>We believe every dog deserves to feel special. Our team is dedicated to providing a warm, loving environment where your precious pup is treated like family.</p>
+                <p>With over 10 years of experience in pet care, we've built a reputation for excellence, patience, and genuine love for all creatures. We handle every grooming session with care and attention to detail.</p>
+                <p>Whether your dog needs a simple wash or a complete makeover, we're here to make them feel pampered and look their absolute best.</p>
+            </div>
+            <div class="about-image">
+                <img src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHw1fHxoYXBweSUyMGRvZ3xlbnwwfHx8fDE3NzcxODAzMzh8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="dog's face">
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section class="portfolio" id="portfolio">
+        <h2>Our Work</h2>
+        <p style="text-align: center; color: #666; margin-bottom: 3rem;">Watch our rotating gallery showcase of beautiful grooming transformations and happy pups</p>
+        <div class="portfolio-grid">
+            <div class="portfolio-item">
+                <img class="portfolio-img" src="https://images.unsplash.com/photo-1534361960057-19889db9621e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxoYXBweSUyMGRvZ3xlbnwwfHx8fDE3NzcxODAzMzh8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="Grooming session 1">
+                <h3>Happy & Fresh</h3>
+            </div>
+            <div class="portfolio-item">
+                <img class="portfolio-img" src="https://images.unsplash.com/photo-1537204696486-967f1b7198c8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwyfHxoYXBweSUyMGRvZ3xlbnwwfHx8fDE3NzcxODAzMzh8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="Grooming session 2">
+                <h3>Golden Beauty</h3>
+            </div>
+            <div class="portfolio-item">
+                <img class="portfolio-img" src="https://images.unsplash.com/photo-1679067652135-324b9535d288?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwzfHxoYXBweSUyMGRvZ3xlbnwwfHx8fDE3NzcxODAzMzh8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="Grooming session 3">
+                <h3>Meadow Moments</h3>
+            </div>
+            <div class="portfolio-item">
+                <img class="portfolio-img" src="https://images.unsplash.com/photo-1624956578877-4948166c5dcb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHw0fHxoYXBweSUyMGRvZ3xlbnwwfHx8fDE3NzcxODAzMzh8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="Grooming session 4">
+                <h3>Freshly Groomed</h3>
             </div>
         </div>
     </section>
 
     <!-- Testimonials Section -->
     <section class="testimonials">
-        <h2>Loved by Pet Parents</h2>
-        <p class="section-subtitle">See what families are saying about our services</p>
-        
+        <h2>What Our Customers Say</h2>
         <div class="testimonials-grid">
-            <div class="testimonial-item">
+            <div class="testimonial">
+                <img src="https://images.unsplash.com/photo-1534361960057-19889db9621e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxoYXBweSUyMGRvZ3xlbnwwfHx8fDE3NzcxODAzMzh8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="Customer 1">
                 <div class="stars">★★★★★</div>
-                <p class="testimonial-text">"My pup absolutely loves visiting PreciousPuppies! The team is so caring and professional. She always comes home looking fabulous and super happy!"</p>
-                <p class="testimonial-author">— Sarah M.</p>
+                <p>"PreciousPuppies transformed my pup's coat! She looks and feels amazing. The team is so kind and patient."</p>
+                <p class="author">- Sarah & Luna</p>
             </div>
-
-            <div class="testimonial-item">
+            <div class="testimonial">
+                <img src="https://images.unsplash.com/photo-1537204696486-967f1b7198c8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwyfHxoYXBweSUyMGRvZ3xlbnwwfHx8fDE3NzcxODAzMzh8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="Customer 2">
                 <div class="stars">★★★★★</div>
-                <p class="testimonial-text">"Best grooming experience ever! They treated our sensitive rescue dog with such gentleness and patience. Highly recommend to any pet parent!"</p>
-                <p class="testimonial-author">— James & Lisa</p>
+                <p>"The portrait session was fantastic! The photos captured Max's personality perfectly. We'll treasure these forever."</p>
+                <p class="author">- Mike & Max</p>
             </div>
-
-            <div class="testimonial-item">
+            <div class="testimonial">
+                <img src="https://images.unsplash.com/photo-1679067652135-324b9535d288?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwzfHxoYXBweSUyMGRvZ3xlbnwwfHx8fDE3NzcxODAzMzh8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="Customer 3">
                 <div class="stars">★★★★★</div>
-                <p class="testimonial-text">"The puppy portraits turned out absolutely perfect! These are keepsakes we'll cherish forever. Thank you for capturing our baby's precious personality!"</p>
-                <p class="testimonial-author">— Emma T.</p>
+                <p>"Love shopping at PreciousPuppies! The accessories are high-quality and my pups are obsessed with their new toys."</p>
+                <p class="author">- Jessica & Bailey</p>
             </div>
         </div>
     </section>
@@ -864,196 +626,138 @@
         <div class="faq-container">
             <div class="faq-item">
                 <div class="faq-question">
-                    <span>What breeds can you groom?</span>
+                    <span>How often should my dog be groomed?</span>
                     <span class="faq-icon">▼</span>
                 </div>
                 <div class="faq-answer">
-                    We proudly groom all dog breeds and sizes, from tiny toy breeds to large dogs. Our experienced team has the expertise to handle each breed's unique grooming needs with care and skill.
+                    Most dogs benefit from professional grooming every 4-8 weeks, depending on their breed and coat type. We recommend discussing your pup's specific needs during your first visit.
                 </div>
             </div>
-
             <div class="faq-item">
                 <div class="faq-question">
-                    <span>How long does a grooming appointment take?</span>
+                    <span>Are your grooming products safe for sensitive skin?</span>
                     <span class="faq-icon">▼</span>
                 </div>
                 <div class="faq-answer">
-                    Grooming appointments typically take 2-4 hours, depending on your pup's size, coat condition, and the services requested. We'll give you an accurate estimate when you book!
+                    Yes! We use premium, hypoallergenic products suitable for all skin types. If your dog has sensitive skin or allergies, please let us know so we can use specialized products.
                 </div>
             </div>
-
             <div class="faq-item">
                 <div class="faq-question">
-                    <span>Do you offer puppy portraits?</span>
+                    <span>How long does a grooming session take?</span>
                     <span class="faq-icon">▼</span>
                 </div>
                 <div class="faq-answer">
-                    Absolutely! Our professional puppy portrait sessions capture your furry friend's personality in stunning photographs. We offer both indoor and outdoor sessions with custom backgrounds.
+                    Sessions typically take 1-3 hours depending on your dog's size, coat condition, and the services requested. We'll give you an estimate when you book.
                 </div>
             </div>
-
             <div class="faq-item">
                 <div class="faq-question">
-                    <span>What is your cancellation policy?</span>
+                    <span>Can I schedule a portrait session for multiple dogs?</span>
                     <span class="faq-icon">▼</span>
                 </div>
                 <div class="faq-answer">
-                    We require 24 hours notice for cancellations. If you need to reschedule, just give us a call and we'll find a time that works best for you!
+                    Absolutely! We love capturing the bond between dogs. Group sessions are available and create wonderful memories of your pack together.
                 </div>
             </div>
-
             <div class="faq-item">
                 <div class="faq-question">
-                    <span>Are your products and services eco-friendly?</span>
+                    <span>Do you offer gift cards?</span>
                     <span class="faq-icon">▼</span>
                 </div>
                 <div class="faq-answer">
-                    Yes! We use eco-friendly grooming products that are gentle on your pup and kind to the planet. Our pet accessories are sourced from sustainable, ethical brands.
+                    Yes! Gift cards make perfect presents for fellow dog lovers. They can be used for grooming services, portrait sessions, or accessories. Contact us to purchase.
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Contact CTA -->
-    <section id="contact" class="contact-cta">
-        <h2>Ready to Pamper Your Pup?</h2>
-        <p>Give your furry friend the care and attention they deserve. Book an appointment with our expert team today and watch their tail wag with joy!</p>
-        <button class="btn-light" onclick="alert('Thank you for your interest! Please call us at (555) 123-4567 or email hello@preciouspuppies.com to book your appointment.')">Get in Touch</button>
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <h2>Get In Touch</h2>
+        <p style="margin-bottom: 2rem; font-size: 1.1rem;">Ready to pamper your pup? Reach out to us today!</p>
+        <div class="contact-form">
+            <form onsubmit="handleSubmit(event)">
+                <div class="form-group">
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone">
+                </div>
+                <div class="form-group">
+                    <label for="message">Tell Us About Your Pup</label>
+                    <textarea id="message" name="message" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+        </div>
     </section>
 
     <!-- Footer -->
     <footer>
-        <h3>🐾 PreciousPuppies</h3>
-        <p>Dog Grooming • Pet Accessories • Puppy Portraits</p>
-        <div class="footer-links">
-            <a href="#home">Home</a>
-            <a href="#services">Services</a>
-            <a href="#portfolio">Portfolio</a>
-            <a href="#contact">Contact</a>
-        </div>
-        <p>&copy; 2024 PreciousPuppies. All paws reserved. 🐕</p>
-        <p>Making every pup feel precious, one groom at a time.</p>
+        <p>&copy; 2024 PreciousPuppies. All rights reserved.</p>
+        <p>Bringing joy to furry families everywhere 🐾</p>
+        <p>📍 123 Pet Lane, Dog City | 📞 (555) 123-4567 | 📧 hello@preciousPuppies.com</p>
     </footer>
 
     <script>
-        // Register ScrollTrigger plugin
-        gsap.registerPlugin(ScrollTrigger);
-
-        // Carousel functionality
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.carousel-item');
-        const dots = document.querySelectorAll('.carousel-dot');
-        const totalSlides = slides.length;
-
-        function showSlide(n) {
-            slides.forEach(slide => slide.classList.remove('active'));
-            dots.forEach(dot => dot.classList.remove('active'));
-            
-            slides[n].classList.add('active');
-            dots[n].classList.add('active');
+        // Smooth scroll navigation
+        function scrollToSection(id) {
+            if (id === 'home') {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
         }
 
-        function nextSlide() {
-            currentSlide = (currentSlide + 1) % totalSlides;
-            showSlide(currentSlide);
-        }
+        // Portfolio image rotation
+        let currentIndex = 0;
+        const portfolioImgs = document.querySelectorAll('.portfolio-img');
+        const images = [
+            'https://images.unsplash.com/photo-1534361960057-19889db9621e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxoYXBweSUyMGRvZ3xlbnwwfHx8fDE3NzcxODAzMzh8MA&ixlib=rb-4.1.0&q=80&w=1080',
+            'https://images.unsplash.com/photo-1537204696486-967f1b7198c8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwyfHxoYXBweSUyMGRvZ3xlbnwwfHx8fDE3NzcxODAzMzh8MA&ixlib=rb-4.1.0&q=80&w=1080',
+            'https://images.unsplash.com/photo-1679067652135-324b9535d288?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwzfHxoYXBweSUyMGRvZ3xlbnwwfHx8fDE3NzcxODAzMzh8MA&ixlib=rb-4.1.0&q=80&w=1080',
+            'https://images.unsplash.com/photo-1624956578877-4948166c5dcb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHw0fHxoYXBweSUyMGRvZ3xlbnwwfHx8fDE3NzcxODAzMzh8MA&ixlib=rb-4.1.0&q=80&w=1080',
+            'https://images.unsplash.com/photo-1543466835-00a7907e9de1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHw1fHxoYXBweSUyMGRvZ3xlbnwwfHx8fDE3NzcxODAzMzh8MA&ixlib=rb-4.1.0&q=80&w=1080'
+        ];
 
-        function previousSlide() {
-            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-            showSlide(currentSlide);
-        }
-
-        function goToSlide(n) {
-            currentSlide = n;
-            showSlide(currentSlide);
-        }
-
-        // Auto-rotate carousel every 6 seconds
-        setInterval(nextSlide, 6000);
-
-        // Hero animation on load
-        gsap.from('.hero-content', {
-            duration: 1,
-            opacity: 0,
-            y: 50,
-            ease: 'power3.out'
-        });
-
-        gsap.from('.hero-image', {
-            duration: 1,
-            opacity: 0,
-            x: 100,
-            ease: 'power3.out',
-            delay: 0.2
-        });
-
-        // Portfolio carousel animation
-        gsap.from('.portfolio-carousel', {
-            scrollTrigger: {
-                trigger: '.portfolio',
-                start: 'top 80%'
-            },
-            duration: 0.8,
-            opacity: 0,
-            y: 50,
-            ease: 'power3.out'
-        });
-
-        // Service cards animation
-        gsap.utils.toArray('.service-card').forEach((card) => {
-            gsap.from(card, {
-                scrollTrigger: {
-                    trigger: card,
-                    start: 'top 80%',
-                    toggleActions: 'play none none none'
-                },
-                duration: 0.8,
-                opacity: 0,
-                y: 50,
-                ease: 'power3.out'
+        setInterval(() => {
+            currentIndex = (currentIndex + 1) % images.length;
+            portfolioImgs.forEach(img => {
+                img.style.opacity = '0.5';
+                setTimeout(() => {
+                    img.src = images[currentIndex];
+                    img.style.opacity = '1';
+                }, 250);
             });
-        });
+        }, 4000);
 
-        // Testimonial cards animation
-        gsap.utils.toArray('.testimonial-item').forEach((item) => {
-            gsap.from(item, {
-                scrollTrigger: {
-                    trigger: item,
-                    start: 'top 80%',
-                    toggleActions: 'play none none none'
-                },
-                duration: 0.8,
-                opacity: 0,
-                y: 30,
-                ease: 'power3.out'
-            });
-        });
-
-        // About section animation
-        gsap.from('.about-image', {
-            scrollTrigger: {
-                trigger: '.about',
-                start: 'top 80%'
-            },
-            duration: 1,
-            opacity: 0,
-            x: -50,
-            ease: 'power3.out'
-        });
-
-        gsap.from('.about-content', {
-            scrollTrigger: {
-                trigger: '.about',
-                start: 'top 80%'
-            },
-            duration: 1,
-            opacity: 0,
-            x: 50,
-            ease: 'power3.out',
-            delay: 0.2
-        });
-
-        // FAQ accordion functionality
+        // FAQ accordion
         const faqItems = document.querySelectorAll('.faq-item');
-        
-        faqItems
+        faqItems.forEach(item => {
+            item.querySelector('.faq-question').addEventListener('click', () => {
+                faqItems.forEach(i => {
+                    if (i !== item) i.classList.remove('active');
+                });
+                item.classList.toggle('active');
+            });
+        });
+
+        // Form handling
+        function handleSubmit(event) {
+            event.preventDefault();
+            alert('Thank you for reaching out! We\'ll get back to you soon. 🐾');
+            event.target.reset();
+        }
+    </script>
+</body>
+</html>
