@@ -228,13 +228,13 @@
             font-size: 1.3rem;
         }
 
-        /* Services Section */
-        .services {
+        /* Portfolio Section */
+        .portfolio {
             padding: 6rem 5%;
             background: linear-gradient(135deg, rgba(255, 107, 157, 0.05), rgba(255, 165, 2, 0.05));
         }
 
-        .services h2 {
+        .portfolio h2 {
             font-family: 'Poppins', sans-serif;
             font-size: clamp(2rem, 5vw, 3.5rem);
             font-weight: 800;
@@ -250,12 +250,113 @@
             margin-bottom: 4rem;
         }
 
+        .portfolio-carousel {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+            height: 500px;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .carousel-item {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+        }
+
+        .carousel-item.active {
+            opacity: 1;
+            z-index: 10;
+        }
+
+        .carousel-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .carousel-controls {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 1rem;
+            z-index: 20;
+        }
+
+        .carousel-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid white;
+        }
+
+        .carousel-dot.active {
+            background: white;
+            transform: scale(1.3);
+        }
+
+        .carousel-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            color: #ff6b9d;
+            font-weight: bold;
+            z-index: 20;
+        }
+
+        .carousel-arrow:hover {
+            background: white;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .carousel-arrow.prev {
+            left: 1.5rem;
+        }
+
+        .carousel-arrow.next {
+            right: 1.5rem;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 6rem 5%;
+        }
+
+        .services h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 0.5rem;
+            color: #ff6b9d;
+        }
+
         .services-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 3rem;
             max-width: 1200px;
-            margin: 0 auto;
+            margin: 4rem auto 0;
         }
 
         .service-card {
@@ -310,6 +411,7 @@
         /* Testimonials */
         .testimonials {
             padding: 6rem 5%;
+            background: linear-gradient(135deg, rgba(255, 107, 157, 0.05), rgba(255, 165, 2, 0.05));
         }
 
         .testimonials h2 {
@@ -533,6 +635,24 @@
                 height: 350px;
             }
 
+            .portfolio-carousel {
+                height: 350px;
+            }
+
+            .carousel-arrow {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+
+            .carousel-arrow.prev {
+                left: 1rem;
+            }
+
+            .carousel-arrow.next {
+                right: 1rem;
+            }
+
             .services-grid {
                 grid-template-columns: 1fr;
                 gap: 2rem;
@@ -579,6 +699,25 @@
 
             .about-list li {
                 font-size: 0.95rem;
+            }
+
+            .portfolio-carousel {
+                height: 250px;
+            }
+
+            .carousel-arrow {
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
+            }
+
+            .carousel-controls {
+                bottom: 1rem;
+            }
+
+            .carousel-dot {
+                width: 10px;
+                height: 10px;
             }
         }
     </style>
@@ -628,6 +767,33 @@
         </div>
     </section>
 
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="portfolio">
+        <h2>Our Portfolio</h2>
+        <p class="section-subtitle">See our work shine with beautiful grooming and portrait moments</p>
+        
+        <div class="portfolio-carousel">
+            <div class="carousel-item active">
+                <img src="https://images.unsplash.com/photo-1679067652135-324b9535d288?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwzfHxoYXBweSUyMGRvZ3xlbnwwfHx8fDE3NzcxODAzMzh8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="a dog running through a field of yellow flowers">
+            </div>
+            <div class="carousel-item">
+                <img src="https://images.unsplash.com/photo-1624956578877-4948166c5dcb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHw0fHxoYXBweSUyMGRvZ3xlbnwwfHx8fDE3NzcxODAzMzh8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="brown long coated dog on green grass field during daytime">
+            </div>
+            <div class="carousel-item">
+                <img src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHw1fHxoYXBweSUyMGRvZ3xlbnwwfHx8fDE3NzcxODAzMzh8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="dog's face">
+            </div>
+
+            <button class="carousel-arrow prev" onclick="previousSlide()">❮</button>
+            <button class="carousel-arrow next" onclick="nextSlide()">❯</button>
+
+            <div class="carousel-controls">
+                <span class="carousel-dot active" onclick="goToSlide(0)"></span>
+                <span class="carousel-dot" onclick="goToSlide(1)"></span>
+                <span class="carousel-dot" onclick="goToSlide(2)"></span>
+            </div>
+        </div>
+    </section>
+
     <!-- Services Section -->
     <section id="services" class="services">
         <h2>Our Services</h2>
@@ -636,7 +802,7 @@
         <div class="services-grid">
             <div class="service-card">
                 <div class="service-card-image">
-                    <img src="https://images.unsplash.com/photo-1534361960057-19889db9621e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxoYXBweSUyMGRvZ3xlbnwwfHx8fDE3NzcxNzk0NjF8MA&ixlib=rb-4.0.0&q=80&w=1080" alt="Professional dog grooming service">
+                    <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
                 </div>
                 <div class="service-card-content">
                     <h3>Professional Grooming</h3>
@@ -646,7 +812,7 @@
 
             <div class="service-card">
                 <div class="service-card-image">
-                    <img src="https://images.unsplash.com/photo-1537204696486-967f1b7198c8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwyfHxoYXBweSUyMGRvZ3xlbnwwfHx8fDE3NzcxNzk0NjF8MA&ixlib=rb-4.0.0&q=80&w=1080" alt="Pet accessories and supplies">
+                    <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);"></div>
                 </div>
                 <div class="service-card-content">
                     <h3>Pet Accessories</h3>
@@ -656,7 +822,7 @@
 
             <div class="service-card">
                 <div class="service-card-image">
-                    <img src="https://images.unsplash.com/photo-1534361960057-19889db9621e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxoYXBweSUyMGRvZ3xlbnwwfHx8fDE3NzcxNzk0NjF8MA&ixlib=rb-4.0.0&q=80&w=1080" alt="Puppy portrait photography">
+                    <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);"></div>
                 </div>
                 <div class="service-card-content">
                     <h3>Puppy Portraits</h3>
@@ -667,7 +833,7 @@
     </section>
 
     <!-- Testimonials Section -->
-    <section id="portfolio" class="testimonials">
+    <section class="testimonials">
         <h2>Loved by Pet Parents</h2>
         <p class="section-subtitle">See what families are saying about our services</p>
         
@@ -773,6 +939,38 @@
         // Register ScrollTrigger plugin
         gsap.registerPlugin(ScrollTrigger);
 
+        // Carousel functionality
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.carousel-item');
+        const dots = document.querySelectorAll('.carousel-dot');
+        const totalSlides = slides.length;
+
+        function showSlide(n) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            slides[n].classList.add('active');
+            dots[n].classList.add('active');
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            showSlide(currentSlide);
+        }
+
+        function previousSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            showSlide(currentSlide);
+        }
+
+        function goToSlide(n) {
+            currentSlide = n;
+            showSlide(currentSlide);
+        }
+
+        // Auto-rotate carousel every 6 seconds
+        setInterval(nextSlide, 6000);
+
         // Hero animation on load
         gsap.from('.hero-content', {
             duration: 1,
@@ -787,6 +985,18 @@
             x: 100,
             ease: 'power3.out',
             delay: 0.2
+        });
+
+        // Portfolio carousel animation
+        gsap.from('.portfolio-carousel', {
+            scrollTrigger: {
+                trigger: '.portfolio',
+                start: 'top 80%'
+            },
+            duration: 0.8,
+            opacity: 0,
+            y: 50,
+            ease: 'power3.out'
         });
 
         // Service cards animation
@@ -846,47 +1056,4 @@
         // FAQ accordion functionality
         const faqItems = document.querySelectorAll('.faq-item');
         
-        faqItems.forEach(item => {
-            const question = item.querySelector('.faq-question');
-            
-            question.addEventListener('click', () => {
-                // Close other items
-                faqItems.forEach(otherItem => {
-                    if (otherItem !== item && otherItem.classList.contains('active')) {
-                        otherItem.classList.remove('active');
-                    }
-                });
-                
-                // Toggle current item
-                item.classList.toggle('active');
-            });
-        });
-
-        // Contact CTA animation
-        gsap.from('.contact-cta h2', {
-            scrollTrigger: {
-                trigger: '.contact-cta',
-                start: 'top 80%'
-            },
-            duration: 0.8,
-            opacity: 0,
-            y: 30,
-            ease: 'power3.out'
-        });
-
-        // Smooth scroll for nav links
-        document.querySelectorAll('nav a').forEach(link => {
-            link.addEventListener('click', (e) => {
-                const href = link.getAttribute('href');
-                if (href.startsWith('#') && href !== '#') {
-                    e.preventDefault();
-                    const target = document.querySelector(href);
-                    if (target) {
-                        target.scrollIntoView({ behavior: 'smooth' });
-                    }
-                }
-            });
-        });
-    </script>
-</body>
-</html>
+        faqItems
