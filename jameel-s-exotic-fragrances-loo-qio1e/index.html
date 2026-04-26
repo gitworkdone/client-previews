@@ -1,0 +1,1401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jameel's Exotic Fragrances | Designer Oil-Based Perfumes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1a1a1a;
+            background-color: #faf7f5;
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        h2 {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            margin-bottom: 2rem;
+        }
+
+        h3 {
+            font-size: clamp(1.5rem, 3vw, 2.2rem);
+            margin-bottom: 1rem;
+        }
+
+        p {
+            font-size: 1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            color: #4a4a4a;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 80px;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #8b0000;
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #1a1a1a;
+            font-size: 0.95rem;
+            font-weight: 500;
+            position: relative;
+            transition: color 150ms ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #8b0000;
+            transition: width 150ms ease;
+        }
+
+        .nav-links a:hover {
+            color: #8b0000;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: #1a1a1a;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 14px 32px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 150ms ease;
+            text-transform: sentence;
+        }
+
+        .btn-primary {
+            background-color: #8b0000;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #a60000;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(139, 0, 0, 0.3);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: #8b0000;
+            border: 2px solid #8b0000;
+        }
+
+        .btn-secondary:hover {
+            background-color: #8b0000;
+            color: white;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            margin-top: 80px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            padding: 60px 60px;
+            gap: 40px;
+            background-color: #faf7f5;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.2s forwards;
+        }
+
+        .hero-tagline {
+            font-size: 0.95rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #8b0000;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .hero h1 {
+            color: #000;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 2.5rem;
+            max-width: 500px;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .hero-image {
+            opacity: 0;
+            animation: fadeInRight 1s ease 0.4s forwards;
+            height: 100%;
+            min-height: 500px;
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(139, 0, 0, 0.15);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Services Section */
+        .services {
+            padding: 120px 60px;
+            background-color: white;
+            text-align: center;
+        }
+
+        .services h2 {
+            margin-bottom: 3rem;
+            color: #000;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-bottom: 4rem;
+        }
+
+        .service-card {
+            padding: 40px;
+            background: linear-gradient(135deg, #faf7f5 0%, #f5e6e0 100%);
+            border-radius: 12px;
+            text-align: center;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards;
+            transition: all 150ms ease;
+            cursor: pointer;
+        }
+
+        .service-card:nth-child(1) { animation-delay: 0.1s; }
+        .service-card:nth-child(2) { animation-delay: 0.2s; }
+        .service-card:nth-child(3) { animation-delay: 0.3s; }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(139, 0, 0, 0.1);
+        }
+
+        .service-card h3 {
+            color: #8b0000;
+            margin-bottom: 1rem;
+        }
+
+        .service-card p {
+            color: #666;
+            margin-bottom: 0;
+        }
+
+        /* Collections Section */
+        .collections {
+            padding: 120px 60px;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .collections h2 {
+            color: white;
+            margin-bottom: 3rem;
+        }
+
+        .collections-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            margin-bottom: 3rem;
+        }
+
+        .collection-card {
+            position: relative;
+            height: 350px;
+            border-radius: 12px;
+            overflow: hidden;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards;
+            cursor: pointer;
+            group: true;
+        }
+
+        .collection-card:nth-child(1) { animation-delay: 0.1s; }
+        .collection-card:nth-child(2) { animation-delay: 0.2s; }
+        .collection-card:nth-child(3) { animation-delay: 0.3s; }
+
+        .collection-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 300ms ease;
+        }
+
+        .collection-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .collection-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 30px;
+            opacity: 0;
+            transition: opacity 300ms ease;
+        }
+
+        .collection-card:hover .collection-overlay {
+            opacity: 1;
+        }
+
+        .collection-overlay h3 {
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .collection-overlay p {
+            color: #ddd;
+            font-size: 0.9rem;
+            margin-bottom: 0;
+        }
+
+        /* Before/After Section */
+        .gallery {
+            padding: 120px 60px;
+            background-color: #faf7f5;
+            text-align: center;
+        }
+
+        .gallery h2 {
+            margin-bottom: 3rem;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 3rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .gallery-item:nth-child(1) { animation-delay: 0.1s; }
+        .gallery-item:nth-child(2) { animation-delay: 0.2s; }
+        .gallery-item:nth-child(3) { animation-delay: 0.3s; }
+        .gallery-item:nth-child(4) { animation-delay: 0.4s; }
+
+        .gallery-item img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            transition: transform 300ms ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            padding: 120px 60px;
+            background-color: white;
+            text-align: center;
+        }
+
+        .testimonials h2 {
+            margin-bottom: 3rem;
+        }
+
+        .testimonials-carousel {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-bottom: 3rem;
+        }
+
+        .testimonial-card {
+            padding: 40px;
+            background: linear-gradient(135deg, #f5e6e0 0%, #faf7f5 100%);
+            border-radius: 12px;
+            text-align: center;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards;
+            transition: all 150ms ease;
+        }
+
+        .testimonial-card:nth-child(1) { animation-delay: 0.1s; }
+        .testimonial-card:nth-child(2) { animation-delay: 0.2s; }
+        .testimonial-card:nth-child(3) { animation-delay: 0.3s; }
+
+        .testimonial-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(139, 0, 0, 0.1);
+        }
+
+        .testimonial-quote {
+            font-size: 1.1rem;
+            color: #333;
+            margin-bottom: 1.5rem;
+            font-style: italic;
+            line-height: 1.8;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            color: #8b0000;
+            font-size: 1rem;
+        }
+
+        .testimonial-role {
+            font-size: 0.85rem;
+            color: #999;
+        }
+
+        /* Pricing Section */
+        .pricing {
+            padding: 120px 60px;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .pricing h2 {
+            color: white;
+            margin-bottom: 3rem;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-bottom: 3rem;
+        }
+
+        .pricing-card {
+            padding: 50px 40px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards;
+            transition: all 150ms ease;
+            position: relative;
+        }
+
+        .pricing-card:nth-child(1) { animation-delay: 0.1s; }
+        .pricing-card:nth-child(2) { animation-delay: 0.2s; }
+        .pricing-card:nth-child(3) { animation-delay: 0.3s; }
+
+        .pricing-card.featured {
+            border: 2px solid #8b0000;
+            transform: scale(1.05);
+        }
+
+        .pricing-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .pricing-card h3 {
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .pricing-amount {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #8b0000;
+            margin-bottom: 1rem;
+        }
+
+        .pricing-features {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 2rem;
+            color: #ddd;
+        }
+
+        .pricing-features li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+
+        /* Team Section */
+        .team {
+            padding: 120px 60px;
+            background-color: #faf7f5;
+            text-align: center;
+        }
+
+        .team h2 {
+            margin-bottom: 3rem;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-bottom: 3rem;
+        }
+
+        .team-member {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 150ms ease;
+        }
+
+        .team-member:nth-child(1) { animation-delay: 0.1s; }
+        .team-member:nth-child(2) { animation-delay: 0.2s; }
+        .team-member:nth-child(3) { animation-delay: 0.3s; }
+
+        .team-member:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(139, 0, 0, 0.15);
+        }
+
+        .team-image {
+            width: 100%;
+            height: 350px;
+            overflow: hidden;
+        }
+
+        .team-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 300ms ease;
+        }
+
+        .team-member:hover .team-image img {
+            transform: scale(1.05);
+        }
+
+        .team-info {
+            padding: 30px;
+        }
+
+        .team-info h3 {
+            color: #8b0000;
+            margin-bottom: 0.5rem;
+        }
+
+        .team-role {
+            color: #999;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .team-bio {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0;
+        }
+
+        /* FAQ Section */
+        .faq {
+            padding: 120px 60px;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: white;
+        }
+
+        .faq h2 {
+            text-align: center;
+            color: white;
+            margin-bottom: 3rem;
+        }
+
+        .faq-container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .faq-item:nth-child(1) { animation-delay: 0.1s; }
+        .faq-item:nth-child(2) { animation-delay: 0.2s; }
+        .faq-item:nth-child(3) { animation-delay: 0.3s; }
+        .faq-item:nth-child(4) { animation-delay: 0.4s; }
+
+        .faq-question {
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 150ms ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-question:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .faq-question h4 {
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            margin: 0;
+            text-align: left;
+        }
+
+        .faq-toggle {
+            font-size: 1.5rem;
+            transition: transform 300ms ease;
+            color: #8b0000;
+        }
+
+        .faq-item.active .faq-toggle {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            display: none;
+            padding: 20px;
+            color: #ddd;
+            line-height: 1.8;
+        }
+
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 100px 60px;
+            background: linear-gradient(135deg, #8b0000 0%, #a60000 100%);
+            color: white;
+            text-align: center;
+            border-radius: 12px;
+            margin: 120px 60px;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.3s forwards;
+        }
+
+        .cta h2 {
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .cta p {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta .btn-secondary {
+            background-color: white;
+            color: #8b0000;
+            border: 2px solid white;
+        }
+
+        .cta .btn-secondary:hover {
+            background-color: transparent;
+            color: white;
+        }
+
+        /* Footer */
+        footer {
+            padding: 60px;
+            background-color: #1a1a1a;
+            color: #ddd;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+            text-align: left;
+        }
+
+        .footer-section h4 {
+            color: white;
+            margin-bottom: 1rem;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 150ms ease;
+        }
+
+        .footer-section a:hover {
+            color: #8b0000;
+        }
+
+        .footer-bottom {
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        /* About Section */
+        .about {
+            padding: 120px 60px;
+            background-color: white;
+        }
+
+        .about h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .about-content {
+            max-width: 900px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-text h3 {
+            color: #8b0000;
+            margin-bottom: 1rem;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+        }
+
+        .about-image {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(139, 0, 0, 0.15);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .values-grid {
+            margin-top: 3rem;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .value-item {
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(135deg, #faf7f5 0%, #f5e6e0 100%);
+            border-radius: 12px;
+        }
+
+        .value-item h4 {
+            color: #8b0000;
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                padding: 0 20px;
+                height: 70px;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                gap: 0;
+                background-color: white;
+                padding: 20px;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .logo {
+                font-size: 1.2rem;
+            }
+
+            .hero {
+                grid-template-columns: 1fr;
+                padding: 40px 20px;
+                margin-top: 70px;
+                gap: 30px;
+            }
+
+            .hero-image {
+                min-height: 350px;
+            }
+
+            .services, .collections, .gallery, .testimonials, .pricing, .team, .faq, .cta {
+                padding: 80px 20px;
+            }
+
+            .cta {
+                margin: 80px 20px;
+            }
+
+            .services-grid, .collections-grid, .gallery-grid, .testimonials-carousel, .pricing-grid, .team-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.8rem;
+            }
+
+            footer {
+                padding: 40px 20px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-section a {
+                display: inline-block;
+                margin: 0 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="#home" class="logo">Jameel's</a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#collections">Collections</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#testimonials">Testimonials</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+            <li><a href="#about">About</a></li>
+        </ul>
+        <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-tagline">Look Good. Smell Good. Feel Good.</div>
+            <h1>Exotic Fragrances</h1>
+            <p>Discover our curated collection of designer oil-based fragrances. Each scent tells a story of luxury, craftsmanship, and timeless elegance. From gift sets to occasion-specific blends, find your signature fragrance.</p>
+            <div class="hero-cta">
+                <a href="#pricing" class="btn btn-primary">Shop Now</a>
+                <a href="#about" class="btn btn-secondary">Learn More</a>
+            </div>
+        </div>
+        <div class="hero-image">
+            <img src="https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?w=500&h=600&fit=crop" alt="Luxury Fragrance Bottles" loading="lazy">
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <h2>Our Services</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <h3>Bespoke Consultation</h3>
+                <p>Personalized scent matching tailored to your preferences, lifestyle, and unique personality. Our experts guide you to your perfect fragrance.</p>
+            </div>
+            <div class="service-card">
+                <h3>Gift Curation</h3>
+                <p>Premium gift sets designed for every occasion. Beautifully packaged luxury fragrances perfect for the discerning gift giver.</p>
+            </div>
+            <div class="service-card">
+                <h3>Fragrance Blending</h3>
+                <p>Create custom blends with our master perfumers. Mix, match, and design your signature scent from our exclusive collection.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Collections Section -->
+    <section class="collections" id="collections">
+        <h2>Signature Collections</h2>
+        <div class="collections-grid">
+            <div class="collection-card">
+                <img src="https://images.unsplash.com/photo-1508737764454-61bfb0e13c44?w=400&h=400&fit=crop" alt="Designer Brands Collection" loading="lazy">
+                <div class="collection-overlay">
+                    <h3>Designer Brands</h3>
+                    <p>Exclusive fragrances from world-renowned perfume houses</p>
+                </div>
+            </div>
+            <div class="collection-card">
+                <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=400&h=400&fit=crop" alt="Gift Sets Collection" loading="lazy">
+                <div class="collection-overlay">
+                    <h3>Gift Sets</h3>
+                    <p>Beautifully curated sets for every celebration and occasion</p>
+                </div>
+            </div>
+            <div class="collection-card">
+                <img src="https://images.unsplash.com/photo-1515562141207-6461a4b93f5b?w=400&h=400&fit=crop" alt="Special Occasion Collection" loading="lazy">
+                <div class="collection-overlay">
+                    <h3>Special Occasions</h3>
+                    <p>Perfumes crafted for weddings, galas, and unforgettable moments</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery" id="gallery">
+        <h2>Experience Luxury</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=400&h=400&fit=crop" alt="Fragrance Luxury Lifestyle" loading="lazy">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1588518907883-dd80a84ae3f0?w=400&h=400&fit=crop" alt="Premium Perfume Bottles" loading="lazy">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1506755855726-21b4e6b95031?w=400&h=400&fit=crop" alt="Fragrance Elegance" loading="lazy">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1495521821757-a1efb6729352?w=400&h=400&fit=crop" alt="Luxury Scent Experience" loading="lazy">
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials" id="testimonials">
+        <h2>What Our Customers Say</h2>
+        <div class="testimonials-carousel">
+            <div class="testimonial-card">
+                <div class="testimonial-quote">"Jameel's Exotic Fragrances transformed my daily routine. The quality and sophistication are unmatched. I receive compliments everywhere I go."</div>
+                <div class="testimonial-author">Sarah Mitchell</div>
+                <div class="testimonial-role">Luxury Lifestyle Enthusiast</div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-quote">"The bespoke consultation service helped me find my signature scent. Now I can't imagine wearing anything else. Pure luxury."</div>
+                <div class="testimonial-author">Marcus Chen</div>
+                <div class="testimonial-role">Business Executive</div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-quote">"I gifted their premium collection to my partner, and it was the most memorable gift. The presentation is absolutely exquisite."</div>
+                <div class="testimonial-author">Elena Rodriguez</div>
+                <div class="testimonial-role">Wedding Planner</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing" id="pricing">
+        <h2>Premium Packages</h2>
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <h3>Signature Line</h3>
+                <div class="pricing-amount">$89</div>
+                <ul class="pricing-features">
+                    <li>50ml oil-based fragrance</li>
+                    <li>Premium glass bottle</li>
+                    <li>Free sample collection</li>
+                    <li>Luxury packaging</li>
+                </ul>
+                <button class="btn btn-primary">Select Package</button>
+            </div>
+            <div class="pricing-card featured">
+                <h3>Luxury Collection</h3>
+                <div class="pricing-amount">$159</div>
+                <ul class="pricing-features">
+                    <li>100ml premium fragrance</li>
+                    <li>Crystal bottle</li>
+                    <li>Personalized consultation</li>
+                    <li>Exclusive gift set</li>
+                    <li>Priority support</li>
+                </ul>
+                <button class="btn btn-primary">Select Package</button>
+            </div>
+            <div class="pricing-card">
+                <h3>Bespoke Creation</h3>
+                <div class="pricing-amount">$299</div>
+                <ul class="pricing-features">
+                    <li>Custom fragrance blending</li>
+                    <li>Master perfumer session</li>
+                    <li>Multiple iterations</li>
+                    <li>Private consultation</li>
+                    <li>VIP lifetime access</li>
+                </ul>
+                <button class="btn btn-primary">Select Package</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team" id="team">
+        <h2>Meet Our Experts</h2>
+        <div class="team-grid">
+            <div class="team-member">
+                <div class="team-image">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop" alt="Master Perfumer" loading="lazy">
+                </div>
+                <div class="team-info">
+                    <h3>Jameel Hassan</h3>
+                    <div class="team-role">Master Perfumer & Founder</div>
+                    <div class="team-bio">With 25 years of experience in luxury fragrance creation, Jameel brings unparalleled expertise and passion to every blend.</div>
+                </div>
+            </div>
+            <div class="team-member">
+                <div class="team-image">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop" alt="Fragrance Consultant" loading="lazy">
+                </div>
+                <div class="team-info">
+                    <h3>Aisha Khalil</h3>
+                    <div class="team-role">Senior Fragrance Consultant</div>
+                    <div class="team-bio">Specializing in personalized scent matching, Aisha creates unforgettable fragrance experiences tailored to each client.</div>
+                </div>
+            </div>
+            <div class="team-member">
+                <div class="team-image">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop" alt="Luxury Brand Manager" loading="lazy">
+                </div>
+                <div class="team-info">
+                    <h3>Devon Sterling</h3>
+                    <div class="team-role">Luxury Brand Manager</div>
+                    <div class="team-bio">Devon curates our exclusive designer collections, ensuring only the finest fragrances reach our discerning clientele.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq" id="faq">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-container">
+            <div class="faq-item active">
+                <div class="faq-question">
+                    <h4>What makes our fragrances different?</h4>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">Our fragrances are crafted using premium oil-based formulations that last longer and develop beautifully on the skin. Each scent is blended by master perfumers with decades of experience, ensuring exceptional quality and uniqueness.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h4>How do I choose the right fragrance?</h4>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">We offer personalized fragrance consultations where our experts help you discover scents that match your personality, lifestyle, and preferences. You can also explore our gift sets and special occasion collections for curated recommendations.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h4>Can I create a custom fragrance?</h4>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">Absolutely! Our Bespoke Creation package includes a private session with our master perfumer where you can create a custom fragrance tailored exactly to your preferences. Multiple iterations ensure you get your perfect scent.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h4>What's the longevity of your fragrances?</h4>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">Our oil-based fragrances typically last 8-12 hours on the skin, with excellent projection and development. The longevity depends on skin type, application method, and the specific fragrance composition.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <h2>Find Your Signature Scent Today</h2>
+        <p>Experience the luxury and elegance of our exclusive fragrance collection. Book a personalized consultation with our experts and discover the perfect scent for you.</p>
+        <a href="#pricing" class="btn btn-secondary">Explore Collections</a>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <h2>About Jameel's Exotic Fragrances</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <h3>Crafted with Passion, Worn with Pride</h3>
+                <p>Founded by master perfumer Jameel Hassan, Jameel's Exotic Fragrances represents a commitment to luxury, quality, and the art of scent creation. With over 25 years of experience in the fragrance industry, we've perfected the craft of creating unforgettable olfactory experiences.</p>
+                <p>Every fragrance in our collection is carefully selected or custom-created to embody sophistication and elegance. We believe that a signature scent is more than just a fragrance—it's an extension of your personality and a reflection of your refined taste.</p>
+                <p>From our exclusive designer brand partnerships to our bespoke custom blending services, we ensure that every customer finds their perfect fragrance match. Our dedication to excellence, attention to detail, and personalized service set us apart in the luxury fragrance market.</p>
+            </div>
+            <div class="about-image">
+                <img src="https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?w=500&h=600&fit=crop" alt="Master Perfumer at Work" loading="lazy">
+            </div>
+        </div>
+        <div class="values-grid">
+            <div class="value-item">
+                <h4>Quality First</h4>
+                <p>We only work with premium ingredients and master perfumers to ensure exceptional quality in every bottle.</p>
+            </div>
+            <div class="value-item">
+                <h4>Personal Touch</h4>
+                <p>Each customer receives individualized attention and guidance to find their perfect fragrance.</p>
+            </div>
+            <div class="value-item">
+                <h4>Timeless Elegance</h4>
+                <p>Our fragrances are designed to be timeless, sophisticated, and unforgettable.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Jameel's Exotic Fragrances</h4>
+                <p>Luxury oil-based fragrances crafted for the discerning collector. Discover your signature scent today.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#collections">Collections</a></li>
+                    <li><a href="#pricing">Shop</a></li>
+                    <li><a href="#about">About</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Collections</h4>
+                <ul>
+                    <li><a href="#collections">Designer Brands</a></li>
+                    <li><a href="#collections">Gift Sets</a></li>
+                    <li><a href="#collections">Special Occasions</a></li>
+                    <li><a href="#pricing">Bespoke Creation</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#faq">FAQ</a></li>
+                    <li><a href="mailto:info@jameels.com">Contact Us</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#team">Our Team</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Jameel's Exotic Fragrances. All rights reserved. Look Good. Smell Good. Feel Good.</p>
+        </div>
+    </footer>
+
+    <!-- GSAP and ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Close mobile menu when link is clicked
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Scroll animations
+        gsap.utils.toArray('.service-card').forEach((card, index) => {
+            gsap.from(card, {
+                scrollTrigger: {
+                    trigger: card,
+                    start: 'top 80%',
+                    end: 'top 50%',
+                    scrub: 1,
+                },
+                opacity: 0,
+                y: 30,
+                duration: 0.6,
+            });
+        });
+
+        gsap.utils.toArray('.collection-card').forEach((card, index) => {
+            gsap.from(card, {
+                scrollTrigger: {
+                    trigger: card,
+                    start: 'top 80%',
+                    end: 'top 50%',
+                    scrub: 1,
+                },
+                opacity: 0,
+                y: 30,
+                duration: 0.6,
+            });
+        });
+
+        gsap.utils.toArray('.gallery-item').forEach((item, index) => {
+            gsap.from(item, {
+                scrollTrigger: {
+                    trigger: item,
+                    start: 'top 80%',
+                    end: 'top 50%',
+                    scrub: 1,
+                },
+                opacity: 0,
+                y: 30,
+                duration: 0.6,
+            });
+        });
+
+        gsap.utils.toArray('.testimonial-card').forEach((card, index) => {
+            gsap.from(card, {
+                scrollTrigger: {
+                    trigger: card,
+                    start: 'top 80%',
+                    end: 'top 50%',
+                    scrub: 1,
+                },
+                opacity: 0,
+                y: 30,
+                duration: 0.6,
+            });
+        });
+
+        gsap.utils.toArray('.pricing-card').forEach((card, index) => {
+            gsap.from(card, {
+                scrollTrigger: {
+                    trigger: card,
+                    start: 'top 80%',
+                    end: 'top 50%',
+                    scrub: 1,
+                },
+                opacity: 0,
+                y: 30,
+                duration: 0.6,
+            });
+        });
+
+        gsap.utils.toArray('.team-member').forEach((member, index) => {
+            gsap.from(member, {
+                scrollTrigger: {
+                    trigger: member,
+                    start: 'top 80%',
+                    end: 'top 50%',
+                    scrub: 1,
+                },
+                opacity: 0,
+                y: 30,
+                duration: 0.6,
+            });
+        });
+
+        gsap.utils.toArray('.faq-item').forEach((item, index) => {
+            gsap.from(item, {
+                scrollTrigger: {
+                    trigger: item,
+                    start: 'top 80%',
+                    end: 'top 50%',
+                    scrub: 1,
+                },
+                opacity: 0,
+                y: 30,
+                duration: 0.6,
+            });
+        });
+
+        // FAQ Toggle
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', function() {
+                const faqItem = this.parentElement;
+                const isActive = faqItem.classList.contains('active');
+                
+                // Close all other items
+                document.querySelectorAll('.faq-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                
+                // Toggle current item
+                if (!isActive) {
+                    faqItem.classList.add('active');
+                }
+            });
+        });
+
+        // Parallax effect on scroll
+        gsap.to('.hero-image img', {
+            scrollTrigger: {
+                trigger: '.hero',
+                start: 'top top',
+                end: 'bottom top',
+                scrub: 1,
+            },
+            y: 50,
+        });
+
+        // CTA animation on scroll
+        gsap.from('.cta', {
+            scrollTrigger: {
+                trigger: '.cta',
+                start: 'top 80%',
+                end: 'top 50%',
+                scrub: 1,
+            },
+            opacity: 0,
+            y: 30,
+            duration: 0.8,
+        });
+    </script>
+</body>
+</html>
