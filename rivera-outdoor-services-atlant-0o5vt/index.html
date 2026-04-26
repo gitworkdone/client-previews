@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rivera Outdoor Services — Atlanta's Trusted Landscaping Experts</title>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #3A2C18;
+      --accent: #C4882A;
+      --bg: #FFF9EE;
+      --text: #3A2C18;
+      --dark: #201508;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background-color: var(--bg);
+      line-height: 1.6;
+    }
+
+    /* Typography */
+    h1, h2, h3, h4, h5, h6 {
+      font-family: "Raleway", sans-serif;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+
+    h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+    }
+
+    h2 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+    }
+
+    h3 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      margin-bottom: 1.2rem;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    a:hover {
+      color: var(--primary);
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 999;
+      padding: 1.5rem 2rem;
+      background-color: rgba(255, 249, 238, 0);
+      transition: background-color 0.4s ease, box-shadow 0.4s ease;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav.scrolled {
+      background-color: rgba(255, 249, 238, 0.97);
+      box-shadow: 0 2px 10px rgba(32, 21, 8, 0.1);
+    }
+
+    .nav-brand {
+      font-family: "Raleway", sans-serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-transform: none;
+    }
+
+    .nav-menu {
+      display: flex;
+      list-style: none;
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    .nav-menu a {
+      color: var(--primary);
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .nav-menu a:hover {
+      color: var(--accent);
+    }
+
+    .cta-button {
+      background-color: var(--accent);
+      color: white;
+      padding: 0.75rem 1.8rem;
+      border-radius: 4px;
+      font-weight: 600;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      border: none;
+      cursor: pointer;
+      display: inline-block;
+    }
+
+    .cta-button:hover {
+      background-color: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      background: none;
+      border: none;
+      gap: 0.5rem;
+    }
+
+    .hamburger span {
+      width: 25px;
+      height: 3px;
+      background-color: var(--primary);
+      transition: all 0.3s ease;
+      border-radius: 2px;
+    }
+
+    .hamburger.nav-open span:nth-child(1) {
+      transform: rotate(45deg) translate(8px, 8px);
+    }
+
+    .hamburger.nav-open span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.nav-open span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -7px);
+    }
+
+    /* Hero Section */
+    .hero {
+      display: grid;
+      grid-template-columns: 55% 45%;
+      min-height: 100vh;
+      align-items: center;
+      overflow: hidden;
+      margin-top: 60px;
+    }
+
+    .hero-image {
+      background: linear-gradient(135deg, #8B6F47 0%, #C4882A 50%, #A67C52 100%);
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    .hero-content {
+      background-color: var(--bg);
+      padding: 80px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: 100%;
+    }
+
+    .hero h1 {
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+      line-height: 1.1;
+    }
+
+    .hero-accent-line {
+      width: 60px;
+      height: 3px;
+      background-color: var(--accent);
+      margin-bottom: 2rem;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      color: var(--text);
+      margin-bottom: 2rem;
+      max-width: 90%;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .hero-cta .cta-button {
+      padding: 1rem 2.5rem;
+      font-size: 1rem;
+    }
+
+    .trust-badges {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      border-top: 1px solid rgba(196, 136, 42, 0.2);
+      padding-top: 2rem;
+    }
+
+    .badge {
+      font-size: 0.9rem;
+      color: var(--primary);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .badge::before {
+      content: "✓";
+      color: var(--accent);
+      margin-right: 0.5rem;
+      font-weight: bold;
+    }
+
+    /* Sections */
+    section {
+      padding: 6rem 2rem;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .section-title h2 {
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-title h2::after {
+      content: "";
+      position: absolute;
+      bottom: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 3px;
+      background-color: var(--accent);
+    }
+
+    /* About Section */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      margin-top: 3rem;
+    }
+
+    .about-image {
+      background: linear-gradient(45deg, #D4A574 0%, #8B6F47 100%);
+      min-height: 500px;
+      border-radius: 8px;
+    }
+
+    .about-content h3 {
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .about-content p {
+      margin-bottom: 1.5rem;
+    }
+
+    .about-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .stat {
+      background-color: rgba(196, 136, 42, 0.05);
+      padding: 2rem;
+      border-radius: 8px;
+      border-top: 3px solid var(--accent);
+    }
+
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--accent);
+      font-family: "Raleway", sans-serif;
+    }
+
+    .stat-label {
+      color: var(--primary);
+      font-weight: 500;
+      margin-top: 0.5rem;
+    }
+
+    /* Services Section */
+    .services-list {
+      display: grid;
+      gap: 3rem;
+    }
+
+    .service-item {
+      display: grid;
+      grid-template-columns: 45% 55%;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .service-item:nth-child(even) {
+      grid-template-columns: 55% 45%;
+    }
+
+    .service-item:nth-child(even) .service-image {
+      order: 2;
+    }
+
+    .service-number {
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: var(--accent);
+      font-family: "Raleway", sans-serif;
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+
+    .service-content h3 {
+      color: var(--primary);
+    }
+
+    .service-image {
+      background: linear-gradient(120deg, #C4A872 0%, #8B6F47 100%);
+      min-height: 400px;
+      border-radius: 8px;
+    }
+
+    /* Gallery Section */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .gallery-item {
+      background: linear-gradient(135deg, #B8956A 0%, #8B6F47 100%);
+      aspect-ratio: 1;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: border-top 0.2s ease, transform 0.2s ease;
+      border-top: 3px solid transparent;
+    }
+
+    .gallery-item:hover {
+      border-top-color: var(--accent);
+      transform: translateY(-4px);
+    }
+
+    /* Seasonal Tab Strip */
+    .seasonal-tabs {
+      display: flex;
+      gap: 1rem;
+      margin: 3rem 0;
+      border-bottom: 1px solid rgba(196, 136, 42, 0.2);
+    }
+
+    .tab-button {
+      background: none;
+      border: none;
+      padding: 1rem 1.5rem;
+      cursor: pointer;
+      color: var(--primary);
+      font-weight: 600;
+      font-size: 1rem;
+      transition: color 0.3s ease, border-bottom 0.3s ease;
+      border-bottom: 3px solid transparent;
+    }
+
+    .tab-button.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+
+    .tab-content {
+      display: none;
+      padding: 2rem 0;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    /* CTA Overlay */
+    .cta-section {
+      background: linear-gradient(90deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), linear-gradient(135deg, #6B5844 0%, #8B6F47 100%);
+      color: white;
+      padding: 6rem 2rem;
+      text-align: center;
+      border-radius: 0;
+    }
+
+    .cta-section h2 {
+      color: white;
+      margin-bottom: 2rem;
+    }
+
+    .cta-section p {
+      color: rgba(255, 255, 255, 0.95);
+      margin-bottom: 2rem;
+      font-size: 1.2rem;
+    }
+
+    .cta-section .cta-button {
+      background-color: var(--accent);
+      color: white;
+      padding: 1rem 3rem;
+      font-size: 1.1rem;
+    }
+
+    /* Contact / Quote Section */
+    .contact-section {
+      background-color: var(--dark);
+      color: white;
+      padding: 6rem 2rem;
+    }
+
+    .contact-section h2 {
+      color: white;
+      margin-bottom: 3rem;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      margin-top: 3rem;
+    }
+
+    .contact-info div {
+      margin-bottom: 2.5rem;
+    }
+
+    .contact-info h3 {
+      color: var(--accent);
+      margin-bottom: 0.8rem;
+      font-size: 1.3rem;
+    }
+
+    .contact-info p {
+      color: rgba(255, 255, 255, 0.85);
+      margin: 0;
+    }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group label {
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: white;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      padding: 1rem;
+      border: 1px solid rgba(196, 136, 42, 0.3);
+      background-color: rgba(255, 255, 255, 0.05);
+      color: white;
+      border-radius: 4px;
+      font-family: "Inter", sans-serif;
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 150px;
+    }
+
+    .form-submit {
+      background-color: var(--accent);
+      color: white;
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 4px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background-color 0.3s ease;
+      align-self: flex-start;
+    }
+
+    .form-submit:hover {
+      background-color: var(--primary);
+    }
+
+    /* FAQ Accordion */
+    .faq-list {
+      max-width: 800px;
+      margin: 3rem auto 0;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid rgba(196, 136, 42, 0.2);
+      margin-bottom: 1.5rem;
+    }
+
+    .faq-question {
+      background: none;
+      border: none;
+      width: 100%;
+      text-align: left;
+      padding: 1.5rem 0;
+      cursor: pointer;
+      color: var(--primary);
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: color 0.3s ease;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .faq-question:hover {
+      color: var(--accent);
+    }
+
+    .faq-toggle {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      transition: transform 0.3s ease;
+    }
+
+    .faq-question.active .faq-toggle {
+      transform: rotate(180deg);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+      color: var(--text);
+      font-size: 1rem;
+      padding-bottom: 1rem;
+    }
+
+    .faq-answer.active {
+      max-height: 500px;
+    }
+
+    /* Footer */
+    footer {
+      background-color: var(--primary);
+      color: white;
+      padding: 3rem 2rem;
+      text-align: center;
+      border-top: 3px solid var(--accent);
+    }
+
+    footer p {
+      margin-bottom: 0.5rem;
+      font-size: 0.95rem;
+    }
+
+    /* Reveal Animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .reveal.active {
+      animation: revealIn 0.9s ease forwards;
+    }
+
+    @keyframes revealIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+        clip-path: inset(8% 0 8% 0);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+        clip-path: inset(0);
+      }
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2.5rem;
+      }
+
+      h2 {
+        font-size: 2rem;
+      }
+
+      h3 {
+        font-size: 1.4rem;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .nav-menu {
+        display: none;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        background-color: var(--bg);
+        padding: 2rem;
+        gap: 1rem;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        border-top: 1px solid rgba(196, 136, 42, 0.2);
+      }
+
+      .nav-menu.nav-open {
+        display: flex;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
+        margin-top: 60px;
+      }
+
+      .hero-image {
+        min-height: 300px;
+      }
+
+      .hero-content {
+        padding: 3rem 1.5rem;
+      }
+
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .hero p {
+        max-width: 100%;
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .about-image {
+        min-height: 300px;
+      }
+
+      .service-item,
+      .service-item:nth-child(even) {
+        grid-template-columns: 1fr;
+      }
+
+      .service-item:nth-child(even) .service-image {
+        order: 0;
+      }
+
+      .service-image {
+        min-height: 300px;
+      }
+
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+      }
+
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .about-stats {
+        grid-template-columns: 1fr;
+      }
+
+      section {
+        padding: 3rem 1.5rem;
+      }
+
+      .trust-badges {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .hero-cta {
+        flex-direction: column;
+      }
+
+      .hero-cta .cta-button {
+        width: 100%;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 640px) {
+      h1 {
+        font-size: 2rem;
+      }
+
+      h2 {
+        font-size: 1.6rem;
+      }
+
+      p {
+        font-size: 1rem;
+      }
+
+      .hero-content {
+        padding: 2rem 1rem;
+      }
+
+      .gallery-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .seasonal-tabs {
+        flex-direction: column;
+      }
+
+      .tab-button {
+        width: 100%;
+        text-align: left;
+      }
+
+      .service-number {
+        font-size: 2.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav id="navbar">
+    <div class="nav-brand">Rivera Outdoor Services</div>
+    <button class="hamburger" id="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <ul class="nav-menu" id="navMenu">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About Us</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#contact"><button class="cta-button">Get Free Quote</button></a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="hero-image"></div>
+    <div class="hero-content">
+      <h1>Atlanta's Trusted Landscaping Experts</h1>
+      <div class="hero-accent-line"></div>
+      <p>Family-owned and operated for over 12 years. We transform outdoor spaces with meticulous attention to detail and unwavering commitment to excellence.</p>
+      <div class="hero-cta">
+        <a href="#contact" class="cta-button">Get Your Free Quote</a>
+        <a href="#services" class="cta-button" style="background-color: transparent; border: 2px solid var(--accent); color: var(--accent);">Learn Our Services</a>
+      </div>
+      <div class="trust-badges">
+        <div class="badge">Licensed</div>
+        <div class="badge">Bonded</div>
+        <div class="badge">Insured</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about">
+    <div class="container">
+      <div class="section-title">
+        <h2>About Rivera Outdoor Services</h2>
+      </div>
+      <div class="about-grid reveal">
+        <div class="about-image"></div>
+        <div class="about-content">
+          <h3>Passion for Outdoor Excellence</h3>
+          <p>Since 2012, Rivera Outdoor Services has been transforming residential properties throughout the Atlanta metro area. What started as a family vision has grown into a trusted name for landscaping, lawn care, tree trimming, and comprehensive outdoor maintenance.</p>
+          <p>We believe that every property deserves the highest level of care. Our team takes pride in delivering results that exceed expectations, backed by years of expertise and an unwavering commitment to customer satisfaction.</p>
+          <p>We work with homeowners and property managers who value quality, reliability, and professionalism. From routine maintenance to complete landscape transformations, we handle every project with the same dedication to detail.</p>
+          
+          <div class="about-stats">
+            <div class="stat reveal">
+              <div class="stat-number" data-target="12">0</div>
+              <div class="stat-label">Years in Business</div>
+            </div>
+            <div class="stat reveal">
+              <div class="stat-number" data-target="2500">0</div>
+              <div class="stat-label">Properties Maintained</div>
+            </div>
+            <div class="stat reveal">
+              <div class="stat-number" data-target="98">0</div>
+              <div class="stat-label">Customer Satisfaction %</div>
+            </div>
+            <div class="stat reveal">
+              <div class="stat-number" data-target="15">0</div>
+              <div class="stat-label">Certified Team Members</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section id="services" style="background-color: var(--dark); color: white;">
+    <div class="container">
+      <div class="section-title">
+        <h2 style="color: white;">Our Services</h2>
+      </div>
+      <div class="services-list">
+        
+        <div class="service-item reveal">
+          <div class="service-image"></div>
+          <div class="service-content">
+            <div class="service-number">01</div>
+            <h3>Lawn Care & Maintenance</h3>
+            <p>Keep your lawn looking pristine year-round with our comprehensive lawn care services. From weekly mowing and edging to aeration, overseeding, and seasonal treatments, we ensure your grass stays healthy and vibrant.</p>
+            <p>We tailor our maintenance schedules to Atlanta's climate, ensuring your lawn thrives through every season.</p>
+          </div>
+        </div>
+
+        <div class="service-item reveal">
+          <div class="service-image"></div>
+          <div class="service-content">
+            <div class="service-number">02</div>
+            <h3>Professional Tree Trimming</h3>
+            <p>Safe, skilled tree trimming that enhances your property's beauty and health. Our certified arborists remove dead branches, shape trees for optimal growth, and ensure safety around structures and power lines.</p>
+            <p>We handle everything from routine trimming to emergency storm cleanup with precision and care.</p>
+          </div>
+        </div>
+
+        <div class="service-item reveal">
+          <div class="service-image"></div>
+          <div class="service-content">
+            <div class="service-number">03</div>
+            <h3>Landscape Design & Installation</h3>
+            <p>Transform your outdoor space with custom landscape designs that reflect your vision. From planting beds and hardscaping to irrigation systems, we create stunning environments that add value to your home.</p>
+            <p>Every project is designed with both aesthetics and functionality in mind.</p>
+          </div>
+        </div>
+
+        <div class="service-item reveal">
+          <div class="service-image"></div>
+          <div class="service-content">
+            <div class="service-number">04</div>
+            <h3>Seasonal & Property Maintenance</h3>
+            <p>Comprehensive maintenance plans to keep your property looking exceptional throughout the year. Leaf cleanup, mulch refreshing, seasonal planting, pressure washing, and more—we handle the details so you don't have to.</p>
+            <p>Trust us to keep your outdoor space in top condition, season after season.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Seasonal Offerings -->
+      <div style="margin-top: 4rem; padding-top: 3rem; border-top: 1px solid rgba(196, 136, 42, 0.2);">
+        <h3 style="text-align: center; color: white; margin-bottom: 2rem;">Seasonal Offerings</h3>
+        
+        <div class="seasonal-tabs">
+          <button class="tab-button active" data-tab="spring">Spring</button>
+          <button class="tab-button" data-tab="summer">Summer</button>
+          <button class="tab-button" data-tab="fall">Fall</button>
+          <button class="tab-button" data-tab="winter">Winter</button>
+        </div>
+
+        <div class="tab-content active" id="spring">
+          <p style="color: rgba(255, 255, 255, 0.9);">Spring awakening for your outdoor space. Cleanup, aeration, overseeding, mulch installation, and new plantings to prepare your lawn and gardens for vibrant growth.</p>
+        </div>
+
+        <div class="tab-content" id="summer">
+          <p style="color: rgba(255, 255, 255, 0.9);">Regular maintenance to keep your lawn lush through summer heat. Weekly mowing, irrigation optimization, fertilization, and insect management to maintain peak condition.</p>
+        </div>
+
+        <div class="tab-content" id="fall">
+          <p style="color: rgba(255, 255, 255, 0.9);">Comprehensive leaf removal, gutter cleaning, tree trimming, and winterization services. We prepare your property for cooler months and ensure healthy dormancy.</p>
+        </div>
+
+        <div class="tab-content" id="winter">
+          <p style="color: rgba(255, 255, 255, 0.9);">Winter maintenance and storm cleanup. We handle debris removal, ice management on hardscapes, and provide emergency services when weather strikes.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Gallery Section -->
+  <section id="gallery">
+    <div class="container">
+      <div class="section-title">
+        <h2>Project Gallery</h2>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-item reveal"></div>
+        <div class="gallery-item reveal"></div>
+        <div class="gallery-item reveal"></div>
+        <div class="gallery-item reveal"></div>
+        <div class="gallery-item reveal"></div>
+        <div class="gallery-item reveal"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section id="faq" style="background-color: rgba(196, 136, 42, 0.05);">
+    <div class="container">
+      <div class="section-title">
+        <h2>Frequently Asked Questions</h2>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>What areas do you service?</span>
+            <span class="faq-toggle">▼</span>
+          </button>
+          <div class="faq-answer">
+            <p>We proudly serve homeowners and property managers throughout the Atlanta metro area, including all suburbs and surrounding counties. Contact us to confirm service availability for your specific location.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Do you offer free consultations?</span>
+            <span class="faq-toggle">▼</span>
+          </button>
+          <div class="faq-answer">
+            <p>Yes! We provide free, no-obligation consultations and quotes for all services. We'll assess your property, discuss your needs, and provide transparent pricing before any work begins.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Are you licensed and insured?</span>
+            <span class="faq-toggle">▼</span>
+          </button>
+          <div class="faq-answer">
+            <p>Absolutely. Rivera Outdoor Services is fully licensed, bonded, and insured. All team members are certified in their respective areas of expertise, ensuring professional and safe service.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Can you design custom landscapes?</span>
+            <span class="faq-toggle">▼</span>
+          </button>
+          <div class="faq-answer">
+            <p>Yes, we offer complete landscape design and installation services. Our team works with you to create custom outdoor spaces that match your vision, budget, and property conditions.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Do you offer maintenance plans?</span>
+            <span class="faq-toggle">▼</span>
+          </button>
+          <div class="faq-answer">
+            <p>We offer flexible maintenance plans tailored to your property's needs and your budget. Whether weekly lawn care, monthly deep cleaning, or seasonal services, we can create a plan that works for you.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>How do I get started?</span>
+            <span class="faq-toggle">▼</span>
+          </button>
+          <div class="faq-answer">
+            <p>Getting started is easy. Fill out our contact form below, call us, or visit us in person. We'll schedule a free consultation, discuss your needs, and provide a detailed quote for your project.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="container">
+      <h2>Ready to Transform Your Outdoor Space?</h2>
+      <p>Let us show you what professional landscaping care can do for your property.</p>
+      <a href="#contact" class="cta-button">Get Your Free Quote Today</a>
+    </div>
+  </section>
+
+  <!-- Contact / Quote Section -->
+  <section id="contact" class="contact-section">
+    <div class="container">
+      <div class="section-title">
+        <h2 style="color: white;">Get in Touch</h2>
+      </div>
+      <div class="contact-grid reveal">
+        <div class="contact-info">
+          <h3>Contact Information</h3>
+          <div>
+            <h3 style="font-size: 1.1rem; color: white; margin-bottom: 0.3rem;">Phone</h3>
+            <p><a href="tel:" style="color: var(--accent);">Request a callback</a> or contact us directly</p>
+          </div>
+          <div>
+            <h3 style="font-size: 1.1rem; color: white; margin-bottom: 0.3rem;">Email</h3>
+            <p><a href="mailto:" style="color: var(--accent);">Send us a message</a></p>
+          </div>
+          <div>
+            <h3 style="font-size: 1.1rem; color: white; margin-bottom: 0.3rem;">Service Area</h3>
+            <p>Atlanta Metro and Surrounding Suburbs</p>
+          </div>
+          <div>
+            <h3 style="font-size: 1.1rem; color: white; margin-bottom: 0.3rem;">Response Time</h3>
+            <p>We respond to all inquiries within 24 hours</p>
+          </div>
+        </div>
+
+        <form class="contact-form">
+          <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name" required>
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          <div class="form-group">
+            <label for="service">Service Interested In</label>
+            <input type="text" id="service" name="service" placeholder="e.g., Lawn Care, Tree Trimming">
+          </div>
+          <div class="form-group">
+            <label for="message">Tell Us About Your Project</label>
+            <textarea id="message" name="message" required placeholder="Describe your property and what you'd like to achieve..."></textarea>
+          </div>
+          <button type="submit" class="form-submit">Request Free Quote</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>Rivera Outdoor Services</p>
+    <p>Atlanta's Trusted Landscaping Experts</p>
+    <p>Licensed • Bonded • Insured</p>
+    <p style="margin-top: 2rem; font-size: 0.85rem; color: rgba(255, 255, 255, 0.7);">© 2025 Rivera Outdoor Services. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Hamburger Menu Toggle
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('navMenu');
+    
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('nav-open');
+      navMenu.classList.toggle('nav-open');
+    });
+
+    // Close menu when a link is clicked
+    const navLinks = navMenu.querySelectorAll('a');
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('nav-open');
+        navMenu.classList.remove('nav-open');
+      });
+    });
+
+    // Sticky Navigation
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    // Intersection Observer for Reveal Animation
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -100px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    const reveals = document.querySelectorAll('.reveal');
+    reveals.forEach(reveal => observer.observe(reveal));
+
+    // Counter Animation for Stats
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !entry.target.dataset.counted) {
+          const target = parseInt(entry.target.dataset.target);
+          let current = 0;
+          const increment = Math.ceil(target / 50);
+          
+          const counter = setInterval(() => {
+            current += increment;
+            if (current >= target) {
+              current = target;
+              clearInterval(counter);
+            }
+            entry.target.textContent = current;
+          }, 30);
+          
+          entry.target.dataset.counted = 'true';
+        }
+      });
+    }, observerOptions);
+
+    const statNumbers = document.querySelectorAll('.stat-number');
+    statNumbers.forEach(stat => counterObserver.observe(stat));
+
+    // FAQ Accordion
+    const faqQuestions = document.querySelectorAll('.faq-question');
+    
+    faqQuestions.forEach(question => {
+      question.addEventListener('click', () => {
+        const answer = question.nextElementSibling;
+        const isActive = question.classList.contains('active');
+        
+        // Close all other items
+        faqQuestions.forEach(q => {
+          q.classList.remove('active');
+          q.nextElementSibling.classList.remove('active');
+        });
+        
+        // Open clicked item if it wasn't active
+        if (!isActive) {
+          question.classList.add('active');
+          answer.classList.add('active');
+        }
+      });
+    });
+
+    // Seasonal Tabs
+    const tabButtons = document.querySelectorAll('.tab-button');
+    
+    tabButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const tabName = button.dataset.tab;
+        
+        // Remove active class from all buttons and content
+        tabButtons.forEach(btn => btn.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(content => {
+          content.classList.remove('active');
+        });
+        
+        // Add active class to clicked button and corresponding content
+        button.classList.add('active');
+        document.getElementById(tabName).classList.add('active');
+      });
+    });
+
+    // Form Submission (prevent default and show message)
+    const contactForm = document.querySelector('.contact-form');
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('Thank you for your interest! We will contact you soon to discuss your project.');
+      contactForm.reset();
+    });
+  </script>
+
+</body>
+</html>
