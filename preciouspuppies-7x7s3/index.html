@@ -1,968 +1,1200 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PreciousPuppies — Grooming. Portraits. Joy.</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/SplitText.min.js"></script>
-<style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-:root {
-  --cream: #F5F0E8;
-  --warm-white: #FEFCF8;
-  --charcoal: #1A1A1A;
-  --mid-gray: #6B6560;
-  --light-gray: #C8C3BC;
-  --accent: #F4A623;
-  --accent-light: #FDE8BB;
-  --accent-dark: #C97D0A;
-  --font-head: 'Space Grotesk', sans-serif;
-  --font-mono: 'Space Mono', monospace;
-  --primary-blue: #2E5090;
-  --light-blue: #E8F0F8;
-  --secondary-teal: #16A397;
-}
-
-html { scroll-behavior: smooth; }
-
-body {
-  background: var(--warm-white);
-  color: var(--charcoal);
-  font-family: var(--font-head);
-  font-weight: 300;
-  overflow-x: hidden;
-  cursor: default;
-}
-
-/* SVG GRAIN FILTER */
-.grain-overlay {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  pointer-events: none;
-  z-index: 9999;
-  opacity: 0.025;
-  mix-blend-mode: multiply;
-}
-
-/* NAV */
-nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 1000;
-  padding: 32px 48px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  mix-blend-mode: normal;
-  transition: background 0.4s ease, padding 0.4s ease;
-  background: var(--primary-blue);
-}
-
-nav.scrolled {
-  background: rgba(46, 80, 144, 0.95);
-  padding: 20px 48px;
-  backdrop-filter: blur(8px);
-  border-bottom: 1px solid rgba(26,26,26,0.06);
-}
-
-.nav-logo {
-  font-family: var(--font-mono);
-  font-weight: 700;
-  font-size: 13px;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--warm-white);
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-nav.scrolled .nav-logo { color: var(--warm-white); }
-
-.nav-links {
-  display: flex;
-  gap: 48px;
-  list-style: none;
-}
-
-.nav-links a {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--warm-white);
-  text-decoration: none;
-  position: relative;
-  transition: color 0.3s ease;
-}
-
-nav.scrolled .nav-links a { color: var(--warm-white); }
-
-.nav-links a::after {
-  content: '_';
-  position: absolute;
-  right: -8px;
-  opacity: 0;
-  transition: opacity 0.2s ease;
-  color: var(--secondary-teal);
-}
-
-.nav-links a:hover::after { opacity: 1; }
-
-.hamburger {
-  display: none;
-  flex-direction: column;
-  gap: 5px;
-  cursor: pointer;
-  padding: 4px;
-}
-
-.hamburger span {
-  display: block;
-  width: 24px;
-  height: 1px;
-  background: var(--warm-white);
-  transition: all 0.3s ease;
-}
-
-nav.scrolled .hamburger span { background: var(--warm-white); }
-
-.mobile-menu {
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: var(--primary-blue);
-  z-index: 999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 48px;
-  transform: translateX(100%);
-  transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1);
-}
-
-.mobile-menu.open { transform: translateX(0); }
-
-.mobile-menu a {
-  font-family: var(--font-head);
-  font-weight: 900;
-  font-size: clamp(36px, 8vw, 72px);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--warm-white);
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-
-.mobile-menu a:hover { color: var(--secondary-teal); }
-
-.mobile-close {
-  position: absolute;
-  top: 32px; right: 48px;
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.2em;
-  color: var(--light-gray);
-  cursor: pointer;
-  text-transform: uppercase;
-}
-
-/* HERO */
-#hero {
-  position: relative;
-  width: 100%;
-  height: 100vh;
-  min-height: 700px;
-  overflow: hidden;
-  display: flex;
-  align-items: flex-end;
-  background: linear-gradient(135deg, var(--primary-blue) 0%, var(--light-blue) 100%);
-}
-
-.hero-bg {
-  position: absolute;
-  inset: 0;
-  background-image: url('https://images.unsplash.com/photo-1587300411515-430ee519b0f7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3NzcwNzc3ODB8&ixlib=rb-4.1.0&q=80&w=1080');
-  background-size: cover;
-  background-position: center 30%;
-  z-index: 0;
-  opacity: 0.3;
-}
-
-.hero-bg::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(46, 80, 144, 0.9) 0%, rgba(46, 80, 144, 0.5) 50%, rgba(46, 80, 144, 0.2) 100%);
-}
-
-.hero-content {
-  position: relative;
-  z-index: 2;
-  padding: 0 48px 80px;
-  max-width: 760px;
-}
-
-.hero-label {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--secondary-teal);
-  margin-bottom: 24px;
-  opacity: 0;
-}
-
-.hero-headline {
-  font-family: var(--font-head);
-  font-weight: 900;
-  font-size: clamp(52px, 9vw, 128px);
-  line-height: 0.92;
-  letter-spacing: -0.02em;
-  color: var(--warm-white);
-  text-transform: uppercase;
-  margin-bottom: 40px;
-}
-
-.hero-headline em {
-  font-style: normal;
-  color: var(--secondary-teal);
-}
-
-.hero-sub {
-  font-family: var(--font-head);
-  font-weight: 200;
-  font-size: clamp(14px, 1.6vw, 18px);
-  letter-spacing: 0.05em;
-  color: rgba(254,252,248,0.85);
-  max-width: 380px;
-  line-height: 1.7;
-  margin-bottom: 48px;
-}
-
-.btn-primary {
-  display: inline-block;
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--warm-white);
-  border: 1px solid var(--secondary-teal);
-  border-radius: 0;
-  padding: 16px 32px;
-  text-decoration: none;
-  position: relative;
-  overflow: hidden;
-  transition: color 0.2s ease;
-  z-index: 1;
-  background: var(--secondary-teal);
-}
-
-.btn-primary::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: var(--secondary-teal);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.2s ease;
-  z-index: -1;
-}
-
-.btn-primary:hover { color: var(--warm-white); border-color: var(--secondary-teal); opacity: 0.8; }
-.btn-primary:hover::before { transform: scaleX(1); }
-
-.btn-outline {
-  display: inline-block;
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--charcoal);
-  border: 1px solid var(--charcoal);
-  border-radius: 0;
-  padding: 16px 32px;
-  text-decoration: none;
-  position: relative;
-  overflow: hidden;
-  transition: color 0.2s ease;
-  z-index: 1;
-}
-
-.btn-outline::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: var(--charcoal);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.2s ease;
-  z-index: -1;
-}
-
-.btn-outline:hover { color: var(--warm-white); }
-.btn-outline:hover::before { transform: scaleX(1); }
-
-.btn-accent {
-  display: inline-block;
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--secondary-teal);
-  border: 1px solid var(--secondary-teal);
-  border-radius: 0;
-  padding: 16px 32px;
-  text-decoration: none;
-  position: relative;
-  overflow: hidden;
-  transition: color 0.2s ease;
-  z-index: 1;
-}
-
-.btn-accent::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: var(--secondary-teal);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.2s ease;
-  z-index: -1;
-}
-
-.btn-accent:hover { color: var(--charcoal); }
-.btn-accent:hover::before { transform: scaleX(1); }
-
-.hero-vertical-nav {
-  position: absolute;
-  right: 48px;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 3;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 24px;
-}
-
-.hero-vertical-nav span {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: rgba(254,252,248,0.6);
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
-}
-
-.hero-scroll-line {
-  width: 1px;
-  height: 80px;
-  background: linear-gradient(to bottom, rgba(254,252,248,0.6), transparent);
-  animation: scrollPulse 2s ease-in-out infinite;
-}
-
-@keyframes scrollPulse {
-  0%, 100% { opacity: 0.4; }
-  50% { opacity: 1; }
-}
-
-/* STATS BAR */
-#stats {
-  background: var(--primary-blue);
-  padding: 64px 48px;
-}
-
-.stats-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0;
-}
-
-.stat-item {
-  padding: 0 48px;
-  border-right: 1px solid rgba(254,252,248,0.08);
-}
-
-.stat-item:first-child { padding-left: 0; }
-.stat-item:last-child { border-right: none; }
-
-.stat-number {
-  font-family: var(--font-head);
-  font-weight: 900;
-  font-size: clamp(40px, 5vw, 72px);
-  color: var(--secondary-teal);
-  letter-spacing: -0.02em;
-  line-height: 1;
-  margin-bottom: 8px;
-}
-
-.stat-label {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--light-gray);
-  font-weight: 400;
-}
-
-/* ABOUT */
-#about {
-  padding: 160px 48px;
-  max-width: 1200px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
-  align-items: center;
-}
-
-.about-image-wrap {
-  position: relative;
-}
-
-.about-img {
-  width: 100%;
-  height: 640px;
-  object-fit: cover;
-  display: block;
-  filter: none;
-}
-
-.about-image-accent {
-  position: absolute;
-  bottom: -32px;
-  right: -32px;
-  width: 180px;
-  height: 180px;
-  background: var(--secondary-teal);
-  z-index: -1;
-}
-
-.about-content { padding-left: 24px; }
-
-.section-label {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--secondary-teal);
-  margin-bottom: 32px;
-  display: block;
-}
-
-.section-headline {
-  font-family: var(--font-head);
-  font-weight: 900;
-  font-size: clamp(40px, 5vw, 72px);
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-  line-height: 0.95;
-  color: var(--charcoal);
-  margin-bottom: 40px;
-}
-
-.section-body {
-  font-family: var(--font-head);
-  font-weight: 200;
-  font-size: 17px;
-  line-height: 1.8;
-  color: var(--mid-gray);
-  margin-bottom: 24px;
-}
-
-.about-detail {
-  margin-top: 48px;
-  padding-top: 48px;
-  border-top: 1px solid var(--light-gray);
-  display: flex;
-  align-items: center;
-  gap: 24px;
-}
-
-.about-detail-text {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--mid-gray);
-}
-
-/* SERVICES */
-#services {
-  background: var(--light-blue);
-  padding: 160px 48px;
-}
-
-.services-inner { max-width: 1200px; margin: 0 auto; }
-
-.services-header {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
-  margin-bottom: 100px;
-  align-items: end;
-}
-
-.services-intro {
-  font-family: var(--font-head);
-  font-weight: 200;
-  font-size: 17px;
-  line-height: 1.8;
-  color: var(--mid-gray);
-}
-
-.services-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2px;
-}
-
-.service-card {
-  background: var(--warm-white);
-  overflow: hidden;
-  position: relative;
-  display: block;
-  text-decoration: none;
-  color: inherit;
-}
-
-.service-card:nth-child(2) { transform: translateY(48px); }
-
-.service-card-img {
-  width: 100%;
-  height: 380px;
-  object-fit: cover;
-  display: block;
-  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  filter: none;
-}
-
-.service-card:hover .service-card-img { transform: scale(1.03); }
-
-.service-card-body {
-  padding: 40px;
-}
-
-.service-card-num {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.3em;
-  color: var(--secondary-teal);
-  text-transform: uppercase;
-  margin-bottom: 16px;
-  display: block;
-}
-
-.service-card-title {
-  font-family: var(--font-head);
-  font-weight: 900;
-  font-size: clamp(24px, 3vw, 36px);
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: var(--charcoal);
-  margin-bottom: 16px;
-  line-height: 1;
-}
-
-.service-card-desc {
-  font-family: var(--font-head);
-  font-weight: 200;
-  font-size: 15px;
-  line-height: 1.7;
-  color: var(--mid-gray);
-  margin-bottom: 32px;
-}
-
-.service-third {
-  grid-column: 1 / -1;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2px;
-  margin-top: 2px;
-}
-
-.service-third .service-card {
-  transform: none;
-}
-
-.service-third .service-card .service-card-img { height: 280px; }
-
-/* PORTFOLIO */
-#portfolio {
-  padding: 160px 48px;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.portfolio-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  margin-bottom: 80px;
-}
-
-.portfolio-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2px;
-}
-
-.portfolio-item {
-  position: relative;
-  overflow: hidden;
-  display: block;
-}
-
-.portfolio-item:nth-child(2) {
-  transform: translateY(-40px);
-}
-
-.portfolio-img {
-  width: 100%;
-  height: 480px;
-  object-fit: cover;
-  display: block;
-  filter: none;
-  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-.portfolio-item:hover .portfolio-img { transform: scale(1.04); }
-
-.portfolio-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(46, 80, 144, 0.0);
-  display: flex;
-  align-items: flex-end;
-  padding: 32px;
-  transition: background 0.3s ease;
-}
-
-.portfolio-item:hover .portfolio-overlay { background: rgba(46, 80, 144, 0.7); }
-
-.portfolio-label {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--warm-white);
-  opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-.portfolio-item:hover .portfolio-label { opacity: 1; transform: translateY(0); }
-
-/* STATEMENT */
-#statement {
-  background: var(--primary-blue);
-  padding: 160px 48px;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-
-.statement-accent-top {
-  position: absolute;
-  top: -60px; left: 50%;
-  transform: translateX(-50%);
-  width: 1px;
-  height: 120px;
-  background: var(--secondary-teal);
-}
-
-.statement-text {
-  font-family: var(--font-head);
-  font-weight: 900;
-  font-size: clamp(40px, 7vw, 100px);
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--warm-white);
-  line-height: 1;
-  max-width: 1200px;
-  margin: 0 auto 64px;
-}
-
-.statement-text em {
-  font-style: normal;
-  color: var(--secondary-teal);
-}
-
-.statement-sub {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.4em;
-  text-transform: uppercase;
-  color: var(--light-gray);
-  margin-bottom: 64px;
-}
-
-/* TESTIMONIALS */
-#testimonials {
-  padding: 160px 48px;
-  background: var(--warm-white);
-}
-
-.testimonials-inner { max-width: 1200px; margin: 0 auto; }
-
-.testimonials-header {
-  margin-bottom: 80px;
-}
-
-.testimonials-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2px;
-}
-
-.testimonial-card {
-  background: var(--light-blue);
-  padding: 56px 48px;
-  position: relative;
-}
-
-.testimonial-card:nth-child(2) { transform: translateY(32px); }
-
-.testimonial-quote {
-  font-family: var(--font-head);
-  font-weight: 900;
-  font-size: 72px;
-  color: var(--secondary-teal);
-  line-height: 0.5;
-  margin-bottom: 32px;
-  font-style: normal;
-}
-
-.testimonial-text {
-  font-family: var(--font-head);
-  font-weight: 200;
-  font-size: 16px;
-  line-height: 1.8;
-  color: var(--mid-gray);
-  margin-bottom: 40px;
-}
-
-.testimonial-author {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--charcoal);
-}
-
-.testimonial-role {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--light-gray);
-  margin-top: 4px;
-}
-
-.stars {
-  color: var(--secondary-teal);
-  font-size: 14px;
-  margin-bottom: 24px;
-  letter-spacing: 4px;
-}
-
-/* FAQ */
-#faq {
-  padding: 160px 48px;
-  background: var(--light-blue);
-}
-
-.faq-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: 80px;
-}
-
-.faq-side {
-  padding-top: 8px;
-}
-
-.faq-list { width: 100%; }
-
-.faq-item {
-  border-top: 1px solid var(--light-gray);
-  overflow: hidden;
-}
-
-.faq-item:last-child { border-bottom: 1px solid var(--light-gray); }
-
-.faq-question {
-  width: 100%;
-  background: none;
-  border: none;
-  padding: 28px 0;
-  text-align: left;
-  cursor: pointer;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 24px;
-}
-
-.faq-q-text {
-  font-family: var(--font-head);
-  font-weight: 700;
-  font-size: 15px;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: var(--charcoal);
-}
-
-.faq-icon {
-  font-family: var(--font-mono);
-  font-size: 20px;
-  color: var(--secondary-teal);
-  line-height: 1;
-  transition: transform 0.3s ease;
-  flex-shrink: 0;
-}
-
-.faq-item.open .faq-icon { transform: rotate(45deg); }
-
-.faq-answer {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.4s ease;
-}
-
-.faq-a-inner {
-  padding: 0 0 28px;
-  font-family: var(--font-head);
-  font-weight: 200;
-  font-size: 15px;
-  line-height: 1.8;
-  color: var(--mid-gray);
-}
-
-/* CTA STRIP */
-#cta {
-  background: var(--secondary-teal);
-  padding: 120px 48px;
-  position: relative;
-  overflow: hidden;
-}
-
-.cta-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 80px;
-  align-items: center;
-}
-
-.cta-headline {
-  font-family: var(--font-head);
-  font-weight: 900;
-  font-size: clamp(40px, 6vw, 88px);
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: var(--warm-white);
-  line-height: 0.95;
-}
-
-.cta-sub {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: rgba(254,252,248,0.7);
-  margin-top: 24px;
-}
-
-.btn-dark {
-  display: inline-block;
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--secondary-teal);
-  border: 1px solid var(--warm-white);
-  background: var(--warm-white);
-  border-radius: 0;
-  padding: 20px 40px;
-  text-decoration: none;
-  position: relative;
-  overflow: hidden;
-  transition: color 0.2s ease, background 0.2s ease;
-  white-space: nowrap;
-}
-
-.btn-dark:hover {
-  background: transparent;
-  color: var(--warm-white);
-}
-
-/* CONTACT */
-#contact {
-  padding: 160px 48px;
-  max-width: 1200px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 120px;
-}
-
-.contact-info {}
-
-.contact-form-wrap {}
-
-.contact-detail {
-  margin-top: 48px;
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-}
-
-.contact-detail-item {}
-
-.contact-detail-label {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--secondary-teal);
-  margin-bottom: 8px;
-}
-
-.contact-detail-value {
-  font-family: var(--font-head);
-  font-weight: 700;
-  font-size: 15px;
-  letter-spacing: 0.05em;
-  color: var(--charcoal);
-}
-
-.contact-form {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.form-label {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  letter-spacing: 0.3em;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PreciousPuppies - Dog Grooming & Pet Accessories</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;600;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #FFB6D9;
+            --secondary: #FFF4E6;
+            --accent: #FFD93D;
+            --dark: #2C3E50;
+            --light: #F8F9FA;
+            --text: #333333;
+            --success: #6BCB77;
+            --warning: #FF6B9D;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .logo {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--warning) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--text);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 70px;
+            min-height: calc(100vh - 70px);
+            background: linear-gradient(135deg, var(--secondary) 0%, #FFF0F5 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: var(--primary);
+            border-radius: 50%;
+            opacity: 0.1;
+            top: -100px;
+            right: -100px;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: var(--accent);
+            border-radius: 50%;
+            opacity: 0.1;
+            bottom: -50px;
+            left: -50px;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 700px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--dark);
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: #555;
+            margin-bottom: 2rem;
+            font-weight: 400;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--warning) 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            box-shadow: 0 10px 30px rgba(255, 107, 157, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 107, 157, 0.4);
+        }
+
+        .cta-button-secondary {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: white;
+            color: var(--primary);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.3s ease;
+            border: 2px solid var(--primary);
+            cursor: pointer;
+            font-size: 1rem;
+            margin-left: 1rem;
+        }
+
+        .cta-button-secondary:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* About Section */
+        .about {
+            padding: 5rem 2rem;
+            background: white;
+            margin: 0;
+        }
+
+        .section-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--dark);
+        }
+
+        .about-content {
+            max-width: 900px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text h3 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .about-text p {
+            font-size: 1.05rem;
+            color: #555;
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        .about-image {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, var(--secondary) 0%, #FFF0F5 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, #FFF9E6 0%, #FFE6F0 100%);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            cursor: pointer;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(255, 107, 157, 0.2);
+        }
+
+        .service-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-card h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+
+        .service-card p {
+            color: #666;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            min-height: 60px;
+        }
+
+        .service-price {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .service-card .cta-button {
+            width: 100%;
+            padding: 0.8rem;
+            font-size: 0.9rem;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 5rem 2rem;
+            background: white;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .testimonial-card {
+            background: linear-gradient(135deg, var(--secondary) 0%, #FFF0F5 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .stars {
+            color: var(--accent);
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-text {
+            color: #555;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            font-weight: 700;
+            color: var(--dark);
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .testimonial-role {
+            color: var(--primary);
+            font-size: 0.9rem;
+        }
+
+        /* FAQ Section */
+        .faq {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, #FFF9E6 0%, #FFE6F0 100%);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .accordion {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .accordion-item {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .accordion-header {
+            padding: 1.5rem;
+            background: white;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--dark);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .accordion-header:hover {
+            background: linear-gradient(135deg, var(--secondary) 0%, #FFF0F5 100%);
+            color: var(--primary);
+        }
+
+        .accordion-icon {
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .accordion-item.active .accordion-icon {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background: linear-gradient(135deg, var(--secondary) 0%, #FFF0F5 100%);
+        }
+
+        .accordion-item.active .accordion-content {
+            max-height: 300px;
+        }
+
+        .accordion-text {
+            padding: 0 1.5rem 1.5rem 1.5rem;
+            color: #555;
+            line-height: 1.8;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 5rem 2rem;
+            background: white;
+            text-align: center;
+        }
+
+        .contact-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-content p {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 2rem;
+        }
+
+        .contact-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .contact-method {
+            padding: 2rem;
+            background: linear-gradient(135deg, var(--secondary) 0%, #FFF0F5 100%);
+            border-radius: 15px;
+            text-decoration: none;
+            color: var(--text);
+            transition: all 0.3s ease;
+        }
+
+        .contact-method:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 107, 157, 0.2);
+        }
+
+        .contact-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-method h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2rem;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 2rem 1rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.7rem;
+        }
+
+        .footer-section a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 70px;
+                right: 0;
+                flex-direction: column;
+                background: white;
+                width: 100%;
+                padding: 2rem;
+                gap: 1rem;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .cta-button-secondary {
+                display: block;
+                margin-left: 0;
+                margin-top: 1rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .about-image {
+                order: -1;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero::before,
+            .hero::after {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav {
+                padding: 1rem;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            .hero {
+                margin-top: 60px;
+                min-height: calc(100vh - 60px);
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .cta-button {
+                padding: 0.8rem 2rem;
+                font-size: 0.9rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+                margin-bottom: 2rem;
+            }
+
+            .about {
+                padding: 3rem 1rem;
+            }
+
+            .services {
+                padding: 3rem 1rem;
+            }
+
+            .contact-methods {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .slide-in-left {
+            animation: slideInLeft 0.8s ease forwards;
+        }
+
+        .slide-in-right {
+            animation: slideInRight 0.8s ease forwards;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">🐾 PreciousPuppies</div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Your Puppy Deserves the Best Care</h1>
+            <p>Professional grooming, premium accessories, and beautiful portraits for your beloved companion</p>
+            <div>
+                <a href="#contact" class="cta-button">Book Grooming Now</a>
+                <a href="#portfolio" class="cta-button-secondary">View Our Work</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about">
+        <h2 class="section-title">Why Choose PreciousPuppies?</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <h3>We Treat Your Pup Like Family</h3>
+                <p>At PreciousPuppies, we believe every dog deserves a spa day! Our team of certified groomers provides gentle, professional care tailored to your pup's unique needs.</p>
+                <p>With over 8 years of experience, we've groomed thousands of happy puppies and dogs. Our calm, friendly approach ensures your furry friend feels right at home.</p>
+                <p>From nail trims to full spa packages, we've got everything your precious pup needs to look and feel fabulous!</p>
+            </div>
+            <div class="about-image">🛁</div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <h2 class="section-title">Our Services & Products</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">✨</div>
+                <h3>Full Grooming Package</h3>
+                <p>Complete spa experience including bath, dry, haircut, nail trim, and ear cleaning. Your pup will feel pampered!</p>
+                <div class="service-price">$65-$95</div>
+                <a href="#contact" class="cta-button">Book Now</a>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">💅</div>
+                <h3>Express Service</h3>
+                <p>Quick maintenance grooming perfect for busy owners. Includes bath, dry, and nail trim in just 1-2 hours.</p>
+                <div class="service-price">$35-$55</div>
+                <a href="#contact" class="cta-button">Book Now</a>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">📸</div>
+                <h3>Professional Portraits</h3>
+                <p>Capture your pup's personality with stunning professional photography. Perfect for memories and social media!</p>
+                <div class="service-price">$45-$120</div>
+                <a href="#contact" class="cta-button">Book Now</a>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">🎾</div>
+                <h3>Premium Accessories</h3>
+                <p>Handpicked collars, leashes, toys, and beds. Everything your pup needs to stay stylish and comfortable.</p>
+                <div class="service-price">$15-$85</div>
+                <a href="#contact" class="cta-button">Shop Now</a>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">🧴</div>
+                <h3>Specialty Treatments</h3>
+                <p>Oatmeal baths, medicated treatments, and de-shedding services. Perfect for sensitive or problematic skin.</p>
+                <div class="service-price">$25-$45</div>
+                <a href="#contact" class="cta-button">Learn More</a>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">🎂</div>
+                <h3>Puppy Birthday Parties</h3>
+                <p>Make your pup's birthday unforgettable! Full grooming, treats, toys, and photos of the celebration.</p>
+                <div class="service-price">$150-$250</div>
+                <a href="#contact" class="cta-button">Plan Party</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="about">
+        <h2 class="section-title">Before & After Transformations</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="about-image" style="height: 250px; font-size: 4rem;">🐩</div>
+                <h3>Fluffy's Makeover</h3>
+                <p>Golden Retriever full grooming and spa day. She loved every minute!</p>
+            </div>
+            <div class="service-card">
+                <div class="about-image" style="height: 250px; font-size: 4rem;">🐕</div>
+                <h3>Max's Fresh Cut</h3>
+                <p>Shih Tzu complete transformation with modern styling.</p>
+            </div>
+            <div class="service-card">
+                <div class="about-image" style="height: 250px; font-size: 4rem;">🦴</div>
+                <h3>Bella's Portrait</h3>
+                <p>Professional photography session capturing her sweet personality.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <h2 class="section-title">Happy Customers, Happy Puppies</h2>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+                <p class="testimonial-text">"My Golden Retriever absolutely loves visiting PreciousPuppies! The team is so caring and gentle. She always comes home looking beautiful and happy!"</p>
+                <div class="testimonial-author">Sarah Mitchell</div>
+                <div class="testimonial-role">Golden Retriever Owner</div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+                <p class="testimonial-text">"Best grooming experience we've had! The staff really took time with our anxious Shih Tzu and now he's a regular. Highly recommend!"</p>
+                <div class="testimonial-author">James & Lisa Chen</div>
+                <div class="testimonial-role">Shih Tzu Parents</div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+                <p class="testimonial-text">"The professional portraits of our pups are stunning! We have them framed in our living room. Such a wonderful keepsake!"</p>
+                <div class="testimonial-author">Emily Rodriguez</div>
+                <div class="testimonial-role">Dachshund & Pug Owner</div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+                <p class="testimonial-text">"I've tried many groomers, but PreciousPuppies is by far the best. My pup's coat has never looked healthier. Worth every penny!"</p>
+                <div class="testimonial-author">David Thompson</div>
+                <div class="testimonial-role">Labrador Owner</div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+                <p class="testimonial-text">"The accessories collection is amazing! Found the perfect collar for our puppy, and the quality is exceptional. Customer service is outstanding."</p>
+                <div class="testimonial-author">Jessica Wong</div>
+                <div class="testimonial-role">Corgi Owner</div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+                <p class="testimonial-text">"Threw my pup's birthday party here and it was magical! The team made her feel so special. She's still talking about it (in dog language, of course!)."</p>
+                <div class="testimonial-author">Rachel Lee</div>
+                <div class="testimonial-role">Schnauzer Owner</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <div class="accordion">
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    How often should my dog be groomed?
+                    <span class="accordion-icon">▼</span>
+                </button>
+                <div class="accordion-content">
+                    <div class="accordion-text">
+                        Most dogs benefit from grooming every 4-8 weeks, depending on their breed and coat type. Long-haired breeds typically need more frequent grooming, while short-haired dogs can go longer between appointments. We'll provide personalized recommendations during your first visit!
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    Is your grooming facility clean and safe?
+                    <span class="accordion-icon">▼</span>
+                </button>
+                <div class="accordion-content">
+                    <div class="accordion-text">
+                        Absolutely! We maintain the highest standards of cleanliness and safety. Our facility is thoroughly sanitized daily, and we use only premium, pet-safe products. All our groomers are certified and trained to handle dogs of all temperaments and special needs.
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    What if my dog has anxiety or special needs?
+                    <span class="accordion-icon">▼</span>
+                </button>
+                <div class="accordion-content">
+                    <div class="accordion-text">
+                        We specialize in working with anxious and special-needs dogs! Our experienced team uses calming techniques and can customize appointments to match your pup's comfort level. Please let us know about any concerns when booking, and we'll create a stress-free experience.
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    Do you offer mobile grooming services?
+                    <span class="accordion-icon">▼</span>
+                </button>
+                <div class="accordion-content">
+                    <div class="accordion-text">
+                        We currently operate from our main facility in town, but we're expanding! Check back soon for mobile grooming services coming to your neighborhood. For now, we offer convenient drop-off and pickup options with flexible hours.
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    What's your cancellation policy?
+                    <span class="accordion-icon">▼</span>
+                </button>
+                <div class="accordion-content">
+                    <div class="accordion-text">
+                        We understand that life happens! Cancellations made 24 hours in advance are free. Cancellations within 24 hours may incur a small fee. If you need to reschedule, just give us a call and we'll work with you to find another convenient time!
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    Can I stay during the grooming appointment?
+                    <span class="accordion-icon">▼</span>
+                </button>
+                <div class="accordion-content">
+                    <div class="accordion-text">
+                        We recommend allowing your pup to settle without you present, as most dogs behave better when their owners aren't watching. However, we're happy to discuss your specific situation! Pick-up times vary based on services, typically 2-4 hours for full grooming.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <h2 class="section-title">Get In Touch</h2>
+        <div class="contact-content">
+            <p>Ready to pamper your precious pup? Contact us today to book an appointment or ask any questions!</p>
+            
+            <div class="contact-methods">
+                <a href="tel:+15551234567" class="contact-method">
+                    <div class="contact-icon">📞</div>
+                    <h4>Call Us</h4>
+                    <p>(555) 123-4567</p>
+                </a>
+                <a href="mailto:hello@preciouspuppies.com" class="contact-method">
+                    <div class="contact-icon">📧</div>
+                    <h4>Email</h4>
+                    <p>hello@preciouspuppies.com</p>
+                </a>
+                <a href="#" class="contact-method">
+                    <div class="contact-icon">📍</div>
+                    <h4>Visit Us</h4>
+                    <p>123 Puppy Lane, Pet City, PC 12345</p>
+                </a>
+            </div>
+
+            <div style="background: linear-gradient(135deg, var(--secondary) 0%, #FFF0F5 100%); padding: 2rem; border-radius: 15px; margin-top: 2rem;">
+                <h3 style="color: var(--dark); margin-bottom: 1rem; font-family: 'Montserrat', sans-serif;">Business Hours</h3>
+                <p style="color: #555;"><strong>Monday - Friday:</strong> 9:00 AM - 6:00 PM</p>
+                <p style="color: #555;"><strong>Saturday:</strong> 10:00 AM - 5:00 PM</p>
+                <p style="color: #555;"><strong>Sunday:</strong> Closed</p>
+                <p style="color: var(--primary); margin-top: 1rem;"><em>Walk-ins welcome, but appointments recommended!</em></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>PreciousPuppies</h4>
+                <p>Dedicated to providing the best grooming care, quality accessories, and beautiful memories for your beloved pup.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#portfolio">Portfolio</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Services</h4>
+                <ul>
+                    <li><a href="#services">Full Grooming</a></li>
+                    <li><a href="#services">Express Service</a></li>
+                    <li><a href="#services">Portraits</a></li>
+                    <li><a href="#services">Accessories</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Follow Us</h4>
+                <ul>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">TikTok</a></li>
+                    <li><a href="#">Pinterest</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 PreciousPuppies. All rights reserved. | Made with 🐾 and love for puppy parents everywhere.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script>
+        // Register ScrollTrigger plugin
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Mobile Menu Toggle
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Close menu when link is clicked
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // GSAP Animations on Scroll
+        // Hero Content Animation
+        gsap.to('.hero-content', {
+            duration: 1,
+            opacity: 1,
+            y: 0,
+            scrollTrigger: {
+                trigger: '.hero',
+                start: 'top center',
+                end: 'center center',
+                scrub: false,
+                onEnter: () => {
+                    gsap.from('.hero h1', { duration: 0.8, opacity: 0, y: 30 });
+                    gsap.from('.hero p', { duration: 0.8, opacity: 0, y: 30, delay: 0.2 });
+                    gsap.from('.hero > div > a', { duration: 0.8, opacity: 0, y: 30, delay: 0.4, stagger: 0.1 });
+                }
+            }
+        });
+
+        // Service Cards Animation
+        gsap.utils.toArray('.service-card').forEach((card, i) => {
+            gsap.from(card, {
+                duration: 0.8,
+                opacity: 0,
+                y: 50,
+                scrollTrigger: {
+                    trigger: card,
+                    start: 'top 80%',
+                    end: 'top 50%',
+                    scrub: false,
+                    onEnter: () => {
+                        gsap.to(card, { duration: 0.8, opacity: 1, y: 0, delay: i * 0.1 });
+                    }
+                }
+            });
+        });
+
+        // About Section Animation
+        gsap.from('.about-text', {
+            duration: 0.8,
+            opacity: 0,
+            x: -50,
+            scrollTrigger: {
+                trigger: '.about',
+                start: 'top 70%',
+                end: 'top 30%',
+                scrub: false,
+                onEnter: () => {
+                    gsap.to('.about-text', { duration: 0.8, opacity: 1, x: 0 });
+                }
+            }
+        });
+
+        gsap.from('.about-image', {
+            duration: 0.8,
+            opacity: 0,
+            x: 50,
+            scrollTrigger: {
+                trigger: '.about',
+                start: 'top 70%',
+                end: 'top 30%',
+                scrub: false,
+                onEnter: () => {
+                    gsap.to('.about-image', { duration: 0.8, opacity: 1, x: 0, delay: 0.2 });
+                }
+            }
+        });
+
+        // Testimonial Cards Animation
+        gsap.utils.toArray('.testimonial-card').forEach((card, i) => {
+            gsap.from(card, {
+                duration: 0.8,
+                opacity: 0,
+                y: 50,
+                scrollTrigger: {
+                    trigger: card,
+                    start: 'top 85%',
+                    end: 'top 55%',
+                    scrub: false,
+                    onEnter: () => {
+                        gsap.to(card, { duration: 0.8, opacity: 1, y: 0, delay: i * 0.1 });
+                    }
+                }
+            });
+        });
+
+        // Accordion Functionality
+        const accordionHeaders = document.querySelectorAll('.accordion-header');
+
+        accordionHeaders.forEach(header => {
+            header.addEventListener('click', () => {
+                const item = header.parentElement;
+                const isActive = item.classList.contains('active');
+
+                // Close all items
+                document.querySelectorAll('.accordion-item').forEach(elem => {
+                    elem.classList.remove('active');
+                });
+
+                // Open clicked item
+                if (!isActive) {
+                    item.classList.add('active');
+                    gsap.to(item.querySelector('.accordion-content'), {
+                        duration: 0.3,
+                        maxHeight: 300,
+                    });
+                }
+            });
+        });
+
+        // Smooth scroll behavior for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    gsap.to(window, {
+                        duration: 0.8,
+                        scrollTo: {
+                            y: target.offsetTop - 80,
+                            autoKill: true
+                        },
+                        ease: 'power2.inOut'
+                    });
+                }
+            });
+        });
+
+        // Hover effect on CTA buttons
+        document.querySelectorAll('.cta-button, .cta-button-secondary').forEach(button => {
+            button.addEventListener('mouseenter', function() {
+                gsap.to(this, { duration: 0.3, scale: 1.05 });
+            });
+            button.addEventListener('mouseleave', function() {
+                gsap.to(this, { duration: 0.3, scale: 1 });
+            });
+        });
+
+        // Section title fade-in on scroll
+        gsap.utils.toArray('.section-title').forEach(title => {
+            gsap.from(title, {
+                duration: 0.8,
+                opacity: 0,
+                y: 30,
+                scrollTrigger: {
+                    trigger: title,
+                    start: 'top 80%',
+                    end: 'top 50%',
+                    scrub: false,
+                    onEnter: () => {
+                        gsap.to(title, { duration: 0.8, opacity: 1, y: 0 });
+                    }
+                }
+            });
+        });
+
+        // Parallax effect on hero section
+        gsap.to('.hero::before', {
+            scrollTrigger: {
+                trigger: '.hero',
+                start: 'top top',
+                end: 'bottom top',
+                scrub: 1,
+                onUpdate: (self) => {
+                    gsap.set('.hero::before', { y: self.getVelocity() * -0.5 });
+                }
+            }
+        });
+    </script>
+</body>
+</html>
