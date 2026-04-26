@@ -1,0 +1,1443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rivera Outdoor Services — Atlanta's Landscaping Pros</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #2D2D2D;
+            --accent: #6B7280;
+            --bg: #FAFAFA;
+            --text: #2D2D2D;
+            --dark: #1F2937;
+            --border: #E5E7EB;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text);
+            background-color: var(--bg);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            transition: background-color 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        nav.scrolled {
+            background-color: rgba(250, 250, 250, 0.97);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 1.3rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: var(--primary);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 3rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text);
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        .hamburger span {
+            width: 24px;
+            height: 2px;
+            background-color: var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .hamburger.nav-open span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .hamburger.nav-open span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.nav-open span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        /* Mobile Nav */
+        @media (max-width: 767px) {
+            .hamburger {
+                display: flex;
+            }
+
+            nav ul {
+                position: absolute;
+                top: 60px;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                gap: 0;
+                background-color: var(--bg);
+                border-bottom: 1px solid var(--border);
+                padding: 2rem;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s ease;
+            }
+
+            nav.nav-open ul {
+                max-height: 400px;
+            }
+
+            nav ul li {
+                padding: 1rem 0;
+                border-bottom: 1px solid var(--border);
+            }
+
+            nav ul li:last-child {
+                border-bottom: none;
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            display: grid;
+            grid-template-columns: 55% 45%;
+            align-items: center;
+            min-height: 100vh;
+            padding-top: 60px;
+            gap: 0;
+        }
+
+        .hero-image {
+            background: linear-gradient(135deg, #10B981 0%, #059669 50%, #047857 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-content {
+            background-color: var(--bg);
+            padding: 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .hero-divider {
+            width: 60px;
+            height: 3px;
+            background-color: var(--accent);
+            margin-bottom: 2rem;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--text);
+            margin-bottom: 2.5rem;
+            line-height: 1.8;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 14px 32px;
+            background-color: var(--accent);
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border-radius: 4px;
+            transition: background-color 0.2s ease, transform 0.2s ease;
+            width: fit-content;
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            background-color: #5a6370;
+            transform: translateY(-2px);
+        }
+
+        .trust-badges {
+            display: flex;
+            gap: 2rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            font-size: 0.85rem;
+            color: var(--accent);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        @media (max-width: 1024px) {
+            .hero {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-image {
+                min-height: 400px;
+            }
+
+            .hero-content {
+                min-height: auto;
+                padding: 60px 40px;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .hero-content {
+                padding: 40px 24px;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .trust-badges {
+                gap: 1rem;
+                margin-top: 2rem;
+            }
+
+            nav {
+                padding: 1rem 1.5rem;
+            }
+
+            nav ul {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Services Section */
+        .services {
+            padding: 100px 80px;
+            background-color: var(--bg);
+        }
+
+        .services h2 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .section-intro {
+            font-size: 1.1rem;
+            color: var(--accent);
+            margin-bottom: 4rem;
+            max-width: 600px;
+        }
+
+        .service-item {
+            display: grid;
+            grid-template-columns: 45% 55%;
+            gap: 4rem;
+            align-items: center;
+            margin-bottom: 6rem;
+            padding-bottom: 4rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .service-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .service-item:nth-child(odd) .service-image {
+            order: 2;
+        }
+
+        .service-item:nth-child(odd) .service-text {
+            order: 1;
+        }
+
+        .service-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .service-text h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .service-text p {
+            font-size: 1rem;
+            color: var(--text);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .service-image {
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .service-image:nth-child(1) {
+            background: linear-gradient(135deg, #059669 0%, #10B981 100%);
+        }
+
+        .service-image:nth-child(2) {
+            background: linear-gradient(135deg, #047857 0%, #059669 100%);
+        }
+
+        .service-image:nth-child(3) {
+            background: linear-gradient(135deg, #10B981 0%, #34D399 100%);
+        }
+
+        .service-image:nth-child(4) {
+            background: linear-gradient(135deg, #6B7280 0%, #9CA3AF 100%);
+        }
+
+        @media (max-width: 1024px) {
+            .services {
+                padding: 60px 40px;
+            }
+
+            .service-item {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .service-item:nth-child(odd) .service-image {
+                order: auto;
+            }
+
+            .service-item:nth-child(odd) .service-text {
+                order: auto;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .services {
+                padding: 40px 24px;
+            }
+
+            .services h2 {
+                font-size: 1.8rem;
+            }
+
+            .service-text h3 {
+                font-size: 1.3rem;
+            }
+
+            .section-intro {
+                font-size: 1rem;
+            }
+        }
+
+        /* Gallery Section */
+        .gallery {
+            padding: 100px 80px;
+            background-color: white;
+        }
+
+        .gallery h2 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 4rem;
+            color: var(--primary);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .gallery-item {
+            aspect-ratio: 4 / 3;
+            border-radius: 4px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease, border-top 0.2s ease;
+            border-top: 3px solid transparent;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-4px);
+            border-top-color: var(--accent);
+        }
+
+        .gallery-item:nth-child(1) {
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+        }
+
+        .gallery-item:nth-child(2) {
+            background: linear-gradient(135deg, #047857 0%, #10B981 100%);
+        }
+
+        .gallery-item:nth-child(3) {
+            background: linear-gradient(135deg, #059669 0%, #34D399 100%);
+        }
+
+        .gallery-item:nth-child(4) {
+            background: linear-gradient(135deg, #6B7280 0%, #9CA3AF 100%);
+        }
+
+        .gallery-item:nth-child(5) {
+            background: linear-gradient(135deg, #374151 0%, #6B7280 100%);
+        }
+
+        .gallery-item:nth-child(6) {
+            background: linear-gradient(135deg, #10B981 0%, #6B7280 100%);
+        }
+
+        @media (max-width: 1024px) {
+            .gallery {
+                padding: 60px 40px;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .gallery {
+                padding: 40px 24px;
+            }
+
+            .gallery h2 {
+                font-size: 1.8rem;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+        }
+
+        /* Seasonal Section */
+        .seasonal {
+            padding: 100px 80px;
+            background-color: var(--bg);
+        }
+
+        .seasonal h2 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 4rem;
+            color: var(--primary);
+        }
+
+        .tab-strip {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .tab {
+            padding: 12px 28px;
+            border: 2px solid var(--border);
+            background-color: white;
+            color: var(--text);
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .tab.active {
+            background-color: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+
+        .tab:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .tab-text {
+            font-size: 1rem;
+            color: var(--text);
+            line-height: 1.8;
+            max-width: 700px;
+        }
+
+        .tab-text h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .tab-list {
+            list-style: none;
+            margin-top: 1.5rem;
+        }
+
+        .tab-list li {
+            padding: 0.5rem 0;
+            color: var(--text);
+            font-size: 0.95rem;
+        }
+
+        .tab-list li:before {
+            content: "— ";
+            color: var(--accent);
+            font-weight: 600;
+            margin-right: 0.5rem;
+        }
+
+        @media (max-width: 640px) {
+            .seasonal {
+                padding: 40px 24px;
+            }
+
+            .seasonal h2 {
+                font-size: 1.8rem;
+            }
+
+            .tab-strip {
+                gap: 0.5rem;
+            }
+
+            .tab {
+                padding: 10px 16px;
+                font-size: 0.85rem;
+            }
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 80px;
+            background-color: var(--dark);
+            color: white;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4rem;
+            text-align: center;
+        }
+
+        .stat {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        @media (max-width: 1024px) {
+            .stats {
+                grid-template-columns: 1fr;
+                padding: 60px 40px;
+                gap: 2rem;
+            }
+        }
+
+        /* About Section */
+        .about {
+            padding: 100px 80px;
+            background-color: white;
+        }
+
+        .about h2 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--primary);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 55% 45%;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text p {
+            font-size: 1rem;
+            color: var(--text);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .about-image {
+            aspect-ratio: 4 / 3;
+            border-radius: 4px;
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+        }
+
+        .about-values {
+            margin-top: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .value-item {
+            padding: 1.5rem;
+            background-color: var(--bg);
+            border-radius: 4px;
+            border-left: 4px solid var(--accent);
+        }
+
+        .value-item h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .value-item p {
+            font-size: 0.95rem;
+            color: var(--accent);
+            margin: 0;
+        }
+
+        @media (max-width: 1024px) {
+            .about {
+                padding: 60px 40px;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .about {
+                padding: 40px 24px;
+            }
+
+            .about h2 {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* FAQ Section */
+        .faq {
+            padding: 100px 80px;
+            background-color: var(--bg);
+        }
+
+        .faq h2 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 4rem;
+            color: var(--primary);
+        }
+
+        .faq-container {
+            max-width: 700px;
+        }
+
+        .faq-item {
+            margin-bottom: 1rem;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            background-color: white;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.2s ease;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .faq-question:hover {
+            background-color: rgba(107, 114, 128, 0.05);
+        }
+
+        .faq-toggle {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+            color: var(--accent);
+        }
+
+        .faq-item.open .faq-toggle {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            background-color: rgba(250, 250, 250, 0.5);
+        }
+
+        .faq-item.open .faq-answer {
+            max-height: 400px;
+        }
+
+        .faq-answer-text {
+            padding: 1.5rem;
+            font-size: 0.95rem;
+            color: var(--text);
+            line-height: 1.8;
+        }
+
+        @media (max-width: 640px) {
+            .faq {
+                padding: 40px 24px;
+            }
+
+            .faq h2 {
+                font-size: 1.8rem;
+            }
+
+            .faq-question {
+                padding: 1rem 1.5rem;
+            }
+        }
+
+        /* CTA Overlay Section */
+        .cta-section {
+            padding: 120px 80px;
+            background: linear-gradient(135deg, #1F2937 0%, #111827 100%);
+            color: white;
+            text-align: center;
+            position: relative;
+        }
+
+        .cta-section h2 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-section p {
+            font-size: 1.1rem;
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.8;
+        }
+
+        .cta-button-white {
+            display: inline-block;
+            padding: 14px 40px;
+            background-color: white;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border-radius: 4px;
+            transition: background-color 0.2s ease, transform 0.2s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-button-white:hover {
+            background-color: var(--accent);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 640px) {
+            .cta-section {
+                padding: 60px 24px;
+            }
+
+            .cta-section h2 {
+                font-size: 1.8rem;
+            }
+
+            .cta-section p {
+                font-size: 1rem;
+            }
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 100px 80px;
+            background-color: white;
+        }
+
+        .contact h2 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 4rem;
+            color: var(--primary);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 45% 55%;
+            gap: 4rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .contact-item h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-item p {
+            font-size: 1rem;
+            color: var(--text);
+            line-height: 1.8;
+        }
+
+        .contact-item a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .contact-item a:hover {
+            text-decoration: underline;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            padding: 12px 16px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            color: var(--text);
+            background-color: var(--bg);
+            transition: border-color 0.2s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            background-color: white;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-submit {
+            padding: 14px 32px;
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.2s ease;
+        }
+
+        .form-submit:hover {
+            background-color: #5a6370;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 1024px) {
+            .contact {
+                padding: 60px 40px;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .contact {
+                padding: 40px 24px;
+            }
+
+            .contact h2 {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px 80px;
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        /* Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .reveal.visible {
+            animation: revealIn 0.9s ease forwards;
+        }
+
+        @keyframes revealIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 640px) {
+            nav {
+                padding: 1rem 1.5rem;
+            }
+
+            footer {
+                padding: 30px 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">Rivera Outdoor Services</div>
+        <button class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <ul id="nav-menu">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-image"></div>
+        <div class="hero-content">
+            <h1>Atlanta's Landscaping Pros</h1>
+            <div class="hero-divider"></div>
+            <p>Six years of trusted service across the metro. We deliver quality lawn maintenance, landscape design, and hardscaping with the professionalism and attention to detail your property deserves.</p>
+            <a href="#contact" class="cta-button">Get a Free Quote</a>
+            <div class="trust-badges">
+                <div class="badge">Licensed</div>
+                <div class="badge">Bonded</div>
+                <div class="badge">Insured</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services reveal">
+        <h2>What We Do</h2>
+        <p class="section-intro">Comprehensive outdoor solutions for residential and commercial properties throughout Atlanta.</p>
+
+        <div class="service-item reveal">
+            <div class="service-text">
+                <div class="service-number">01</div>
+                <h3>Lawn Maintenance</h3>
+                <p>Weekly and bi-weekly mowing, fertilization, weed control, and seasonal aeration. We keep your lawn healthy, green, and looking sharp year-round.</p>
+            </div>
+            <div class="service-image"></div>
+        </div>
+
+        <div class="service-item reveal">
+            <div class="service-text">
+                <div class="service-number">02</div>
+                <h3>Landscape Design</h3>
+                <p>Custom designs tailored to your property. From planting schemes to focal points, we create outdoor spaces that enhance your home's value and curb appeal.</p>
+            </div>
+            <div class="service-image"></div>
+        </div>
+
+        <div class="service-item reveal">
+            <div class="service-text">
+                <div class="service-number">03</div>
+                <h3>Hardscaping & Sod</h3>
+                <p>Patios, walkways, retaining walls, and premium sod installation. We build the bones of your landscape to last.</p>
+            </div>
+            <div class="service-image"></div>
+        </div>
+
+        <div class="service-item reveal">
+            <div class="service-text">
+                <div class="service-number">04</div>
+                <h3>Tree & Seasonal Care</h3>
+                <p>Professional trimming, pruning, and seasonal cleanups. We handle spring cleanup, mulching, and fall leaf removal to keep your property pristine.</p>
+            </div>
+            <div class="service-image"></div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="gallery reveal">
+        <h2>Project Showcase</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item reveal"></div>
+            <div class="gallery-item reveal"></div>
+            <div class="gallery-item reveal"></div>
+            <div class="gallery-item reveal"></div>
+            <div class="gallery-item reveal"></div>
+            <div class="gallery-item reveal"></div>
+        </div>
+    </section>
+
+    <!-- Seasonal Section -->
+    <section class="seasonal reveal">
+        <h2>Seasonal Offerings</h2>
+        <div class="tab-strip">
+            <button class="tab active" data-tab="spring">Spring</button>
+            <button class="tab" data-tab="summer">Summer</button>
+            <button class="tab" data-tab="fall">Fall</button>
+            <button class="tab" data-tab="winter">Winter</button>
+        </div>
+
+        <div id="spring" class="tab-content active">
+            <div class="tab-text">
+                <h3>Spring Renewal</h3>
+                <p>As Atlanta emerges from winter, we prepare your landscape for growth. Our spring services include deep cleanups, mulch refreshing, and planting programs.</p>
+                <ul class="tab-list">
+                    <li>Spring cleanup and debris removal</li>
+                    <li>Mulch bed refreshing</li>
+                    <li>Shrub and tree planting</li>
+                    <li>Lawn dethatching and aeration</li>
+                    <li>Garden bed preparation</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="summer" class="tab-content">
+            <div class="tab-text">
+                <h3>Summer Maintenance</h3>
+                <p>Keep your landscape thriving through Georgia's heat. Regular mowing, irrigation checks, and targeted fertilization keep everything green and vibrant.</p>
+                <ul class="tab-list">
+                    <li>Weekly lawn mowing and edging</li>
+                    <li>Irrigation system maintenance</li>
+                    <li>Targeted fertilization programs</li>
+                    <li>Weed and pest control</li>
+                    <li>Hedge and shrub trimming</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="fall" class="tab-content">
+            <div class="tab-text">
+                <h3>Fall Preparation</h3>
+                <p>As leaves fall, we handle the work. Leaf removal, seasonal planting, and preparation for winter ensure your yard transitions beautifully.</p>
+                <ul class="tab-list">
+                    <li>Leaf removal and cleanup</li>
+                    <li>Fall planting and landscaping</li>
+                    <li>Gutter cleaning services</li>
+                    <li>Tree trimming and removal</li>
+                    <li>Lawn winterization</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="winter" class="tab-content">
+            <div class="tab-text">
+                <h3>Winter Care</h3>
+                <p>Even in mild Atlanta winters, your landscape needs attention. We manage snow removal, drainage, and early spring prep.</p>
+                <ul class="tab-list">
+                    <li>Snow and ice removal</li>
+                    <li>Winter debris cleanup</li>
+                    <li>Drainage maintenance</li>
+                    <li>Dormancy pruning</li>
+                    <li>Spring equipment preparation</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats reveal">
+        <div class="stat">
+            <div class="stat-number" data-target="150">0</div>
+            <div class="stat-label">Satisfied Clients</div>
+        </div>
+        <div class="stat">
+            <div class="stat-number" data-target="1200">0</div>
+            <div class="stat-label">Projects Completed</div>
+        </div>
+        <div class="stat">
+            <div class="stat-number" data-target="6">0</div>
+            <div class="stat-label">Years in Business</div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about reveal">
+        <h2>About Rivera Outdoor Services</h2>
+        <div class="about-content">
+            <div>
+                <p>Rivera Outdoor Services was founded with a simple mission: deliver quality landscaping work with integrity and professionalism. Six years later, we've built a reputation across the Atlanta metro for showing up on time, doing the job right, and treating every property like our own.</p>
+                <p>From residential lawns in Alpharetta and Roswell to commercial properties and HOA contracts throughout Sandy Springs, Marietta, and Smyrna, we've grown through word-of-mouth because our work speaks for itself.</p>
+                <p>We're not flashy. We're dependable. Our team takes pride in every detail—from a perfectly edged lawn to a landscape design that adds value to your home.</p>
+                <div class="about-values">
+                    <div class="value-item">
+                        <h4>Quality First</h4>
+                        <p>Every job done right, every time.</p>
+                    </div>
+                    <div class="value-item">
+                        <h4>Reliability</h4>
+                        <p>Scheduled appointments you can count on.</p>
+                    </div>
+                    <div class="value-item">
+                        <h4>Professional Service</h4>
+                        <p>Courteous, licensed, bonded, and insured.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="about-image"></div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq reveal">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-container">
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Do you offer commercial landscaping and HOA services?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-text">Yes. We specialize in recurring maintenance contracts for commercial properties, apartment complexes, and HOAs throughout the Atlanta metro. Our team manages large-scale projects with the same attention to detail as residential work.</div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>What areas do you service?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-text">We service the Atlanta metro area, including Alpharetta, Marietta, Sandy Springs, Smyrna, Roswell, and surrounding neighborhoods. If you're unsure if we cover your area, contact us and we'll let you know.</div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>How do I get a quote?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-text">Fill out our contact form below or call us directly. We'll schedule a time to visit your property, discuss your needs, and provide a free, detailed quote with no obligation.</div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Are you licensed and insured?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-text">Yes. Rivera Outdoor Services is fully licensed, bonded, and insured. We protect your property and give you peace of mind with every job we do.</div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Do you handle landscape design or just maintenance?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-text">We offer full-service landscaping: design, installation, hardscaping, and ongoing maintenance. Whether you need a complete landscape overhaul or regular lawn care, we're your single point of contact.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section reveal">
+        <h2>Ready to Transform Your Landscape?</h2>
+        <p>Get a free quote from our team. No pressure, no obligation. Let's talk about what we can do for your property.</p>
+        <a href="#contact" class="cta-button-white">Schedule a Consultation</a>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact reveal">
+        <h2>Get In Touch</h2>
+        <div class="contact-grid">
+            <div class="contact-info">
+                <div class="contact-item">
+                    <h3>Phone</h3>
+                    <p><a href="tel:+14705551234">(470) 555-1234</a></p>
+                </div>
+                <div class="contact-item">
+                    <h3>Email</h3>
+                    <p><a href="mailto:info@riveraoutdoor.com">info@riveraoutdoor.com</a></p>
+                </div>
+                <div class="contact-item">
+                    <h3>Service Area</h3>
+                    <p>Alpharetta, Marietta, Sandy Springs, Smyrna, Roswell, and surrounding metro areas.</p>
+                </div>
+                <div class="contact-item">
+                    <h3>Hours</h3>
+                    <p>Monday – Friday: 7:00 AM – 5:00 PM<br>Saturday: 8:00 AM – 2:00 PM<br>Sunday: Closed</p>
+                </div>
+            </div>
+            <div>
+                <form class="contact-form" id="contact-form">
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="property">Property Type</label>
+                        <input type="text" id="property" name="property" placeholder="Residential / Commercial / HOA">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">How Can We Help?</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+                    <button type="submit" class="form-submit">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Rivera Outdoor Services. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const hamburger = document.getElementById('hamburger');
+        const nav = document.querySelector('nav');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('nav-open');
+            nav.classList.toggle('nav-open');
+        });
+
+        // Close menu when link is clicked
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('nav-open');
+                nav.classList.remove('nav-open');
+            });
+        });
+
+        // Sticky Navigation
+        const scrollNav = () => {
+            if (window.scrollY > 100) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        };
+
+        window.addEventListener('scroll', scrollNav);
+
+        // Intersection Observer for Scroll Reveal Animations
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Counter Animation
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !entry.target.dataset.counted) {
+                    const target = parseInt(entry.target.dataset.target);
+                    let current = 0;
+                    const increment = target / 50;
+                    const timer = setInterval(() => {
+                        current += increment;
+                        if (current >= target) {
+                            entry.target.textContent = target;
+                            clearInterval(timer);
+                        } else {
+                            entry.target.textContent = Math.floor(current);
+                        }
+                    }, 30);
+                    entry.target.dataset.counted = true;
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.stat-number').forEach(el => {
+            counterObserver.observe(el);
+        });
+
+        // Tab Functionality
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                const tabGroup = tab.parentElement;
+                tabGroup.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+
+                const tabName = tab.dataset.tab;
+                const tabContents = tab.closest('.seasonal').querySelectorAll('.tab-content');
+                tabContents.forEach(content => content.classList.remove('active'));
+                document.getElementById(tabName).classList.add('active');
+            });
+        });
+
+        // FAQ Accordion
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const faqItem = question.parentElement;
+                const wasOpen = faqItem.classList.contains('open');
+
+                // Close all other items
+                document.querySelectorAll('.faq-item').forEach(item => {
+                    item.classList.remove('open');
+                });
+
+                // Toggle current item
+                if (!wasOpen) {
+                    faqItem.classList.add('open');
+                }
+            });
+        });
+
+        // Contact Form Handler (optional - can integrate with backend)
+        document.getElementById('contact-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Thank you for reaching out! We\'ll be in touch shortly.');
+            document.getElementById('contact-form').reset();
+        });
+    </script>
+</body>
+</html>
