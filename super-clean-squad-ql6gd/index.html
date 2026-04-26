@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Super Clean Squad - Residential Cleaning Services</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -12,30 +12,36 @@
             box-sizing: border-box;
         }
 
-        body {
-            font-family: 'Outfit', sans-serif;
-            color: #1a1a1a;
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
         html {
             scroll-behavior: smooth;
         }
 
-        /* Header & Navigation */
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #2d3436;
+            background: #ffffff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
         header {
             position: fixed;
             top: 0;
-            width: 100%;
-            z-index: 1000;
+            left: 0;
+            right: 0;
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
-            padding: 16px 0;
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+            z-index: 1000;
+            border-bottom: 1px solid #f0f0f0;
+            padding: 15px 0;
         }
 
-        .header-container {
+        .header-content {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
@@ -45,45 +51,35 @@
         }
 
         .logo {
+            font-family: 'Poppins', sans-serif;
             font-size: 24px;
             font-weight: 800;
-            color: #00d4aa;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-family: 'Space Mono', monospace;
+            color: #00b894;
+            text-decoration: none;
         }
 
         nav a {
-            margin-left: 32px;
+            margin-left: 40px;
             text-decoration: none;
-            color: #1a1a1a;
-            font-weight: 600;
+            color: #2d3436;
+            font-weight: 500;
             font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: color 0.3s ease;
-            cursor: pointer;
+            transition: color 0.3s;
         }
 
         nav a:hover {
-            color: #00d4aa;
+            color: #00b894;
         }
 
-        @media (max-width: 768px) {
-            nav a {
-                margin-left: 16px;
-                font-size: 12px;
-            }
+        section {
+            padding: 80px 0;
         }
 
-        /* Hero Section */
         .hero {
             margin-top: 60px;
-            height: 100vh;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            color: white;
+            padding: 120px 0;
             position: relative;
             overflow: hidden;
         }
@@ -92,200 +88,186 @@
             content: '';
             position: absolute;
             top: 0;
-            left: 0;
             right: 0;
-            bottom: 0;
-            background-image: url('https://images.unsplash.com/photo-1676311396794-f14881e9daaa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxob21lJTIwcmVwYWlyfGVufDB8fHx8MTc3NzE4Njc5NHww&ixlib=rb-4.1.0&q=80&w=1080');
-            background-size: cover;
-            background-position: center;
-            opacity: 0.3;
-            z-index: 1;
+            width: 500px;
+            height: 500px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transform: translate(100px, -100px);
         }
 
         .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
             position: relative;
-            z-index: 2;
-            text-align: center;
-            color: white;
-            max-width: 700px;
-            padding: 20px;
+            z-index: 1;
         }
 
         .hero h1 {
-            font-size: 72px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 64px;
             font-weight: 800;
             margin-bottom: 20px;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            font-family: 'Space Mono', monospace;
-            text-shadow: 2px 2px 20px rgba(0, 0, 0, 0.3);
+            line-height: 1.2;
         }
 
         .hero p {
             font-size: 20px;
-            margin-bottom: 32px;
-            font-weight: 400;
-            text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.2);
+            margin-bottom: 40px;
+            opacity: 0.95;
+            max-width: 600px;
         }
 
         .cta-button {
             display: inline-block;
-            background: #00d4aa;
-            color: #1a1a1a;
-            padding: 16px 48px;
-            text-decoration: none;
+            background: #00b894;
+            color: white;
+            padding: 16px 40px;
             border-radius: 50px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
-            border: none;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: 2px solid #00b894;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 16px;
         }
 
         .cta-button:hover {
-            background: #00b895;
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(0, 212, 170, 0.3);
+            background: white;
+            color: #00b894;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 184, 148, 0.3);
         }
 
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 48px;
-            }
-
-            .hero p {
-                font-size: 16px;
-            }
+        .cta-button.secondary {
+            background: transparent;
+            border: 2px solid white;
+            color: white;
         }
 
-        /* Services Section */
-        .services {
-            padding: 100px 20px;
-            background: #f5f5f5;
+        .cta-button.secondary:hover {
+            background: white;
+            color: #667eea;
         }
 
-        .section-container {
-            max-width: 1200px;
-            margin: 0 auto;
+        .services-section {
+            background: #f9f9f9;
         }
 
         .section-title {
-            text-align: center;
+            font-family: 'Poppins', sans-serif;
             font-size: 48px;
             font-weight: 800;
             margin-bottom: 60px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-family: 'Space Mono', monospace;
+            text-align: center;
+            color: #2d3436;
         }
 
         .services-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 32px;
+            gap: 40px;
         }
 
         .service-card {
             background: white;
             border-radius: 12px;
             overflow: hidden;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
         }
 
         .service-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 12px 30px rgba(0, 184, 148, 0.15);
         }
 
-        .service-card img {
+        .service-card-image {
             width: 100%;
-            height: 250px;
-            object-fit: cover;
-            border-radius: 8px;
-            margin-bottom: 16px;
+            height: 220px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
         }
 
-        .service-card-content {
-            padding: 24px;
+        .service-card-image.image-2 {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .service-card-image.image-3 {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+
+        .service-card-image.image-4 {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
         }
 
         .service-card h3 {
-            font-size: 20px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 22px;
             font-weight: 700;
+            margin: 24px;
             margin-bottom: 12px;
-            color: #1a1a1a;
+            color: #2d3436;
         }
 
         .service-card p {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 16px;
+            font-size: 15px;
+            color: #636e72;
+            margin: 0 24px 24px;
+            line-height: 1.6;
         }
 
-        .service-badge {
-            display: inline-block;
-            background: #00d4aa;
-            color: #1a1a1a;
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        /* Portfolio Section */
-        .portfolio {
-            padding: 100px 20px;
+        .portfolio-section {
             background: white;
         }
 
         .portfolio-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 32px;
+            gap: 30px;
         }
 
         .portfolio-item {
             position: relative;
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
         }
 
         .portfolio-item:hover {
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-            transform: translateY(-5px);
+            transform: scale(1.02);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
         }
 
         .portfolio-img {
             width: 100%;
-            height: 300px;
+            height: 280px;
             object-fit: cover;
-            border-radius: 8px;
+            border-radius: 12px;
             transition: opacity 0.5s ease-in-out;
         }
 
         .portfolio-item h3 {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
-            color: white;
-            padding: 24px;
+            font-family: 'Poppins', sans-serif;
             font-size: 18px;
             font-weight: 700;
+            margin-top: 16px;
+            color: #2d3436;
         }
 
-        /* About Section */
-        .about {
-            padding: 100px 20px;
-            background: #f5f5f5;
+        .portfolio-item p {
+            color: #636e72;
+            font-size: 14px;
+            margin-top: 8px;
+        }
+
+        .about-section {
+            background: #f9f9f9;
         }
 
         .about-content {
@@ -296,87 +278,91 @@
         }
 
         .about-text h2 {
+            font-family: 'Poppins', sans-serif;
             font-size: 42px;
             font-weight: 800;
-            margin-bottom: 24px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-family: 'Space Mono', monospace;
+            margin-bottom: 20px;
+            color: #2d3436;
         }
 
         .about-text p {
             font-size: 16px;
-            color: #666;
-            margin-bottom: 16px;
+            color: #636e72;
+            margin-bottom: 20px;
             line-height: 1.8;
         }
 
         .about-image {
             width: 100%;
             height: 400px;
-            object-fit: cover;
             border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
         }
 
-        @media (max-width: 768px) {
-            .about-content {
-                grid-template-columns: 1fr;
-            }
-
-            .about-image {
-                height: 300px;
-            }
+        .about-image-1 {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
 
-        /* Testimonials Section */
-        .testimonials {
-            padding: 100px 20px;
+        .testimonials-section {
             background: white;
         }
 
         .testimonials-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 32px;
+            gap: 30px;
         }
 
         .testimonial-card {
-            background: #f5f5f5;
-            padding: 32px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 30px;
             border-radius: 12px;
-            border-left: 4px solid #00d4aa;
-            transition: all 0.3s ease;
+            text-align: center;
+            transition: all 0.3s;
         }
 
         .testimonial-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .testimonial-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, #00b894 0%, #0984e3 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 36px;
         }
 
         .testimonial-card p {
-            font-size: 15px;
-            color: #666;
+            color: #2d3436;
+            font-size: 16px;
             margin-bottom: 20px;
+            line-height: 1.6;
             font-style: italic;
         }
 
         .testimonial-author {
+            font-family: 'Poppins', sans-serif;
             font-weight: 700;
-            color: #1a1a1a;
-            font-size: 14px;
+            color: #2d3436;
+            font-size: 16px;
         }
 
-        .rating {
-            color: #00d4aa;
-            margin-bottom: 12px;
+        .testimonial-role {
+            color: #636e72;
             font-size: 14px;
-            letter-spacing: 1px;
+            margin-top: 5px;
         }
 
-        /* FAQ Section */
-        .faq {
-            padding: 100px 20px;
-            background: #f5f5f5;
+        .faq-section {
+            background: #f9f9f9;
         }
 
         .faq-container {
@@ -386,116 +372,128 @@
 
         .faq-item {
             background: white;
-            margin-bottom: 16px;
+            margin-bottom: 15px;
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
         }
 
         .faq-question {
-            padding: 24px;
+            padding: 20px;
             cursor: pointer;
-            font-weight: 700;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            transition: all 0.3s ease;
-            background: white;
+            font-weight: 600;
+            color: #2d3436;
+            transition: background 0.3s;
         }
 
         .faq-question:hover {
             background: #f9f9f9;
-            color: #00d4aa;
         }
 
         .faq-toggle {
-            font-size: 20px;
-            transition: transform 0.3s ease;
+            font-size: 24px;
+            transition: transform 0.3s;
         }
 
-        .faq-toggle.active {
+        .faq-item.active .faq-toggle {
             transform: rotate(180deg);
         }
 
         .faq-answer {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.3s ease;
-            background: #f9f9f9;
+            transition: max-height 0.3s;
+            background: #f5f5f5;
         }
 
-        .faq-answer.active {
-            max-height: 300px;
-            padding: 0 24px 24px 24px;
+        .faq-item.active .faq-answer {
+            max-height: 500px;
         }
 
-        .faq-answer p {
-            color: #666;
-            line-height: 1.8;
+        .faq-answer-content {
+            padding: 20px;
+            color: #636e72;
+            line-height: 1.6;
         }
 
-        /* Contact Section */
-        .contact {
-            padding: 100px 20px;
+        .contact-section {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            text-align: center;
             color: white;
+            text-align: center;
         }
 
-        .contact h2 {
+        .contact-section h2 {
+            font-family: 'Poppins', sans-serif;
             font-size: 48px;
             font-weight: 800;
-            margin-bottom: 24px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-family: 'Space Mono', monospace;
+            margin-bottom: 20px;
         }
 
-        .contact p {
+        .contact-section p {
             font-size: 18px;
             margin-bottom: 40px;
             opacity: 0.95;
         }
 
-        .contact-button {
-            display: inline-block;
-            background: #00d4aa;
-            color: #1a1a1a;
-            padding: 18px 56px;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            font-size: 14px;
-        }
-
-        .contact-button:hover {
-            background: #00b895;
-            transform: scale(1.05);
-        }
-
-        /* Footer */
         footer {
-            background: #1a1a1a;
+            background: #2d3436;
             color: white;
-            padding: 40px 20px;
+            padding: 40px 0;
             text-align: center;
+            font-size: 14px;
         }
 
         footer p {
-            font-size: 14px;
-            opacity: 0.7;
+            opacity: 0.8;
         }
 
-        footer .logo {
-            margin-bottom: 16px;
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 42px;
+            }
+
+            .section-title {
+                font-size: 36px;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .about-image {
+                height: 300px;
+            }
+
+            nav a {
+                margin-left: 20px;
+                font-size: 12px;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                padding: 80px 0;
+            }
+
+            section {
+                padding: 60px 0;
+            }
         }
 
-        /* Utility */
         .service-card img {
             width: 100%;
             height: 250px;
@@ -503,262 +501,264 @@
             border-radius: 8px;
             margin-bottom: 16px;
         }
-
-        .portfolio-img {
-            transition: opacity 0.5s ease-in-out;
-        }
     </style>
 </head>
 <body>
-    <!-- Header -->
+    <!-- Header Navigation -->
     <header>
-        <div class="header-container">
-            <div class="logo">✨ Clean Squad</div>
+        <div class="header-content">
+            <a href="#" class="logo">✨ Super Clean Squad</a>
             <nav>
-                <a onclick="document.getElementById('home').scrollIntoView()">Home</a>
-                <a onclick="document.getElementById('services').scrollIntoView()">Services</a>
-                <a onclick="document.getElementById('contact').scrollIntoView()">Contact</a>
+                <a href="#home">Home</a>
+                <a href="#services">Services</a>
+                <a href="#portfolio">Work</a>
+                <a href="#contact">Contact</a>
             </nav>
         </div>
     </header>
 
     <!-- Hero Section -->
-    <section id="home" class="hero">
+    <section class="hero" id="home">
         <div class="hero-content">
-            <h1>Sparkling Clean Spaces</h1>
-            <p>Professional residential cleaning that transforms your home into a pristine sanctuary</p>
-            <button class="cta-button" onclick="document.getElementById('contact').scrollIntoView()">Book Now</button>
+            <h1>Your Home Deserves to Sparkle</h1>
+            <p>Professional residential cleaning that transforms your space. We handle the dirt, you enjoy the cleanliness.</p>
+            <div>
+                <a href="#contact" class="cta-button">Get Started Today</a>
+                <a href="#services" class="cta-button secondary" style="margin-left: 20px;">Learn More</a>
+            </div>
         </div>
     </section>
 
     <!-- Services Section -->
-    <section id="services" class="services">
-        <div class="section-container">
-            <h2 class="section-title">Our Services</h2>
+    <section class="services-section" id="services">
+        <div class="container">
+            <h2 class="section-title">Our Cleaning Services</h2>
             <div class="services-grid">
                 <div class="service-card">
-                    <img src="https://images.unsplash.com/photo-1562259929-b4e1fd3aef09?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwyfHxob21lJTIwcmVwYWlyfGVufDB8fHx8MTc3NzE4Njc5NHww&ixlib=rb-4.1.0&q=80&w=1080" alt="Professional tools for deep cleaning">
-                    <div class="service-card-content">
-                        <h3>Deep Cleaning</h3>
-                        <p>Comprehensive cleaning of every corner, surface, and hard-to-reach area in your home. We use professional-grade equipment and eco-friendly products.</p>
-                        <span class="service-badge">Premium Service</span>
-                    </div>
+                    <div class="service-card-image">🏠</div>
+                    <h3>Deep Cleaning</h3>
+                    <p>Comprehensive cleaning that reaches every corner of your home. We tackle baseboards, ceiling fans, and all those hard-to-reach places.</p>
                 </div>
-
                 <div class="service-card">
-                    <img src="https://images.unsplash.com/photo-1505798577917-a65157d3320a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwzfHxob21lJTIwcmVwYWlyfGVufDB8fHx8MTc3NzE4Njc5NHww&ixlib=rb-4.1.0&q=80&w=1080" alt="Expert cleaning team member">
-                    <div class="service-card-content">
-                        <h3>Regular Maintenance</h3>
-                        <p>Weekly or bi-weekly cleaning services to keep your home consistently spotless. Perfect for busy professionals who want to maintain a fresh living space.</p>
-                        <span class="service-badge">Popular</span>
-                    </div>
+                    <div class="service-card-image image-2">🛏️</div>
+                    <h3>Regular Maintenance</h3>
+                    <p>Weekly or bi-weekly cleaning to keep your home consistently fresh and organized. Perfect for busy families and professionals.</p>
                 </div>
-
                 <div class="service-card">
-                    <img src="https://images.unsplash.com/photo-1607400201515-c2c41c07d307?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHw0fHxob21lJTIwcmVwYWlyfGVufDB8fHx8MTc3NzE4Njc5NHww&ixlib=rb-4.1.0&q=80&w=1080" alt="Professional cleaning supplies">
-                    <div class="service-card-content">
-                        <h3>Specialty Cleaning</h3>
-                        <p>Carpet shampooing, window washing, and upholstery cleaning. We handle the tasks you don't have time for or the expertise to tackle yourself.</p>
-                        <span class="service-badge">Expert Team</span>
-                    </div>
+                    <div class="service-card-image image-3">🧹</div>
+                    <h3>Move-In/Move-Out</h3>
+                    <p>Special deep cleaning for new homes or move-out inspections. We ensure your space is spotless and ready for new occupants.</p>
                 </div>
-
                 <div class="service-card">
-                    <img src="https://images.unsplash.com/photo-1623161551727-54c918bdcec1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHw1fHxob21lJTIwcmVwYWlyfGVufDB8fHx8MTc3NzE4Njc5NHww&ixlib=rb-4.1.0&q=80&w=1080" alt="Professional power tools for detailed cleaning">
-                    <div class="service-card-content">
-                        <h3>Move-In/Move-Out</h3>
-                        <p>Thorough cleaning for your transition. Whether you're moving in or out, we ensure every inch of your property is spotless and ready.</p>
-                        <span class="service-badge">Detailed Service</span>
-                    </div>
+                    <div class="service-card-image image-4">🪟</div>
+                    <h3>Specialized Cleaning</h3>
+                    <p>Window cleaning, carpet shampooing, and post-construction cleanup. Whatever you need, we have the expertise and equipment.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Portfolio Section -->
-    <section class="portfolio">
-        <div class="section-container">
+    <section class="portfolio-section" id="portfolio">
+        <div class="container">
             <h2 class="section-title">Recent Projects</h2>
             <div class="portfolio-grid">
                 <div class="portfolio-item">
-                    <img class="portfolio-img" src="https://images.unsplash.com/photo-1676311396794-f14881e9daaa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxob21lJTIwcmVwYWlyfGVufDB8fHx8MTc3NzE4Njc5NHww&ixlib=rb-4.1.0&q=80&w=1080" alt="Portfolio item 1">
-                    <h3>Suburban Home Deep Clean</h3>
+                    <img class="portfolio-img" src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=500&h=400&fit=crop" alt="Kitchen cleaning transformation">
+                    <h3>Kitchen Refresh</h3>
+                    <p>Sparkling counters and gleaming appliances</p>
                 </div>
-
                 <div class="portfolio-item">
-                    <img class="portfolio-img" src="https://images.unsplash.com/photo-1562259929-b4e1fd3aef09?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwyfHxob21lJTIwcmVwYWlyfGVufDB8fHx8MTc3NzE4Njc5NHww&ixlib=rb-4.1.0&q=80&w=1080" alt="Portfolio item 2">
-                    <h3>Kitchen & Bath Refresh</h3>
+                    <img class="portfolio-img" src="https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=500&h=400&fit=crop" alt="Bedroom cleaning">
+                    <h3>Bedroom Revitalization</h3>
+                    <p>Fresh linens and dust-free surfaces</p>
                 </div>
-
                 <div class="portfolio-item">
-                    <img class="portfolio-img" src="https://images.unsplash.com/photo-1505798577917-a65157d3320a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwzfHxob21lJTIwcmVwYWlyfGVufDB8fHx8MTc3NzE4Njc5NHww&ixlib=rb-4.1.0&q=80&w=1080" alt="Portfolio item 3">
-                    <h3>Post-Construction Cleanup</h3>
+                    <img class="portfolio-img" src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=500&h=400&fit=crop" alt="Bathroom deep clean">
+                    <h3>Bathroom Brilliance</h3>
+                    <p>Sanitized and shining fixtures</p>
                 </div>
-
                 <div class="portfolio-item">
-                    <img class="portfolio-img" src="https://images.unsplash.com/photo-1607400201515-c2c41c07d307?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHw0fHxob21lJTIwcmVwYWlyfGVufDB8fHx8MTc3NzE4Njc5NHww&ixlib=rb-4.1.0&q=80&w=1080" alt="Portfolio item 4">
-                    <h3>Move-Out Preparation</h3>
+                    <img class="portfolio-img" src="https://images.unsplash.com/photo-1584622927105-8054df1f28ca?w=500&h=400&fit=crop" alt="Living room cleaning">
+                    <h3>Living Space Transformation</h3>
+                    <p>Dust-free and inviting atmosphere</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- About Section -->
-    <section id="about" class="about">
-        <div class="section-container">
+    <section class="about-section">
+        <div class="container">
             <div class="about-content">
                 <div class="about-text">
                     <h2>Why Choose Super Clean Squad?</h2>
-                    <p>With over 10 years of experience in residential cleaning, we've perfected the art of creating spotless, healthy living spaces. Our team is trained, insured, and dedicated to excellence.</p>
-                    <p>We use only environmentally-safe cleaning products that are tough on dirt but gentle on your home and family. Every team member is background-checked and committed to your satisfaction.</p>
-                    <p>From busy professionals to families with special needs, we customize our services to match your lifestyle and budget perfectly.</p>
+                    <p>We're not just cleaners—we're professionals dedicated to transforming your living space. With years of experience and a commitment to excellence, every team member arrives with expertise and attention to detail.</p>
+                    <p>We use eco-friendly products that are safe for your family and pets, without compromising on cleaning power. Your satisfaction is our priority, and we stand behind every project we complete.</p>
+                    <p>From busy professionals to growing families, thousands of homeowners trust us to maintain their sanctuaries. Join the Super Clean Squad family today.</p>
                 </div>
-                <img class="about-image" src="https://images.unsplash.com/photo-1623161551727-54c918bdcec1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHw1fHxob21lJTIwcmVwYWlyfGVufDB8fHx8MTc3NzE4Njc5NHww&ixlib=rb-4.1.0&q=80&w=1080" alt="Our expert cleaning team">
+                <div class="about-image about-image-1"></div>
             </div>
         </div>
     </section>
 
     <!-- Testimonials Section -->
-    <section class="testimonials">
-        <div class="section-container">
+    <section class="testimonials-section">
+        <div class="container">
             <h2 class="section-title">What Our Clients Say</h2>
             <div class="testimonials-grid">
                 <div class="testimonial-card">
-                    <div class="rating">★ ★ ★ ★ ★</div>
-                    <p>"Super Clean Squad transformed my home! The attention to detail is incredible. I've tried other services, but these folks are on another level. Highly recommend!"</p>
-                    <div class="testimonial-author">- Sarah Mitchell</div>
+                    <div class="testimonial-avatar">😊</div>
+                    <p>"Super Clean Squad transformed my home! I was skeptical at first, but the attention to detail is incredible. They even cleaned areas I didn't ask for."</p>
+                    <div class="testimonial-author">Sarah Martinez</div>
+                    <div class="testimonial-role">Homeowner, Tampa</div>
                 </div>
-
                 <div class="testimonial-card">
-                    <div class="rating">★ ★ ★ ★ ★</div>
-                    <p>"Finally, a cleaning service I can trust with my busy family's home. They're reliable, professional, and my kids actually love seeing them arrive. Worth every penny!"</p>
-                    <div class="testimonial-author">- James Rodriguez</div>
+                    <div class="testimonial-avatar">🎉</div>
+                    <p>"As a busy parent of three, this service is a lifesaver. My home has never been cleaner, and my kids love having a tidy space to play in. Highly recommended!"</p>
+                    <div class="testimonial-author">James Chen</div>
+                    <div class="testimonial-role">Parent, Orlando</div>
                 </div>
-
                 <div class="testimonial-card">
-                    <div class="rating">★ ★ ★ ★ ★</div>
-                    <p>"The eco-friendly products are a game-changer for my allergies. My home has never been this clean, and I feel great knowing nothing toxic was used. Outstanding service!"</p>
-                    <div class="testimonial-author">- Emily Chen</div>
+                    <div class="testimonial-avatar">⭐</div>
+                    <p>"Professional, reliable, and thorough. They arrived on time, worked efficiently, and left my house spotless. I'm booking them again for next month!"</p>
+                    <div class="testimonial-author">Emma Thompson</div>
+                    <div class="testimonial-role">Professional, Miami</div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- FAQ Section -->
-    <section class="faq">
-        <div class="faq-container">
-            <h2 class="section-title">Frequently Asked</h2>
-            
-            <div class="faq-item">
-                <div class="faq-question" onclick="toggleFaq(this)">
-                    <span>How often should I have my home cleaned?</span>
-                    <span class="faq-toggle">+</span>
+    <section class="faq-section">
+        <div class="container">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How do you schedule appointments?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Scheduling is easy! Call us or use our online booking system. We offer flexible scheduling including weekends and holidays to fit your busy schedule.
+                        </div>
+                    </div>
                 </div>
-                <div class="faq-answer">
-                    <p>This depends on your lifestyle and home size. Most clients opt for weekly or bi-weekly cleaning. High-traffic homes may benefit from weekly service, while others do great with monthly deep cleans. We'll help you find the perfect schedule.</p>
-                </div>
-            </div>
 
-            <div class="faq-item">
-                <div class="faq-question" onclick="toggleFaq(this)">
-                    <span>Are your cleaning products safe for pets and children?</span>
-                    <span class="faq-toggle">+</span>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Are your cleaning products safe for pets?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Yes! We exclusively use eco-friendly, non-toxic cleaning products that are safe for all pets and children. Your family's health is our priority.
+                        </div>
+                    </div>
                 </div>
-                <div class="faq-answer">
-                    <p>Absolutely! We exclusively use eco-friendly, non-toxic cleaning products that are safe for the entire family, including pets. All our products are certified green and biodegradable.</p>
-                </div>
-            </div>
 
-            <div class="faq-item">
-                <div class="faq-question" onclick="toggleFaq(this)">
-                    <span>What if I'm not satisfied with the cleaning?</span>
-                    <span class="faq-toggle">+</span>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What if I'm not satisfied with the cleaning?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Your satisfaction is guaranteed. If you're not completely happy, we'll return within 24 hours at no charge to make it right.
+                        </div>
+                    </div>
                 </div>
-                <div class="faq-answer">
-                    <p>Your satisfaction is guaranteed. If you're unhappy with any aspect of our service, simply let us know within 24 hours and we'll return to re-clean the areas at no additional cost.</p>
-                </div>
-            </div>
 
-            <div class="faq-item">
-                <div class="faq-question" onclick="toggleFaq(this)">
-                    <span>Do you provide your own cleaning supplies?</span>
-                    <span class="faq-toggle">+</span>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Do I need to be home during cleaning?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            No! Many clients provide us with access and trust us to lock up when we're done. We can discuss arrangements during booking.
+                        </div>
+                    </div>
                 </div>
-                <div class="faq-answer">
-                    <p>Yes, we bring all necessary cleaning supplies and equipment to your home. However, if you have specific products you prefer, we're happy to use those instead.</p>
-                </div>
-            </div>
 
-            <div class="faq-item">
-                <div class="faq-question" onclick="toggleFaq(this)">
-                    <span>How much does your service cost?</span>
-                    <span class="faq-toggle">+</span>
-                </div>
-                <div class="faq-answer">
-                    <p>Pricing depends on home size, cleaning frequency, and specific services needed. We offer transparent quotes with no hidden fees. Contact us for a personalized estimate based on your needs.</p>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How much does a cleaning cost?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Pricing depends on home size and cleaning type. We offer free estimates with no obligation. Contact us today for a personalized quote.
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="section-container">
-            <h2>Ready for a Cleaner Home?</h2>
-            <p>Get your free estimate today and discover the Super Clean Squad difference</p>
-            <button class="contact-button" onclick="alert('Contact us at: hello@supercleanssquad.com or call (555) 123-4567')">Get Free Estimate</button>
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <h2>Ready to Experience the Difference?</h2>
+            <p>Get your free estimate today. No hidden fees, no surprises—just professional cleaning that exceeds expectations.</p>
+            <a href="tel:+1-800-CLEAN-NOW" class="cta-button">Call Now: 1-800-253-2669</a>
         </div>
     </section>
 
     <!-- Footer -->
     <footer>
-        <div class="logo" style="color: #00d4aa;">✨ Super Clean Squad</div>
-        <p>&copy; 2024 Super Clean Squad. Transforming homes, one clean space at a time.</p>
-        <p>Licensed | Insured | Eco-Friendly | Professional Excellence</p>
+        <div class="container">
+            <p>&copy; 2024 Super Clean Squad. All rights reserved. | Professional Residential Cleaning Services</p>
+            <p style="margin-top: 10px; opacity: 0.6;">Serving the Greater Florida Area | Licensed & Insured</p>
+        </div>
     </footer>
 
+    <!-- FAQ Accordion Script -->
     <script>
-        function toggleFaq(element) {
-            const answer = element.nextElementSibling;
-            const toggle = element.querySelector('.faq-toggle');
-            
-            answer.classList.toggle('active');
-            toggle.classList.toggle('active');
-        }
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            question.addEventListener('click', () => {
+                item.classList.toggle('active');
+            });
+        });
+    </script>
 
-        // Portfolio image rotation
+    <!-- Portfolio Image Rotation Script -->
+    <script>
         const portfolioItems = [
-            { 
-                el: document.querySelectorAll('.portfolio-item')[0], 
+            {
+                el: document.querySelectorAll('.portfolio-item')[0],
                 images: [
-                    'https://images.unsplash.com/photo-1676311396794-f14881e9daaa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxob21lJTIwcmVwYWlyfGVufDB8fHx8MTc3NzE4Njc5NHww&ixlib=rb-4.1.0&q=80&w=1080',
-                    'https://images.unsplash.com/photo-1562259929-b4e1fd3aef09?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwyfHxob21lJTIwcmVwYWlyfGVufDB8fHx8MTc3NzE4Njc5NHww&ixlib=rb-4.1.0&q=80&w=1080',
-                    'https://images.unsplash.com/photo-1505798577917-a65157d3320a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwzfHxob21lJTIwcmVwYWlyfGVufDB8fHx8MTc3NzE4Njc5NHww&ixlib=rb-4.1.0&q=80&w=1080'
-                ] 
+                    'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=500&h=400&fit=crop',
+                    'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=500&h=400&fit=crop',
+                    'https://images.unsplash.com/photo-1584622627635-c61b68b66e72?w=500&h=400&fit=crop'
+                ]
             },
-            { 
-                el: document.querySelectorAll('.portfolio-item')[1], 
+            {
+                el: document.querySelectorAll('.portfolio-item')[1],
                 images: [
-                    'https://images.unsplash.com/photo-1562259929-b4e1fd3aef09?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwyfHxob21lJTIwcmVwYWlyfGVufDB8fHx8MTc3NzE4Njc5NHww&ixlib=rb-4.1.0&q=80&w=1080',
-                    'https://images.unsplash.com/photo-1607400201515-c2c41c07d307?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHw0fHxob21lJTIwcmVwYWlyfGVufDB8fHx8MTc3NzE4Njc5NHww&ixlib=rb-4.1.0&q=80&w=1080',
-                    'https://images.unsplash.com/photo-1623161551727-54c918bdcec1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHw1fHxob21lJTIwcmVwYWlyfGVufDB8fHx8MTc3NzE4Njc5NHww&ixlib=rb-4.1.0&q=80&w=1080'
-                ] 
+                    'https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=500&h=400&fit=crop',
+                    'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=500&h=400&fit=crop',
+                    'https://images.unsplash.com/photo-1516455207990-7a41e1d4ffd5?w=500&h=400&fit=crop'
+                ]
             },
-            { 
-                el: document.querySelectorAll('.portfolio-item')[2], 
+            {
+                el: document.querySelectorAll('.portfolio-item')[2],
                 images: [
-                    'https://images.unsplash.com/photo-1505798577917-a65157d3320a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwzfHxob21lJTIwcmVwYWlyfGVufDB8fHx8MTc3NzE4Njc5NHww&ixlib=rb-4.1.0&q=80&w=1080',
-                    'https://images.unsplash.com/photo-1623161551727-54c918bdcec1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHw1fHxob21lJTIwcmVwYWlyfGVufDB8fHx8MTc3NzE4Njc5NHww&ixlib=rb-4.1.0&q=80&w=1080',
-                    'https://images.unsplash.com/photo-1676311396794-f14881e9daaa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxob21lJTIwcmVwYWlyfGVufDB8fHx8MTc3NzE4Njc5NHww&ixlib=rb-4.1.0&q=80&w=1080'
-                ] 
+                    'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=500&h=400&fit=crop',
+                    'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=500&h=400&fit=crop',
+                    'https://images.unsplash.com/photo-1604514628550-37477afdf4a3?w=500&h=400&fit=crop'
+                ]
             },
-            { 
-                el: document.querySelectorAll('.portfolio-item')[3], 
+            {
+                el: document.querySelectorAll('.portfolio-item')[3],
                 images: [
-                    'https://images.unsplash.com/photo-1607400201515-c2c41c07d307?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHw0fHxob21lJTIwcmVwYWlyfGVufDB8fHx8MTc3NzE4Njc5NHww&ixlib=rb-4.1.0&q=80&w=1080',
-                    'https://images.unsplash.com/photo-1562259929-b4e1fd3aef09?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwyfHxob21lJTIwcmVwYWlyfGVufDB8fHx8MTc3NzE4Njc5NHww&ixlib=rb-4.1.0&q=80&w=1080',
-                    'https://images.unsplash.com/photo-1505798577917-a65157d3320a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwzfHxob21lJTIwcmVwYWlyfGVufDB8fHx8MTc3NzE4Njc5NHww&ixlib=rb-4.1.0&q=80&w=1080'
-                ] 
+                    'https://images.unsplash.com/photo-1584622927105-8054df1f28ca?w=500&h=400&fit=crop',
+                    'https://images.unsplash.com/photo-1585399363512-3a4c2b8d5f9e?w=500&h=400&fit=crop',
+                    'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=500&h=400&fit=crop'
+                ]
             }
         ];
 
