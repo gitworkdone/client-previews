@@ -211,6 +211,8 @@
             border-radius: 12px;
             overflow: hidden;
             box-shadow: 0 20px 60px rgba(0, 137, 123, 0.15);
+            background-size: cover;
+            background-position: center;
         }
 
         .hero-image img {
@@ -403,6 +405,8 @@
             overflow: hidden;
             box-shadow: 0 15px 40px rgba(0, 137, 123, 0.15);
             height: 400px;
+            background-size: cover;
+            background-position: center;
         }
 
         .why-us-image img {
@@ -471,6 +475,8 @@
             box-shadow: 0 8px 24px rgba(0, 137, 123, 0.12);
             cursor: pointer;
             transition: transform 0.3s ease;
+            background-size: cover;
+            background-position: center;
         }
 
         .gallery-item:hover {
@@ -1116,9 +1122,9 @@
     <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="hero-content fade-up">
-            <h1>Where Home Is</h1>
-            <p class="hero-tagline">Your home cleaned, your stress gone</p>
-            <p>Professional, reliable cleaning services tailored to busy families. Because life's too short to spend it cleaning.</p>
+            <h1>Your Home, Perfectly Clean</h1>
+            <p class="hero-tagline">Professional cleaning with expert care</p>
+            <p>Trusted residential cleaning services that deliver exceptional results. Our skilled professionals transform your living space into a spotless sanctuary where your family can thrive.</p>
             
             <div class="hero-cta-group">
                 <button class="btn btn-primary" onclick="openBookingModal()">Book Your Cleaning</button>
@@ -1136,8 +1142,8 @@
                 </div>
             </div>
         </div>
-        <div class="hero-image fade-in" style="animation-delay: 0.2s;">
-            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 500'%3E%3Crect fill='%23E0F7FA' width='600' height='500'/%3E%3Crect fill='%23FFFFFF' x='50' y='50' width='500' height='400' rx='20'/%3E%3Ccircle cx='300' cy='200' r='80' fill='%2329B6F6' opacity='0.3'/%3E%3Crect x='100' y='300' width='100' height='100' fill='%2300897B' opacity='0.2'/%3E%3Crect x='250' y='320' width='150' height='80' fill='%2329B6F6' opacity='0.2'/%3E%3C/svg%3E" alt="Sparkling clean home">
+        <div class="hero-image fade-in" style="animation-delay: 0.2s; background-image: linear-gradient(135deg, rgba(41, 182, 246, 0.1) 0%, rgba(0, 137, 123, 0.1) 100%);">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 500'%3E%3Crect fill='%23E0F7FA' width='600' height='500'/%3E%3Crect fill='%23FFFFFF' x='50' y='50' width='500' height='400' rx='20'/%3E%3Ccircle cx='300' cy='200' r='80' fill='%2329B6F6' opacity='0.3'/%3E%3Crect x='100' y='300' width='100' height='100' fill='%2300897B' opacity='0.2'/%3E%3Crect x='250' y='320' width='150' height='80' fill='%2329B6F6' opacity='0.2'/%3E%3C/svg%3E" alt="Professional home cleaning service">
         </div>
     </section>
 
@@ -1176,349 +1182,11 @@
     <!-- Services Section -->
     <section class="services-section" id="services">
         <div class="section-header fade-up">
-            <h2>Our Cleaning Services</h2>
-            <p>From regular maintenance to deep cleaning, we've got your home covered</p>
+            <h2>Comprehensive Cleaning Services</h2>
+            <p>From routine maintenance to specialized deep cleaning, we provide expert solutions for every need</p>
         </div>
 
         <div class="services-grid">
             <div class="service-card fade-up" style="animation-delay: 0.1s;">
                 <div class="service-card-icon">🏡</div>
-                <h3>Standard Cleaning</h3>
-                <p>Weekly or bi-weekly cleaning to keep your home fresh and tidy. Perfect for busy families.</p>
-                <button class="btn btn-primary" onclick="openBookingModal()">Schedule Now</button>
-            </div>
-
-            <div class="service-card fade-up" style="animation-delay: 0.2s;">
-                <div class="service-card-icon">✨</div>
-                <h3>Deep Cleaning</h3>
-                <p>Thorough, detailed cleaning that tackles every corner. Monthly or seasonal deep cleans.</p>
-                <button class="btn btn-primary" onclick="openBookingModal()">Schedule Now</button>
-            </div>
-
-            <div class="service-card fade-up" style="animation-delay: 0.3s;">
-                <div class="service-card-icon">📦</div>
-                <h3>Move-In / Move-Out</h3>
-                <p>Get your new home spotless or prepare for your move with our thorough cleaning.</p>
-                <button class="btn btn-primary" onclick="openBookingModal()">Schedule Now</button>
-            </div>
-
-            <div class="service-card fade-up" style="animation-delay: 0.4s;">
-                <div class="service-card-icon">🧹</div>
-                <h3>Post-Construction</h3>
-                <p>We remove dust and debris after renovations. Your new space, perfectly clean.</p>
-                <button class="btn btn-primary" onclick="openBookingModal()">Schedule Now</button>
-            </div>
-
-            <div class="service-card fade-up" style="animation-delay: 0.5s;">
-                <div class="service-card-icon">🏥</div>
-                <h3>Eco-Friendly Cleaning</h3>
-                <p>Safe, non-toxic cleaning products. Great for families and pets.</p>
-                <button class="btn btn-primary" onclick="openBookingModal()">Schedule Now</button>
-            </div>
-
-            <div class="service-card fade-up" style="animation-delay: 0.6s;">
-                <div class="service-card-icon">🎯</div>
-                <h3>Custom Cleaning Plans</h3>
-                <p>Tailor your cleaning to fit your home and lifestyle. We're flexible.</p>
-                <button class="btn btn-primary" onclick="openBookingModal()">Schedule Now</button>
-            </div>
-        </div>
-    </section>
-
-    <!-- Why Choose Us -->
-    <section class="why-us-section">
-        <div class="why-us-container">
-            <div class="why-us-image fade-in">
-                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Crect fill='%23F5F5F5' width='400' height='400'/%3E%3Crect x='30' y='30' width='340' height='340' fill='%23FFFFFF' rx='10'/%3E%3Crect x='50' y='50' width='300' height='200' fill='%2329B6F6' opacity='0.15'/%3E%3Ccircle cx='150' cy='120' r='40' fill='%2300897B' opacity='0.2'/%3E%3Crect x='80' y='280' width='80' height='60' fill='%2329B6F6' opacity='0.1'/%3E%3Crect x='200' y='280' width='120' height='60' fill='%2300897B' opacity='0.1'/%3E%3C/svg%3E" alt="Professional cleaning team">
-            </div>
-
-            <div class="why-us-content fade-up">
-                <h2>Why Families Choose Kindred Keepers</h2>
-                <ul class="checklist">
-                    <li>
-                        <div class="checklist-icon">✓</div>
-                        <span>Experienced, background-checked professionals</span>
-                    </li>
-                    <li>
-                        <div class="checklist-icon">✓</div>
-                        <span>Eco-friendly, non-toxic cleaning products</span>
-                    </li>
-                    <li>
-                        <div class="checklist-icon">✓</div>
-                        <span>Flexible scheduling that works around your life</span>
-                    </li>
-                    <li>
-                        <div class="checklist-icon">✓</div>
-                        <span>100% satisfaction guarantee on every clean</span>
-                    </li>
-                    <li>
-                        <div class="checklist-icon">✓</div>
-                        <span>Fast, thorough, and stress-free service</span>
-                    </li>
-                    <li>
-                        <div class="checklist-icon">✓</div>
-                        <span>Pet-friendly and allergy-safe cleaning</span>
-                    </li>
-                </ul>
-
-                <button class="btn btn-secondary" onclick="openBookingModal()">Start Your Free Consultation</button>
-            </div>
-        </div>
-    </section>
-
-    <!-- Gallery Section -->
-    <section class="gallery-section" id="gallery">
-        <div class="section-header fade-up">
-            <h2>Our Work Speaks for Itself</h2>
-            <p>See the transformation we bring to homes</p>
-        </div>
-
-        <div class="gallery-grid">
-            <div class="gallery-item fade-up" style="animation-delay: 0.1s;">
-                <span class="gallery-label">Sparkling Kitchen</span>
-                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 350'%3E%3Crect fill='%23FFF8DC' width='400' height='350'/%3E%3Crect x='40' y='80' width='320' height='200' fill='%23E8F5E9' rx='8'/%3E%3Crect x='60' y='100' width='260' height='60' fill='%23A1D5A1'/%3E%3Crect x='60' y='190' width='80' height='70' fill='%234CAF50'/%3E%3Crect x='160' y='190' width='80' height='70' fill='%2381C784'/%3E%3Crect x='260' y='190' width='60' height='70' fill='%23558B2F'/%3E%3C/svg%3E" alt="Sparkling clean kitchen">
-            </div>
-
-            <div class="gallery-item fade-up" style="animation-delay: 0.2s;">
-                <span class="gallery-label">Gleaming Bathroom</span>
-                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 350'%3E%3Crect fill='%23E1F5FE' width='400' height='350'/%3E%3Crect x='40' y='60' width='320' height='240' fill='%23FFFFFF' rx='8'/%3E%3Ccircle cx='120' cy='150' r='35' fill='%2301579B' opacity='0.2'/%3E%3Crect x='60' y='240' width='280' height='30' fill='%2301579B' opacity='0.15'/%3E%3Crect x='80' y='290' width='240' height='30' fill='%2301579B' opacity='0.2'/%3E%3C/svg%3E" alt="Gleaming clean bathroom">
-            </div>
-
-            <div class="gallery-item fade-up" style="animation-delay: 0.3s;">
-                <span class="gallery-label">Pristine Living Room</span>
-                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 350'%3E%3Crect fill='%23F3E5F5' width='400' height='350'/%3E%3Crect x='30' y='40' width='340' height='270' fill='%23FFFFFF' rx='8'/%3E%3Crect x='50' y='60' width='140' height='120' fill='%23E1BEE7'/%3E%3Crect x='210' y='60' width='140' height='120' fill='%23D1C4E9'/%3E%3Crect x='50' y='200' width='300' height='80' fill='%23F3E5F5'/%3E%3C/svg%3E" alt="Pristine living room">
-            </div>
-
-            <div class="gallery-item fade-up" style="animation-delay: 0.4s;">
-                <span class="gallery-label">Fresh Bedroom</span>
-                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 350'%3E%3Crect fill='%23FCE4EC' width='400' height='350'/%3E%3Crect x='40' y='50' width='320' height='260' fill='%23FFFFFF' rx='8'/%3E%3Crect x='60' y='70' width='260' height='180' fill='%23F8BBD0'/%3E%3Crect x='80' y='260' width='240' height='30' fill='%23EC407A' opacity='0.2'/%3E%3C/svg%3E" alt="Fresh clean bedroom">
-            </div>
-
-            <div class="gallery-item fade-up" style="animation-delay: 0.5s;">
-                <span class="gallery-label">Spotless Entryway</span>
-                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 350'%3E%3Crect fill='%23E0F2F1' width='400' height='350'/%3E%3Crect x='35' y='30' width='330' height='290' fill='%23FFFFFF' rx='8'/%3E%3Crect x='60' y='50' width='280' height='100' fill='%234DB6AC' opacity='0.15'/%3E%3Crect x='60' y='170' width='280' height='130' fill='%2380CBC4' opacity='0.15'/%3E%3C/svg%3E" alt="Spotless clean entryway">
-            </div>
-
-            <div class="gallery-item fade-up" style="animation-delay: 0.6s;">
-                <span class="gallery-label">Organized Home Office</span>
-                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 350'%3E%3Crect fill='%23FFF9C4' width='400' height='350'/%3E%3Crect x='40' y='50' width='320' height='260' fill='%23FFFFFF' rx='8'/%3E%3Crect x='60' y='70' width='130' height='150' fill='%23FBC02D' opacity='0.2'/%3E%3Crect x='210' y='70' width='130' height='150' fill='%23F57F17' opacity='0.2'/%3E%3Crect x='60' y='240' width='280' height='50' fill='%23FDD835' opacity='0.15'/%3E%3C/svg%3E" alt="Organized home office">
-            </div>
-        </div>
-    </section>
-
-    <!-- Pricing Section -->
-    <section class="pricing-section">
-        <div class="section-header fade-up">
-            <h2>Flexible Pricing Plans</h2>
-            <p>Choose the plan that works for your home and budget</p>
-        </div>
-
-        <div class="pricing-grid">
-            <div class="pricing-card fade-up" style="animation-delay: 0.1s;">
-                <h3 class="pricing-title">Monthly Plan</h3>
-                <div class="pricing-price">$99</div>
-                <p class="pricing-frequency">Per visit, once a month</p>
-                <ul class="pricing-features">
-                    <li>Dust & vacuum all areas</li>
-                    <li>Clean bathrooms</li>
-                    <li>Mop floors</li>
-                    <li>Kitchen surfaces</li>
-                    <li>Up to 3 hours</li>
-                </ul>
-                <button class="btn btn-primary" onclick="openBookingModal()">Get Started</button>
-            </div>
-
-            <div class="pricing-card featured fade-up" style="animation-delay: 0.2s;">
-                <div class="pricing-badge">Most Popular</div>
-                <h3 class="pricing-title">Bi-Weekly Plan</h3>
-                <div class="pricing-price">$159</div>
-                <p class="pricing-frequency">Per visit, every 2 weeks</p>
-                <ul class="pricing-features">
-                    <li>Complete home cleaning</li>
-                    <li>Thorough bathroom scrub</li>
-                    <li>Kitchen detail clean</li>
-                    <li>Hardwood & tile care</li>
-                    <li>Up to 4 hours</li>
-                    <li>Priority scheduling</li>
-                </ul>
-                <button class="btn btn-secondary" onclick="openBookingModal()">Book Now</button>
-            </div>
-
-            <div class="pricing-card fade-up" style="animation-delay: 0.3s;">
-                <h3 class="pricing-title">Weekly Plan</h3>
-                <div class="pricing-price">$189</div>
-                <p class="pricing-frequency">Per visit, every week</p>
-                <ul class="pricing-features">
-                    <li>Weekly fresh clean</li>
-                    <li>All areas maintained</li>
-                    <li>Bathroom refresh</li>
-                    <li>Kitchen spotless</li>
-                    <li>Up to 3 hours</li>
-                    <li>VIP support</li>
-                </ul>
-                <button class="btn btn-primary" onclick="openBookingModal()">Get Started</button>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials Section -->
-    <section class="testimonials-section">
-        <div class="section-header fade-up">
-            <h2>Real Families, Real Results</h2>
-            <p>What our customers are saying</p>
-        </div>
-
-        <div class="testimonials-grid">
-            <div class="testimonial-card fade-up" style="animation-delay: 0.1s;">
-                <div class="stars">★★★★★</div>
-                <p class="testimonial-text">"Kindred Keepers has been a lifesaver. Coming home to a clean house takes so much stress off my plate as a working mom. Highly recommend!"</p>
-                <p class="testimonial-author">Sarah Mitchell</p>
-                <p class="testimonial-role">Working Mother, 2 Kids</p>
-            </div>
-
-            <div class="testimonial-card fade-up" style="animation-delay: 0.2s;">
-                <div class="stars">★★★★★</div>
-                <p class="testimonial-text">"Professional, courteous, and thorough. They got every corner spotless. I've tried other services but Kindred Keepers is the best."</p>
-                <p class="testimonial-author">Jennifer Wu</p>
-                <p class="testimonial-role">Homeowner, Busy Professional</p>
-            </div>
-
-            <div class="testimonial-card fade-up" style="animation-delay: 0.3s;">
-                <div class="stars">★★★★★</div>
-                <p class="testimonial-text">"The eco-friendly products they use are perfect for our family. No harsh chemicals and the house still gleams. Love it!"</p>
-                <p class="testimonial-author">Rachel Thompson</p>
-                <p class="testimonial-role">Family of 4, Eco-Conscious</p>
-            </div>
-
-            <div class="testimonial-card fade-up" style="animation-delay: 0.4s;">
-                <div class="stars">★★★★★</div>
-                <p class="testimonial-text">"On-time, every time. The attention to detail is amazing. They treat my home like it's their own. Couldn't be happier."</p>
-                <p class="testimonial-author">Michelle Davis</p>
-                <p class="testimonial-role">Single Mom, Teacher</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Service Areas -->
-    <section class="service-areas-section">
-        <div class="section-header fade-up">
-            <h2>Service Areas</h2>
-            <p>We serve the greater metropolitan area</p>
-        </div>
-
-        <div class="service-areas-grid">
-            <div class="area-badge fade-up" style="animation-delay: 0.05s;">Downtown</div>
-            <div class="area-badge fade-up" style="animation-delay: 0.1s;">Midtown</div>
-            <div class="area-badge fade-up" style="animation-delay: 0.15s;">Westside</div>
-            <div class="area-badge fade-up" style="animation-delay: 0.2s;">Eastside</div>
-            <div class="area-badge fade-up" style="animation-delay: 0.25s;">Northshore</div>
-            <div class="area-badge fade-up" style="animation-delay: 0.3s;">Suburbs</div>
-            <div class="area-badge fade-up" style="animation-delay: 0.35s;">Riverside</div>
-            <div class="area-badge fade-up" style="animation-delay: 0.4s;">Lakeside</div>
-        </div>
-    </section>
-
-    <!-- FAQ Section -->
-    <section class="faq-section">
-        <div class="section-header fade-up">
-            <h2>Frequently Asked Questions</h2>
-            <p>Everything you need to know about our service</p>
-        </div>
-
-        <div class="faq-container">
-            <div class="faq-item fade-up" style="animation-delay: 0.1s;">
-                <div class="faq-question" onclick="toggleFaq(this)">
-                    <span>Are your cleaners background checked?</span>
-                    <span class="faq-toggle">+</span>
-                </div>
-                <div class="faq-answer">Yes, all our cleaning professionals undergo thorough background checks and are fully trained. Your home is in safe, trustworthy hands.</div>
-            </div>
-
-            <div class="faq-item fade-up" style="animation-delay: 0.2s;">
-                <div class="faq-question" onclick="toggleFaq(this)">
-                    <span>Can I request the same cleaner each time?</span>
-                    <span class="faq-toggle">+</span>
-                </div>
-                <div class="faq-answer">Absolutely! We understand you want consistency. We'll do our best to assign the same team to your home regularly, building a great working relationship.</div>
-            </div>
-
-            <div class="faq-item fade-up" style="animation-delay: 0.3s;">
-                <div class="faq-question" onclick="toggleFaq(this)">
-                    <span>What if I'm not satisfied with the cleaning?</span>
-                    <span class="faq-toggle">+</span>
-                </div>
-                <div class="faq-answer">Our 100% satisfaction guarantee means if you're not happy, we'll re-clean at no charge. We won't stop until your home is perfect.</div>
-            </div>
-
-            <div class="faq-item fade-up" style="animation-delay: 0.4s;">
-                <div class="faq-question" onclick="toggleFaq(this)">
-                    <span>Do you offer eco-friendly cleaning products?</span>
-                    <span class="faq-toggle">+</span>
-                </div>
-                <div class="faq-answer">Yes! We use non-toxic, eco-friendly products that are safe for kids, pets, and the environment. Just let us know if you prefer this option.</div>
-            </div>
-
-            <div class="faq-item fade-up" style="animation-delay: 0.5s;">
-                <div class="faq-question" onclick="toggleFaq(this)">
-                    <span>How far in advance do I need to book?</span>
-                    <span class="faq-toggle">+</span>
-                </div>
-                <div class="faq-answer">We recommend booking at least a week in advance, but we often have availability for rush requests. Contact us for same-week or next-day cleaning.</div>
-            </div>
-
-            <div class="faq-item fade-up" style="animation-delay: 0.6s;">
-                <div class="faq-question" onclick="toggleFaq(this)">
-                    <span>Can I cancel or reschedule?</span>
-                    <span class="faq-toggle">+</span>
-                </div>
-                <div class="faq-answer">Yes! We understand life happens. Cancel or reschedule up to 48 hours before your appointment with no penalty.</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Booking CTA Section -->
-    <section class="booking-cta-section">
-        <h2>Ready for a Cleaner Home?</h2>
-        <p>Let us handle the cleaning so you can focus on what matters most. Your first cleaning is just a click away.</p>
-        <button class="btn" onclick="openBookingModal()">Schedule Your Free Consultation</button>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <h3>Kindred Keepers</h3>
-        <p>"Where Home Is"</p>
-        <div class="footer-links">
-            <a href="#home">Home</a>
-            <a href="#services">Services</a>
-            <a href="#gallery">Portfolio</a>
-            <a href="#contact">Contact</a>
-            <a href="javascript:void(0)" onclick="openBookingModal()">Book Now</a>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2025 Kindred Keepers Cleaning Services. All rights reserved.</p>
-            <p>Bonded | Insured | Satisfaction Guaranteed</p>
-        </div>
-    </footer>
-
-    <!-- Booking Modal -->
-    <div class="modal" id="bookingModal">
-        <div class="modal-content">
-            <button class="modal-close" onclick="closeBookingModal()">+</button>
-            <h2>Book Your Cleaning</h2>
-            <form onsubmit="submitBooking(event)">
-                <div class="form-group">
-                    <label for="name">Full Name</label>
-                    <input type="text" id="name" name="name" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="email">Email Address</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="phone">Phone Number</label>
-                    <input type="tel" id="phone" name="phone" required>
-                </div>
-
-                <div class="form-group
+                <h3
