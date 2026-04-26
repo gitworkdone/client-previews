@@ -403,6 +403,51 @@
             max-height: 500px;
         }
 
+        /* DESIGNS SECTION */
+        #designs {
+            background: white;
+        }
+
+        .designs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+            margin-top: 48px;
+        }
+
+        .design-card {
+            background: #f8fafb;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #e8eef5;
+        }
+
+        .design-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 32px rgba(0, 212, 255, 0.15);
+        }
+
+        .design-card img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+
+        .design-card-content {
+            padding: 24px;
+        }
+
+        .design-card h3 {
+            margin-bottom: 12px;
+        }
+
+        .design-card p {
+            margin-bottom: 16px;
+            font-size: 15px;
+        }
+
         /* CONTACT SECTION */
         #contact {
             background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
@@ -495,7 +540,8 @@
 
             .services-grid,
             .testimonials-grid,
-            .portfolio-grid {
+            .portfolio-grid,
+            .designs-grid {
                 grid-template-columns: 1fr;
             }
 
@@ -525,6 +571,7 @@
             <nav>
                 <a href="#services">Services</a>
                 <a href="#portfolio">Our Work</a>
+                <a href="#designs">Designs</a>
                 <a href="#contact">Contact</a>
             </nav>
         </div>
@@ -592,7 +639,7 @@
             
             <div class="portfolio-grid">
                 <div class="portfolio-item">
-                    <img class="portfolio-img" src="https://images.unsplash.com/photo-1559027615-cd da0b5bdf46?w=400&h=300&fit=crop" alt="Portfolio item">
+                    <img class="portfolio-img" src="https://images.unsplash.com/photo-1559027615-cd6d3a647b46?w=400&h=300&fit=crop" alt="Portfolio item">
                     <h3>Living Room Refresh</h3>
                 </div>
 
@@ -614,6 +661,40 @@
         </div>
     </section>
 
+    <!-- DESIGNS SECTION -->
+    <section id="designs">
+        <div class="container">
+            <div class="section-subtitle">Our Website Designs</div>
+            <h2>Explore Our Design Options</h2>
+            
+            <div class="designs-grid">
+                <div class="design-card">
+                    <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=400&h=300&fit=crop" alt="Modern Clean Design">
+                    <div class="design-card-content">
+                        <h3>Modern Clean Design</h3>
+                        <p>A fresh, contemporary approach featuring bright accents and minimalist layouts. Perfect for showcasing your professional cleaning expertise with a modern aesthetic.</p>
+                    </div>
+                </div>
+
+                <div class="design-card">
+                    <img src="https://images.unsplash.com/photo-1564069114553-7639e9fdc6b6?w=400&h=300&fit=crop" alt="Professional Blue Theme">
+                    <div class="design-card-content">
+                        <h3>Professional Blue Theme</h3>
+                        <p>This design emphasizes trust and reliability with deep blue tones and elegant spacing. Ideal for attracting high-end residential clients who value quality and expertise.</p>
+                    </div>
+                </div>
+
+                <div class="design-card">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=300&fit=crop" alt="Vibrant & Energetic">
+                    <div class="design-card-content">
+                        <h3>Vibrant & Energetic</h3>
+                        <p>Bright, bold colors and dynamic layouts that convey energy and efficiency. Great for reaching younger homeowners and families looking for reliable cleaning services.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- ABOUT SECTION -->
     <section id="about">
         <div class="container">
@@ -627,8 +708,8 @@
                     <p>We're not just a cleaning service – we're your partners in maintaining a healthy, beautiful living environment for you and your family.</p>
                 </div>
                 <div class="about-images">
-                    <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=300&h=250&fit=crop" alt="Team Member">
-                    <img src="https://images.unsplash.com/photo-1564069114553-7639e9fdc6b6?w=300&h=250&fit=crop" alt="Professional Cleaning">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=250&fit=crop" alt="Team Member">
+                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=300&h=250&fit=crop" alt="Professional Cleaning">
                 </div>
             </div>
         </div>
@@ -773,7 +854,7 @@
             { 
                 el: document.querySelectorAll('.portfolio-item')[0], 
                 images: [
-                    'https://images.unsplash.com/photo-1559027615-cd da0b5bdf46?w=400&h=300&fit=crop',
+                    'https://images.unsplash.com/photo-1559027615-cd6d3a647b46?w=400&h=300&fit=crop',
                     'https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=400&h=300&fit=crop',
                     'https://images.unsplash.com/photo-1563207153-f403bf289096?w=400&h=300&fit=crop'
                 ] 
@@ -790,7 +871,7 @@
                 el: document.querySelectorAll('.portfolio-item')[2], 
                 images: [
                     'https://images.unsplash.com/photo-1578500494198-246f612d03b3?w=400&h=300&fit=crop',
-                    'https://images.unsplash.com/photo-1559027615-cd da0b5bdf46?w=400&h=300&fit=crop',
+                    'https://images.unsplash.com/photo-1559027615-cd6d3a647b46?w=400&h=300&fit=crop',
                     'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=300&fit=crop'
                 ] 
             },
