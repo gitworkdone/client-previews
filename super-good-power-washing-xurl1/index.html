@@ -1,0 +1,1432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Super Good Power Washing | Professional Cleaning Services</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #4A4A4A;
+            background-color: #FFFFFF;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* ════════════════════════════════════════
+           NAVIGATION
+           ════════════════════════════════════════ */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(240, 240, 240, 0.5);
+            padding: 1.2rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #FF8C42;
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #003366;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #FF8C42;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            background-color: #FF8C42;
+            color: white;
+            padding: 0.8rem 1.8rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 140, 66, 0.2);
+        }
+
+        .nav-cta:hover {
+            background-color: #E67A2F;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 140, 66, 0.3);
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 0.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .mobile-menu-toggle span {
+            width: 24px;
+            height: 2px;
+            background-color: #003366;
+            transition: all 0.3s ease;
+        }
+
+        /* ════════════════════════════════════════
+           HERO SECTION
+           ════════════════════════════════════════ */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, rgba(0, 51, 102, 0.6) 0%, rgba(255, 140, 66, 0.3) 100%), url('https://images.unsplash.com/photo-1560037962-a00331b63f72?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3NzcxODYzMTJ8&ixlib=rb-4.1.0&q=80&w=1080') center / cover no-repeat;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            margin-top: 60px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, rgba(0, 51, 102, 0.5) 0%, rgba(255, 140, 66, 0.2) 100%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 900px;
+            z-index: 2;
+            padding: 0 2rem;
+        }
+
+        .hero h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 4rem;
+            font-weight: 800;
+            color: #FFFFFF;
+            margin-bottom: 1.5rem;
+            line-height: 1.15;
+            letter-spacing: -1px;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: #F0F0F0;
+            margin-bottom: 2.5rem;
+            font-weight: 500;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary, .btn-secondary {
+            padding: 1rem 2.5rem;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 1rem;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-primary {
+            background-color: #FF8C42;
+            color: white;
+            box-shadow: 0 6px 25px rgba(255, 140, 66, 0.3);
+        }
+
+        .btn-primary:hover {
+            background-color: #E67A2F;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 35px rgba(255, 140, 66, 0.4);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px);
+        }
+
+        /* ════════════════════════════════════════
+           SERVICES SECTION
+           ════════════════════════════════════════ */
+        .services {
+            padding: 80px 5%;
+            background-color: #FFFFFF;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 70px;
+        }
+
+        .section-header h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: #003366;
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: #4A4A4A;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background: #FFFFFF;
+            border-radius: 12px;
+            padding: 40px 30px;
+            box-shadow: 0 2px 15px rgba(0, 51, 102, 0.08);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid #F0F0F0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #FF8C42, #FFB088);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 15px 40px rgba(0, 51, 102, 0.15);
+        }
+
+        .service-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #FF8C42, #FFB088);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover .service-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .service-card h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #003366;
+            margin-bottom: 1rem;
+        }
+
+        .service-card p {
+            color: #4A4A4A;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .service-card a {
+            color: #FF8C42;
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .service-card a:hover {
+            gap: 1rem;
+        }
+
+        /* ════════════════════════════════════════
+           GALLERY / BEFORE & AFTER
+           ════════════════════════════════════════ */
+        .gallery {
+            padding: 80px 5%;
+            background: linear-gradient(135deg, #F0F0F0 0%, #FFFFFF 100%);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+            margin-top: 50px;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            aspect-ratio: 1;
+            cursor: pointer;
+            group: gallery;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.08);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 51, 102, 0.7), rgba(255, 140, 66, 0.6));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-text {
+            color: white;
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        /* ════════════════════════════════════════
+           TESTIMONIALS
+           ════════════════════════════════════════ */
+        .testimonials {
+            padding: 80px 5%;
+            background-color: #003366;
+            color: white;
+        }
+
+        .testimonials .section-header h2 {
+            color: #FF8C42;
+        }
+
+        .testimonials .section-header p {
+            color: #F0F0F0;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+            margin-top: 50px;
+        }
+
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 40px;
+            transition: all 0.4s ease;
+        }
+
+        .testimonial-card:hover {
+            background: rgba(255, 140, 66, 0.15);
+            border-color: #FF8C42;
+            transform: translateY(-8px);
+        }
+
+        .stars {
+            color: #FF8C42;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            line-height: 1.9;
+            font-size: 1rem;
+        }
+
+        .testimonial-author {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .testimonial-role {
+            font-size: 0.9rem;
+            color: #FFB088;
+            margin-top: 0.5rem;
+        }
+
+        /* ════════════════════════════════════════
+           ABOUT / TEAM
+           ════════════════════════════════════════ */
+        .about {
+            padding: 80px 5%;
+            background-color: #FFFFFF;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .about-content h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #003366;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-content p {
+            font-size: 1.1rem;
+            color: #4A4A4A;
+            margin-bottom: 1.5rem;
+            line-height: 1.9;
+        }
+
+        .about-image {
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 51, 102, 0.15);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .about-list {
+            list-style: none;
+            margin: 2rem 0;
+        }
+
+        .about-list li {
+            padding-left: 2.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            font-weight: 500;
+            color: #4A4A4A;
+        }
+
+        .about-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #FF8C42;
+            font-weight: 700;
+            font-size: 1.3rem;
+        }
+
+        /* ════════════════════════════════════════
+           TEAM SECTION
+           ════════════════════════════════════════ */
+        .team {
+            padding: 80px 5%;
+            background: linear-gradient(135deg, #F0F0F0 0%, #FFFFFF 100%);
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+            margin-top: 50px;
+        }
+
+        .team-card {
+            text-align: center;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 15px rgba(0, 51, 102, 0.08);
+            transition: all 0.4s ease;
+        }
+
+        .team-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0, 51, 102, 0.15);
+        }
+
+        .team-image {
+            width: 100%;
+            aspect-ratio: 1;
+            overflow: hidden;
+            background: linear-gradient(135deg, #FF8C42, #FFB088);
+            position: relative;
+        }
+
+        .team-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .team-card:hover .team-image img {
+            transform: scale(1.05);
+        }
+
+        .team-info {
+            padding: 30px 25px;
+        }
+
+        .team-info h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #003366;
+            margin-bottom: 0.5rem;
+        }
+
+        .team-role {
+            color: #FF8C42;
+            font-weight: 700;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .team-bio {
+            color: #4A4A4A;
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* ════════════════════════════════════════
+           FAQ SECTION
+           ════════════════════════════════════════ */
+        .faq {
+            padding: 80px 5%;
+            background-color: #FFFFFF;
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+            margin-top: 50px;
+        }
+
+        .faq-item {
+            background: #F0F0F0;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-question {
+            padding: 20px 25px;
+            background-color: #F0F0F0;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: #003366;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+            user-select: none;
+        }
+
+        .faq-question:hover {
+            background-color: #E8E8E8;
+        }
+
+        .faq-item.active .faq-question {
+            background-color: #FF8C42;
+            color: white;
+        }
+
+        .faq-toggle {
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-toggle {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            padding: 0 25px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            color: #4A4A4A;
+            line-height: 1.8;
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 20px 25px;
+            max-height: 500px;
+        }
+
+        /* ════════════════════════════════════════
+           CTA SECTION
+           ════════════════════════════════════════ */
+        .cta {
+            padding: 80px 5%;
+            background: linear-gradient(135deg, #FF8C42 0%, #E67A2F 100%);
+            text-align: center;
+            color: white;
+        }
+
+        .cta h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta p {
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta .btn-primary {
+            background-color: white;
+            color: #FF8C42;
+            border: none;
+        }
+
+        .cta .btn-primary:hover {
+            background-color: #F0F0F0;
+            color: #E67A2F;
+        }
+
+        /* ════════════════════════════════════════
+           FOOTER
+           ════════════════════════════════════════ */
+        footer {
+            background-color: #003366;
+            color: #F0F0F0;
+            padding: 60px 5% 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h4 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-section a {
+            color: #FFB088;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: #FF8C42;
+        }
+
+        .footer-logo {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #FF8C42;
+            margin-bottom: 1rem;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 30px;
+            text-align: center;
+            color: #FFB088;
+        }
+
+        /* ════════════════════════════════════════
+           RESPONSIVE DESIGN
+           ════════════════════════════════════════ */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-toggle {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .section-header h2 {
+                font-size: 2rem;
+            }
+
+            .about {
+                grid-template-columns: 1fr;
+            }
+
+            .about-content h2 {
+                font-size: 2rem;
+            }
+
+            .services-grid, .testimonials-grid, .team-grid, .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta h2 {
+                font-size: 1.8rem;
+            }
+
+            .cta p {
+                font-size: 1rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav {
+                padding: 1rem 4%;
+            }
+
+            .nav-logo {
+                font-size: 1.2rem;
+            }
+
+            .nav-cta {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.8rem;
+            }
+
+            .hero {
+                margin-top: 50px;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .services, .gallery, .testimonials, .team, .faq, .cta {
+                padding: 50px 4%;
+            }
+
+            .section-header h2 {
+                font-size: 1.5rem;
+            }
+
+            .section-header {
+                margin-bottom: 40px;
+            }
+
+            .btn-primary, .btn-secondary {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.85rem;
+            }
+        }
+
+        /* ════════════════════════════════════════
+           ANIMATIONS
+           ════════════════════════════════════════ */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .animate-fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .animate-slide-in-left {
+            animation: slideInLeft 0.8s ease-out forwards;
+        }
+
+        .animate-slide-in-right {
+            animation: slideInRight 0.8s ease-out forwards;
+        }
+    </style>
+</head>
+<body>
+    <!-- NAVIGATION -->
+    <nav>
+        <a href="#" class="nav-logo">Super Good</a>
+        <ul class="nav-links">
+            <li><a href="#services">Services</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#testimonials">Reviews</a></li>
+            <li><a href="#team">Team</a></li>
+            <li><a href="#faq">FAQ</a></li>
+        </ul>
+        <a href="#contact" class="nav-cta">Get Quote</a>
+        <button class="mobile-menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Feel Clean Again</h1>
+            <p>Professional power washing services that transform dirty surfaces into pristine, spotless spaces. Your driveway, patio, and home deserve better.</p>
+            <div class="hero-buttons">
+                <a href="#services" class="btn-primary">View Our Services</a>
+                <a href="#contact" class="btn-secondary">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES SECTION -->
+    <section class="services" id="services">
+        <div class="section-header">
+            <h2>Our Services</h2>
+            <p>Comprehensive power washing solutions for every surface and space</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">🏠</div>
+                <h3>House Washing</h3>
+                <p>Complete home exterior cleaning. We safely remove dirt, grime, mold, and algae from siding, brick, and wood to restore your home's original beauty.</p>
+                <a href="#contact">Schedule Service →</a>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🚗</div>
+                <h3>Driveway & Patio</h3>
+                <p>Transform your outdoor spaces. Professional pressure washing for driveways, patios, decks, and walkways leaves concrete and pavers pristine.</p>
+                <a href="#contact">Schedule Service →</a>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🏢</div>
+                <h3>Commercial Properties</h3>
+                <p>Keep your business looking immaculate. We handle large-scale cleaning for office parks, storefronts, parking lots, and industrial properties.</p>
+                <a href="#contact">Schedule Service →</a>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🌳</div>
+                <h3>Roof & Gutter Cleaning</h3>
+                <p>Protect your investment. Safe, professional roof and gutter cleaning removes debris and extends the life of your roofing materials.</p>
+                <a href="#contact">Schedule Service →</a>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🏊</div>
+                <h3>Pool Deck Cleaning</h3>
+                <p>Keep pool areas safe and clean. Remove algae, slime, and debris from pool decks, surrounding concrete, and above-ground equipment.</p>
+                <a href="#contact">Schedule Service →</a>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🌲</div>
+                <h3>Fence & Deck Restoration</h3>
+                <p>Revive weathered wood. Gentle yet effective cleaning for wooden fences and decks removes years of dirt and prepares surfaces for staining or sealing.</p>
+                <a href="#contact">Schedule Service →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- BEFORE & AFTER GALLERY -->
+    <section class="gallery" id="gallery">
+        <div class="section-header">
+            <h2>Before & After</h2>
+            <p>See the incredible transformation our power washing creates</p>
+        </div>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1587889114651-0c4004ffc2d8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3NzcxODYzMTJ8&ixlib=rb-4.1.0&q=80&w=1080" alt="Driveway Before and After">
+                <div class="gallery-overlay">
+                    <div class="gallery-text">Driveway Restoration</div>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1589272759690-27c444d4a051?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3NzcxODYzMTJ8&ixlib=rb-4.1.0&q=80&w=1080" alt="Patio Cleaning">
+                <div class="gallery-overlay">
+                    <div class="gallery-text">Patio Perfection</div>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1575621483637-3f7aed7ecfe7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3NzcxODYzMTJ8&ixlib=rb-4.1.0&q=80&w=1080" alt="House Exterior">
+                <div class="gallery-overlay">
+                    <div class="gallery-text">Home Revival</div>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1575844611398-2a68400b437c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3NzcxODYzMTJ8&ixlib=rb-4.1.0&q=80&w=1080" alt="Deck Cleaning">
+                <div class="gallery-overlay">
+                    <div class="gallery-text">Deck Transformation</div>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1581883579507-019c44b711cb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3NzcxODYzMTJ8&ixlib=rb-4.1.0&q=80&w=1080" alt="Pressure Washing Equipment">
+                <div class="gallery-overlay">
+                    <div class="gallery-text">Professional Equipment</div>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1587889114651-0c4004ffc2d8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3NzcxODYzMTJ8&ixlib=rb-4.1.0&q=80&w=1080" alt="Walkway Cleaning">
+                <div class="gallery-overlay">
+                    <div class="gallery-text">Walkway Brilliance</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS SECTION -->
+    <section class="testimonials" id="testimonials">
+        <div class="section-header">
+            <h2>What Our Customers Say</h2>
+            <p>Real feedback from satisfied homeowners and businesses</p>
+        </div>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="stars">★★★★★</div>
+                <div class="testimonial-text">"My driveway looked brand new after Super Good Power Washing. The team was professional, on-time, and the results exceeded my expectations!"</div>
+                <div class="testimonial-author">Sarah Mitchell</div>
+                <div class="testimonial-role">Homeowner, Riverside</div>
+            </div>
+            <div class="testimonial-card">
+                <div class="stars">★★★★★</div>
+                <div class="testimonial-text">"We've used Super Good for our commercial property for two years. Reliable, affordable, and our parking lot always looks immaculate."</div>
+                <div class="testimonial-author">James Chen</div>
+                <div class="testimonial-role">Business Owner, Downtown Office Park</div>
+            </div>
+            <div class="testimonial-card">
+                <div class="stars">★★★★★</div>
+                <div class="testimonial-text">"Excellent service! They cleaned our deck and fence without any damage. It looks like we just built it. Highly recommend Super Good!"</div>
+                <div class="testimonial-author">Patricia Johnson</div>
+                <div class="testimonial-role">Homeowner, Oakwood Heights</div>
+            </div>
+            <div class="testimonial-card">
+                <div class="stars">★★★★★</div>
+                <div class="testimonial-text">"Finally found someone who takes pride in their work. The roof cleaning was thorough and safe. Worth every penny!"</div>
+                <div class="testimonial-author">Michael Rodriguez</div>
+                <div class="testimonial-role">Homeowner, Sunset Valley</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section class="about">
+        <div class="about-content">
+            <h2>About Super Good Power Washing</h2>
+            <p>Since 2015, we've been transforming dirty, grimy surfaces into pristine spaces. What started as two friends with a pressure washer has grown into the most trusted cleaning service in the region.</p>
+            <p>We believe every home and business deserves to look its absolute best. That's why we combine premium equipment, proven techniques, and genuine care to deliver superior results—and happy customers.</p>
+            <ul class="about-list">
+                <li>Licensed and insured for complete peace of mind</li>
+                <li>Eco-friendly cleaning solutions</li>
+                <li>Fast, courteous, professional service</li>
+                <li>Competitive pricing with no hidden fees</li>
+                <li>Same-day service available</li>
+                <li>Satisfaction guaranteed or we make it right</li>
+            </ul>
+        </div>
+        <div class="about-image">
+            <img src="https://images.unsplash.com/photo-1573815076563-6e8a65e9ce60?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3NzcxODYzMTJ8&ixlib=rb-4.1.0&q=80&w=1080" alt="Super Good Power Washing Team">
+        </div>
+    </section>
+
+    <!-- TEAM SECTION -->
+    <section class="team" id="team">
+        <div class="section-header">
+            <h2>Meet Our Team</h2>
+            <p>Dedicated professionals committed to your satisfaction</p>
+        </div>
+        <div class="team-grid">
+            <div class="team-card">
+                <div class="team-image">
+                    <img src="https://images.unsplash.com/photo-1560037962-a00331b63f72?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3NzcxODYzMTJ8&ixlib=rb-4.1.0&q=80&w=1080" alt="Michael">
+                </div>
+                <div class="team-info">
+                    <h3>Michael Torres</h3>
+                    <div class="team-role">Founder & Lead Technician</div>
+                    <div class="team-bio">15+ years of experience in professional cleaning. Michael's attention to detail and passion for excellence sets the standard for every project.</div>
+                </div>
+            </div>
+            <div class="team-card">
+                <div class="team-image">
+                    <img src="https://images.unsplash.com/photo-1573815076563-6e8a65e9ce60?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3NzcxODYzMTJ8&ixlib=rb-4.1.0&q=80&w=1080" alt="Jessica">
+                </div>
+                <div class="team-info">
+                    <h3>Jessica Williams</h3>
+                    <div class="team-role">Operations Manager</div>
+                    <div class="team-bio">Ensures every job runs smoothly and on schedule. Jessica handles customer communications and scheduling with amazing professionalism.</div>
+                </div>
+            </div>
+            <div class="team-card">
+                <div class="team-image">
+                    <img src="https://images.unsplash.com/photo-1575621483637-3f7aed7ecfe7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3NzcxODYzMTJ8&ixlib=rb-4.1.0&q=80&w=1080" alt="David">
+                </div>
+                <div class="team-info">
+                    <h3>David Martinez</h3>
+                    <div class="team-role">Senior Technician</div>
+                    <div class="team-bio">Specializes in commercial and large-scale projects. David brings expertise and reliability to every residential and business job.</div>
+                </div>
+            </div>
+            <div class="team-card">
+                <div class="team-image">
+                    <img src="https://images.unsplash.com/photo-1575844611398-2a68400b437c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3NzcxODYzMTJ8&ixlib=rb-4.1.0&q=80&w=1080" alt="Angela">
+                </div>
+                <div class="team-info">
+                    <h3>Angela Lee</h3>
+                    <div class="team-role">Customer Service Lead</div>
+                    <div class="team-bio">Your first point of contact, Angela provides outstanding customer service and ensures satisfaction before, during, and after every project.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ SECTION -->
+    <section class="faq" id="faq">
+        <div class="section-header">
+            <h2>Frequently Asked Questions</h2>
+            <p>Common questions about our power washing services</p>
+        </div>
+        <div class="faq-container">
+            <div class="faq-item active">
+                <div class="faq-question">
+                    <span>How long does a typical power washing job take?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    Most residential jobs take 2-4 hours depending on the size and condition of the area. A standard driveway cleaning typically takes 1-2 hours. We'll provide a time estimate when we schedule your appointment.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Is pressure washing safe for my surfaces?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    Yes! Our team adjusts pressure levels and techniques based on surface material. We safely clean wood decks, delicate pavers, vinyl siding, and more without causing damage. We're fully trained in surface-specific cleaning methods.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Do you use any harsh chemicals?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    We use eco-friendly, biodegradable cleaning solutions whenever possible. Our products are safe for pets, plants, and families. We can also provide chemical-free pressure washing options for sensitive areas.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Can you service commercial properties?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    Absolutely! We specialize in commercial cleaning for office parks, retail storefronts, industrial facilities, and parking lots. We offer flexible scheduling and can handle large-scale projects efficiently.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>How much does power washing cost?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    Pricing depends on the size and condition of the area, type of surface, and distance traveled. We offer free, no-obligation quotes. Most residential jobs range from $200-$800. Call or use our online form for an instant estimate.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>What's your service area?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    We service the greater metropolitan area and surrounding communities within a 35-mile radius. Contact us to confirm your specific address. We offer service even for properties just outside our primary area.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Do I need to be home during the cleaning?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    You don't need to be home, but we recommend someone be present to grant access and answer any questions. We can arrange a time that works best for your schedule, including early morning, evening, or weekend appointments.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA SECTION -->
+    <section class="cta" id="contact">
+        <h2>Ready to Feel Clean?</h2>
+        <p>Get your free quote today and discover why thousands of homeowners and businesses trust Super Good Power Washing.</p>
+        <button class="btn-primary" onclick="alert('Booking system would integrate here. For now, please call or contact us!')">Book Your Service Now</button>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-logo">Super Good Power Washing</div>
+                <p>Professional power washing services that make every surface shine. Licensed, insured, and satisfaction guaranteed.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#services">Our Services</a></li>
+                    <li><a href="#gallery">Gallery</a></li>
+                    <li><a href="#testimonials">Testimonials</a></li>
+                    <li><a href="#team">Meet Our Team</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Services</h4>
+                <ul>
+                    <li><a href="#services">House Washing</a></li>
+                    <li><a href="#services">Driveway & Patio</a></li>
+                    <li><a href="#services">Commercial Properties</a></li>
+                    <li><a href="#services">Roof & Gutter</a></li>
+                    <li><a href="#services">Deck Restoration</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Get In Touch</h4>
+                <ul>
+                    <li><a href="tel:+1-555-0123">(555) 123-4567</a></li>
+                    <li><a href="mailto:hello@supergoodpowerwashing.com">hello@supergood.com</a></li>
+                    <li><a href="#contact">Request a Quote</a></li>
+                    <li>Available 24/7 for quotes</li>
+                    <li>Same-day service available</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Super Good Power Washing. All rights reserved. | Licensed & Insured | Eco-Friendly Solutions</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Hero content animation
+        gsap.fromTo('.hero-content', 
+            { opacity: 0, y: 50 },
+            { opacity: 1, y: 0, duration: 1, ease: 'power3.out' }
+        );
+
+        // Service cards stagger animation
+        gsap.fromTo('.service-card',
+            { opacity: 0, y: 30 },
+            {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                stagger: 0.1,
+                scrollTrigger: {
+                    trigger: '.services',
+                    start: 'top 80%',
+                    markers: false
+                }
+            }
+        );
+
+        // Gallery items animation
+        gsap.fromTo('.gallery-item',
+            { opacity: 0, scale: 0.95 },
+            {
+                opacity: 1,
+                scale: 1,
+                duration: 0.8,
+                stagger: 0.1,
+                scrollTrigger: {
+                    trigger: '.gallery',
+                    start: 'top 80%',
+                    markers: false
+                }
+            }
+        );
+
+        // Testimonial cards animation
+        gsap.fromTo('.testimonial-card',
+            { opacity: 0, x: -30 },
+            {
+                opacity: 1,
+                x: 0,
+                duration: 0.8,
+                stagger: 0.15,
+                scrollTrigger: {
+                    trigger: '.testimonials',
+                    start: 'top 80%',
+                    markers: false
+                }
+            }
+        );
+
+        // Team cards animation
+        gsap.fromTo('.team-card',
+            { opacity: 0, y: 40 },
+            {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                stagger: 0.1,
+                scrollTrigger: {
+                    trigger: '.team',
+                    start: 'top 80%',
+                    markers: false
+                }
+            }
+        );
+
+        // About section animation
+        gsap.fromTo('.about-content',
+            { opacity: 0, x: -50 },
+            {
+                opacity: 1,
+                x: 0,
+                duration: 1,
+                scrollTrigger: {
+                    trigger: '.about',
+                    start: 'top 80%',
+                    markers: false
+                }
+            }
+        );
+
+        gsap.fromTo('.about-image',
+            { opacity: 0, x: 50 },
+            {
+                opacity: 1,
+                x: 0,
+                duration: 1,
+                scrollTrigger: {
+                    trigger: '.about',
+                    start: 'top 80%',
+                    markers: false
+                }
+            }
+        );
+
+        // FAQ functionality
+        const faqItems = document.querySelectorAll('.faq-item');
+        
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            
+            question.addEventListener('click', () => {
+                // Close other items
+                faqItems.forEach(otherItem => {
+                    if (otherItem !== item && otherItem.classList.contains('active')) {
+                        otherItem.classList.remove('active');
+                    }
+                });
+                
+                // Toggle current item
+                item.classList.toggle('active');
+            });
+        });
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Navbar scroll effect
+        let lastScrollTop = 0;
+        const navbar = document.querySelector('nav');
+        
+        window.addEventListener('scroll', () => {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > 100) {
+                navbar.style.boxShadow = '0 2px 10px rgba(0, 51, 102, 0.1)';
+            } else {
+                navbar.style.boxShadow = '0 0 0 rgba(0, 51, 102, 0)';
+            }
+            
+            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+        });
+
+        // Counter animation for stats (if added)
+        function animateCounter(element, target, duration = 2000) {
+            let current = 0;
+            const increment = target / (duration / 16);
+            
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    element.textContent = target;
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(current);
+                }
+            }, 16);
+        }
+    </script>
+</body>
+</html>
