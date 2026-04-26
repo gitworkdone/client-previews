@@ -1,1260 +1,1253 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rivera Outdoor Services — Your Yard, Our Passion</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --primary: #1B3A2B;
-      --accent: #6B9E78;
-      --bg: #FFFFFF;
-      --text: #1B3A2B;
-      --dark: #0A1F14;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: 'Inter', sans-serif;
-      color: var(--text);
-      background-color: var(--bg);
-      line-height: 1.6;
-    }
-
-    h1, h2, h3, h4, h5, h6 {
-      font-family: 'Raleway', sans-serif;
-      font-weight: 600;
-      line-height: 1.1;
-    }
-
-    /* NAVIGATION */
-    nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 999;
-      padding: 1.5rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      transition: all 0.4s ease;
-    }
-
-    nav.scrolled {
-      background-color: var(--bg);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    }
-
-    .nav-logo {
-      font-family: 'Raleway', sans-serif;
-      font-weight: 600;
-      font-size: 1.5rem;
-      color: var(--primary);
-    }
-
-    nav.scrolled .nav-logo {
-      color: var(--primary);
-    }
-
-    nav ul {
-      display: flex;
-      list-style: none;
-      gap: 2.5rem;
-      align-items: center;
-    }
-
-    nav a {
-      text-decoration: none;
-      color: var(--bg);
-      font-size: 0.95rem;
-      font-weight: 500;
-      transition: color 0.3s ease;
-    }
-
-    nav.scrolled a {
-      color: var(--text);
-    }
-
-    nav a:hover {
-      color: var(--accent);
-    }
-
-    .nav-cta {
-      background-color: var(--accent);
-      color: var(--bg);
-      padding: 0.75rem 1.5rem;
-      border-radius: 4px;
-      transition: background-color 0.3s ease;
-    }
-
-    .nav-cta:hover {
-      background-color: var(--primary);
-    }
-
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      cursor: pointer;
-      gap: 6px;
-    }
-
-    .hamburger span {
-      width: 24px;
-      height: 3px;
-      background-color: var(--bg);
-      border-radius: 2px;
-      transition: all 0.3s ease;
-    }
-
-    nav.scrolled .hamburger span {
-      background-color: var(--text);
-    }
-
-    .hamburger.active span:nth-child(1) {
-      transform: rotate(45deg) translate(10px, 10px);
-    }
-
-    .hamburger.active span:nth-child(2) {
-      opacity: 0;
-    }
-
-    .hamburger.active span:nth-child(3) {
-      transform: rotate(-45deg) translate(7px, -7px);
-    }
-
-    /* HERO */
-    .hero {
-      height: 85vh;
-      background-image: url("https://images.pexels.com/photos/36420870/pexels-photo-36420870.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
-      background-size: cover;
-      background-position: center bottom;
-      background-attachment: fixed;
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      align-items: flex-start;
-      padding: 4rem 2rem 4rem 2rem;
-    }
-
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.1) 60%);
-      z-index: 1;
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      max-width: 600px;
-    }
-
-    .hero h1 {
-      font-size: clamp(2.5rem, 8vw, 4.5rem);
-      color: var(--bg);
-      margin-bottom: 1.5rem;
-      font-weight: 600;
-    }
-
-    .hero-cta {
-      display: flex;
-      gap: 2rem;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    .hero-btn {
-      background-color: var(--accent);
-      color: var(--bg);
-      padding: 1rem 2rem;
-      border: none;
-      border-radius: 4px;
-      font-size: 1rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      text-decoration: none;
-      display: inline-block;
-    }
-
-    .hero-btn:hover {
-      background-color: var(--primary);
-    }
-
-    .hero-phone {
-      color: var(--bg);
-      font-size: 1.1rem;
-      font-weight: 500;
-    }
-
-    /* SECTIONS */
-    section {
-      padding: 5rem 2rem;
-    }
-
-    .section-max-width {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    h2 {
-      font-size: clamp(1.8rem, 5vw, 2.8rem);
-      margin-bottom: 0.5rem;
-      color: var(--primary);
-    }
-
-    .section-subtitle {
-      color: var(--accent);
-      font-size: 1rem;
-      margin-bottom: 2rem;
-      font-weight: 500;
-    }
-
-    /* SERVICES */
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
-      margin-top: 3rem;
-    }
-
-    .service-card {
-      background-color: var(--bg);
-      border: 1px solid #E5E5E5;
-      border-radius: 8px;
-      overflow: hidden;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      cursor: pointer;
-    }
-
-    .service-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-    }
-
-    .service-image {
-      height: 300px;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .service-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.5s ease;
-    }
-
-    .service-card:hover .service-image img {
-      transform: scale(1.06);
-    }
-
-    .service-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 70%);
-      display: flex;
-      align-items: flex-end;
-      padding: 2rem;
-      z-index: 2;
-    }
-
-    .service-label {
-      color: var(--bg);
-      font-size: 1.3rem;
-      font-weight: 600;
-      font-family: 'Raleway', sans-serif;
-    }
-
-    .service-content {
-      padding: 2rem;
-    }
-
-    .service-content h3 {
-      color: var(--primary);
-      margin-bottom: 0.75rem;
-      font-size: 1.3rem;
-    }
-
-    .service-content p {
-      color: #555;
-      font-size: 0.95rem;
-      line-height: 1.6;
-    }
-
-    /* ABOUT */
-    #about {
-      background-color: var(--bg);
-    }
-
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-      align-items: center;
-      margin-top: 3rem;
-    }
-
-    .about-image {
-      border-radius: 8px;
-      overflow: hidden;
-      height: 400px;
-    }
-
-    .about-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .about-content h3 {
-      font-size: 1.8rem;
-      color: var(--primary);
-      margin-bottom: 1.5rem;
-      margin-top: 1rem;
-    }
-
-    .about-content p {
-      margin-bottom: 1.5rem;
-      color: #555;
-      font-size: 0.95rem;
-      line-height: 1.8;
-    }
-
-    .about-list {
-      list-style: none;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-      margin-top: 2rem;
-    }
-
-    .about-list li {
-      color: var(--primary);
-      font-weight: 500;
-      padding-left: 1.5rem;
-      position: relative;
-    }
-
-    .about-list li::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 8px;
-      height: 8px;
-      background-color: var(--accent);
-      border-radius: 50%;
-    }
-
-    /* PROCESS */
-    #process {
-      background-color: var(--dark);
-      color: var(--bg);
-    }
-
-    #process h2 {
-      color: var(--bg);
-    }
-
-    #process .section-subtitle {
-      color: var(--accent);
-    }
-
-    .process-timeline {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 2rem;
-      margin-top: 3rem;
-    }
-
-    .process-step {
-      position: relative;
-      padding-left: 3.5rem;
-    }
-
-    .process-number {
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 50px;
-      height: 50px;
-      background-color: var(--accent);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-      font-weight: 600;
-      font-family: 'Raleway', sans-serif;
-      color: var(--dark);
-    }
-
-    .process-step h3 {
-      color: var(--bg);
-      margin-bottom: 0.75rem;
-      font-size: 1.2rem;
-    }
-
-    .process-step p {
-      color: #CCC;
-      line-height: 1.6;
-      font-size: 0.95rem;
-    }
-
-    /* TESTIMONIALS */
-    #testimonials {
-      background-color: var(--bg);
-    }
-
-    .testimonials-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-      margin-top: 3rem;
-    }
-
-    .testimonial-card {
-      background-color: #F9F9F9;
-      padding: 2rem;
-      border-radius: 8px;
-      border-left: 4px solid var(--accent);
-    }
-
-    .testimonial-text {
-      color: #555;
-      margin-bottom: 1.5rem;
-      font-style: italic;
-      line-height: 1.8;
-      font-size: 0.95rem;
-    }
-
-    .testimonial-author {
-      color: var(--primary);
-      font-weight: 600;
-      font-size: 0.95rem;
-    }
-
-    .testimonial-role {
-      color: var(--accent);
-      font-size: 0.85rem;
-      font-weight: 500;
-    }
-
-    /* GALLERY */
-    #gallery {
-      background-color: var(--bg);
-    }
-
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.5rem;
-      margin-top: 3rem;
-    }
-
-    .gallery-item {
-      border-radius: 8px;
-      overflow: hidden;
-      height: 280px;
-      cursor: pointer;
-    }
-
-    .gallery-item img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.5s ease;
-    }
-
-    .gallery-item:hover img {
-      transform: scale(1.06);
-    }
-
-    /* STATS */
-    .stats-section {
-      background-color: var(--dark);
-      color: var(--bg);
-      padding: 4rem 2rem;
-      margin: 3rem 0 0 0;
-    }
-
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 2rem;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .stat-item {
-      text-align: center;
-    }
-
-    .stat-number {
-      font-size: 2.5rem;
-      font-weight: 600;
-      font-family: 'Raleway', sans-serif;
-      color: var(--accent);
-      margin-bottom: 0.5rem;
-    }
-
-    .stat-label {
-      color: #CCC;
-      font-size: 0.95rem;
-    }
-
-    /* CTA SECTION */
-    #cta {
-      background-image: url("https://images.unsplash.com/photo-1650307770457-225e2bff63d9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHw4fHxiZWF1dGlmdWwlMjBncmVlbiUyMGdhcmRlbiUyMG5hdHVyZSUyMHNlcmVuZSUyMHN1bmxpZ2h0JTIwYmFja2dyb3VuZHxlbnwwfDB8fHwxNzc3MjM5NTYxfDA&ixlib=rb-4.1.0&q=80&w=1080");
-      background-size: cover;
-      background-position: center;
-      position: relative;
-      padding: 5rem 2rem;
-      text-align: center;
-      color: var(--bg);
-    }
-
-    #cta::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(to right, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6));
-      z-index: 1;
-    }
-
-    #cta .section-max-width {
-      position: relative;
-      z-index: 2;
-    }
-
-    #cta h2 {
-      color: var(--bg);
-      margin-bottom: 1.5rem;
-    }
-
-    #cta p {
-      color: var(--bg);
-      margin-bottom: 2rem;
-      font-size: 1.1rem;
-    }
-
-    /* CONTACT */
-    #contact {
-      background-color: var(--bg);
-    }
-
-    .contact-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-      margin-top: 3rem;
-    }
-
-    .contact-form {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-    }
-
-    .form-group {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .form-group label {
-      color: var(--primary);
-      font-weight: 500;
-      margin-bottom: 0.5rem;
-    }
-
-    .form-group input,
-    .form-group textarea {
-      padding: 0.75rem;
-      border: 1px solid #DDD;
-      border-radius: 4px;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.95rem;
-      color: var(--text);
-      transition: border-color 0.3s ease;
-    }
-
-    .form-group input:focus,
-    .form-group textarea:focus {
-      outline: none;
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(107, 158, 120, 0.1);
-    }
-
-    .form-group textarea {
-      resize: vertical;
-      min-height: 150px;
-    }
-
-    .form-submit {
-      background-color: var(--accent);
-      color: var(--bg);
-      padding: 1rem;
-      border: none;
-      border-radius: 4px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      font-size: 1rem;
-    }
-
-    .form-submit:hover {
-      background-color: var(--primary);
-    }
-
-    .contact-info {
-      display: flex;
-      flex-direction: column;
-      gap: 2.5rem;
-    }
-
-    .contact-info-item h3 {
-      color: var(--primary);
-      margin-bottom: 0.75rem;
-      font-size: 1.1rem;
-    }
-
-    .contact-info-item p {
-      color: #555;
-      line-height: 1.8;
-      font-size: 0.95rem;
-    }
-
-    .contact-info-item a {
-      color: var(--accent);
-      text-decoration: none;
-      font-weight: 500;
-    }
-
-    .contact-info-item a:hover {
-      text-decoration: underline;
-    }
-
-    /* FOOTER */
-    footer {
-      background-color: var(--dark);
-      color: var(--bg);
-      padding: 3rem 2rem;
-      text-align: center;
-    }
-
-    footer p {
-      margin-bottom: 0.5rem;
-      font-size: 0.9rem;
-    }
-
-    /* ANIMATIONS */
-    .reveal {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-
-    .reveal.show {
-      animation: revealShow 0.8s ease forwards;
-    }
-
-    .reveal.slide-left {
-      transform: translateX(-50px) translateY(30px);
-      animation: slideLeft 0.8s ease forwards;
-    }
-
-    .reveal.slide-right {
-      transform: translateX(50px) translateY(30px);
-      animation: slideRight 0.8s ease forwards;
-    }
-
-    @keyframes revealShow {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes slideLeft {
-      to {
-        opacity: 1;
-        transform: translateX(0) translateY(0);
-      }
-    }
-
-    @keyframes slideRight {
-      to {
-        opacity: 1;
-        transform: translateX(0) translateY(0);
-      }
-    }
-
-    /* RESPONSIVE */
-    @media (max-width: 768px) {
-      nav ul {
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        flex-direction: column;
-        gap: 0;
-        background-color: var(--primary);
-        padding: 1.5rem;
-        border-radius: 0 0 8px 8px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      }
-
-      nav ul.nav-open {
-        display: flex;
-      }
-
-      nav a {
-        color: var(--bg);
-        padding: 0.75rem 0;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      }
-
-      nav.scrolled a {
-        color: var(--bg);
-      }
-
-      .hamburger {
-        display: flex;
-      }
-
-      .about-grid,
-      .contact-grid {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-      }
-
-      .about-image {
-        height: 300px;
-      }
-
-      .about-list {
-        grid-template-columns: 1fr;
-      }
-
-      section {
-        padding: 3rem 1.5rem;
-      }
-
-      .hero {
-        padding: 3rem 1.5rem 3rem 1.5rem;
-      }
-
-      .hero h1 {
-        font-size: 2rem;
-      }
-
-      .hero-cta {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      h2 {
-        font-size: 1.8rem;
-      }
-
-      .process-timeline,
-      .testimonials-container,
-      .gallery-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .services-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (max-width: 640px) {
-      nav {
-        padding: 1rem 1.5rem;
-      }
-
-      .nav-logo {
-        font-size: 1.2rem;
-      }
-
-      .hero h1 {
-        font-size: 1.5rem;
-        margin-bottom: 1rem;
-      }
-
-      .hero-phone {
-        font-size: 0.95rem;
-      }
-
-      .hero-btn {
-        padding: 0.75rem 1.5rem;
-        font-size: 0.9rem;
-      }
-
-      h2 {
-        font-size: 1.5rem;
-      }
-
-      .stats-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .stat-number {
-        font-size: 2rem;
-      }
-
-      section {
-        padding: 2.5rem 1rem;
-      }
-
-      .service-content {
-        padding: 1.5rem;
-      }
-
-      .contact-form,
-      .contact-info {
-        gap: 1rem;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rivera Outdoor Services — Your Yard, Our Passion</title>
+    <style>
+        :root {
+            --forest: #1B4332;
+            --sage: #52B788;
+            --cream: #FEFAE0;
+            --navy: #1a2b3d;
+            --text-primary: #1A1A1A;
+            --text-secondary: #4a4a4a;
+            --bg-primary: #FAFAFA;
+            --bg-secondary: #f5f5f5;
+            --border: #e8e8e8;
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 2rem;
+            --spacing-lg: 4rem;
+            --spacing-xl: 6rem;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            color: var(--text-primary);
+            background-color: var(--bg-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            font-weight: 900;
+        }
+
+        h2 {
+            font-size: clamp(1.875rem, 5vw, 3rem);
+        }
+
+        h3 {
+            font-size: 1.5rem;
+        }
+
+        p {
+            font-size: 1.0625rem;
+            color: var(--text-secondary);
+        }
+
+        a {
+            color: var(--forest);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        a:hover {
+            color: var(--sage);
+        }
+
+        button {
+            font-family: 'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-md);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 2.5rem;
+            border-radius: 2px;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-primary {
+            background-color: var(--forest);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--navy);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--forest);
+            border: 2px solid var(--forest);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--forest);
+            color: white;
+        }
+
+        /* Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            transition: var(--transition);
+        }
+
+        nav.scrolled {
+            background-color: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.5rem var(--spacing-md);
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--forest);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: var(--spacing-lg);
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--sage);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            background: none;
+            padding: 0;
+            width: 32px;
+        }
+
+        .hamburger span {
+            width: 28px;
+            height: 3px;
+            background-color: var(--text-primary);
+            border-radius: 2px;
+            transition: var(--transition);
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 70px;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                background-color: white;
+                padding: var(--spacing-md);
+                gap: var(--spacing-md);
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s ease;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .nav-links.active {
+                max-height: 400px;
+            }
+
+            .nav-links a::after {
+                display: none;
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(27, 67, 50, 0.65) 0%, rgba(82, 183, 136, 0.45) 100%);
+            z-index: 1;
+        }
+
+        .hero {
+            background: url('https://images.unsplash.com/photo-1664464683525-29b5d442af54?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHw2fHxtb2Rlcm4lMjBwcm9mZXNzaW9uYWwlMjBidXNpbmVzcyUyMG9mZmljZSUyMGludGVyaW9yJTIwYnJpZ2h0JTIwY2xlYW4lMjBvcGVufGVufDB8MHx8fDE3NzcyNDM4Mjd8MA&ixlib=rb-4.1.0&q=80&w=1080') center/cover no-repeat;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            color: white;
+            max-width: 600px;
+            animation: slideUp 0.8s ease-out;
+        }
+
+        .hero-tagline {
+            font-size: 1.125rem;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: var(--spacing-md);
+            opacity: 0.95;
+        }
+
+        .hero h1 {
+            color: white;
+            margin-bottom: var(--spacing-md);
+            line-height: 1.1;
+        }
+
+        .hero p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.25rem;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: var(--spacing-md);
+            flex-wrap: wrap;
+        }
+
+        .hero .btn-primary {
+            background-color: var(--cream);
+            color: var(--forest);
+        }
+
+        .hero .btn-primary:hover {
+            background-color: white;
+        }
+
+        .hero .btn-secondary {
+            border-color: white;
+            color: white;
+        }
+
+        .hero .btn-secondary:hover {
+            background-color: white;
+            color: var(--forest);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-content {
+                padding: var(--spacing-md);
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.05rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .hero .btn {
+                width: 100%;
+            }
+        }
+
+        /* Services Section */
+        .services {
+            padding: var(--spacing-xl) var(--spacing-md);
+            background-color: var(--bg-primary);
+        }
+
+        .services-header {
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .services-header h2 {
+            margin-bottom: var(--spacing-md);
+            color: var(--forest);
+        }
+
+        .services-header p {
+            font-size: 1.125rem;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .service-card {
+            background-color: white;
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: var(--transition);
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .service-card.reveal {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .service-card:hover {
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            transform: translateY(-4px);
+        }
+
+        .service-card-image {
+            width: 100%;
+            height: 250px;
+            background-color: var(--bg-secondary);
+        }
+
+        .service-card-content {
+            padding: var(--spacing-lg);
+        }
+
+        .service-card h3 {
+            margin-bottom: var(--spacing-sm);
+            color: var(--forest);
+        }
+
+        .service-card p {
+            margin-bottom: var(--spacing-md);
+            font-size: 1rem;
+        }
+
+        .service-card a {
+            font-weight: 600;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+        }
+
+        /* About Section */
+        .about {
+            padding: var(--spacing-xl) var(--spacing-md);
+            background-color: white;
+        }
+
+        .about-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-xl);
+            align-items: center;
+        }
+
+        .about-image {
+            width: 100%;
+            height: 450px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .about-content h2 {
+            color: var(--forest);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .about-content p {
+            margin-bottom: var(--spacing-md);
+        }
+
+        .about-list {
+            list-style: none;
+            margin: var(--spacing-lg) 0;
+            padding: 0;
+        }
+
+        .about-list li {
+            padding: var(--spacing-sm) 0;
+            padding-left: var(--spacing-lg);
+            position: relative;
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
+
+        .about-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 8px;
+            background-color: var(--sage);
+            border-radius: 50%;
+        }
+
+        @media (max-width: 1024px) {
+            .about-container {
+                grid-template-columns: 1fr;
+            }
+
+            .about-image {
+                height: 350px;
+            }
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            padding: var(--spacing-xl) var(--spacing-md);
+            background-color: var(--bg-secondary);
+        }
+
+        .testimonials-header {
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .testimonials-header h2 {
+            color: var(--forest);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-lg);
+        }
+
+        .testimonial-card {
+            background-color: white;
+            padding: var(--spacing-lg);
+            border-radius: 4px;
+            border-left: 4px solid var(--sage);
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .testimonial-card.reveal {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .testimonial-text {
+            font-size: 1rem;
+            margin-bottom: var(--spacing-md);
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            color: var(--forest);
+            font-size: 0.95rem;
+        }
+
+        .testimonial-role {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-top: var(--spacing-xs);
+        }
+
+        /* FAQ Section */
+        .faq {
+            padding: var(--spacing-xl) var(--spacing-md);
+            background-color: white;
+        }
+
+        .faq-header {
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .faq-header h2 {
+            color: var(--forest);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid var(--border);
+            padding: var(--spacing-lg) 0;
+        }
+
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: var(--spacing-md);
+            cursor: pointer;
+            padding: var(--spacing-md) 0;
+            user-select: none;
+            font-weight: 600;
+            color: var(--text-primary);
+            transition: var(--transition);
+        }
+
+        .faq-question:hover {
+            color: var(--sage);
+        }
+
+        .faq-toggle {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .faq-toggle::after {
+            content: '';
+            width: 8px;
+            height: 8px;
+            border-right: 2px solid currentColor;
+            border-bottom: 2px solid currentColor;
+            transform: rotate(-45deg);
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-toggle::after {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            color: var(--text-secondary);
+            font-weight: 400;
+            font-size: 1rem;
+            padding: 0;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+            padding: var(--spacing-md) 0;
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: var(--spacing-xl) var(--spacing-md);
+            background: linear-gradient(135deg, rgba(27, 67, 50, 0.05), rgba(82, 183, 136, 0.05));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: -200px;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(82, 183, 136, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .cta-container {
+            position: relative;
+            z-index: 1;
+            max-width: 700px;
+            text-align: center;
+            margin: 0 auto;
+        }
+
+        .cta h2 {
+            color: var(--forest);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .cta p {
+            font-size: 1.125rem;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .cta-form {
+            display: flex;
+            gap: var(--spacing-sm);
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .cta-form input {
+            flex: 1;
+            min-width: 250px;
+            padding: 1rem var(--spacing-md);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            font-size: 1rem;
+            font-family: 'Source Sans 3', sans-serif;
+            transition: var(--transition);
+        }
+
+        .cta-form input:focus {
+            outline: none;
+            border-color: var(--forest);
+            box-shadow: 0 0 0 3px rgba(27, 67, 50, 0.1);
+        }
+
+        .cta-form button {
+            padding: 1rem var(--spacing-lg);
+        }
+
+        @media (max-width: 768px) {
+            .cta-form {
+                flex-direction: column;
+            }
+
+            .cta-form input,
+            .cta-form button {
+                width: 100%;
+            }
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--navy);
+            color: white;
+            padding: var(--spacing-xl) var(--spacing-md);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-xl);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .footer-section h3 {
+            color: var(--cream);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.95rem;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .footer-section a:hover {
+            color: var(--sage);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .footer-divider {
+            height: 1px;
+            background-color: rgba(255, 255, 255, 0.1);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: var(--spacing-lg);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Scroll Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .reveal.show {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: var(--spacing-xl) var(--spacing-md);
+            background-color: var(--forest);
+            color: white;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-lg);
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: var(--spacing-sm);
+            color: var(--cream);
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 var(--spacing-sm);
+            }
+
+            .nav-container {
+                padding: 1rem var(--spacing-sm);
+            }
+
+            .services,
+            .about,
+            .testimonials,
+            .faq,
+            .cta,
+            footer {
+                padding: var(--spacing-lg) var(--spacing-sm);
+            }
+
+            .about-container,
+            .services-grid {
+                gap: var(--spacing-lg);
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- Navigation -->
+    <nav id="nav">
+        <div class="nav-container">
+            <div class="logo">ROS</div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#services">Services</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#testimonials">Testimonials</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
 
-  <!-- NAVIGATION -->
-  <nav>
-    <div class="nav-logo">Rivera Outdoor</div>
-    <ul id="navMenu">
-      <li><a href="#home">Home</a></li>
-      <li><a href="#services">Services</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#gallery">Gallery</a></li>
-      <li><a href="#contact" class="nav-cta">Contact Us</a></li>
-    </ul>
-    <div class="hamburger" id="hamburger">
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
-  </nav>
-
-  <!-- HERO -->
-  <section class="hero" id="home">
-    <div class="hero-content">
-      <h1>Your Yard, Our Passion</h1>
-      <div class="hero-cta">
-        <a href="#services" class="hero-btn">Explore Services</a>
-        <div class="hero-phone">(404) 555-0147</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SERVICES -->
-  <section id="services">
-    <div class="section-max-width">
-      <h2>Our Services</h2>
-      <p class="section-subtitle">Professional outdoor care for Atlanta homes and businesses</p>
-      
-      <div class="services-grid">
-        <div class="service-card reveal">
-          <div class="service-image">
-            <img src="https://images.unsplash.com/photo-1764969370921-7c8df49171cd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwyfHxsYXduJTIwbW93aW5nJTIwcHJvZmVzc2lvbmFsJTIwbGFuZHNjYXBpbmclMjBncmFzcyUyMHRyaW1tZWQlMjBjbGVhbnxlbnwwfDB8fHwxNzc3MjM5NTYxfDA&ixlib=rb-4.1.0&q=80&w=1080" alt="Lawn Care">
-            <div class="service-overlay">
-              <span class="service-label">Lawn Care</span>
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-tagline">Your Outdoor Space Deserves Excellence</div>
+            <h1>Your Yard, Our Passion</h1>
+            <p>Professional landscaping and lawn care services for Atlanta's finest homes and properties.</p>
+            <div class="hero-buttons">
+                <button class="btn btn-primary" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Get Started</button>
+                <button class="btn btn-secondary" onclick="document.getElementById('services').scrollIntoView({behavior:'smooth'})">Learn More</button>
             </div>
-          </div>
-          <div class="service-content">
-            <h3>Lawn Mowing & Maintenance</h3>
-            <p>Weekly or bi-weekly mowing with edging, trimming, and debris removal. Keep your lawn healthy and pristine year-round.</p>
-          </div>
         </div>
+    </section>
 
-        <div class="service-card reveal">
-          <div class="service-image">
-            <img src="https://images.pexels.com/photos/36109618/pexels-photo-36109618.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Garden Design">
-            <div class="service-overlay">
-              <span class="service-label">Landscaping</span>
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-number" data-target="500">0</div>
+                <div class="stat-label">Properties Serviced</div>
             </div>
-          </div>
-          <div class="service-content">
-            <h3>Landscape Design & Installation</h3>
-            <p>Custom garden beds, planting designs, hardscaping, and complete yard transformations. We bring your vision to life.</p>
-          </div>
-        </div>
-
-        <div class="service-card reveal">
-          <div class="service-image">
-            <img src="https://images.unsplash.com/photo-1761975008722-8ebdf136b134?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHw0fHx0cmVlJTIwdHJpbW1pbmclMjBwcnVuaW5nJTIwYXJib3Jpc3QlMjBwcm9mZXNzaW9uYWwlMjBvdXRkb29yfGVufDB8MHx8fDE3NzcyMzk1NjF8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="Tree Trimming">
-            <div class="service-overlay">
-              <span class="service-label">Tree Care</span>
+            <div class="stat-item">
+                <div class="stat-number" data-target="15">0</div>
+                <div class="stat-label">Years Experience</div>
             </div>
-          </div>
-          <div class="service-content">
-            <h3>Tree Trimming & Removal</h3>
-            <p>Professional arborists provide safe pruning, tree removal, and stump grinding with full cleanup included.</p>
-          </div>
-        </div>
-
-        <div class="service-card reveal">
-          <div class="service-image">
-            <img src="https://images.unsplash.com/photo-1615478494918-1a49c8ecd568?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHw2fHxiZWF1dGlmdWwlMjBsYW5kc2NhcGluZyUyMHRyYW5zZm9ybWF0aW9uJTIweWFyZCUyMGJlZm9yZSUyMGFmdGVyJTIwcmVzdWx0fGVufDB8MHx8fDE3NzcyMzk1NjF8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="Landscape Transformation">
-            <div class="service-overlay">
-              <span class="service-label">Full Service</span>
+            <div class="stat-item">
+                <div class="stat-number" data-target="98">0</div>
+                <div class="stat-label">Client Satisfaction %</div>
             </div>
-          </div>
-          <div class="service-content">
-            <h3>Complete Yard Maintenance</h3>
-            <p>From mulching and weeding to seasonal cleanups and pressure washing, we handle everything to keep your property beautiful.</p>
-          </div>
+            <div class="stat-item">
+                <div class="stat-number" data-target="12">0</div>
+                <div class="stat-label">Team Members</div>
+            </div>
         </div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ABOUT -->
-  <section id="about">
-    <div class="section-max-width">
-      <h2>About Rivera Outdoor Services</h2>
-      <p class="section-subtitle">Excellence in outdoor care since 2010</p>
-
-      <div class="about-grid">
-        <div class="about-image">
-          <img src="https://images.unsplash.com/photo-1739595416666-9e0934c64363?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwyfHxsYW5kc2NhcGVyJTIwZ2FyZGVuZXIlMjBwcm9mZXNzaW9uYWwlMjBzbWlsaW5nJTIwb3V0ZG9vciUyMGNyZXclMjB1bmlmb3JtfGVufDB8MHx8fDE3NzcyMzk1NjF8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="Our Team">
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="container">
+            <div class="services-header">
+                <h2>What We Offer</h2>
+                <p>Comprehensive outdoor maintenance solutions tailored to your property's unique needs.</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card reveal">
+                    <img src="https://images.pexels.com/photos/9034783/pexels-photo-9034783.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Lawn Care Services" class="service-card-image" loading="lazy">
+                    <div class="service-card-content">
+                        <h3>Lawn Care</h3>
+                        <p>Regular mowing, edging, and maintenance to keep your lawn healthy and pristine year-round.</p>
+                        <a href="#contact">Learn more →</a>
+                    </div>
+                </div>
+                <div class="service-card reveal">
+                    <img src="https://images.unsplash.com/photo-1714976327277-8538b7eee228?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwyfHx0ZWFtd29yayUyMGNvbGxhYm9yYXRpb24lMjBicmFpbnN0b3JtaW5nJTIwcHJvZmVzc2lvbmFsJTIwb2ZmaWNlJTIwZW5lcmd5fGVufDB8MHx8fDE3NzcyNDM4Mjh8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="Landscaping Design" class="service-card-image" loading="lazy">
+                    <div class="service-card-content">
+                        <h3>Landscaping Design</h3>
+                        <p>Transform your outdoor space with custom landscape designs that enhance curb appeal and property value.</p>
+                        <a href="#contact">Learn more →</a>
+                    </div>
+                </div>
+                <div class="service-card reveal">
+                    <img src="https://images.unsplash.com/photo-1766066014237-00645c74e9c6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwzfHxjdXN0b21lciUyMHNlcnZpY2UlMjBzdXBwb3J0JTIwc21pbGluZyUyMHByb2Zlc3Npb25hbCUyMGhlbHBmdWwlMjBmcmllbmRseXxlbnwwfDB8fHwxNzc3MjQzODI5fDA&ixlib=rb-4.1.0&q=80&w=1080" alt="Tree Trimming & Removal" class="service-card-image" loading="lazy">
+                    <div class="service-card-content">
+                        <h3>Tree Services</h3>
+                        <p>Expert tree trimming, pruning, and removal services performed by certified professionals.</p>
+                        <a href="#contact">Learn more →</a>
+                    </div>
+                </div>
+            </div>
         </div>
+    </section>
 
-        <div class="about-content reveal">
-          <h3>Our Story</h3>
-          <p>Founded by Marco Rivera, our company has been serving Atlanta homeowners and businesses for over a decade. What started as a small residential service has grown into a trusted name for comprehensive outdoor maintenance.</p>
-          <p>We believe every yard deserves professional care. Our team of certified landscapers brings expertise, reliability, and a genuine passion for creating beautiful outdoor spaces that enhance your home's curb appeal and value.</p>
-          
-          <h3>Why Choose Us?</h3>
-          <ul class="about-list">
-            <li>Licensed & Insured</li>
-            <li>10+ Years Experience</li>
-            <li>Certified Professionals</li>
-            <li>Free Estimates</li>
-            <li>Eco-Friendly Practices</li>
-            <li>Same-Day Response</li>
-          </ul>
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="about-container">
+                <img src="https://images.pexels.com/photos/5439476/pexels-photo-5439476.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Rivera Outdoor Services Team" class="about-image" loading="lazy">
+                <div class="about-content reveal">
+                    <h2>About Rivera Outdoor Services</h2>
+                    <p>Founded on the principle that every outdoor space tells a story, Rivera Outdoor Services has been transforming Atlanta's residential and commercial properties for over a decade.</p>
+                    <p>Our team of dedicated professionals combines technical expertise with genuine passion for landscaping and outdoor maintenance. We believe that a well-maintained yard isn't just about aesthetics—it's about creating spaces where memories are made.</p>
+                    <ul class="about-list">
+                        <li>Licensed and insured professionals</li>
+                        <li>Eco-friendly and sustainable practices</li>
+                        <li>Free consultations and detailed estimates</li>
+                        <li>Emergency service availability</li>
+                        <li>Transparent communication and reliability</li>
+                    </ul>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- PROCESS -->
-  <section id="process">
-    <div class="section-max-width">
-      <h2>Our Process</h2>
-      <p class="section-subtitle">Four simple steps to your perfect yard</p>
-
-      <div class="process-timeline">
-        <div class="process-step reveal slide-left">
-          <div class="process-number">1</div>
-          <h3>Free Consultation</h3>
-          <p>We visit your property, discuss your goals, assess your landscape, and provide a detailed free estimate with no obligation.</p>
+    <!-- Testimonials Section -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <div class="testimonials-header">
+                <h2>What Our Clients Say</h2>
+                <p>Real feedback from homeowners and property managers across Atlanta.</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card reveal">
+                    <div class="testimonial-text">"Rivera Outdoor Services completely transformed our backyard. The attention to detail and professionalism exceeded our expectations. Highly recommended!"</div>
+                    <div class="testimonial-author">Sarah Mitchell</div>
+                    <div class="testimonial-role">Homeowner, Buckhead</div>
+                </div>
+                <div class="testimonial-card reveal">
+                    <div class="testimonial-text">"As a property manager overseeing multiple units, finding a reliable landscaping service was challenging. Rivera has been consistent, professional, and affordable."</div>
+                    <div class="testimonial-author">James Rodriguez</div>
+                    <div class="testimonial-role">Property Manager, Sandy Springs</div>
+                </div>
+                <div class="testimonial-card reveal">
+                    <div class="testimonial-text">"The team's knowledge of local plants and Atlanta's climate is impressive. They created a landscape that not only looks beautiful but thrives year-round."</div>
+                    <div class="testimonial-author">Patricia Chen</div>
+                    <div class="testimonial-role">Homeowner, Virginia Highlands</div>
+                </div>
+            </div>
         </div>
+    </section>
 
-        <div class="process-step reveal slide-right">
-          <div class="process-number">2</div>
-          <h3>Custom Plan</h3>
-          <p>Our designers create a customized maintenance plan or design tailored to your property, budget, and preferences.</p>
+    <!-- Portfolio/Gallery Section -->
+    <section class="services" style="background-color: white;">
+        <div class="container">
+            <div class="services-header">
+                <h2>Recent Projects</h2>
+                <p>Before and after transformations from our satisfied clients.</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card reveal">
+                    <img src="https://images.unsplash.com/photo-1758518729240-7162d07427b8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHw0fHxidXNpbmVzcyUyMHN1Y2Nlc3MlMjBhY2hpZXZlbWVudCUyMHByb2Zlc3Npb25hbCUyMHJlc3VsdCUyMHBhcnRuZXJzaGlwfGVufDB8MHx8fDE3NzcyNDM4Mjl8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="Residential Landscape Project" class="service-card-image" loading="lazy">
+                    <div class="service-card-content">
+                        <h3>Residential Transformation</h3>
+                        <p>Complete landscape redesign featuring new plantings, hardscaping, and sustainable irrigation system for a Buckhead estate.</p>
+                    </div>
+                </div>
+                <div class="service-card reveal">
+                    <img src="https://images.pexels.com/photos/196658/pexels-photo-196658.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Commercial Maintenance" class="service-card-image" loading="lazy">
+                    <div class="service-card-content">
+                        <h3>Commercial Maintenance</h3>
+                        <p>Ongoing landscape maintenance and seasonal plantings for corporate office complex with multiple properties.</p>
+                    </div>
+                </div>
+                <div class="service-card reveal">
+                    <img src="https://images.pexels.com/photos/8941369/pexels-photo-8941369.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Tree Service Project" class="service-card-image" loading="lazy">
+                    <div class="service-card-content">
+                        <h3>Tree Care & Pruning</h3>
+                        <p>Strategic tree trimming and health assessment for mature oak trees preserving property aesthetics and safety.</p>
+                    </div>
+                </div>
+            </div>
         </div>
+    </section>
 
-        <div class="process-step reveal slide-left">
-          <div class="process-number">3</div>
-          <h3>Professional Service</h3>
-          <p>Our certified team executes the plan with attention to detail, using quality equipment and eco-friendly techniques.</p>
+    <!-- FAQ Section -->
+    <section class="faq" id="faq">
+        <div class="container">
+            <div class="faq-header">
+                <h2>Frequently Asked Questions</h2>
+                <p>Find answers to common questions about our services.</p>
+            </div>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What areas do you service?</span>
+                        <div class="faq-toggle"></div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We provide comprehensive landscaping and lawn care services throughout the Atlanta metropolitan area, including Buckhead, Sandy Springs, Marietta, Alpharetta, and surrounding suburbs. We also serve both residential and commercial properties.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How often should I schedule lawn maintenance?</span>
+                        <div class="faq-toggle"></div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>During the growing season (spring through fall), we typically recommend weekly or bi-weekly lawn mowing depending on your lawn's growth rate and your aesthetic preferences. Winter maintenance is less frequent. We'll assess your property and provide personalized recommendations during your free consultation.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Do you offer one-time services or just ongoing contracts?</span>
+                        <div class="faq-toggle"></div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We offer both! Whether you need a one-time cleanup, seasonal service, or ongoing maintenance contracts, we can customize a solution for your needs. Contact us to discuss what works best for your property.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Are your practices environmentally friendly?</span>
+                        <div class="faq-toggle"></div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, sustainability is core to our approach. We use eco-friendly products, practice proper waste management, employ efficient irrigation techniques, and recommend native plantings that support local ecosystems.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What should I do to prepare for my first service?</span>
+                        <div class="faq-toggle"></div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>There's no special preparation needed! Our team will conduct a walkthrough, discuss your preferences and concerns, and ensure any obstacles are clearly marked. Just let us know about any specific areas you'd like us to focus on during your initial consultation.</p>
+                    </div>
+                </div>
+            </div>
         </div>
+    </section>
 
-        <div class="process-step reveal slide-right">
-          <div class="process-number">4</div>
-          <h3>Ongoing Care</h3>
-          <p>We provide scheduled maintenance visits and seasonal adjustments to keep your yard thriving year-round.</p>
+    <!-- CTA Section -->
+    <section class="cta" id="contact">
+        <div class="cta-container">
+            <h2>Ready to Transform Your Outdoor Space?</h2>
+            <p>Get a free consultation and custom estimate from our team today.</p>
+            <form class="cta-form" onsubmit="handleContactSubmit(event)">
+                <input type="email" name="email" placeholder="Your Email Address" required>
+                <button type="submit" class="btn btn-primary">Get Free Consultation</button>
+            </form>
+            <p style="font-size: 0.9rem; margin-top: var(--spacing-lg); color: var(--text-secondary);">We'll reach out within 24 hours to schedule your free estimate.</p>
         </div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- TESTIMONIALS -->
-  <section id="testimonials">
-    <div class="section-max-width">
-      <h2>What Our Clients Say</h2>
-      <p class="section-subtitle">Real results from happy homeowners</p>
-
-      <div class="testimonials-container">
-        <div class="testimonial-card reveal">
-          <p class="testimonial-text">"Marco and his team transformed our backyard. The landscaping design looks professional, and the maintenance has been consistent and reliable. Highly recommend!"</p>
-          <p class="testimonial-author">Sarah Mitchell</p>
-          <p class="testimonial-role">Homeowner, Buckhead</p>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Rivera Outdoor Services</h3>
+                    <p>Professional landscaping and lawn care for Atlanta's finest properties.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Services</h3>
+                    <ul class="footer-links">
+                        <li><a href="#services">Lawn Care</a></li>
+                        <li><a href="#services">Landscaping Design</a></li>
+                        <li><a href="#services">Tree Services</a></li>
+                        <li><a href="#services">Maintenance Plans</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Company</h3>
+                    <ul class="footer-links">
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#testimonials">Testimonials</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Service Areas</h3>
+                    <p>Atlanta Metro Area</p>
+                    <p>Including Buckhead, Sandy Springs, Marietta, Alpharetta, and surrounding suburbs.</p>
+                </div>
+            </div>
+            <div class="footer-divider"></div>
+            <div class="footer-bottom">
+                <p>Rivera Outdoor Services. All rights reserved. Your Yard, Our Passion.</p>
+            </div>
         </div>
+    </footer>
 
-        <div class="testimonial-card reveal">
-          <p class="testimonial-text">"As a property manager, I've worked with several landscaping companies. Rivera Outdoor is the best—professional, affordable, and they show up on time every visit."</p>
-          <p class="testimonial-author">David Chen</p>
-          <p class="testimonial-role">Property Manager, Marietta</p>
-        </div>
+    <script>
+        // Mobile Menu Toggle
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
 
-        <div class="testimonial-card reveal">
-          <p class="testimonial-text">"After a major storm, they removed fallen trees and cleaned up our entire yard within 48 hours. Outstanding emergency service!"</p>
-          <p class="testimonial-author">Jennifer Lopez</p>
-          <p class="testimonial-role">Homeowner, Dunwoody</p>
-        </div>
-      </div>
-    </div>
-  </section>
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
 
-  <!-- STATS -->
-  <div class="stats-section">
-    <div class="stats-grid">
-      <div class="stat-item reveal">
-        <div class="stat-number" data-target="1200">0</div>
-        <div class="stat-label">Properties Maintained</div>
-      </div>
-      <div class="stat-item reveal">
-        <div class="stat-number" data-target="98">0</div>
-        <div class="stat-label">% Client Satisfaction</div>
-      </div>
-      <div class="stat-item reveal">
-        <div class="stat-number" data-target="50">0</div>
-        <div class="stat-label">Staff Members</div>
-      </div>
-      <div class="stat-item reveal">
-        <div class="stat-number" data-target="14">0</div>
-        <div class="stat-label">Years in Business</div>
-      </div>
-    </div>
-  </div>
+        // Close menu when link is clicked
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
 
-  <!-- GALLERY -->
-  <section id="gallery">
-    <div class="section-max-width">
-      <h2>Project Gallery</h2>
-      <p class="section-subtitle">Browse our recent transformations</p>
+        // Sticky Navigation
+        const nav = document.getElementById('nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
 
-      <div class="gallery-grid">
-        <div class="gallery-item reveal">
-          <img src="https://images.pexels.com/photos/36420870/pexels-photo-36420870.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Garden Project 1">
-        </div>
-        <div class="gallery-item reveal">
-          <img src="https://images.unsplash.com/photo-1764969370921-7c8df49171cd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwyfHxsYXduJTIwbW93aW5nJTIwcHJvZmVzc2lvbmFsJTIwbGFuZHNjYXBpbmclMjBncmFzcyUyMHRyaW1tZWQlMjBjbGVhbnxlbnwwfDB8fHwxNzc3MjM5NTYxfDA&ixlib=rb-4.1.0&q=80&w=1080" alt="Lawn Project">
-        </div>
-        <div class="gallery-item reveal">
-          <img src="https://images.pexels.com/photos/36109618/pexels-photo-36109618.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Garden Design">
-        </div>
-        <div class="gallery-item reveal">
-          <img src="https://images.unsplash.com/photo-1761975008722-8ebdf136b134?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHw0fHx0cmVlJTIwdHJpbW1pbmclMjBwcnVuaW5nJTIwYXJib3Jpc3QlMjBwcm9mZXNzaW9uYWwlMjBvdXRkb29yfGVufDB8MHx8fDE3NzcyMzk1NjF8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="Tree Work">
-        </div>
-        <div class="gallery-item reveal">
-          <img src="https://images.unsplash.com/photo-1615478494918-1a49c8ecd568?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHw2fHxiZWF1dGlmdWwlMjBsYW5kc2NhcGluZyUyMHRyYW5zZm9ybWF0aW9uJTIweWFyZCUyMGJlZm9yZSUyMGFmdGVyJTIwcmVzdWx0fGVufDB8MHx8fDE3NzcyMzk1NjF8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="Before & After">
-        </div>
-        <div class="gallery-item reveal">
-          <img src="https://images.unsplash.com/photo-1629578227004-b18ff21338c3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHw1fHxsdXNoJTIwZ3JlZW4lMjBwZXJmZWN0JTIwbGF3biUyMGdhcmRlbiUyMHJlc2lkZW50aWFsJTIwZmluaXNoZWQlMjBwcm9qZWN0fGVufDB8MHx8fDE3NzcyMzk1NjF8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="Finished Project">
-        </div>
-      </div>
-    </div>
-  </section>
+        // Scroll Reveal Animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
 
-  <!-- CTA -->
-  <section id="cta">
-    <div class="section-max-width">
-      <h2>Ready for a Beautiful Yard?</h2>
-      <p>Get a free estimate from our team. No obligation, no hidden fees.</p>
-      <a href="#contact" class="hero-btn">Schedule Your Free Consultation</a>
-    </div>
-  </section>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('show');
+                    }, index * 100);
+                }
+            });
+        }, observerOptions);
 
-  <!-- CONTACT -->
-  <section id="contact">
-    <div class="section-max-width">
-      <h2>Get in Touch</h2>
-      <p class="section-subtitle">We'd love to hear from you</p>
+        document.querySelectorAll('.reveal').forEach(el => {
+            observer.observe(el);
+        });
 
-      <div class="contact-grid">
-        <form class="contact-form" id="contactForm">
-          <div class="form-group">
-            <label for="name">Full Name</label>
-            <input type="text" id="name" name="name" required>
-          </div>
+        // FAQ Accordion
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            question.addEventListener('click', () => {
+                faqItems.forEach(otherItem => {
+                    if (otherItem !== item) {
+                        otherItem.classList.remove('active');
+                    }
+                });
+                item.classList.toggle('active');
+            });
+        });
 
-          <div class="form-group">
-            <label for="email">Email Address</label>
-            <input type="email" id="email" name="email" required>
-          </div>
+        // Counter Animation
+        const counterElements = document.querySelectorAll('.stat-number');
+        let hasAnimated = false;
 
-          <div class="form-group">
-            <label for="phone">Phone Number</label>
-            <input type="tel" id="phone" name="phone" required>
-          </div>
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !hasAnimated) {
+                    hasAnimated = true;
+                    counterElements.forEach(element => {
+                        const target = parseInt(element.getAttribute('data-target'));
+                        let current = 0;
+                        const increment = target / 50;
+                        const timer = setInterval(() => {
+                            current += increment;
+                            if (current >= target) {
+                                element.textContent = target;
+                                clearInterval(timer);
+                            } else {
+                                element.textContent = Math.floor(current);
+                            }
+                        }, 30);
+                    });
+                }
+            });
+        }, { threshold: 0.5 });
 
-          <div class="form-group">
-            <label for="service">Service Interested In</label>
-            <input type="text" id="service" name="service" placeholder="e.g., Lawn Care, Landscaping">
-          </div>
-
-          <div class="form-group">
-            <label for="message">Message</label>
-            <textarea id="message" name="message" required></textarea>
-          </div>
-
-          <button type="submit" class="form-submit">Send Message</button>
-        </form>
-
-        <div class="contact-info">
-          <div class="contact-info-item reveal">
-            <h3>Call Us</h3>
-            <p><a href="tel:+14045550147">(404) 555-0147</a></p>
-            <p>Available Monday–Saturday, 8 AM–6 PM</p>
-          </div>
-
-          <div class="contact-info-item reveal">
-            <h3>Service Area</h3>
-            <p>We serve the Greater Atlanta Metro Area, including:</p>
-            <p>Buckhead, Dunwoody, Marietta, Sandy Springs, Alpharetta, Roswell, and surrounding communities.</p>
-          </div>
-
-          <div class="contact-info-item reveal">
-            <h3>Email</h3>
-            <p><a href="mailto:hello@riveraoutdoor.com">hello@riveraoutdoor.com</a></p>
-            <p>Response within 24 hours</p>
-          </div>
-
-          <div class="contact-info-item reveal">
-            <h3>Emergency Service</h3>
-            <p>Storm damage, fallen trees, or urgent cleanup?</p>
-            <p><a href="tel:+14045550147">Call us immediately</a> for same-day assistance.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer>
-    <p>&copy; 2025 Rivera Outdoor Services. All rights reserved.</p>
-    <p>Licensed | Insured | Locally Owned | Professionally Managed</p>
-  </footer>
-
-  <script>
-    // NAVIGATION SCROLL
-    const nav = document.querySelector('nav');
-    const hamburger = document.getElementById('hamburger');
-    const navMenu = document.getElementById('navMenu');
-
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 50) {
-        nav.classList.add('scrolled');
-      } else {
-        nav.classList.remove('scrolled');
-      }
-    });
-
-    hamburger.addEventListener('click', () => {
-      hamburger.classList.toggle('active');
-      navMenu.classList.toggle('nav-open');
-    });
-
-    navMenu.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        hamburger.classList.remove('active');
-        navMenu.classList.remove('nav-open');
-      });
-    });
-
-    // SCROLL ANIMATIONS
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry, index) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('show');
-          
-          if (index % 2 === 0) {
-            entry.target.classList.add('slide-left');
-          } else {
-            entry.target.classList.add('slide-right');
-          }
-
-          observer.unobserve(entry.target);
+        const statsSection = document.querySelector('.stats');
+        if (statsSection) {
+            counterObserver.observe(statsSection);
         }
-      });
-    }, observerOptions);
 
-    document.querySelectorAll('.reveal').forEach(el => {
-      observer.observe(el);
-    });
-
-    // COUNTER ANIMATION
-    const counterObserverOptions = {
-      threshold: 0.5
-    };
-
-    const counterObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting && !entry.target.dataset.animated) {
-          entry.target.dataset.animated = 'true';
-          animateCounter(entry.target);
+        // Contact Form Handler
+        function handleContactSubmit(event) {
+            event.preventDefault();
+            const email = event.target.querySelector('input[name="email"]').value;
+            
+            // Create a mailto link as a fallback since we can't process the form server-side
+            // In production, this would post to a backend service
+            console.log('Contact form submitted with email:', email);
+            
+            // Show confirmation message
+            const button = event.target.querySelector('button');
+            const originalText = button.textContent;
+            button.textContent = 'Request Sent!';
+            button.style.opacity = '0.7';
+            
+            setTimeout(() => {
+                button.textContent = originalText;
+                button.style.opacity = '1';
+                event.target.reset();
+            }, 3000);
         }
-      });
-    }, counterObserverOptions);
 
-    document.querySelectorAll('.stat-number').forEach(el => {
-      counterObserver.observe(el);
-    });
-
-    function animateCounter(el) {
-      const target = parseInt(el.dataset.target);
-      const duration = 2000;
-      const start = Date.now();
-
-      function update() {
-        const elapsed = Date.now() - start;
-        const progress = Math.min(elapsed / duration, 1);
-        const current = Math.floor(target * progress);
-        el.textContent = current;
-
-        if (progress < 1) {
-          requestAnimationFrame(update);
-        }
-      }
-
-      requestAnimationFrame(update);
-    }
-
-    // FORM SUBMISSION
-    document.getElementById('contactForm').addEventListener('submit', (e) => {
-      e.preventDefault();
-      alert('Thank you for your message! We\'ll be in touch within 24 hours.');
-      document.getElementById('contactForm').reset();
-    });
-  </script>
-
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#' && document.querySelector(href)) {
+                    e.preventDefault();
+                    document.querySelector(href).scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
