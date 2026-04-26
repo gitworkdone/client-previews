@@ -1,4 +1,3 @@
-<!-- REDESIGN_REQUESTED: Client requested a full redesign. Please trigger a new build. -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,6 +24,9 @@
   --accent-dark: #C97D0A;
   --font-head: 'Space Grotesk', sans-serif;
   --font-mono: 'Space Mono', monospace;
+  --primary-blue: #2E5090;
+  --light-blue: #E8F0F8;
+  --secondary-teal: #16A397;
 }
 
 html { scroll-behavior: smooth; }
@@ -60,10 +62,11 @@ nav {
   justify-content: space-between;
   mix-blend-mode: normal;
   transition: background 0.4s ease, padding 0.4s ease;
+  background: var(--primary-blue);
 }
 
 nav.scrolled {
-  background: rgba(254,252,248,0.95);
+  background: rgba(46, 80, 144, 0.95);
   padding: 20px 48px;
   backdrop-filter: blur(8px);
   border-bottom: 1px solid rgba(26,26,26,0.06);
@@ -80,7 +83,7 @@ nav.scrolled {
   transition: color 0.3s ease;
 }
 
-nav.scrolled .nav-logo { color: var(--charcoal); }
+nav.scrolled .nav-logo { color: var(--warm-white); }
 
 .nav-links {
   display: flex;
@@ -99,7 +102,7 @@ nav.scrolled .nav-logo { color: var(--charcoal); }
   transition: color 0.3s ease;
 }
 
-nav.scrolled .nav-links a { color: var(--charcoal); }
+nav.scrolled .nav-links a { color: var(--warm-white); }
 
 .nav-links a::after {
   content: '_';
@@ -107,7 +110,7 @@ nav.scrolled .nav-links a { color: var(--charcoal); }
   right: -8px;
   opacity: 0;
   transition: opacity 0.2s ease;
-  color: var(--accent);
+  color: var(--secondary-teal);
 }
 
 .nav-links a:hover::after { opacity: 1; }
@@ -128,12 +131,12 @@ nav.scrolled .nav-links a { color: var(--charcoal); }
   transition: all 0.3s ease;
 }
 
-nav.scrolled .hamburger span { background: var(--charcoal); }
+nav.scrolled .hamburger span { background: var(--warm-white); }
 
 .mobile-menu {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: var(--charcoal);
+  background: var(--primary-blue);
   z-index: 999;
   display: flex;
   align-items: center;
@@ -157,7 +160,7 @@ nav.scrolled .hamburger span { background: var(--charcoal); }
   transition: color 0.2s ease;
 }
 
-.mobile-menu a:hover { color: var(--accent); }
+.mobile-menu a:hover { color: var(--secondary-teal); }
 
 .mobile-close {
   position: absolute;
@@ -179,22 +182,24 @@ nav.scrolled .hamburger span { background: var(--charcoal); }
   overflow: hidden;
   display: flex;
   align-items: flex-end;
+  background: linear-gradient(135deg, var(--primary-blue) 0%, var(--light-blue) 100%);
 }
 
 .hero-bg {
   position: absolute;
   inset: 0;
-  background-image: url('https://images.unsplash.com/photo-1552545615-9cb1310df069?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3NzcwNzc3ODB8&ixlib=rb-4.1.0&q=80&w=1080');
+  background-image: url('https://images.unsplash.com/photo-1587300411515-430ee519b0f7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3NzcwNzc3ODB8&ixlib=rb-4.1.0&q=80&w=1080');
   background-size: cover;
   background-position: center 30%;
   z-index: 0;
+  opacity: 0.3;
 }
 
 .hero-bg::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(26,26,26,0.85) 0%, rgba(26,26,26,0.3) 50%, rgba(26,26,26,0.1) 100%);
+  background: linear-gradient(to top, rgba(46, 80, 144, 0.9) 0%, rgba(46, 80, 144, 0.5) 50%, rgba(46, 80, 144, 0.2) 100%);
 }
 
 .hero-content {
@@ -209,7 +214,7 @@ nav.scrolled .hamburger span { background: var(--charcoal); }
   font-size: 10px;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--secondary-teal);
   margin-bottom: 24px;
   opacity: 0;
 }
@@ -227,7 +232,7 @@ nav.scrolled .hamburger span { background: var(--charcoal); }
 
 .hero-headline em {
   font-style: normal;
-  color: var(--accent);
+  color: var(--secondary-teal);
 }
 
 .hero-sub {
@@ -235,7 +240,7 @@ nav.scrolled .hamburger span { background: var(--charcoal); }
   font-weight: 200;
   font-size: clamp(14px, 1.6vw, 18px);
   letter-spacing: 0.05em;
-  color: rgba(254,252,248,0.75);
+  color: rgba(254,252,248,0.85);
   max-width: 380px;
   line-height: 1.7;
   margin-bottom: 48px;
@@ -248,7 +253,7 @@ nav.scrolled .hamburger span { background: var(--charcoal); }
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--warm-white);
-  border: 1px solid rgba(254,252,248,0.5);
+  border: 1px solid var(--secondary-teal);
   border-radius: 0;
   padding: 16px 32px;
   text-decoration: none;
@@ -256,20 +261,21 @@ nav.scrolled .hamburger span { background: var(--charcoal); }
   overflow: hidden;
   transition: color 0.2s ease;
   z-index: 1;
+  background: var(--secondary-teal);
 }
 
 .btn-primary::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: var(--accent);
+  background: var(--secondary-teal);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.2s ease;
   z-index: -1;
 }
 
-.btn-primary:hover { color: var(--charcoal); border-color: var(--accent); }
+.btn-primary:hover { color: var(--warm-white); border-color: var(--secondary-teal); opacity: 0.8; }
 .btn-primary:hover::before { transform: scaleX(1); }
 
 .btn-outline {
@@ -309,8 +315,8 @@ nav.scrolled .hamburger span { background: var(--charcoal); }
   font-size: 10px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--accent);
-  border: 1px solid var(--accent);
+  color: var(--secondary-teal);
+  border: 1px solid var(--secondary-teal);
   border-radius: 0;
   padding: 16px 32px;
   text-decoration: none;
@@ -324,7 +330,7 @@ nav.scrolled .hamburger span { background: var(--charcoal); }
   content: '';
   position: absolute;
   inset: 0;
-  background: var(--accent);
+  background: var(--secondary-teal);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.2s ease;
@@ -351,7 +357,7 @@ nav.scrolled .hamburger span { background: var(--charcoal); }
   font-size: 9px;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: rgba(254,252,248,0.5);
+  color: rgba(254,252,248,0.6);
   writing-mode: vertical-rl;
   text-orientation: mixed;
 }
@@ -359,7 +365,7 @@ nav.scrolled .hamburger span { background: var(--charcoal); }
 .hero-scroll-line {
   width: 1px;
   height: 80px;
-  background: linear-gradient(to bottom, rgba(254,252,248,0.4), transparent);
+  background: linear-gradient(to bottom, rgba(254,252,248,0.6), transparent);
   animation: scrollPulse 2s ease-in-out infinite;
 }
 
@@ -370,7 +376,7 @@ nav.scrolled .hamburger span { background: var(--charcoal); }
 
 /* STATS BAR */
 #stats {
-  background: var(--charcoal);
+  background: var(--primary-blue);
   padding: 64px 48px;
 }
 
@@ -394,7 +400,7 @@ nav.scrolled .hamburger span { background: var(--charcoal); }
   font-family: var(--font-head);
   font-weight: 900;
   font-size: clamp(40px, 5vw, 72px);
-  color: var(--accent);
+  color: var(--secondary-teal);
   letter-spacing: -0.02em;
   line-height: 1;
   margin-bottom: 8px;
@@ -438,7 +444,7 @@ nav.scrolled .hamburger span { background: var(--charcoal); }
   right: -32px;
   width: 180px;
   height: 180px;
-  background: var(--accent);
+  background: var(--secondary-teal);
   z-index: -1;
 }
 
@@ -449,7 +455,7 @@ nav.scrolled .hamburger span { background: var(--charcoal); }
   font-size: 10px;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--secondary-teal);
   margin-bottom: 32px;
   display: block;
 }
@@ -493,7 +499,7 @@ nav.scrolled .hamburger span { background: var(--charcoal); }
 
 /* SERVICES */
 #services {
-  background: var(--cream);
+  background: var(--light-blue);
   padding: 160px 48px;
 }
 
@@ -551,7 +557,7 @@ nav.scrolled .hamburger span { background: var(--charcoal); }
   font-family: var(--font-mono);
   font-size: 10px;
   letter-spacing: 0.3em;
-  color: var(--accent);
+  color: var(--secondary-teal);
   text-transform: uppercase;
   margin-bottom: 16px;
   display: block;
@@ -635,14 +641,14 @@ nav.scrolled .hamburger span { background: var(--charcoal); }
 .portfolio-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(26,26,26,0.0);
+  background: rgba(46, 80, 144, 0.0);
   display: flex;
   align-items: flex-end;
   padding: 32px;
   transition: background 0.3s ease;
 }
 
-.portfolio-item:hover .portfolio-overlay { background: rgba(26,26,26,0.6); }
+.portfolio-item:hover .portfolio-overlay { background: rgba(46, 80, 144, 0.7); }
 
 .portfolio-label {
   font-family: var(--font-mono);
@@ -659,7 +665,7 @@ nav.scrolled .hamburger span { background: var(--charcoal); }
 
 /* STATEMENT */
 #statement {
-  background: var(--charcoal);
+  background: var(--primary-blue);
   padding: 160px 48px;
   text-align: center;
   position: relative;
@@ -672,7 +678,7 @@ nav.scrolled .hamburger span { background: var(--charcoal); }
   transform: translateX(-50%);
   width: 1px;
   height: 120px;
-  background: var(--accent);
+  background: var(--secondary-teal);
 }
 
 .statement-text {
@@ -689,7 +695,7 @@ nav.scrolled .hamburger span { background: var(--charcoal); }
 
 .statement-text em {
   font-style: normal;
-  color: var(--accent);
+  color: var(--secondary-teal);
 }
 
 .statement-sub {
@@ -720,7 +726,7 @@ nav.scrolled .hamburger span { background: var(--charcoal); }
 }
 
 .testimonial-card {
-  background: var(--cream);
+  background: var(--light-blue);
   padding: 56px 48px;
   position: relative;
 }
@@ -731,7 +737,7 @@ nav.scrolled .hamburger span { background: var(--charcoal); }
   font-family: var(--font-head);
   font-weight: 900;
   font-size: 72px;
-  color: var(--accent);
+  color: var(--secondary-teal);
   line-height: 0.5;
   margin-bottom: 32px;
   font-style: normal;
@@ -764,7 +770,7 @@ nav.scrolled .hamburger span { background: var(--charcoal); }
 }
 
 .stars {
-  color: var(--accent);
+  color: var(--secondary-teal);
   font-size: 14px;
   margin-bottom: 24px;
   letter-spacing: 4px;
@@ -773,7 +779,7 @@ nav.scrolled .hamburger span { background: var(--charcoal); }
 /* FAQ */
 #faq {
   padding: 160px 48px;
-  background: var(--cream);
+  background: var(--light-blue);
 }
 
 .faq-inner {
@@ -822,7 +828,7 @@ nav.scrolled .hamburger span { background: var(--charcoal); }
 .faq-icon {
   font-family: var(--font-mono);
   font-size: 20px;
-  color: var(--accent);
+  color: var(--secondary-teal);
   line-height: 1;
   transition: transform 0.3s ease;
   flex-shrink: 0;
@@ -847,7 +853,7 @@ nav.scrolled .hamburger span { background: var(--charcoal); }
 
 /* CTA STRIP */
 #cta {
-  background: var(--accent);
+  background: var(--secondary-teal);
   padding: 120px 48px;
   position: relative;
   overflow: hidden;
@@ -868,7 +874,7 @@ nav.scrolled .hamburger span { background: var(--charcoal); }
   font-size: clamp(40px, 6vw, 88px);
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: var(--charcoal);
+  color: var(--warm-white);
   line-height: 0.95;
 }
 
@@ -877,7 +883,7 @@ nav.scrolled .hamburger span { background: var(--charcoal); }
   font-size: 10px;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: rgba(26,26,26,0.6);
+  color: rgba(254,252,248,0.7);
   margin-top: 24px;
 }
 
@@ -887,9 +893,9 @@ nav.scrolled .hamburger span { background: var(--charcoal); }
   font-size: 10px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--warm-white);
-  border: 1px solid var(--charcoal);
-  background: var(--charcoal);
+  color: var(--secondary-teal);
+  border: 1px solid var(--warm-white);
+  background: var(--warm-white);
   border-radius: 0;
   padding: 20px 40px;
   text-decoration: none;
@@ -901,7 +907,7 @@ nav.scrolled .hamburger span { background: var(--charcoal); }
 
 .btn-dark:hover {
   background: transparent;
-  color: var(--charcoal);
+  color: var(--warm-white);
 }
 
 /* CONTACT */
@@ -932,7 +938,7 @@ nav.scrolled .hamburger span { background: var(--charcoal); }
   font-size: 9px;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--secondary-teal);
   margin-bottom: 8px;
 }
 
@@ -960,739 +966,3 @@ nav.scrolled .hamburger span { background: var(--charcoal); }
   font-family: var(--font-mono);
   font-size: 9px;
   letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--mid-gray);
-}
-
-.form-input,
-.form-textarea {
-  background: var(--cream);
-  border: 1px solid var(--light-gray);
-  border-radius: 0;
-  padding: 16px;
-  font-family: var(--font-head);
-  font-weight: 300;
-  font-size: 15px;
-  color: var(--charcoal);
-  outline: none;
-  transition: border-color 0.2s ease;
-  width: 100%;
-}
-
-.form-input:focus,
-.form-textarea:focus { border-color: var(--accent); }
-
-.form-textarea {
-  height: 140px;
-  resize: none;
-}
-
-/* FOOTER */
-footer {
-  background: var(--charcoal);
-  padding: 80px 48px 48px;
-}
-
-.footer-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.footer-top {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 80px;
-  padding-bottom: 64px;
-  border-bottom: 1px solid rgba(254,252,248,0.08);
-  margin-bottom: 48px;
-}
-
-.footer-brand {}
-
-.footer-wordmark {
-  font-family: var(--font-mono);
-  font-weight: 700;
-  font-size: 13px;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--warm-white);
-  margin-bottom: 24px;
-  display: block;
-}
-
-.footer-tagline {
-  font-family: var(--font-head);
-  font-weight: 200;
-  font-size: 14px;
-  line-height: 1.7;
-  color: var(--light-gray);
-  max-width: 240px;
-}
-
-.footer-nav-title {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 24px;
-  display: block;
-}
-
-.footer-nav-links {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.footer-nav-links a {
-  font-family: var(--font-head);
-  font-weight: 300;
-  font-size: 14px;
-  color: var(--light-gray);
-  text-decoration: none;
-  letter-spacing: 0.05em;
-  transition: color 0.2s ease;
-}
-
-.footer-nav-links a:hover { color: var(--accent); }
-
-.footer-social {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.footer-social a {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--light-gray);
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-
-.footer-social a:hover { color: var(--accent); }
-
-.footer-bottom {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.footer-copy {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: rgba(254,252,248,0.3);
-}
-
-.footer-faith {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--accent);
-  opacity: 0.7;
-}
-
-/* SECTION BREAK */
-.divider {
-  width: 1px;
-  height: 80px;
-  background: var(--accent);
-  margin: 0 auto;
-  opacity: 0.4;
-}
-
-/* VISIBILITY UTILS */
-.reveal { opacity: 0; transform: translateY(40px); }
-
-/* RESPONSIVE */
-@media (max-width: 1024px) {
-  #about { grid-template-columns: 1fr; gap: 60px; }
-  .about-content { padding-left: 0; }
-  .services-header { grid-template-columns: 1fr; gap: 40px; }
-  .testimonials-grid { grid-template-columns: 1fr; }
-  .testimonial-card:nth-child(2) { transform: none; }
-  .faq-inner { grid-template-columns: 1fr; gap: 48px; }
-  #contact { grid-template-columns: 1fr; gap: 80px; }
-  .footer-top { grid-template-columns: 1fr 1fr; }
-  .portfolio-grid { grid-template-columns: 1fr 1fr; }
-  .portfolio-item:nth-child(2) { transform: none; }
-  .stats-inner { grid-template-columns: repeat(2, 1fr); gap: 40px; }
-  .stat-item { padding: 0; border-right: none; }
-}
-
-@media (max-width: 768px) {
-  nav { padding: 24px 24px; }
-  nav.scrolled { padding: 16px 24px; }
-  .nav-links { display: none; }
-  .hamburger { display: flex; }
-  .hero-content { padding: 0 24px 80px; }
-  .hero-vertical-nav { display: none; }
-  #stats { padding: 64px 24px; }
-  #about { padding: 100px 24px; }
-  #services { padding: 100px 24px; }
-  #portfolio { padding: 100px 24px; }
-  #testimonials { padding: 100px 24px; }
-  #statement { padding: 100px 24px; }
-  #faq { padding: 100px 24px; }
-  #cta { padding: 80px 24px; }
-  .cta-inner { grid-template-columns: 1fr; gap: 40px; }
-  #contact { padding: 100px 24px; }
-  footer { padding: 60px 24px 40px; }
-  .footer-top { grid-template-columns: 1fr; gap: 48px; }
-  .footer-bottom { flex-direction: column; gap: 16px; align-items: flex-start; }
-  .services-grid { grid-template-columns: 1fr; }
-  .service-card:nth-child(2) { transform: none; }
-  .service-third { grid-template-columns: 1fr; }
-  .portfolio-grid { grid-template-columns: 1fr; }
-  .stats-inner { grid-template-columns: 1fr 1fr; }
-  .portfolio-header { flex-direction: column; gap: 24px; align-items: flex-start; }
-}
-
-@media (max-width: 480px) {
-  .services-header { grid-template-columns: 1fr; }
-}
-</style>
-</head>
-<body>
-
-<!-- GRAIN OVERLAY -->
-<svg class="grain-overlay" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
-  <filter id="grain">
-    <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
-    <feColorMatrix type="saturate" values="0"/>
-  </filter>
-  <rect width="100%" height="100%" filter="url(#grain)"/>
-</svg>
-
-<!-- NAV -->
-<nav id="mainNav">
-  <a href="#" class="nav-logo">PreciousPuppies</a>
-  <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#services">Services</a></li>
-    <li><a href="#portfolio">Portfolio</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-  <div class="hamburger" id="hamburger" aria-label="Open menu">
-    <span></span><span></span><span></span>
-  </div>
-</nav>
-
-<!-- MOBILE MENU -->
-<div class="mobile-menu" id="mobileMenu">
-  <div class="mobile-close" id="mobileClose">Close ✕</div>
-  <a href="#about" class="mobile-link">About</a>
-  <a href="#services" class="mobile-link">Services</a>
-  <a href="#portfolio" class="mobile-link">Portfolio</a>
-  <a href="#contact" class="mobile-link">Contact</a>
-</div>
-
-<!-- HERO -->
-<section id="hero">
-  <div class="hero-bg"></div>
-
-  <div class="hero-content">
-    <span class="hero-label">Est. Since Day One — Every Dog Deserves This</span>
-    <h1 class="hero-headline" id="heroHead">
-      Your Dog<br>Deserves<br><em>Pure Joy</em>
-    </h1>
-    <p class="hero-sub">Professional grooming, hand-selected accessories, and portraits that capture the love your family feels — all under one roof.</p>
-    <a href="#services" class="btn-primary">Explore Services</a>
-  </div>
-
-  <div class="hero-vertical-nav">
-    <span>Scroll</span>
-    <div class="hero-scroll-line"></div>
-  </div>
-</section>
-
-<!-- STATS -->
-<section id="stats">
-  <div class="stats-inner">
-    <div class="stat-item reveal">
-      <div class="stat-number" data-count="2400">0</div>
-      <div class="stat-label">Happy Dogs Groomed</div>
-    </div>
-    <div class="stat-item reveal">
-      <div class="stat-number" data-count="98">0</div>
-      <div class="stat-label">5-Star Reviews</div>
-    </div>
-    <div class="stat-item reveal">
-      <div class="stat-number" data-count="12">0</div>
-      <div class="stat-label">Years of Care</div>
-    </div>
-    <div class="stat-item reveal">
-      <div class="stat-number" data-count="100">0</div>
-      <div class="stat-label">% Love Guaranteed</div>
-    </div>
-  </div>
-</section>
-
-<!-- ABOUT -->
-<section id="about">
-  <div class="about-image-wrap reveal">
-    <img class="about-img" src="https://images.unsplash.com/photo-1570027748859-ee21c337bc9d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3NzcwNzc3ODB8&ixlib=rb-4.1.0&q=80&w=1080" alt="PreciousPuppies Studio">
-    <div class="about-image-accent"></div>
-  </div>
-  <div class="about-content">
-    <span class="section-label reveal">Our Story</span>
-    <h2 class="section-headline reveal">Where Every<br>Dog Feels<br>At Home</h2>
-    <p class="section-body reveal">PreciousPuppies was built on a simple belief: your dog is family. Every bath, every trim, every portrait session is carried out with the same care and warmth you give at home — just with more expertise and a whole lot more wagging tails.</p>
-    <p class="section-body reveal">We serve families with dogs of all sizes, temperaments, and coat types. From nervous first-timers to seasoned regulars, every pup walks in as a guest and leaves as a star.</p>
-    <div class="about-detail reveal">
-      <div>
-        <div class="about-detail-text">Rooted in Faith — Guided by Love</div>
-        <div class="about-detail-text" style="color: var(--accent); margin-top:8px; font-size:9px;">Jesus Is King</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- SERVICES -->
-<section id="services">
-  <div class="services-inner">
-    <div class="services-header">
-      <div>
-        <span class="section-label reveal">What We Do</span>
-        <h2 class="section-headline reveal">Care That<br>Speaks<br>For Itself</h2>
-      </div>
-      <p class="services-intro reveal">Three pillars of joy — grooming that transforms, accessories that delight, and portraits that last a lifetime. Every service is tailored to your dog and your family.</p>
-    </div>
-
-    <div class="services-grid">
-      <a href="#contact" class="service-card reveal">
-        <img class="service-card-img" src="https://images.unsplash.com/photo-1591608971350-b6185032c62a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3NzcwNzc3ODB8&ixlib=rb-4.1.0&q=80&w=1080" alt="Dog Grooming Service">
-        <div class="service-card-body">
-          <span class="service-card-num">01 — Grooming</span>
-          <h3 class="service-card-title">Studio Grooming</h3>
-          <p class="service-card-desc">Full bath, breed-specific cuts, nail trimming, ear cleaning, and blowout styling. Every appointment is calm, unhurried, and built around your dog's comfort.</p>
-          <span class="btn-outline">Book Now</span>
-        </div>
-      </a>
-      <a href="#contact" class="service-card reveal">
-        <img class="service-card-img" src="https://images.unsplash.com/photo-1604508558528-04bfc0d52379?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3NzcwNzc3ODB8&ixlib=rb-4.1.0&q=80&w=1080" alt="Pet Accessories">
-        <div class="service-card-body">
-          <span class="service-card-num">02 — Shop</span>
-          <h3 class="service-card-title">Pet Accessories</h3>
-          <p class="service-card-desc">Hand-curated collars, leashes, beds, toys, and wellness products. We only carry what we'd use for our own dogs — quality without compromise.</p>
-          <span class="btn-outline">Shop Now</span>
-        </div>
-      </a>
-    </div>
-
-    <div class="service-third">
-      <a href="#portfolio" class="service-card reveal">
-        <img class="service-card-img" src="https://images.unsplash.com/photo-1612195203234-57b0d171d4a0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3NzcwNzc3ODB8&ixlib=rb-4.1.0&q=80&w=1080" alt="Puppy Portraits">
-        <div class="service-card-body">
-          <span class="service-card-num">03 — Portraits</span>
-          <h3 class="service-card-title">Puppy Portraits</h3>
-          <p class="service-card-desc">Professional studio photography that captures your dog's personality. Wall-ready prints, digital galleries, and custom framing available. Because they grow up too fast.</p>
-          <span class="btn-outline">See Portfolio</span>
-        </div>
-      </a>
-      <div style="background: var(--accent); padding: 56px 48px; display: flex; flex-direction: column; justify-content: flex-end;">
-        <span class="section-label" style="color: var(--charcoal); margin-bottom: 24px;">New Client Special</span>
-        <p style="font-family: var(--font-head); font-weight: 900; font-size: clamp(28px,3.5vw,48px); text-transform: uppercase; letter-spacing: 0.05em; color: var(--charcoal); line-height: 0.95; margin-bottom: 32px;">First Groom + Portrait — 20% Off</p>
-        <a href="#contact" class="btn-dark">Claim Offer</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PORTFOLIO -->
-<section id="portfolio">
-  <div class="portfolio-header">
-    <div>
-      <span class="section-label reveal">Portfolio</span>
-      <h2 class="section-headline reveal">Moments<br>That Matter</h2>
-    </div>
-    <a href="#contact" class="btn-outline reveal" style="white-space:nowrap;">Book a Session</a>
-  </div>
-
-  <div class="portfolio-grid">
-    <div class="portfolio-item reveal">
-      <img class="portfolio-img" src="https://images.unsplash.com/photo-1614524675303-e68e28d3a71f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3NzcwNzc3ODB8&ixlib=rb-4.1.0&q=80&w=1080" alt="Portrait Session">
-      <div class="portfolio-overlay">
-        <span class="portfolio-label">Studio Portrait — Golden Hour</span>
-      </div>
-    </div>
-    <div class="portfolio-item reveal">
-      <img class="portfolio-img" src="https://images.unsplash.com/photo-1617400284860-1a36cc70f088?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3NzcwNzc3ODB8&ixlib=rb-4.1.0&q=80&w=1080" alt="Post-Groom Portrait">
-      <div class="portfolio-overlay">
-        <span class="portfolio-label">Post-Groom Glow — Studio Session</span>
-      </div>
-    </div>
-    <div class="portfolio-item reveal" style="background: var(--cream); display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding: 64px 48px; min-height: 480px;">
-      <span class="section-label">Every Image</span>
-      <p style="font-family: var(--font-head); font-weight: 900; font-size: clamp(28px,3vw,44px); text-transform: uppercase; letter-spacing: 0.05em; color: var(--charcoal); line-height: 0.95; margin-bottom: 32px;">Tells the Story of Your Family</p>
-      <p class="section-body" style="font-size:14px; margin-bottom:32px;">Printed on fine art paper or delivered as high-res digital files — yours to treasure forever.</p>
-      <a href="#contact" class="btn-outline">Inquire Now</a>
-    </div>
-  </div>
-</section>
-
-<!-- STATEMENT -->
-<section id="statement">
-  <div class="statement-accent-top"></div>
-  <p class="statement-sub reveal">A Promise to Every Family</p>
-  <h2 class="statement-text reveal">Every Dog<br>Leaves<br><em>Happier</em></h2>
-  <p class="statement-sub reveal">— or your next visit is on us.</p>
-  <a href="#contact" class="btn-primary reveal" style="border-color: rgba(254,252,248,0.5); color: var(--warm-white);">Book Your Visit</a>
-</section>
-
-<!-- TESTIMONIALS -->
-<section id="testimonials">
-  <div class="testimonials-inner">
-    <div class="testimonials-header">
-      <span class="section-label reveal">What Families Say</span>
-      <h2 class="section-headline reveal">They Came<br>Once.<br>They Never Left.</h2>
-    </div>
-
-    <div class="testimonials-grid">
-      <div class="testimonial-card reveal">
-        <div class="testimonial-quote">"</div>
-        <div class="stars">★★★★★</div>
-        <p class="testimonial-text">Our golden retriever used to hate bath time anywhere else. The first time we brought them to PreciousPuppies, they walked out wagging their tail and glowing. We've never gone anywhere else since.</p>
-        <div class="testimonial-author">Founder & Family</div>
-        <div class="testimonial-role">Retriever Household — 3 Years</div>
-      </div>
-      <div class="testimonial-card reveal">
-        <div class="testimonial-quote">"</div>
-        <div class="stars">★★★★★</div>
-        <p class="testimonial-text">The puppy portrait session was an experience in itself. They were patient, gentle, and knew exactly how to bring out our dog's personality. The prints are hanging in our living room and everyone asks about them.</p>
-        <div class="testimonial-author">Owner & Partner</div>
-        <div class="testimonial-role">Mixed Breed Family — Portrait Client</div>
-      </div>
-      <div class="testimonial-card reveal">
-        <div class="testimonial-quote">"</div>
-        <div class="stars">★★★★★</div>
-        <p class="testimonial-text">We have three dogs — all different sizes, all different temperaments. PreciousPuppies handles every single one of them with such care. The accessories they recommended have been game-changers too. This place is a gem.</p>
-        <div class="testimonial-author">Studio Director</div>
-        <div class="testimonial-role">Multi-Dog Specialist — 5 Years</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FAQ -->
-<section id="faq">
-  <div class="faq-inner">
-    <div class="faq-side reveal">
-      <span class="section-label">FAQ</span>
-      <h2 class="section-headline">Questions<br>Answered</h2>
-      <p class="section-body" style="margin-top:32px; font-size:15px;">Anything else on your mind? Reach out — we're always happy to talk dogs.</p>
-      <a href="#contact" class="btn-outline" style="margin-top:40px;">Ask Us Anything</a>
-    </div>
-    <div class="faq-list">
-      <div class="faq-item">
-        <button class="faq-question">
-          <span class="faq-q-text">What size dogs do you groom?</span>
-          <span class="faq-icon">+</span>
-        </button>
-        <div class="faq-answer">
-          <div class="faq-a-inner">We groom dogs of all sizes — from tiny teacup breeds to large and extra-large dogs. Our tables and equipment are adjusted to ensure every dog is comfortable and safely supported throughout the session.</div>
-        </div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-question">
-          <span class="faq-q-text">How long does a grooming appointment take?</span>
-          <span class="faq-icon">+</span>
-        </button>
-        <div class="faq-answer">
-          <div class="faq-a-inner">Most appointments take between 1.5 and 3 hours depending on your dog's size, coat type, and the services selected. We never rush — your dog's comfort comes first. You'll receive a text when they're ready for pickup.</div>
-        </div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-question">
-          <span class="faq-q-text">Do I need to prepare my dog before the appointment?</span>
-          <span class="faq-icon">+</span>
-        </button>
-        <div class="faq-answer">
-          <div class="faq-a-inner">We recommend a short walk before the appointment so your dog is relaxed on arrival. Please ensure vaccinations are up to date. If your dog has special anxiety or behavioral needs, just let us know when booking — we'll plan accordingly.</div>
-        </div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-question">
-          <span class="faq-q-text">Can I be present during the groom?</span>
-          <span class="faq-icon">+</span>
-        </button>
-        <div class="faq-answer">
-          <div class="faq-a-inner">We've found most dogs actually settle faster and behave more calmly when their owners step away — it's a trust thing! However, for dogs with special needs or first-time visits, we'll walk through everything with you before you leave.</div>
-        </div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-question">
-          <span class="faq-q-text">How far in advance should I book a portrait session?</span>
-          <span class="faq-icon">+</span>
-        </button>
-        <div class="faq-answer">
-          <div class="faq-a-inner">Portrait sessions typically book out 2–3 weeks in advance, especially on weekends. We recommend booking as early as possible, especially if you want a holiday gift or a specific turnaround time for prints.</div>
-        </div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-question">
-          <span class="faq-q-text">What products do you use?</span>
-          <span class="faq-icon">+</span>
-        </button>
-        <div class="faq-answer">
-          <div class="faq-a-inner">We use only professional-grade, pet-safe, and cruelty-free shampoos and conditioners. If your dog has known sensitivities or allergies, let us know and we'll select the safest option from our curated range. The same care goes into the accessories we carry in-store.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CTA STRIP -->
-<section id="cta">
-  <div class="cta-inner">
-    <div>
-      <h2 class="cta-headline reveal">Ready to Spoil<br>Your Dog?</h2>
-      <p class="cta-sub reveal">First appointment — we'll take care of the rest.</p>
-    </div>
-    <div style="display:flex; flex-direction:column; gap:16px; align-items:flex-end;">
-      <a href="#contact" class="btn-dark reveal">Book an Appointment</a>
-      <a href="#portfolio" class="btn-dark reveal" style="background: transparent; color: var(--charcoal); border-color: var(--charcoal);">View Portfolio</a>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section id="contact">
-  <div class="contact-info">
-    <span class="section-label reveal">Contact</span>
-    <h2 class="section-headline reveal">Let's Talk<br>About<br>Your Dog</h2>
-    <p class="section-body reveal">Whether you're booking a groom, planning a portrait session, or just want advice on the right accessories — we're here and we love talking about dogs.</p>
-    <div class="contact-detail reveal">
-      <div class="contact-detail-item">
-        <div class="contact-detail-label">Location</div>
-        <div class="contact-detail-value">PreciousPuppies Studio<br>123 Joy Lane, Suite 1</div>
-      </div>
-      <div class="contact-detail-item">
-        <div class="contact-detail-label">Hours</div>
-        <div class="contact-detail-value">Mon–Sat: 8am – 6pm<br>Sunday: By Appointment</div>
-      </div>
-      <div class="contact-detail-item">
-        <div class="contact-detail-label">Phone</div>
-        <div class="contact-detail-value">(555) 012–3456</div>
-      </div>
-      <div class="contact-detail-item">
-        <div class="contact-detail-label">Email</div>
-        <div class="contact-detail-value">hello@preciouspuppies.com</div>
-      </div>
-    </div>
-  </div>
-  <div class="contact-form-wrap reveal">
-    <form class="contact-form" onsubmit="handleSubmit(event)">
-      <div class="form-group">
-        <label class="form-label">Your Name</label>
-        <input class="form-input" type="text" placeholder="Your full name" required>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Email Address</label>
-        <input class="form-input" type="email" placeholder="you@example.com" required>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Your Dog's Name & Breed</label>
-        <input class="form-input" type="text" placeholder="e.g. Bella — Labradoodle">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Service Interested In</label>
-        <input class="form-input" type="text" placeholder="Grooming / Portrait / Accessories">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Message</label>
-        <textarea class="form-textarea" placeholder="Tell us about your dog and how we can help…"></textarea>
-      </div>
-      <button type="submit" class="btn-outline" style="width:100%; padding: 20px 32px; font-size:10px; cursor:pointer;">Send Message</button>
-    </form>
-    <div id="formSuccess" style="display:none; margin-top:24px; font-family: var(--font-mono); font-size:10px; letter-spacing:0.25em; text-transform:uppercase; color: var(--accent);">✓ Message received — we'll be in touch soon.</div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <div class="footer-inner">
-    <div class="footer-top">
-      <div class="footer-brand">
-        <span class="footer-wordmark">PreciousPuppies</span>
-        <p class="footer-tagline">Grooming. Portraits. Accessories.<br>Joy delivered to every dog.</p>
-        <p style="font-family: var(--font-mono); font-size:9px; letter-spacing:0.25em; text-transform:uppercase; color: var(--accent); margin-top: 24px; opacity:0.8;">Jesus Is King</p>
-      </div>
-      <div>
-        <span class="footer-nav-title">Navigate</span>
-        <ul class="footer-nav-links">
-          <li><a href="#about">About</a></li>
-          <li><a href="#services">Services</a></li>
-          <li><a href="#portfolio">Portfolio</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </div>
-      <div>
-        <span class="footer-nav-title">Follow Along</span>
-        <div class="footer-social">
-          <a href="#">@PreciousPuppies</a>
-          <a href="#">Instagram</a>
-          <a href="#">Facebook</a>
-          <a href="#">TikTok</a>
-        </div>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <span class="footer-copy">© 2025 PreciousPuppies — All Rights Reserved</span>
-      <span class="footer-faith">Made with Love & Faith</span>
-    </div>
-  </div>
-</footer>
-
-<script>
-// GSAP SETUP
-gsap.registerPlugin(ScrollTrigger);
-
-// NAV SCROLL STATE
-const nav = document.getElementById('mainNav');
-window.addEventListener('scroll', () => {
-  if (window.scrollY > 60) nav.classList.add('scrolled');
-  else nav.classList.remove('scrolled');
-});
-
-// HAMBURGER
-const hamburger = document.getElementById('hamburger');
-const mobileMenu = document.getElementById('mobileMenu');
-const mobileClose = document.getElementById('mobileClose');
-const mobileLinks = document.querySelectorAll('.mobile-link');
-
-hamburger.addEventListener('click', () => { mobileMenu.classList.add('open'); document.body.style.overflow = 'hidden'; });
-mobileClose.addEventListener('click', () => { mobileMenu.classList.remove('open'); document.body.style.overflow = ''; });
-mobileLinks.forEach(link => {
-  link.addEventListener('click', () => { mobileMenu.classList.remove('open'); document.body.style.overflow = ''; });
-});
-
-// HERO ENTRANCE
-window.addEventListener('load', () => {
-  const heroLabel = document.querySelector('.hero-label');
-  const heroHead = document.querySelector('.hero-headline');
-  const heroSub = document.querySelector('.hero-sub');
-  const heroBtn = document.querySelector('.hero-content .btn-primary');
-
-  gsap.set([heroLabel, heroHead, heroSub, heroBtn], { opacity: 0, y: 40 });
-
-  gsap.timeline({ delay: 0.3 })
-    .to(heroLabel, { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' })
-    .to(heroHead, { opacity: 1, y: 0, duration: 1, ease: 'power3.out' }, '-=0.4')
-    .to(heroSub, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=0.5')
-    .to(heroBtn, { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }, '-=0.4');
-});
-
-// SCROLL REVEALS
-const reveals = document.querySelectorAll('.reveal');
-reveals.forEach(el => {
-  gsap.fromTo(el,
-    { opacity: 0, y: 48 },
-    {
-      opacity: 1, y: 0,
-      duration: 0.9,
-      ease: 'power3.out',
-      scrollTrigger: {
-        trigger: el,
-        start: 'top 85%',
-        once: true
-      }
-    }
-  );
-});
-
-// COUNTER ANIMATION
-const stats = document.querySelectorAll('.stat-number[data-count]');
-stats.forEach(stat => {
-  const target = parseInt(stat.getAttribute('data-count'));
-  ScrollTrigger.create({
-    trigger: stat,
-    start: 'top 85%',
-    once: true,
-    onEnter: () => {
-      gsap.to({ val: 0 }, {
-        val: target,
-        duration: 2,
-        ease: 'power2.out',
-        onUpdate: function() {
-          stat.textContent = Math.round(this.targets()[0].val).toLocaleString() + (target === 100 ? '%' : '+');
-        }
-      });
-    }
-  });
-});
-
-// FAQ ACCORDION
-document.querySelectorAll('.faq-question').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const item = btn.parentElement;
-    const answer = item.querySelector('.faq-answer');
-    const isOpen = item.classList.contains('open');
-
-    document.querySelectorAll('.faq-item.open').forEach(openItem => {
-      openItem.classList.remove('open');
-      openItem.querySelector('.faq-answer').style.maxHeight = '0';
-    });
-
-    if (!isOpen) {
-      item.classList.add('open');
-      answer.style.maxHeight = answer.scrollHeight + 'px';
-    }
-  });
-});
-
-// FORM SUBMIT
-function handleSubmit(e) {
-  e.preventDefault();
-  document.getElementById('formSuccess').style.display = 'block';
-  e.target.style.opacity = '0.4';
-  e.target.style.pointerEvents = 'none';
-}
-
-// MAGNETIC BUTTONS
-document.querySelectorAll('.btn-primary, .btn-outline, .btn-accent, .btn-dark').forEach(btn => {
-  btn.addEventListener('mousemove', (e) => {
-    const rect = btn.getBoundingClientRect();
-    const x = e.clientX - rect.left - rect.width / 2;
-    const y = e.clientY - rect.top - rect.height / 2;
-    gsap.to(btn, { x: x * 0.18, y: y * 0.18, duration: 0.3, ease: 'power2.out' });
-  });
-  btn.addEventListener('mouseleave', () => {
-    gsap.to(btn, { x: 0, y: 0, duration: 0.4, ease: 'elastic.out(1, 0.5)' });
-  });
-});
-
-// HERO PARALLAX
-gsap.to('.hero-bg', {
-  yPercent: 20,
-  ease: 'none',
-  scrollTrigger: {
-    trigger: '#hero',
-    start: 'top top',
-    end: 'bottom top',
-    scrub: true
-  }
-});
-
-// SMOOTH NAV CLICK
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function(e) {
-    const href = this.getAttribute('href');
-    if (href === '#') return;
-    const target = document.querySelector(href);
-    if (target) {
-      e.preventDefault();
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  });
-});
-</script>
-</body>
-</html>
