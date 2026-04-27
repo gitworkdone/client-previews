@@ -48,17 +48,18 @@ body {
 
 h1, h2, h3, h4 { font-family: 'Nunito', sans-serif; line-height: 1.15; }
 
-/* REVEAL ANIMATIONS */
-.reveal {
+/* REVEAL ANIMATIONS — progressive enhancement */
+.reveal { opacity: 1; transform: none; }
+html.js-loaded .reveal {
   opacity: 0;
-  transform: translateY(48px);
-  transition: opacity 0.75s cubic-bezier(0.4, 0, 0.2, 1), transform 0.75s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
 }
-.reveal.visible { opacity: 1; transform: translateY(0); }
-.reveal-delay-1 { transition-delay: 0.1s; }
-.reveal-delay-2 { transition-delay: 0.2s; }
-.reveal-delay-3 { transition-delay: 0.3s; }
-.reveal-delay-4 { transition-delay: 0.4s; }
+html.js-loaded .reveal.visible { opacity: 1; transform: none; }
+html.js-loaded .reveal-delay-1 { transition-delay: 0.1s; }
+html.js-loaded .reveal-delay-2 { transition-delay: 0.2s; }
+html.js-loaded .reveal-delay-3 { transition-delay: 0.3s; }
+html.js-loaded .reveal-delay-4 { transition-delay: 0.4s; }
 
 /* BUTTONS */
 .btn-primary {
@@ -265,7 +266,7 @@ h1, h2, h3, h4 { font-family: 'Nunito', sans-serif; line-height: 1.15; }
 #hero {
   height: 100vh;
   min-height: 600px;
-  background-image: url('https://images.unsplash.com/photo-1756723903313-b3d2f705f472?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxoYXBweSUyMGZhbWlseSUyMHBsYXlpbmclMjB3aXRoJTIwZ29sZGVuJTIwcmV0cmlldmVyJTIwaW4lMjBicmlnaHQlMjBzdW5ueSUyMGxpdmluZyUyMHJvb218ZW58MHwwfHx8MTc3NzI1NjQxNXww&ixlib=rb-4.1.0&q=80&w=1080');
+  background-image: url('https://images.pexels.com/photos/6793806/pexels-photo-6793806.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -991,7 +992,7 @@ h1, h2, h3, h4 { font-family: 'Nunito', sans-serif; line-height: 1.15; }
   content: '';
   position: absolute;
   inset: 0;
-  background-image: url('https://images.unsplash.com/photo-1760915384082-0e373598b9cc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxmYW1pbHklMjB3aXRoJTIwY2hpbGRyZW4lMjBodWdnaW5nJTIwdGhlaXIlMjBiZWxvdmVkJTIwZ3Jvb21lZCUyMGRvZyUyMGF0JTIwaG9tZXxlbnwwfDB8fHwxNzc3MjU2NDE3fDA&ixlib=rb-4.1.0&q=80&w=1080');
+  background-image: url('https://images.unsplash.com/photo-1577900251336-b6d47178c5ad?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxkb2dzJTIwcGxheWluZyUyMHRvZ2V0aGVyJTIwYnJpZ2h0JTIwc3VubnklMjBkYXklMjBmYW1pbHklMjBib25kaW5nfGVufDB8MHx8fDE3NzcyNTcwMTl8MA&ixlib=rb-4.1.0&q=80&w=1080');
   background-size: cover;
   background-position: center;
   opacity: 0.22;
@@ -1315,7 +1316,7 @@ img { display: block; max-width: 100%; }
   <div class="services-grid">
     <div class="service-card reveal reveal-delay-1">
       <div class="service-img-wrap">
-        <img src="https://images.unsplash.com/photo-1739492287640-224d88544580?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBncm9vbWVyJTIwYmF0aGluZyUyMGFuZCUyMHN0eWxpbmclMjBoYXBweSUyMGxhYnJhZG9vZGxlJTIwd2l0aCUyMGNhcmV8ZW58MHwwfHx8MTc3NzI1NjQxNnww&ixlib=rb-4.1.0&q=80&w=1080" alt="A happy dog getting bathed during a professional grooming session" loading="lazy">
+        <img src="https://images.pexels.com/photos/9360433/pexels-photo-9360433.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Cute Pomeranian dog freshly groomed on a pink grooming table indoors, looking happy and playful" loading="lazy">
         <span class="service-tag">Most Popular</span>
       </div>
       <div class="service-body">
@@ -1333,7 +1334,7 @@ img { display: block; max-width: 100%; }
 
     <div class="service-card reveal reveal-delay-2">
       <div class="service-img-wrap">
-        <img src="https://images.unsplash.com/photo-1758366278790-6f90f277896f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxjb2xvcmZ1bCUyMHBldCUyMGFjY2Vzc29yaWVzJTIwdG95cyUyMGFuZCUyMGxlYXNoZXMlMjBhcnJhbmdlZCUyMG9uJTIwd29vZGVuJTIwc2hlbGZ8ZW58MHwwfHx8MTc3NzI1NjQxNnww&ixlib=rb-4.1.0&q=80&w=1080" alt="Colourful pet accessories and toys displayed on wooden shelves" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1745719782742-9bb8b2db0565?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxjb2xvcmZ1bCUyMHBldCUyMGFjY2Vzc29yaWVzJTIwdG95cyUyMGRvZ3MlMjBwbGF5aW5nJTIwZmFtaWx5JTIwam95fGVufDB8MHx8fDE3NzcyNTcwMTd8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="A white dog rests with its colourful toys" loading="lazy">
         <span class="service-tag">Shop</span>
       </div>
       <div class="service-body">
@@ -1351,7 +1352,7 @@ img { display: block; max-width: 100%; }
 
     <div class="service-card reveal reveal-delay-3">
       <div class="service-img-wrap">
-        <img src="https://images.pexels.com/photos/5457068/pexels-photo-5457068.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Close-up portrait of a young Rottweiler mix puppy with a red collar outdoors" loading="lazy">
+        <img src="https://images.pexels.com/photos/3877901/pexels-photo-3877901.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="A cute and happy Border Collie puppy sitting outdoors in a garden setting" loading="lazy">
         <span class="service-tag">New</span>
       </div>
       <div class="service-body">
@@ -1374,7 +1375,7 @@ img { display: block; max-width: 100%; }
   <div class="about-inner">
     <div class="about-image-wrap reveal">
       <div class="about-img-frame">
-        <img src="https://images.pexels.com/photos/6131575/pexels-photo-6131575.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="A woman groomer carefully styling a Yorkshire Terrier on a grooming table indoors" loading="lazy">
+        <img src="https://images.pexels.com/photos/6816837/pexels-photo-6816837.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="A groomer trims a small dog's fur at a modern pet salon indoors" loading="lazy">
       </div>
       <div class="about-badge">
         <span class="about-badge-num" data-count="500" data-suffix="+">0+</span>
@@ -1441,4 +1442,381 @@ img { display: block; max-width: 100%; }
     <p class="section-subtitle">Real pups, real smiles, real results. This is what happiness looks like.</p>
   </div>
   <div class="gallery-grid">
-    <div class="gallery-card reveal reveal-delay
+    <div class="gallery-card reveal reveal-delay-1">
+      <img src="https://images.unsplash.com/photo-1647126224663-8e754f6fd026?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxmcmVzaGx5JTIwZ3Jvb21lZCUyMGZsdWZmeSUyMGRvZ3MlMjB3YWdnaW5nJTIwdGFpbHMlMjBoYXBweSUyMG93bmVyc3xlbnwwfDB8fHwxNzc3MjU3MDE4fDA&ixlib=rb-4.1.0&q=80&w=1080" alt="Two poodles on a leash on a city street" loading="lazy">
+      <div class="gallery-card-overlay">
+        <span class="gallery-card-label">Fresh from the Salon</span>
+      </div>
+    </div>
+    <div class="gallery-card reveal reveal-delay-2">
+      <img src="https://images.pexels.com/photos/35566417/pexels-photo-35566417.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Gentle close-up of two newborn puppies sleeping peacefully, capturing heartwarming animal affection" loading="lazy">
+      <div class="gallery-card-overlay">
+        <span class="gallery-card-label">Precious Little Ones</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================== TESTIMONIALS ======================== -->
+<section id="testimonials" aria-labelledby="testimonials-heading">
+  <div class="section-header reveal">
+    <div class="section-eyebrow">Happy Families</div>
+    <h2 class="section-title" id="testimonials-heading">What Pet Parents <span class="accent">Are Saying</span></h2>
+    <p class="section-subtitle">Don't just take our word for it — hear it straight from the families we love serving.</p>
+  </div>
+  <div class="testimonials-grid">
+    <div class="testimonial-card reveal reveal-delay-1">
+      <div class="testimonial-stars">
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+      </div>
+      <p class="testimonial-text">"I can't believe the transformation! Our golden retriever came home looking like he just stepped off a magazine cover. The team was so patient and gentle with him — he actually seemed to enjoy it!"</p>
+      <div class="testimonial-author">
+        <div class="author-bubble bubble-coral">S</div>
+        <div class="author-info">
+          <strong>Sarah M.</strong>
+          <span>Golden Retriever Parent</span>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card reveal reveal-delay-2">
+      <div class="testimonial-stars">
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+      </div>
+      <p class="testimonial-text">"We booked a puppy portrait session as a gift for the kids and it was the best decision ever. The photos are absolutely stunning — we have them hanging all over the house now!"</p>
+      <div class="testimonial-author">
+        <div class="author-bubble bubble-green">J</div>
+        <div class="author-info">
+          <strong>James &amp; Clara T.</strong>
+          <span>Labrador Family</span>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card reveal reveal-delay-3">
+      <div class="testimonial-stars">
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+      </div>
+      <p class="testimonial-text">"Our rescue pup is anxious around strangers but the groomers here were incredible. They took their time, never rushed, and he came home calm and fluffy. We're regulars for life!"</p>
+      <div class="testimonial-author">
+        <div class="author-bubble bubble-yellow">R</div>
+        <div class="author-info">
+          <strong>Rachel K.</strong>
+          <span>Rescue Dog Mum</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================== FAQ ======================== -->
+<section id="faq" aria-labelledby="faq-heading">
+  <div class="section-header reveal">
+    <div class="section-eyebrow">Questions &amp; Answers</div>
+    <h2 class="section-title" id="faq-heading">Everything You <span class="accent">Need to Know</span></h2>
+    <p class="section-subtitle">We know you want the very best for your pup — so here are the answers to the questions we hear most.</p>
+  </div>
+  <div class="faq-inner">
+    <div class="faq-item reveal reveal-delay-1">
+      <button class="faq-question" aria-expanded="false">
+        <span class="faq-question-text">How long does a full grooming session take?</span>
+        <span class="faq-icon"><span class="faq-icon-inner"></span></span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">Most full grooming sessions take between 1.5 to 3 hours, depending on your dog's breed, coat type, and temperament. We never rush — your pup's comfort always comes first. We'll give you a more accurate time estimate when you book.</div>
+      </div>
+    </div>
+    <div class="faq-item reveal reveal-delay-2">
+      <button class="faq-question" aria-expanded="false">
+        <span class="faq-question-text">Do you groom anxious or elderly dogs?</span>
+        <span class="faq-icon"><span class="faq-icon-inner"></span></span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">Absolutely! We have experience with nervous, reactive, and senior dogs. Our calm, one-on-one approach means we go at your dog's pace. Please let us know about any special needs when booking so we can prepare the warmest welcome possible.</div>
+      </div>
+    </div>
+    <div class="faq-item reveal reveal-delay-3">
+      <button class="faq-question" aria-expanded="false">
+        <span class="faq-question-text">What's included in a puppy portrait session?</span>
+        <span class="faq-icon"><span class="faq-icon-inner"></span></span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">Each portrait session includes a relaxed, professional shoot using studio-quality lighting, a selection of edited digital photos, and your choice of print or canvas options. Sessions can be booked alongside a groom for the freshest, most photogenic results!</div>
+      </div>
+    </div>
+    <div class="faq-item reveal reveal-delay-4">
+      <button class="faq-question" aria-expanded="false">
+        <span class="faq-question-text">What products do you use during grooming?</span>
+        <span class="faq-icon"><span class="faq-icon-inner"></span></span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">We only ever use pet-safe, non-toxic, and gentle grooming products. All of our shampoos and conditioners are free from harsh chemicals. If your dog has a skin sensitivity or allergy, just let us know and we'll tailor the products accordingly.</div>
+      </div>
+    </div>
+    <div class="faq-item reveal">
+      <button class="faq-question" aria-expanded="false">
+        <span class="faq-question-text">How do I book an appointment?</span>
+        <span class="faq-icon"><span class="faq-icon-inner"></span></span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">Simply fill in the booking form below and we'll be in touch to confirm your slot! Let us know your dog's breed, the service you're interested in, and any special requirements. We can't wait to meet your furry family member.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================== CONTACT / CTA ======================== -->
+<section id="contact" aria-labelledby="contact-heading">
+  <div class="cta-inner">
+    <div class="cta-text reveal">
+      <div class="section-header">
+        <div class="section-eyebrow">Get in Touch</div>
+        <h2 class="section-title" id="contact-heading">Ready to Treat Your <span class="accent">Pup?</span></h2>
+        <p class="section-subtitle">Book a groom, portrait session, or just pop in to browse the boutique. We'd love to welcome your furry family member.</p>
+      </div>
+      <div class="about-highlights" style="margin-top: 32px;">
+        <div class="about-highlight" style="background: rgba(255,255,255,0.18); border-left-color: var(--yellow);">
+          <strong style="color: var(--white);">Grooming</strong>
+          <span style="color: rgba(255,255,255,0.82);">Full packages for all breeds</span>
+        </div>
+        <div class="about-highlight" style="background: rgba(255,255,255,0.18); border-left-color: var(--yellow);">
+          <strong style="color: var(--white);">Portraits</strong>
+          <span style="color: rgba(255,255,255,0.82);">Professional on-site sessions</span>
+        </div>
+        <div class="about-highlight" style="background: rgba(255,255,255,0.18); border-left-color: var(--yellow);">
+          <strong style="color: var(--white);">Boutique</strong>
+          <span style="color: rgba(255,255,255,0.82);">Hand-picked pet accessories</span>
+        </div>
+        <div class="about-highlight" style="background: rgba(255,255,255,0.18); border-left-color: var(--yellow);">
+          <strong style="color: var(--white);">All Welcome</strong>
+          <span style="color: rgba(255,255,255,0.82);">Every breed, every size</span>
+        </div>
+      </div>
+    </div>
+    <div class="contact-form reveal reveal-delay-2">
+      <p class="form-title">Book an Appointment</p>
+      <form>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" name="name" placeholder="e.g. Sarah Smith" required>
+          </div>
+          <div class="form-group">
+            <label for="dog-name">Your Pup's Name</label>
+            <input type="text" id="dog-name" name="dog-name" placeholder="e.g. Biscuit" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" placeholder="you@example.com" required>
+        </div>
+        <div class="form-group">
+          <label for="service">Service Interested In</label>
+          <select id="service" name="service">
+            <option value="">Select a service…</option>
+            <option value="grooming">Full Grooming Package</option>
+            <option value="portraits">Puppy Portraits</option>
+            <option value="boutique">Pet Accessories Boutique</option>
+            <option value="combo">Grooming + Portrait Combo</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="message">Tell Us About Your Pup</label>
+          <textarea id="message" name="message" placeholder="Breed, age, any special needs we should know about…"></textarea>
+        </div>
+        <button type="submit" class="form-submit">Send My Booking Request</button>
+        <p class="form-note">We'll confirm your appointment within 24 hours. Can't wait to meet your pup!</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ======================== FOOTER ======================== -->
+<footer id="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <a href="#hero" class="footer-logo">Precious<span>Puppies</span></a>
+        <p class="footer-tagline">Where every pup feels at home. Professional grooming, portraits, and pet accessories with warmth and care.</p>
+        <div class="footer-social">
+          <a href="#" class="social-btn" aria-label="Instagram">IG</a>
+          <a href="#" class="social-btn" aria-label="Facebook">FB</a>
+          <a href="#" class="social-btn" aria-label="TikTok">TK</a>
+        </div>
+      </div>
+      <div>
+        <p class="footer-col-title">Services</p>
+        <ul class="footer-links">
+          <li><a href="#services">Full Grooming Package</a></li>
+          <li><a href="#services">Pet Accessories Boutique</a></li>
+          <li><a href="#services">Puppy Portraits</a></li>
+          <li><a href="#contact">Book an Appointment</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-title">Explore</p>
+        <ul class="footer-links">
+          <li><a href="#about">Our Story</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+          <li><a href="#testimonials">Reviews</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; 2025 PreciousPuppies. All rights reserved.</p>
+      <div class="footer-badges">
+        <span class="footer-badge">All Breeds Welcome</span>
+        <span class="footer-badge">Pet-Safe Products</span>
+        <span class="footer-badge">Family-Friendly</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.documentElement.classList.add('js-loaded');
+
+// ── Sticky Nav ──────────────────────────────────────────────
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+}, { passive: true });
+
+// ── Mobile Menu ─────────────────────────────────────────────
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobileMenu');
+const menuOverlay = document.getElementById('menuOverlay');
+
+function openMenu() {
+  mobileMenu.classList.add('open');
+  menuOverlay.classList.add('open');
+  hamburger.classList.add('open');
+  hamburger.setAttribute('aria-expanded', 'true');
+  document.body.style.overflow = 'hidden';
+}
+function closeMenu() {
+  mobileMenu.classList.remove('open');
+  menuOverlay.classList.remove('open');
+  hamburger.classList.remove('open');
+  hamburger.setAttribute('aria-expanded', 'false');
+  document.body.style.overflow = '';
+}
+
+hamburger.addEventListener('click', () => {
+  mobileMenu.classList.contains('open') ? closeMenu() : openMenu();
+});
+menuOverlay.addEventListener('click', closeMenu);
+document.querySelectorAll('.mobile-link').forEach(link => {
+  link.addEventListener('click', closeMenu);
+});
+
+// ── Smooth Scroll ────────────────────────────────────────────
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      const offset = nav.offsetHeight + 16;
+      const top = target.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+  });
+});
+
+// ── Scroll Reveal ────────────────────────────────────────────
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+// ── Counter Animation ────────────────────────────────────────
+function animateCounter(el) {
+  const target = parseInt(el.getAttribute('data-count'), 10);
+  const duration = 1800;
+  const start = performance.now();
+  function step(now) {
+    const elapsed = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    el.textContent = Math.round(eased * target);
+    if (progress < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+const counterObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      animateCounter(entry.target);
+      counterObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.5 });
+
+document.querySelectorAll('.counter').forEach(el => counterObserver.observe(el));
+
+// About badge counter
+const badgeNum = document.querySelector('.about-badge-num[data-count]');
+if (badgeNum) {
+  const badgeObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const target = parseInt(badgeNum.getAttribute('data-count'), 10);
+        const suffix = badgeNum.getAttribute('data-suffix') || '';
+        const duration = 1800;
+        const start = performance.now();
+        function step(now) {
+          const elapsed = now - start;
+          const progress = Math.min(elapsed / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          badgeNum.textContent = Math.round(eased * target) + suffix;
+          if (progress < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+        badgeObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  badgeObserver.observe(badgeNum);
+}
+
+// ── FAQ Accordion ────────────────────────────────────────────
+document.querySelectorAll('.faq-question').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item = btn.closest('.faq-item');
+    const answer = item.querySelector('.faq-answer');
+    const isOpen = item.classList.contains('open');
+
+    document.querySelectorAll('.faq-item.open').forEach(openItem => {
+      openItem.classList.remove('open');
+      openItem.querySelector('.faq-answer').style.maxHeight = null;
+      openItem.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+    });
+
+    if (!isOpen) {
+      item.classList.add('open');
+      answer.style.maxHeight = answer.scrollHeight + 'px';
+      btn.setAttribute('aria-expanded', 'true');
+    }
+  });
+});
+</script>
+</body>
+</html>
