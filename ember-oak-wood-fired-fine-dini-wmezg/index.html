@@ -1,0 +1,2011 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ember & Oak — Wood-Fired Fine Dining | Nashville, TN</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #F5F2EC;
+    --accent: #8B7355;
+    --bg: #F5F2EC;
+    --text: #1E1E1A;
+    --dark: #141410;
+  }
+
+  *, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Crimson Text', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6, .heading-font {
+    font-family: 'Josefin Sans', sans-serif;
+  }
+
+  img {
+    display: block;
+    max-width: 100%;
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  /* ── NAV ── */
+  .nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    padding: 1.5rem 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background 0.4s ease, box-shadow 0.4s ease, padding 0.4s ease;
+  }
+
+  .nav.scrolled {
+    background: var(--bg);
+    box-shadow: 0 2px 24px rgba(0,0,0,0.08);
+    padding: 1rem 3rem;
+  }
+
+  .nav-logo {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 600;
+    font-size: 1.2rem;
+    letter-spacing: 0.15em;
+    color: #fff;
+    text-transform: uppercase;
+    transition: color 0.4s ease;
+  }
+
+  .nav.scrolled .nav-logo {
+    color: var(--text);
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 400;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.9);
+    position: relative;
+    transition: color 0.4s ease;
+  }
+
+  .nav.scrolled .nav-links a {
+    color: var(--text);
+  }
+
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--accent);
+    transition: width 0.35s ease;
+  }
+
+  .nav-links a:hover::after {
+    width: 100%;
+  }
+
+  .nav-links a:hover {
+    color: var(--accent);
+  }
+
+  .nav.scrolled .nav-links a:hover {
+    color: var(--accent);
+  }
+
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 4px;
+  }
+
+  .hamburger span {
+    display: block;
+    width: 26px;
+    height: 2px;
+    background: #fff;
+    transition: all 0.3s ease;
+    transform-origin: center;
+  }
+
+  .nav.scrolled .hamburger span {
+    background: var(--text);
+  }
+
+  .hamburger.open span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .hamburger.open span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .hamburger.open span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: var(--dark);
+    z-index: 999;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s ease;
+  }
+
+  .mobile-menu.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .mobile-menu a {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 300;
+    font-size: 1.6rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #fff;
+    transition: color 0.3s ease;
+  }
+
+  .mobile-menu a:hover {
+    color: var(--accent);
+  }
+
+  /* ── HERO ── */
+  #hero {
+    height: 100vh;
+    width: 100%;
+    position: relative;
+    background-image: url("https://images.unsplash.com/photo-1657639386136-4aa889051428?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHx3b29kLWZpcmVkJTIwZmluZSUyMGRpbmluZyUyMHJlc3RhdXJhbnQlMjBtb29keSUyMGNhbmRsZWxpZ2h0JTIwZWxlZ2FudHxlbnwwfDB8fHwxNzc3MjUzMDQyfDA&ixlib=rb-4.1.0&q=80&w=1080");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    overflow: hidden;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.65));
+    z-index: 1;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 5rem 4rem;
+    max-width: 760px;
+  }
+
+  .hero-eyebrow {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 300;
+    font-size: 0.72rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.2rem;
+    display: block;
+  }
+
+  .hero-title {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 600;
+    font-size: clamp(2.8rem, 5.5vw, 4.5rem);
+    line-height: 1.08;
+    color: #fff;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 1.2rem;
+  }
+
+  .hero-tagline {
+    font-family: 'Crimson Text', serif;
+    font-weight: 300;
+    font-size: 1.25rem;
+    font-style: italic;
+    color: rgba(255,255,255,0.82);
+    margin-bottom: 2.5rem;
+    max-width: 440px;
+    line-height: 1.5;
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 600;
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    background: var(--accent);
+    color: #fff;
+    border: 2px solid var(--accent);
+    padding: 0.9rem 2.4rem;
+    cursor: pointer;
+    transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+    animation: pulse 2.8s ease infinite;
+  }
+
+  .btn-primary:hover {
+    background: transparent;
+    color: var(--accent);
+    animation: none;
+    box-shadow: 0 0 0 0 transparent;
+  }
+
+  .btn-outline {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 400;
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    background: transparent;
+    color: #fff;
+    border: 2px solid rgba(255,255,255,0.7);
+    padding: 0.9rem 2.4rem;
+    cursor: pointer;
+    transition: border-color 0.3s ease, color 0.3s ease, background 0.3s ease;
+  }
+
+  .btn-outline:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .btn-dark {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 600;
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    background: var(--accent);
+    color: #fff;
+    border: 2px solid var(--accent);
+    padding: 1rem 2.6rem;
+    cursor: pointer;
+    transition: background 0.3s ease, color 0.3s ease;
+    display: inline-block;
+    animation: pulse 2.8s ease infinite;
+  }
+
+  .btn-dark:hover {
+    background: transparent;
+    color: var(--accent);
+    animation: none;
+  }
+
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(139,115,85,0.5); }
+    50% { box-shadow: 0 0 0 15px rgba(139,115,85,0); }
+    100% { box-shadow: 0 0 0 0 rgba(139,115,85,0); }
+  }
+
+  .hero-scroll-indicator {
+    position: absolute;
+    bottom: 2.5rem;
+    right: 3rem;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .hero-scroll-indicator span {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.55);
+    writing-mode: vertical-rl;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 50px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.5), transparent);
+    animation: scrollDrop 1.8s ease infinite;
+  }
+
+  @keyframes scrollDrop {
+    0% { transform: scaleY(0); transform-origin: top; opacity: 1; }
+    100% { transform: scaleY(1); transform-origin: top; opacity: 0; }
+  }
+
+  /* ── SECTION COMMON ── */
+  section {
+    position: relative;
+  }
+
+  .section-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .section-label {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 300;
+    font-size: 0.68rem;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 600;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    line-height: 1.12;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--text);
+    margin-bottom: 1.5rem;
+  }
+
+  .section-title.light {
+    color: #fff;
+  }
+
+  .section-body {
+    font-family: 'Crimson Text', serif;
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: #5a574f;
+    max-width: 560px;
+  }
+
+  .section-body.light {
+    color: rgba(255,255,255,0.72);
+  }
+
+  .accent-rule {
+    width: 48px;
+    height: 2px;
+    background: var(--accent);
+    margin-bottom: 1.8rem;
+  }
+
+  /* ── STATS STRIP ── */
+  #stats {
+    background: var(--dark);
+    padding: 5rem 0;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    text-align: center;
+  }
+
+  .stat-item {
+    border-left: 1px solid rgba(139,115,85,0.3);
+    padding: 1.5rem 1rem;
+  }
+
+  .stat-item:first-child {
+    border-left: none;
+  }
+
+  .stat-number {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 600;
+    font-size: clamp(2.2rem, 4vw, 3.2rem);
+    color: var(--accent);
+    letter-spacing: 0.02em;
+    display: block;
+    line-height: 1;
+    margin-bottom: 0.6rem;
+  }
+
+  .stat-label {
+    font-family: 'Crimson Text', serif;
+    font-size: 1rem;
+    color: rgba(255,255,255,0.55);
+    font-style: italic;
+    letter-spacing: 0.04em;
+  }
+
+  /* ── ABOUT ── */
+  #about {
+    padding: 8rem 0;
+    background: var(--bg);
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+
+  .about-image-wrap {
+    position: relative;
+  }
+
+  .about-image-wrap img {
+    width: 100%;
+    height: 620px;
+    object-fit: cover;
+  }
+
+  .about-image-accent {
+    position: absolute;
+    bottom: -2rem;
+    right: -2rem;
+    width: 180px;
+    height: 180px;
+    border: 1.5px solid var(--accent);
+    z-index: -1;
+  }
+
+  .about-text {
+    padding: 2rem 0;
+  }
+
+  .about-quote {
+    font-family: 'Crimson Text', serif;
+    font-style: italic;
+    font-size: 1.55rem;
+    line-height: 1.5;
+    color: var(--text);
+    border-left: 3px solid var(--accent);
+    padding-left: 1.8rem;
+    margin: 2rem 0 2.5rem;
+  }
+
+  /* ── SERVICES / SPECIALS ── */
+  #menu {
+    padding: 8rem 0;
+    background: #EFEDE6;
+  }
+
+  .menu-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .menu-header .accent-rule {
+    margin: 0 auto 1.8rem;
+  }
+
+  .menu-header .section-body {
+    margin: 0 auto;
+    text-align: center;
+    max-width: 560px;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-bottom: 5rem;
+  }
+
+  .service-card {
+    background: var(--bg);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: default;
+  }
+
+  .service-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.14);
+  }
+
+  .service-card-img {
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+    border-radius: 8px 8px 0 0;
+    transition: transform 0.5s ease;
+  }
+
+  .service-card:hover .service-card-img {
+    transform: scale(1.04);
+  }
+
+  .service-card-body {
+    padding: 1.8rem 1.8rem 2rem;
+  }
+
+  .service-card-tag {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 0.7rem;
+  }
+
+  .service-card-title {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 600;
+    font-size: 1.1rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text);
+    margin-bottom: 0.8rem;
+  }
+
+  .service-card-desc {
+    font-family: 'Crimson Text', serif;
+    font-size: 1.05rem;
+    color: #6b6860;
+    line-height: 1.65;
+    margin-bottom: 1rem;
+  }
+
+  .service-card-price {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+  }
+
+  /* ── MENU PREVIEW ── */
+  .menu-preview {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem 5rem;
+    border-top: 1px solid rgba(139,115,85,0.2);
+    padding-top: 3rem;
+  }
+
+  .menu-col-title {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 600;
+    font-size: 0.75rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(139,115,85,0.2);
+  }
+
+  .menu-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid rgba(30,30,26,0.07);
+    gap: 1rem;
+  }
+
+  .menu-item-left {}
+
+  .menu-item-name {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 400;
+    font-size: 0.9rem;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--text);
+    display: block;
+    margin-bottom: 0.2rem;
+  }
+
+  .menu-item-desc {
+    font-family: 'Crimson Text', serif;
+    font-style: italic;
+    font-size: 0.98rem;
+    color: #8a8780;
+  }
+
+  .menu-item-price {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--accent);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  /* ── RESERVATIONS ── */
+  #reservations {
+    padding: 8rem 0;
+    background: var(--dark);
+    background-image: url("https://images.unsplash.com/photo-1698614082118-8e6eaecb08ef?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxpbnRpbWF0ZSUyMHJlc3RhdXJhbnQlMjBpbnRlcmlvciUyMGNhbmRsZWxpZ2h0JTIwd2FybSUyMGNoYXJjb2FsJTIwYWVzdGhldGljfGVufDB8MHx8fDE3NzcyNTMwNDV8MA&ixlib=rb-4.1.0&q=80&w=1080");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+  }
+
+  .reservations-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(20,20,16,0.88);
+    z-index: 0;
+  }
+
+  .reservations-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 780px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 0 2rem;
+  }
+
+  .reservations-inner .section-label {
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  .reservations-inner .section-title {
+    margin-bottom: 1rem;
+  }
+
+  .reservations-inner .section-body {
+    margin: 0 auto 3rem;
+    text-align: center;
+    max-width: 480px;
+  }
+
+  .reservation-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+  }
+
+  .form-group.full {
+    grid-column: 1 / -1;
+  }
+
+  .form-group label {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 0.5rem;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(139,115,85,0.35);
+    color: #fff;
+    padding: 0.9rem 1.1rem;
+    font-family: 'Crimson Text', serif;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s ease;
+    -webkit-appearance: none;
+    border-radius: 0;
+  }
+
+  .form-group input::placeholder,
+  .form-group textarea::placeholder {
+    color: rgba(255,255,255,0.25);
+  }
+
+  .form-group select option {
+    background: var(--dark);
+    color: #fff;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--accent);
+  }
+
+  .form-group textarea {
+    resize: vertical;
+    min-height: 110px;
+  }
+
+  .form-submit {
+    grid-column: 1 / -1;
+    text-align: center;
+    margin-top: 0.5rem;
+  }
+
+  /* ── PRIVATE DINING ── */
+  #private-dining {
+    padding: 8rem 0;
+    background: var(--bg);
+  }
+
+  .private-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+
+  .private-text {
+    padding: 1rem 0;
+  }
+
+  .private-features {
+    list-style: none;
+    margin: 2rem 0 2.5rem;
+  }
+
+  .private-features li {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid rgba(139,115,85,0.15);
+    font-family: 'Crimson Text', serif;
+    font-size: 1.08rem;
+    color: #5a574f;
+  }
+
+  .private-features li::before {
+    content: '';
+    flex-shrink: 0;
+    width: 20px;
+    height: 1px;
+    background: var(--accent);
+    margin-top: 0.72rem;
+  }
+
+  .private-image-wrap {
+    position: relative;
+  }
+
+  .private-image-wrap img {
+    width: 100%;
+    height: 580px;
+    object-fit: cover;
+  }
+
+  .private-image-badge {
+    position: absolute;
+    top: 2rem;
+    left: -2rem;
+    background: var(--accent);
+    color: #fff;
+    padding: 1.5rem 2rem;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    line-height: 1.6;
+    text-align: center;
+  }
+
+  .private-image-badge strong {
+    display: block;
+    font-size: 1.6rem;
+    letter-spacing: 0.04em;
+    margin-bottom: 0.2rem;
+  }
+
+  /* ── GALLERY STRIP ── */
+  .gallery-strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    height: 340px;
+    overflow: hidden;
+  }
+
+  .gallery-strip-item {
+    overflow: hidden;
+    position: relative;
+  }
+
+  .gallery-strip-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.7s ease;
+  }
+
+  .gallery-strip-item:hover img {
+    transform: scale(1.07);
+  }
+
+  /* ── TESTIMONIALS ── */
+  #testimonials {
+    padding: 8rem 0;
+    background: var(--bg);
+  }
+
+  .testimonials-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .testimonials-header .accent-rule {
+    margin: 0 auto 1.8rem;
+  }
+
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  .testimonial-card {
+    background: #EFEDE6;
+    padding: 2.5rem 2.2rem;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .testimonial-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 16px 48px rgba(0,0,0,0.1);
+  }
+
+  .testimonial-stars {
+    display: flex;
+    gap: 3px;
+    margin-bottom: 1.4rem;
+  }
+
+  .star {
+    width: 14px;
+    height: 14px;
+    background: var(--accent);
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+  }
+
+  .testimonial-text {
+    font-family: 'Crimson Text', serif;
+    font-style: italic;
+    font-size: 1.15rem;
+    line-height: 1.72;
+    color: var(--text);
+    margin-bottom: 1.8rem;
+  }
+
+  .testimonial-author {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .testimonial-name {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 600;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text);
+  }
+
+  .testimonial-meta {
+    font-family: 'Crimson Text', serif;
+    font-size: 0.95rem;
+    color: var(--accent);
+    font-style: italic;
+  }
+
+  .testimonial-mark {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    font-family: 'Crimson Text', serif;
+    font-size: 5rem;
+    line-height: 1;
+    color: rgba(139,115,85,0.12);
+    font-style: italic;
+    user-select: none;
+  }
+
+  /* ── FAQ ── */
+  #faq {
+    padding: 7rem 0;
+    background: #EFEDE6;
+  }
+
+  .faq-header {
+    text-align: center;
+    margin-bottom: 3.5rem;
+  }
+
+  .faq-header .accent-rule {
+    margin: 0 auto 1.8rem;
+  }
+
+  .faq-list {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  .faq-item {
+    border-bottom: 1px solid rgba(139,115,85,0.2);
+  }
+
+  .faq-question {
+    width: 100%;
+    background: none;
+    border: none;
+    text-align: left;
+    padding: 1.6rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 400;
+    font-size: 0.88rem;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--text);
+    transition: color 0.3s ease;
+    gap: 1rem;
+  }
+
+  .faq-question:hover {
+    color: var(--accent);
+  }
+
+  .faq-icon {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    position: relative;
+    transition: transform 0.3s ease;
+  }
+
+  .faq-icon::before,
+  .faq-icon::after {
+    content: '';
+    position: absolute;
+    background: var(--accent);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .faq-icon::before {
+    width: 14px;
+    height: 1.5px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .faq-icon::after {
+    width: 1.5px;
+    height: 14px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .faq-item.open .faq-icon::after {
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(90deg);
+  }
+
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.45s ease, padding 0.3s ease;
+  }
+
+  .faq-answer-inner {
+    padding: 0 0 1.6rem;
+    font-family: 'Crimson Text', serif;
+    font-size: 1.1rem;
+    color: #6b6860;
+    line-height: 1.75;
+  }
+
+  .faq-item.open .faq-answer {
+    max-height: 300px;
+  }
+
+  /* ── CONTACT ── */
+  #contact {
+    padding: 8rem 0;
+    background: var(--dark);
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: 6rem;
+    align-items: start;
+  }
+
+  .contact-info .section-title {
+    margin-bottom: 1.2rem;
+  }
+
+  .contact-info .section-body {
+    margin-bottom: 3rem;
+  }
+
+  .contact-detail {
+    margin-bottom: 2rem;
+  }
+
+  .contact-detail-label {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 0.4rem;
+  }
+
+  .contact-detail-value {
+    font-family: 'Crimson Text', serif;
+    font-size: 1.1rem;
+    color: rgba(255,255,255,0.75);
+    font-style: italic;
+  }
+
+  .contact-form-wrap {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(139,115,85,0.2);
+    padding: 3rem;
+  }
+
+  .contact-form {
+    display: grid;
+    gap: 1.2rem;
+  }
+
+  .contact-form .form-group label {
+    color: rgba(255,255,255,0.45);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--dark);
+    border-top: 1px solid rgba(139,115,85,0.18);
+    padding: 3rem 0;
+  }
+
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+
+  .footer-logo {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+  }
+
+  .footer-copy {
+    font-family: 'Crimson Text', serif;
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.35);
+    font-style: italic;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .footer-links a {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    transition: color 0.3s ease;
+  }
+
+  .footer-links a:hover {
+    color: var(--accent);
+  }
+
+  /* ── REVEAL ANIMATIONS ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px) scale(0.96);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+  .reveal-delay-5 { transition-delay: 0.5s; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1024px) {
+    .about-grid,
+    .private-grid,
+    .contact-grid {
+      gap: 4rem;
+    }
+
+    .services-grid {
+      gap: 1.5rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .nav {
+      padding: 1.2rem 1.5rem;
+    }
+
+    .nav.scrolled {
+      padding: 0.9rem 1.5rem;
+    }
+
+    .nav-links {
+      display: none;
+    }
+
+    .hamburger {
+      display: flex;
+    }
+
+    .mobile-menu {
+      display: flex;
+    }
+
+    .hero-content {
+      padding: 3.5rem 1.5rem;
+    }
+
+    .hero-title {
+      font-size: clamp(2.2rem, 8vw, 3rem);
+    }
+
+    .about-grid,
+    .private-grid,
+    .contact-grid {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+
+    .about-image-wrap img,
+    .private-image-wrap img {
+      height: 420px;
+    }
+
+    .private-image-badge {
+      left: 1rem;
+      top: 1rem;
+    }
+
+    .about-image-accent {
+      display: none;
+    }
+
+    .stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .stat-item:nth-child(3) {
+      border-left: none;
+    }
+
+    .services-grid {
+      grid-template-columns: 1fr;
+      max-width: 480px;
+      margin: 0 auto 4rem;
+    }
+
+    .menu-preview {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .testimonials-grid {
+      grid-template-columns: 1fr;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    .gallery-strip {
+      grid-template-columns: 1fr;
+      height: auto;
+    }
+
+    .gallery-strip-item {
+      height: 240px;
+    }
+
+    .reservation-form {
+      grid-template-columns: 1fr;
+    }
+
+    .form-group.full {
+      grid-column: 1;
+    }
+
+    .contact-form-wrap {
+      padding: 2rem;
+    }
+
+    .footer-inner {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .footer-links {
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .hero-scroll-indicator {
+      display: none;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .stats-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .section-inner {
+      padding: 0 1.2rem;
+    }
+
+    #about,
+    #menu,
+    #private-dining,
+    #testimonials,
+    #faq,
+    #contact {
+      padding: 5rem 0;
+    }
+
+    #reservations {
+      padding: 5rem 0;
+    }
+  }
+</style>
+
+<style id="gwp-palette">
+html[data-palette="client"] {
+  --accent: #C4704F;
+}
+html[data-palette-anim] *, html[data-palette-anim] *::before, html[data-palette-anim] *::after {
+  transition: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease !important;
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+  <a href="#hero" class="nav-logo">Ember &amp; Oak</a>
+  <ul class="nav-links">
+    <li><a href="#about">Our Story</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#reservations">Reserve</a></li>
+    <li><a href="#private-dining">Private Dining</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-label="Mobile navigation">
+  <a href="#about" class="mobile-link">Our Story</a>
+  <a href="#menu" class="mobile-link">Menu</a>
+  <a href="#reservations" class="mobile-link">Reserve</a>
+  <a href="#private-dining" class="mobile-link">Private Dining</a>
+  <a href="#testimonials" class="mobile-link">Reviews</a>
+  <a href="#contact" class="mobile-link">Contact</a>
+</div>
+
+<!-- HERO -->
+<section id="hero" aria-label="Hero">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <span class="hero-eyebrow">Nashville, Tennessee</span>
+    <h1 class="hero-title">Ember<br>&amp; Oak</h1>
+    <p class="hero-tagline">Wood-Fired Fine Dining — where live fire meets the finest Tennessee harvest.</p>
+    <div class="hero-ctas">
+      <a href="#reservations" class="btn-primary">Reserve a Table</a>
+      <a href="#menu" class="btn-outline">View the Menu</a>
+    </div>
+  </div>
+  <div class="hero-scroll-indicator" aria-hidden="true">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- STATS STRIP -->
+<section id="stats" aria-label="Restaurant highlights">
+  <div class="section-inner">
+    <div class="stats-grid">
+      <div class="stat-item reveal">
+        <span class="stat-number" data-target="7" data-suffix="">7</span>
+        <span class="stat-label">Tasting Menu Courses</span>
+      </div>
+      <div class="stat-item reveal reveal-delay-2">
+        <span class="stat-number" data-target="100" data-suffix="%">100%</span>
+        <span class="stat-label">Locally Sourced Produce</span>
+      </div>
+      <div class="stat-item reveal reveal-delay-3">
+        <span class="stat-number" data-target="40" data-suffix="+">40+</span>
+        <span class="stat-label">Craft Cocktails &amp; Natural Wines</span>
+      </div>
+      <div class="stat-item reveal reveal-delay-4">
+        <span class="stat-number" data-target="12" data-suffix="">12</span>
+        <span class="stat-label">Intimate Private Dining Seats</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" aria-label="Our story">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-image-wrap reveal">
+        <img src="https://images.pexels.com/photos/36073021/pexels-photo-36073021.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Our executive chef working beside a live wood fire in the kitchen at night" loading="lazy">
+        <div class="about-image-accent" aria-hidden="true"></div>
+      </div>
+      <div class="about-text reveal reveal-delay-2">
+        <span class="section-label">Our Story</span>
+        <div class="accent-rule"></div>
+        <h2 class="section-title">Born from the fire.<br>Rooted in the land.</h2>
+        <blockquote class="about-quote">
+          "Every dish we serve begins not in a recipe, but in a field — and ends in the honest heat of burning oak."
+        </blockquote>
+        <p class="section-body">
+          Ember &amp; Oak was born from a singular obsession: coaxing the most honest, soulful flavors from Tennessee's extraordinary land through the ancient alchemy of live fire. We partner exclusively with small family farms within 150 miles of Nashville — their seasons dictate our menu, their harvests inspire our craft.
+        </p>
+        <br>
+        <p class="section-body">
+          Our kitchen burns white oak, hickory, and cherry wood sourced from Middle Tennessee woodlands. No gas. No shortcuts. Just flame, time, and intention — a philosophy that carries through every course of our celebrated tasting menu and every cocktail crafted at our bar.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU HIGHLIGHTS -->
+<section id="menu" aria-label="Menu highlights">
+  <div class="section-inner">
+    <div class="menu-header">
+      <span class="section-label reveal">What We Offer</span>
+      <div class="accent-rule reveal"></div>
+      <h2 class="section-title reveal">Three Pillars of the Experience</h2>
+      <p class="section-body reveal reveal-delay-2">A seven-course tasting journey, a bar program driven by Tennessee spirits, and a table set for occasions worth remembering.</p>
+    </div>
+
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <img class="service-card-img" src="https://images.unsplash.com/photo-1666595622614-579dfa24a30c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjB0YXN0aW5nJTIwbWVudSUyMHBsYXRpbmclMjB3b29kLWZpcmVkJTIwY3Vpc2luZSUyMGVkaXRvcmlhbHxlbnwwfDB8fHwxNzc3MjUzMDQzfDA&ixlib=rb-4.1.0&q=80&w=1080" alt="A spread of beautifully plated tasting menu dishes" loading="lazy">
+        <div class="service-card-body">
+          <span class="service-card-tag">Signature</span>
+          <h3 class="service-card-title">The Oak Tasting Menu</h3>
+          <p class="service-card-desc">Seven courses. Seven moments of intention. Our chef-driven tasting menu evolves with the Tennessee seasons, guided by the fire at the heart of our kitchen.</p>
+          <span class="service-card-price">From $145 per guest</span>
+        </div>
+      </div>
+      <div class="service-card reveal reveal-delay-2">
+        <img class="service-card-img" src="https://images.unsplash.com/photo-1669698273769-24f6fed78f43?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxjcmFmdCUyMGNvY2t0YWlscyUyMG1peG9sb2d5JTIwd2FybSUyMHRlcnJhY290dGElMjBjYW5kbGVsaXQlMjBiYXJ8ZW58MHwwfHx8MTc3NzI1MzA0M3ww&ixlib=rb-4.1.0&q=80&w=1080" alt="A craft cocktail served with an elegant presentation" loading="lazy">
+        <div class="service-card-body">
+          <span class="service-card-tag">Craft Cocktails</span>
+          <h3 class="service-card-title">The Ember Bar</h3>
+          <p class="service-card-desc">Smoke-washed spirits, fire-roasted syrups, and botanicals foraged from Tennessee hillsides. Our bar is a destination unto itself — arrive early, linger long.</p>
+          <span class="service-card-price">Cocktails from $18</span>
+        </div>
+      </div>
+      <div class="service-card reveal reveal-delay-3">
+        <img class="service-card-img" src="https://images.pexels.com/photos/4451262/pexels-photo-4451262.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="An elegantly set private dining table for a special occasion" loading="lazy">
+        <div class="service-card-body">
+          <span class="service-card-tag">Private Events</span>
+          <h3 class="service-card-title">Private Dining Room</h3>
+          <p class="service-card-desc">An intimate chamber for up to twelve. Fully customizable menus, dedicated service, and a wine program tailored to your evening — for the moments that matter most.</p>
+          <span class="service-card-price">Inquire for pricing</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- MENU PREVIEW LIST -->
+    <div class="menu-preview">
+      <div class="reveal">
+        <p class="menu-col-title">Current Courses</p>
+        <div class="menu-item">
+          <div class="menu-item-left">
+            <span class="menu-item-name">Charred Leek &amp; Chevre</span>
+            <span class="menu-item-desc">smoked almonds, wild sorrel, lemon ash</span>
+          </div>
+          <span class="menu-item-price">$24</span>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-left">
+            <span class="menu-item-name">Wood-Fired Oysters</span>
+            <span class="menu-item-desc">ember butter, hickory mignonette, Tennessee caviar</span>
+          </div>
+          <span class="menu-item-price">$32</span>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-left">
+            <span class="menu-item-name">Oak-Roasted Duck Breast</span>
+            <span class="menu-item-desc">sorghum glaze, persimmon, turnip purée</span>
+          </div>
+          <span class="menu-item-price">$58</span>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-left">
+            <span class="menu-item-name">Heritage Pork Tenderloin</span>
+            <span class="menu-item-desc">apple cider brine, charred cabbage, corn silk jus</span>
+          </div>
+          <span class="menu-item-price">$52</span>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-left">
+            <span class="menu-item-name">Fire-Kissed Wagyu</span>
+            <span class="menu-item-desc">bone marrow butter, crispy shallot, smoked fingerlings</span>
+          </div>
+          <span class="menu-item-price">$86</span>
+        </div>
+      </div>
+      <div class="reveal reveal-delay-2">
+        <p class="menu-col-title">Craft Cocktails</p>
+        <div class="menu-item">
+          <div class="menu-item-left">
+            <span class="menu-item-name">The Brimstone</span>
+            <span class="menu-item-desc">mezcal, smoked honey, black walnut bitters</span>
+          </div>
+          <span class="menu-item-price">$22</span>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-left">
+            <span class="menu-item-name">Tennessee Ember</span>
+            <span class="menu-item-desc">bourbon, charred peach, lemon thyme shrub</span>
+          </div>
+          <span class="menu-item-price">$20</span>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-left">
+            <span class="menu-item-name">Hearthside Spritz</span>
+            <span class="menu-item-desc">elderflower, grilled grapefruit, prosecco</span>
+          </div>
+          <span class="menu-item-price">$18</span>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-left">
+            <span class="menu-item-name">The Woodcutter</span>
+            <span class="menu-item-desc">rye whiskey, cedar-smoked maple, aromatic bitters</span>
+          </div>
+          <span class="menu-item-price">$24</span>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-left">
+            <span class="menu-item-name">Garden Negroni</span>
+            <span class="menu-item-desc">gin, campari, fire-roasted rosemary vermouth</span>
+          </div>
+          <span class="menu-item-price">$21</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESERVATIONS -->
+<section id="reservations" aria-label="Make a reservation">
+  <div class="reservations-overlay"></div>
+  <div class="reservations-inner">
+    <span class="section-label reveal">Dining Reservations</span>
+    <div class="accent-rule reveal" style="margin: 0 auto 1.8rem;"></div>
+    <h2 class="section-title light reveal">Secure Your Table</h2>
+    <p class="section-body light reveal reveal-delay-1">Reserve your place at the fire. We recommend booking at least two weeks in advance for weekend dining. Tasting menu available Thursday through Sunday evenings.</p>
+    <form class="reservation-form reveal reveal-delay-2" aria-label="Reservation request form" onsubmit="return false;">
+      <div class="form-group">
+        <label for="res-name">Full Name</label>
+        <input type="text" id="res-name" name="name" placeholder="Your full name" autocomplete="name" required>
+      </div>
+      <div class="form-group">
+        <label for="res-email">Email Address</label>
+        <input type="email" id="res-email" name="email" placeholder="your@email.com" autocomplete="email" required>
+      </div>
+      <div class="form-group">
+        <label for="res-date">Preferred Date</label>
+        <input type="date" id="res-date" name="date" required>
+      </div>
+      <div class="form-group">
+        <label for="res-time">Preferred Time</label>
+        <select id="res-time" name="time">
+          <option value="">Select a time</option>
+          <option value="17:30">5:30 PM</option>
+          <option value="18:00">6:00 PM</option>
+          <option value="18:30">6:30 PM</option>
+          <option value="19:00">7:00 PM</option>
+          <option value="19:30">7:30 PM</option>
+          <option value="20:00">8:00 PM</option>
+          <option value="20:30">8:30 PM</option>
+          <option value="21:00">9:00 PM</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="res-guests">Number of Guests</label>
+        <select id="res-guests" name="guests">
+          <option value="">Select party size</option>
+          <option value="1">1 Guest</option>
+          <option value="2">2 Guests</option>
+          <option value="3">3 Guests</option>
+          <option value="4">4 Guests</option>
+          <option value="5">5 Guests</option>
+          <option value="6">6 Guests</option>
+          <option value="6+">More than 6 — inquire below</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="res-occasion">Special Occasion</label>
+        <select id="res-occasion" name="occasion">
+          <option value="">Select if applicable</option>
+          <option value="anniversary">Anniversary</option>
+          <option value="birthday">Birthday</option>
+          <option value="proposal">Proposal</option>
+          <option value="corporate">Corporate Dinner</option>
+          <option value="none">No special occasion</option>
+        </select>
+      </div>
+      <div class="form-group full">
+        <label for="res-notes">Dietary Requirements or Notes</label>
+        <textarea id="res-notes" name="notes" placeholder="Allergies, dietary restrictions, special requests..."></textarea>
+      </div>
+      <div class="form-submit">
+        <button type="submit" class="btn-dark">Request Reservation</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- PRIVATE DINING -->
+<section id="private-dining" aria-label="Private dining">
+  <div class="section-inner">
+    <div class="private-grid">
+      <div class="private-text reveal">
+        <span class="section-label">Exclusive Events</span>
+        <div class="accent-rule"></div>
+        <h2 class="section-title">The Private<br>Hearth Room</h2>
+        <p class="section-body">Secluded, fully bespoke, and lit by the warm glow of a dedicated fireplace — our Private Hearth Room is the setting Nashville's most discerning hosts choose for the evenings that define careers and deepen relationships.</p>
+        <ul class="private-features">
+          <li>Exclusively seated up to 12 guests in intimate surroundings</li>
+          <li>Fully customized tasting menus designed around your occasion</li>
+          <li>Dedicated sommelier and front-of-house service team</li>
+          <li>A/V capabilities for presentations and corporate gatherings</li>
+          <li>Optional wine pairing from our cellar of 300+ selections</li>
+          <li>Personalized keepsake menus and table florals available</li>
+        </ul>
+        <a href="#contact" class="btn-primary">Enquire About Private Dining</a>
+      </div>
+      <div class="private-image-wrap reveal reveal-delay-2">
+        <img src="https://images.unsplash.com/photo-1771308456346-4b5da82ecf46?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxtb29keSUyMGZvb2QlMjBwaG90b2dyYXBoeSUyMGNoYXJjb2FsJTIwc21va2UlMjB3b29kLWZpcmVkJTIwZmxhbWVzfGVufDB8MHx8fDE3NzcyNTMwNDR8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="Smoke rising from food cooking over a wood fire on a grill" loading="lazy">
+        <div class="private-image-badge" aria-label="Up to 12 guests exclusively">
+          <strong>12</strong>
+          Guests<br>Exclusively
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY STRIP -->
+<div class="gallery-strip" aria-hidden="true">
+  <div class="gallery-strip-item">
+    <img src="https://images.pexels.com/photos/13828822/pexels-photo-13828822.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Close-up of an exquisitely plated gourmet dish with herbs and vegetables" loading="lazy">
+  </div>
+  <div class="gallery-strip-item">
+    <img src="https://images.unsplash.com/photo-1698614082118-8e6eaecb08ef?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxpbnRpbWF0ZSUyMHJlc3RhdXJhbnQlMjBpbnRlcmlvciUyMGNhbmRsZWxpZ2h0JTIwd2FybSUyMGNoYXJjb2FsJTIwYWVzdGhldGljfGVufDB8MHx8fDE3NzcyNTMwNDV8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="Dimly lit intimate restaurant interior with candles and warm ambiance" loading="lazy">
+  </div>
+  <div class="gallery-strip-item">
+    <img src="https://images.pexels.com/photos/36073021/pexels-photo-36073021.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Chef cooking beside a live wood fire in the kitchen" loading="lazy">
+  </div>
+</div>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials" aria-label="Guest testimonials">
+  <div class="section-inner">
+    <div class="testimonials-header">
+      <span class="section-label reveal">Voices from Our Table</span>
+      <div class="accent-rule reveal"></div>
+      <h2 class="section-title reveal">What Our Guests Say</h2>
+    </div>
+    <div class="testimonials-grid">
+      <article class="testimonial-card reveal">
+        <div class="testimonial-stars" aria-label="5 out of 5 stars">
+          <div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div>
+        </div>
+        <p class="testimonial-text">"An extraordinary evening from first breath to last. The oak-roasted duck was the finest thing I've eaten in Nashville — perhaps anywhere. Ember &amp; Oak has reimagined what fire can do to food."</p>
+        <div class="testimonial-author">
+          <span class="testimonial-name">Margaret H.</span>
+          <span class="testimonial-meta">Anniversary Dinner Guest</span>
+        </div>
+        <span class="testimonial-mark" aria-hidden="true">"</span>
+      </article>
+      <article class="testimonial-card reveal reveal-delay-2">
+        <div class="testimonial-stars" aria-label="5 out of 5 stars">
+          <div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div>
+        </div>
+        <p class="testimonial-text">"We hosted our executive team's dinner in the Private Hearth Room and the experience was completely flawless. The chef's custom tasting menu sparked more conversation than any presentation we've ever run. Unforgettable."</p>
+        <div class="testimonial-author">
+          <span class="testimonial-name">David R.</span>
+          <span class="testimonial-meta">Corporate Dining Guest</span>
+        </div>
+        <span class="testimonial-mark" aria-hidden="true">"</span>
+      </article>
+      <article class="testimonial-card reveal reveal-delay-3">
+        <div class="testimonial-stars" aria-label="5 out of 5 stars">
+          <div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div>
+        </div>
+        <p class="testimonial-text">"The cocktail program alone would justify the visit. The Brimstone is everything — smoky, complex, perfectly balanced. Combined with the warmth of the room and the craft of the kitchen, this is Nashville's finest table."</p>
+        <div class="testimonial-author">
+          <span class="testimonial-name">Claire &amp; James T.</span>
+          <span class="testimonial-meta">Regular Tasting Menu Guests</span>
+        </div>
+        <span class="testimonial-mark" aria-hidden="true">"</span>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" aria-label="Frequently asked questions">
+  <div class="section-inner">
+    <div class="faq-header">
+      <span class="section-label reveal">Before You Arrive</span>
+      <div class="accent-rule reveal"></div>
+      <h2 class="section-title reveal">Frequently Asked Questions</h2>
+    </div>
+    <div class="faq-list reveal">
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          What is the dress code at Ember &amp; Oak?
+          <span class="faq-icon" aria-hidden="true"></span>
+        </button>
+        <div class="faq-answer" role="region">
+          <div class="faq-answer-inner">We welcome smart casual through formal attire. Our guests take pride in the occasion, and we encourage you to dress for an evening you'll want to remember. Business casual is perfectly appropriate; black tie is always welcome.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          How far in advance should I make a reservation?
+          <span class="faq-icon" aria-hidden="true"></span>
+        </button>
+        <div class="faq-answer" role="region">
+          <div class="faq-answer-inner">We recommend reserving at least two to three weeks in advance for weekend evenings, particularly during the spring and fall seasons. Weekday tables often have shorter lead times. Private dining enquiries should be submitted at least four to six weeks ahead.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Can you accommodate dietary restrictions and allergies?
+          <span class="faq-icon" aria-hidden="true"></span>
+        </button>
+        <div class="faq-answer" role="region">
+          <div class="faq-answer-inner">Absolutely. Our team is experienced in adapting our tasting menu for a wide range of dietary needs including vegetarian, vegan, gluten-free, and specific allergens. Please include all requirements in your reservation notes and we will ensure your evening is perfect.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Do you offer wine pairings with the tasting menu?
+          <span class="faq-icon" aria-hidden="true"></span>
+        </button>
+        <div class="faq-answer" role="region">
+          <div class="faq-answer-inner">Yes. Our sommelier has curated a wine pairing program to complement each course of the tasting menu, drawing from our cellar of over 300 selections including small-producer natural wines, classic Old World bottles, and American regional highlights. Non-alcoholic pairings are also available.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Is Ember &amp; Oak suitable for children?
+          <span class="faq-icon" aria-hidden="true"></span>
+        </button>
+        <div class="faq-answer" role="region">
+          <div class="faq-answer-inner">Ember &amp; Oak is designed as an intimate adult dining experience. We warmly welcome guests aged 12 and above. For families with younger children, we suggest our Sunday afternoon Bar Menu, which offers a more relaxed setting and a shorter format menu.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          What is your cancellation policy?
+          <span class="faq-icon" aria-hidden="true"></span>
+        </button>
+        <div class="faq-answer" role="region">
+          <div class="faq-answer-inner">We ask for at least 48 hours notice for cancellations or changes to standard reservations. Private dining bookings require 7 days notice. For same-day cancellations without notice, a per-guest cancellation fee may apply. We understand that life is unpredictable — please reach out as early as possible and we will always do our best to accommodate.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" aria-label="Contact us">
+  <div class="section-inner">
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <span class="section-label">Get in Touch</span>
+        <div class="accent-rule"></div>
+        <h2 class="section-title light">We'd Love<br>to Hear from You</h2>
+        <p class="section-body light">For enquiries about private dining, large groups, press, or anything else — send us a message and a member of our team will respond within one business day.</p>
+        <div class="contact-detail">
+          <span class="contact-detail-label">Location</span>
+          <span class="contact-detail-value">Nashville, Tennessee</span>
+        </div>
+        <div class="contact-detail">
+          <span class="contact-detail-label">Dining Hours</span>
+          <span class="contact-detail-value">Thursday — Sunday, from 5:00 PM</span>
+        </div>
+        <div class="contact-detail">
+          <span class="contact-detail-label">Bar &amp; Walk-ins</span>
+          <span class="contact-detail-value">Thursday — Sunday from 4:30 PM, subject to availability</span>
+        </div>
+        <div class="contact-detail">
+          <span class="contact-detail-label">Private Dining Enquiries</span>
+          <span class="contact-detail-value">Use the contact form — we respond within 24 hours</span>
+        </div>
+      </div>
+      <div class="contact-form-wrap reveal reveal-delay-2">
+        <form class="contact-form" aria-label="Contact form" onsubmit="return false;">
+          <div class="form-group">
+            <label for="contact-name">Your Name</label>
+            <input type="text" id="contact-name" name="name" placeholder="Full name" autocomplete="name" required>
+          </div>
+          <div class="form-group">
+            <label for="contact-email">Email Address</label>
+            <input type="email" id="contact-email" name="email" placeholder="your@email.com" autocomplete="email" required>
+          </div>
+          <div class="form-group">
+            <label for="contact-subject">Subject</label>
+            <select id="contact-subject" name="subject">
+              <option value="">Select a subject</option>
+              <option value="private">Private Dining Enquiry</option>
+              <option value="large-group">Large Group Reservation</option>
+              <option value="press">Press &amp; Media</option>
+              <option value="gift">Gift Cards</option>
+              <option value="general">General Enquiry</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="contact-guests">Estimated Guest Count (if applicable)</label>
+            <input type="number" id="contact-guests" name="guests" placeholder="e.g. 8" min="1" max="500">
+          </div>
+          <div class="form-group full">
+            <label for="contact-message">Your Message</label>
+            <textarea id="contact-message" name="message" placeholder="Tell us how we can help..." style="min-height:140px;"></textarea>
+          </div>
+          <div class="form-group full">
+            <button type="submit" class="btn-dark" style="width: 100%; text-align: center; border: 2px solid var(--accent);">Send Message</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer role="contentinfo">
+  <div class="footer-inner">
+    <div class="footer-logo">Ember &amp; Oak</div>
+    <p class="footer-copy">&copy; 2025 Ember &amp; Oak. All rights reserved. Nashville, Tennessee.</p>
+    <ul class="footer-links">
+      <li><a href="#about">Our Story</a></li>
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#reservations">Reserve</a></li>
+      <li><a href="#private-dining">Private Dining</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+  // ── NAV SCROLL BEHAVIOUR ──
+  const nav = document.getElementById('mainNav');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 60) {
+      nav.classList.add('scrolled');
+    } else {
+      nav.classList.remove('scrolled');
+    }
+  }, { passive: true });
+
+  // ── HAMBURGER / MOBILE MENU ──
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const mobileLinks = document.querySelectorAll('.mobile-link');
+
+  hamburger.addEventListener('click', () => {
+    const isOpen = hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open', isOpen);
+    hamburger.setAttribute('aria-expanded', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+
+  mobileLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    });
+  });
+
+  // ── INTERSECTION OBSERVER — REVEAL ──
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.reveal').forEach(el => {
+    revealObserver.observe(el);
+  });
+
+  // ── COUNTER ANIMATION ──
+  const counters = document.querySelectorAll('.stat-number');
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const target = parseInt(el.getAttribute('data-target'), 10);
+        const suffix = el.getAttribute('data-suffix') || '';
+        let start = 0;
+        const duration = 1600;
+        const startTime = performance.now();
+
+        function tick(now) {
+          const elapsed = now - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          const current = Math.round(eased * target);
+          el.textContent = current + suffix;
+          if (progress < 1) {
+            requestAnimationFrame(tick);
+          }
+        }
+
+        requestAnimationFrame(tick);
+        counterObserver.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  counters.forEach(el => counterObserver.observe(el));
+
+  // ── FAQ ACCORDION ──
+  const faqItems = document.querySelectorAll('.faq-item');
+
+  faqItems.forEach(item => {
+    const btn = item.querySelector('.faq-question');
+    const answer = item.querySelector('.faq-answer');
+
+    btn.addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+
+      // Close all
+      faqItems.forEach(i => {
+        i.classList.remove('open');
+        i.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+      });
+
+      // Open clicked if it was closed
+      if (!isOpen) {
+        item.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+</script>
+
+
+<div id="gwp-switcher" style="position:fixed;bottom:20px;right:20px;z-index:2147483647;display:flex;flex-direction:column;align-items:flex-end;gap:5px;font-family:-apple-system,BlinkMacSystemFont,'Inter',sans-serif;">
+  <div style="font-size:9px;letter-spacing:0.14em;color:rgba(255,255,255,0.3);text-transform:uppercase;padding-right:3px;">gitworkdone &middot; palette</div>
+  <div style="background:rgba(8,8,8,0.88);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,0.1);border-radius:50px;padding:5px;display:flex;gap:3px;box-shadow:0 8px 32px rgba(0,0,0,0.55);">
+    <button id="gwp-ai-btn" onclick="gwpSet('ai')" style="border:none;border-radius:50px;padding:7px 15px;cursor:pointer;display:flex;align-items:center;gap:7px;font-size:11px;font-weight:600;letter-spacing:0.05em;background:rgba(255,255,255,0.13);color:#fff;line-height:1;">
+      <span style="width:10px;height:10px;border-radius:50%;background:#8B7355;flex-shrink:0;border:1px solid rgba(255,255,255,0.2);display:inline-block;"></span>AI Design
+    </button>
+    <button id="gwp-cl-btn" onclick="gwpSet('client')" style="border:none;border-radius:50px;padding:7px 15px;cursor:pointer;display:flex;align-items:center;gap:7px;font-size:11px;font-weight:600;letter-spacing:0.05em;background:transparent;color:rgba(255,255,255,0.38);line-height:1;">
+      <span style="width:10px;height:10px;border-radius:50%;background:#C4704F;flex-shrink:0;border:1px solid rgba(255,255,255,0.2);display:inline-block;"></span>Your Colors
+    </button>
+  </div>
+</div>
+<script>
+(function(){
+  function gwpSet(p){
+    var root=document.documentElement;
+    root.setAttribute('data-palette-anim','');
+    root.setAttribute('data-palette',p);
+    setTimeout(function(){root.removeAttribute('data-palette-anim');},400);
+    var ai=document.getElementById('gwp-ai-btn'),cl=document.getElementById('gwp-cl-btn');
+    if(p==='ai'){
+      ai.style.background='rgba(255,255,255,0.13)';ai.style.color='#fff';
+      cl.style.background='transparent';cl.style.color='rgba(255,255,255,0.38)';
+    } else {
+      cl.style.background='rgba(255,255,255,0.13)';cl.style.color='#fff';
+      ai.style.background='transparent';ai.style.color='rgba(255,255,255,0.38)';
+    }
+  }
+  window.gwpSet=gwpSet;
+})();
+</script>
+</body>
+</html>
