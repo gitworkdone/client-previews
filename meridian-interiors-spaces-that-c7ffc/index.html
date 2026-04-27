@@ -1,0 +1,2248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MERIDIAN Interiors — Spaces That Define You</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,700;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary: #FDF0DC;
+  --accent: #C4841A;
+  --bg: #FDF0DC;
+  --text: #2A1810;
+  --dark: #1A1205;
+  --font-heading: 'Cormorant Garamond', serif;
+  --font-body: 'DM Sans', sans-serif;
+  --transition: 0.4s ease;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-weight: 300;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ── NAV ── */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 1.5rem 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(253, 240, 220, 0);
+  transition: background 0.4s ease, box-shadow 0.4s ease;
+}
+
+.nav.scrolled {
+  background: rgba(253, 240, 220, 0.97);
+  box-shadow: 0 1px 24px rgba(42, 24, 16, 0.08);
+}
+
+.nav-logo {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.35rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #fff;
+  transition: color 0.4s ease;
+}
+
+.nav.scrolled .nav-logo {
+  color: var(--text);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  list-style: none;
+}
+
+.nav-links a {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.85);
+  transition: color 0.3s ease;
+}
+
+.nav.scrolled .nav-links a {
+  color: var(--text);
+}
+
+.nav-links a:hover {
+  color: var(--accent);
+}
+
+.nav-cta {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  border: 1px solid rgba(255,255,255,0.6);
+  padding: 0.55rem 1.4rem;
+  color: #fff !important;
+  transition: border-color 0.3s ease, color 0.3s ease, background 0.3s ease !important;
+}
+
+.nav.scrolled .nav-cta {
+  border-color: var(--accent);
+  color: var(--accent) !important;
+}
+
+.nav-cta:hover {
+  background: var(--accent) !important;
+  border-color: var(--accent) !important;
+  color: #fff !important;
+}
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 4px;
+}
+
+.hamburger span {
+  display: block;
+  width: 26px;
+  height: 1.5px;
+  background: #fff;
+  transition: transform 0.3s ease, opacity 0.3s ease, background 0.4s ease;
+}
+
+.nav.scrolled .hamburger span {
+  background: var(--text);
+}
+
+.nav-open .hamburger span:nth-child(1) {
+  transform: translateY(6.5px) rotate(45deg);
+}
+.nav-open .hamburger span:nth-child(2) {
+  opacity: 0;
+}
+.nav-open .hamburger span:nth-child(3) {
+  transform: translateY(-6.5px) rotate(-45deg);
+}
+
+/* ── HERO ── */
+.hero {
+  position: relative;
+  height: 100vh;
+  min-height: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-image: url("https://images.pexels.com/photos/7676881/pexels-photo-7676881.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.42);
+  z-index: 1;
+}
+
+.hero-label {
+  position: absolute;
+  top: 42%;
+  left: 50%;
+  transform: translate(-50%, -100%) translateY(-4rem);
+  font-family: monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--accent);
+  z-index: 2;
+  white-space: nowrap;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 0 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.6rem;
+}
+
+.hero-title {
+  font-family: var(--font-heading);
+  font-size: clamp(3rem, 8vw, 6.5rem);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.0;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.hero-subtitle {
+  font-family: var(--font-heading);
+  font-size: clamp(1rem, 2.5vw, 1.35rem);
+  font-weight: 300;
+  font-style: italic;
+  color: rgba(255,255,255,0.78);
+  letter-spacing: 0.1em;
+}
+
+.hero-btn {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.55);
+  padding: 0.85rem 2.4rem;
+  transition: background 0.3s ease, border-color 0.3s ease;
+  margin-top: 0.5rem;
+}
+
+.hero-btn:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.hero-marquee-wrap {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  border-top: 1px solid rgba(196, 132, 26, 0.35);
+  padding: 0.85rem 0;
+  overflow: hidden;
+  background: rgba(0,0,0,0.22);
+}
+
+.hero-marquee {
+  display: flex;
+  gap: 0;
+  animation: marquee 28s linear infinite;
+  white-space: nowrap;
+}
+
+.hero-marquee span {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--accent);
+  padding: 0 2.5rem;
+  flex-shrink: 0;
+}
+
+.hero-marquee span::after {
+  content: '·';
+  margin-left: 2.5rem;
+  color: rgba(196,132,26,0.45);
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ── SECTION COMMON ── */
+.section-label {
+  font-family: monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--accent);
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.section-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  font-weight: 300;
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+}
+
+.section-title em {
+  font-style: italic;
+  font-weight: 300;
+}
+
+.section-title strong {
+  font-weight: 700;
+}
+
+.divider {
+  width: 48px;
+  height: 1px;
+  background: var(--accent);
+  margin: 1.8rem 0;
+}
+
+/* ── REVEAL ANIMATION ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.85s ease, transform 0.85s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.clip-reveal {
+  clip-path: inset(8% 0 8% 0);
+  opacity: 0;
+  transition: clip-path 0.9s ease, opacity 0.7s ease;
+}
+
+.clip-reveal.visible {
+  clip-path: inset(0% 0 0% 0);
+  opacity: 1;
+}
+
+/* ── FEATURED PROJECT ── */
+.featured {
+  padding: 8rem 3rem;
+  background: var(--bg);
+}
+
+.featured-inner {
+  max-width: 1320px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: center;
+}
+
+.featured-meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.featured-tag {
+  font-family: monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1.2rem;
+}
+
+.featured-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2.6rem, 4.5vw, 4.2rem);
+  font-weight: 300;
+  line-height: 1.08;
+  margin-bottom: 1.8rem;
+}
+
+.featured-title em {
+  font-style: italic;
+}
+
+.featured-body {
+  font-size: 0.92rem;
+  line-height: 1.8;
+  color: rgba(42,24,16,0.72);
+  max-width: 420px;
+  margin-bottom: 2.4rem;
+}
+
+.btn-primary {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--text);
+  padding: 0.9rem 2.2rem;
+  transition: background 0.3s ease;
+  align-self: flex-start;
+}
+
+.btn-primary:hover {
+  background: var(--accent);
+}
+
+.btn-outline {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text);
+  border: 1px solid var(--text);
+  padding: 0.9rem 2.2rem;
+  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  align-self: flex-start;
+}
+
+.btn-outline:hover {
+  background: var(--text);
+  color: var(--bg);
+}
+
+.featured-image-wrap {
+  position: relative;
+  overflow: hidden;
+}
+
+.featured-image-wrap img {
+  width: 100%;
+  height: 580px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.7s ease;
+}
+
+.featured-image-wrap:hover img {
+  transform: scale(1.03);
+}
+
+.featured-image-credit {
+  position: absolute;
+  bottom: 1.2rem;
+  right: 1.2rem;
+  font-family: monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.65);
+}
+
+/* ── STATS ── */
+.stats {
+  background: var(--dark);
+  padding: 5rem 3rem;
+}
+
+.stats-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  text-align: center;
+}
+
+.stat-item {}
+
+.stat-number {
+  font-family: var(--font-heading);
+  font-size: clamp(2.8rem, 5vw, 4.5rem);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1;
+  display: block;
+}
+
+.stat-accent {
+  color: var(--accent);
+}
+
+.stat-label {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  margin-top: 0.7rem;
+  display: block;
+}
+
+/* ── PORTFOLIO ── */
+.portfolio {
+  padding: 8rem 0;
+  background: var(--bg);
+}
+
+.portfolio-header {
+  max-width: 1320px;
+  margin: 0 auto 4rem;
+  padding: 0 3rem;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+}
+
+.portfolio-item {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 3/4;
+  cursor: pointer;
+  border-top: 3px solid transparent;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.portfolio-item:hover {
+  border-top-color: var(--accent);
+  transform: translateY(-4px);
+  z-index: 2;
+}
+
+.portfolio-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s ease;
+}
+
+.portfolio-item:hover img {
+  transform: scale(1.05);
+}
+
+.portfolio-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(26,18,5,0.85) 0%, rgba(26,18,5,0.0) 55%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.8rem 1.6rem;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.portfolio-item:hover .portfolio-overlay {
+  opacity: 1;
+}
+
+.portfolio-project-name {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  font-weight: 400;
+  color: #fff;
+  line-height: 1.2;
+  font-style: italic;
+}
+
+.portfolio-client {
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-top: 0.35rem;
+}
+
+/* ── PORTFOLIO EXTRA ITEMS using gradients ── */
+.portfolio-item-grad {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 3/4;
+  cursor: pointer;
+  border-top: 3px solid transparent;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.portfolio-item-grad:hover {
+  border-top-color: var(--accent);
+  transform: translateY(-4px);
+  z-index: 2;
+}
+
+.portfolio-grad-bg {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s ease;
+}
+
+.portfolio-item-grad:hover .portfolio-grad-bg {
+  transform: scale(1.05);
+}
+
+.portfolio-item-grad .portfolio-overlay {
+  opacity: 0;
+}
+
+.portfolio-item-grad:hover .portfolio-overlay {
+  opacity: 1;
+}
+
+/* ── SERVICES ── */
+.services {
+  padding: 8rem 3rem;
+  background: var(--dark);
+}
+
+.services-inner {
+  max-width: 1320px;
+  margin: 0 auto;
+}
+
+.services-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  margin-bottom: 5rem;
+  align-items: end;
+}
+
+.services-header .section-title {
+  color: #fff;
+}
+
+.services-header .section-label {
+  color: var(--accent);
+}
+
+.services-intro {
+  font-size: 0.92rem;
+  line-height: 1.85;
+  color: rgba(255,255,255,0.55);
+  align-self: end;
+  padding-bottom: 0.5rem;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+}
+
+.service-card {
+  position: relative;
+  overflow: hidden;
+  height: 500px;
+}
+
+.service-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.7s ease;
+  filter: brightness(0.72);
+}
+
+.service-card:hover img {
+  transform: scale(1.04);
+  filter: brightness(0.55);
+}
+
+.service-card-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 2.4rem 2rem;
+}
+
+.service-number {
+  font-family: var(--font-heading);
+  font-size: 4rem;
+  font-weight: 700;
+  color: rgba(196,132,26,0.22);
+  line-height: 1;
+  margin-bottom: 0.6rem;
+}
+
+.service-name {
+  font-family: var(--font-heading);
+  font-size: 1.7rem;
+  font-weight: 400;
+  color: #fff;
+  line-height: 1.15;
+  margin-bottom: 0.8rem;
+}
+
+.service-desc {
+  font-size: 0.82rem;
+  line-height: 1.75;
+  color: rgba(255,255,255,0.62);
+  max-width: 300px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.service-card:hover .service-desc {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.service-link {
+  margin-top: 1rem;
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  opacity: 0;
+  transition: opacity 0.4s ease 0.1s;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.service-link::after {
+  content: '';
+  display: inline-block;
+  width: 24px;
+  height: 1px;
+  background: var(--accent);
+  transition: width 0.3s ease;
+}
+
+.service-card:hover .service-link {
+  opacity: 1;
+}
+
+.service-link:hover::after {
+  width: 40px;
+}
+
+/* ── ABOUT ── */
+.about {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 100vh;
+}
+
+.about-dark {
+  background: var(--dark);
+  padding: 7rem 5rem 7rem 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: none;
+}
+
+.about-dark .section-label {
+  color: var(--accent);
+}
+
+.about-dark .section-title {
+  color: #fff;
+}
+
+.about-dark .divider {
+  background: var(--accent);
+}
+
+.about-body {
+  font-size: 0.92rem;
+  line-height: 1.9;
+  color: rgba(255,255,255,0.58);
+  max-width: 500px;
+  margin-bottom: 1.8rem;
+}
+
+.about-body + .about-body {
+  margin-top: 0;
+  margin-bottom: 2.8rem;
+}
+
+.about-signature {
+  font-family: var(--font-heading);
+  font-size: 1.6rem;
+  font-style: italic;
+  font-weight: 300;
+  color: rgba(255,255,255,0.4);
+  margin-top: 0.5rem;
+}
+
+.about-light {
+  background: #F5E6CC;
+  display: flex;
+  flex-direction: column;
+}
+
+.about-image-wrap {
+  flex: 1;
+  overflow: hidden;
+}
+
+.about-image-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.7s ease;
+}
+
+.about-image-wrap:hover img {
+  transform: scale(1.03);
+}
+
+.about-caption {
+  padding: 2rem 2.5rem;
+  background: #F5E6CC;
+}
+
+.about-caption-title {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text);
+  margin-bottom: 0.3rem;
+}
+
+.about-caption-role {
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+/* ── PROCESS ── */
+.process {
+  padding: 8rem 3rem;
+  background: var(--bg);
+}
+
+.process-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.process-header {
+  text-align: center;
+  margin-bottom: 5rem;
+}
+
+.process-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 3rem;
+  position: relative;
+}
+
+.process-steps::before {
+  content: '';
+  position: absolute;
+  top: 1.8rem;
+  left: 6%;
+  right: 6%;
+  height: 1px;
+  background: rgba(196,132,26,0.25);
+  z-index: 0;
+}
+
+.process-step {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+.process-num {
+  width: 3.5rem;
+  height: 3.5rem;
+  border: 1px solid var(--accent);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.8rem;
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--accent);
+  background: var(--bg);
+}
+
+.process-step-title {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: var(--text);
+  margin-bottom: 0.8rem;
+}
+
+.process-step-body {
+  font-size: 0.82rem;
+  line-height: 1.8;
+  color: rgba(42,24,16,0.62);
+}
+
+/* ── TESTIMONIALS ── */
+.testimonials {
+  padding: 8rem 3rem;
+  background: var(--dark);
+}
+
+.testimonials-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.testimonials-header {
+  text-align: center;
+  margin-bottom: 4.5rem;
+}
+
+.testimonials-header .section-title {
+  color: #fff;
+}
+
+.testimonials-header .section-label {
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.5rem;
+}
+
+.testimonial-card {
+  border: 1px solid rgba(196,132,26,0.18);
+  padding: 2.8rem 2.2rem;
+  transition: border-color 0.3s ease;
+}
+
+.testimonial-card:hover {
+  border-color: var(--accent);
+}
+
+.testimonial-quote-mark {
+  font-family: var(--font-heading);
+  font-size: 4rem;
+  color: rgba(196,132,26,0.3);
+  line-height: 0.7;
+  margin-bottom: 1.5rem;
+  display: block;
+}
+
+.testimonial-text {
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-style: italic;
+  font-weight: 300;
+  line-height: 1.75;
+  color: rgba(255,255,255,0.78);
+  margin-bottom: 2rem;
+}
+
+.testimonial-client {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+/* ── PRESS ── */
+.press {
+  padding: 8rem 3rem;
+  background: var(--bg);
+}
+
+.press-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.press-header {
+  text-align: center;
+  margin-bottom: 4.5rem;
+}
+
+.press-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+
+.press-card {
+  border: 1px solid rgba(42,24,16,0.12);
+  padding: 3rem 2.8rem;
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.press-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 8px 32px rgba(42,24,16,0.08);
+}
+
+.press-pub {
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1.2rem;
+}
+
+.press-headline {
+  font-family: var(--font-heading);
+  font-size: clamp(1.3rem, 2.2vw, 1.75rem);
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.3;
+  color: var(--text);
+  margin-bottom: 1.2rem;
+}
+
+.press-excerpt {
+  font-size: 0.85rem;
+  line-height: 1.8;
+  color: rgba(42,24,16,0.62);
+  flex: 1;
+  margin-bottom: 1.8rem;
+}
+
+.press-read {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  transition: color 0.3s ease;
+}
+
+.press-card:hover .press-read {
+  color: var(--accent);
+}
+
+.press-read::after {
+  content: '';
+  display: inline-block;
+  width: 20px;
+  height: 1px;
+  background: currentColor;
+  transition: width 0.3s ease;
+}
+
+.press-card:hover .press-read::after {
+  width: 36px;
+}
+
+.press-logos {
+  border-top: 1px solid rgba(42,24,16,0.1);
+  padding-top: 3.5rem;
+  text-align: center;
+}
+
+.press-logos-label {
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(42,24,16,0.38);
+  margin-bottom: 2rem;
+  display: block;
+}
+
+.press-logos-list {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3.5rem;
+  flex-wrap: wrap;
+}
+
+.press-logo-text {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  font-weight: 700;
+  font-style: italic;
+  color: rgba(42,24,16,0.28);
+  letter-spacing: 0.06em;
+  transition: color 0.3s ease;
+}
+
+.press-logo-text:hover {
+  color: var(--accent);
+}
+
+/* ── FAQ ── */
+.faq {
+  padding: 8rem 3rem;
+  background: #F5E6CC;
+}
+
+.faq-inner {
+  max-width: 780px;
+  margin: 0 auto;
+}
+
+.faq-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.faq-item {
+  border-bottom: 1px solid rgba(42,24,16,0.14);
+}
+
+.faq-question {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 0;
+  cursor: pointer;
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: var(--text);
+  list-style: none;
+  user-select: none;
+  gap: 1rem;
+}
+
+.faq-question::-webkit-details-marker { display: none; }
+
+.faq-icon {
+  width: 22px;
+  height: 22px;
+  border: 1px solid rgba(196,132,26,0.5);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease;
+}
+
+.faq-item.open .faq-icon {
+  background: var(--accent);
+}
+
+.faq-icon::before {
+  content: '+';
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--accent);
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.faq-item.open .faq-icon::before {
+  transform: rotate(45deg);
+  color: #fff;
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.45s ease;
+}
+
+.faq-answer-inner {
+  padding-bottom: 1.5rem;
+  font-size: 0.88rem;
+  line-height: 1.85;
+  color: rgba(42,24,16,0.68);
+}
+
+/* ── CTA SECTION ── */
+.cta-section {
+  position: relative;
+  padding: 9rem 3rem;
+  background-image: url("https://images.unsplash.com/photo-1763928801168-c4801758c5d0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBkZXNpZ24lMjBpbnF1aXJ5JTIwZm9ybSUyMGNhbmRsZWxpZ2h0JTIwd2FybSUyMGxpbmVuJTIwdGV4dHVyZXxlbnwwfDB8fHwxNzc3MjU5OTE5fDA&ixlib=rb-4.1.0&q=80&w=1080");
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+}
+
+.cta-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(26,18,5,0.72);
+}
+
+.cta-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 680px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.cta-inner .section-label {
+  display: block;
+  margin-bottom: 1.2rem;
+}
+
+.cta-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  font-weight: 300;
+  color: #fff;
+  line-height: 1.1;
+  margin-bottom: 1.4rem;
+}
+
+.cta-title em {
+  font-style: italic;
+}
+
+.cta-body {
+  font-size: 0.9rem;
+  line-height: 1.8;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 2.8rem;
+}
+
+/* ── CONTACT ── */
+.contact {
+  padding: 8rem 3rem;
+  background: var(--bg);
+}
+
+.contact-inner {
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.contact-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.4rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-label {
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(42,24,16,0.55);
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(42,24,16,0.22);
+  padding: 0.75rem 0;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 300;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.3s ease;
+  appearance: none;
+  width: 100%;
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+  border-color: var(--accent);
+}
+
+.form-textarea {
+  resize: none;
+  height: 110px;
+}
+
+.form-select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%232A1810' fill='none' stroke-opacity='0.4'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.2rem center;
+  padding-right: 1.5rem;
+}
+
+.form-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--text);
+  border: none;
+  padding: 1.1rem 3rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  align-self: center;
+  margin-top: 0.8rem;
+}
+
+.form-submit:hover {
+  background: var(--accent);
+}
+
+.form-note {
+  text-align: center;
+  font-size: 0.75rem;
+  color: rgba(42,24,16,0.42);
+  line-height: 1.6;
+  margin-top: 0.5rem;
+}
+
+/* ── FOOTER ── */
+.footer {
+  background: var(--dark);
+  padding: 5rem 3rem 2.5rem;
+}
+
+.footer-inner {
+  max-width: 1320px;
+  margin: 0 auto;
+}
+
+.footer-top {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 3rem;
+  padding-bottom: 3.5rem;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  margin-bottom: 2.5rem;
+}
+
+.footer-brand-name {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #fff;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.footer-brand-text {
+  font-size: 0.82rem;
+  line-height: 1.8;
+  color: rgba(255,255,255,0.38);
+  max-width: 280px;
+}
+
+.footer-col-title {
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1.4rem;
+  display: block;
+}
+
+.footer-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.footer-links a {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.42);
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: var(--accent);
+}
+
+.footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.footer-copy {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.25);
+  letter-spacing: 0.08em;
+}
+
+.footer-tagline {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-style: italic;
+  color: rgba(255,255,255,0.2);
+}
+
+/* ── MOBILE NAV OVERLAY ── */
+.mobile-nav {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: var(--dark);
+  z-index: 999;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2.5rem;
+}
+
+.nav-open .mobile-nav {
+  display: flex;
+}
+
+.mobile-nav a {
+  font-family: var(--font-heading);
+  font-size: 2.2rem;
+  font-weight: 300;
+  font-style: italic;
+  color: rgba(255,255,255,0.7);
+  letter-spacing: 0.06em;
+  transition: color 0.3s ease;
+}
+
+.mobile-nav a:hover {
+  color: var(--accent);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1100px) {
+  .stats-inner {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3rem;
+  }
+
+  .footer-top {
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .featured-inner {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .featured-image-wrap img {
+    height: 420px;
+  }
+
+  .about {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .about-dark {
+    padding: 5rem 2rem;
+  }
+
+  .about-light {
+    min-height: 480px;
+  }
+
+  .services-header {
+    grid-template-columns: 1fr;
+  }
+
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .service-card {
+    height: 400px;
+  }
+
+  .service-desc {
+    opacity: 1;
+    transform: none;
+  }
+
+  .service-link {
+    opacity: 1;
+  }
+
+  .portfolio-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .process-steps {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.5rem;
+  }
+
+  .process-steps::before {
+    display: none;
+  }
+
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .press-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav {
+    padding: 1.2rem 1.5rem;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .portfolio-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-title {
+    font-size: 2.6rem;
+  }
+
+  .portfolio-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stats-inner {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .process-steps {
+    grid-template-columns: 1fr;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-top {
+    grid-template-columns: 1fr;
+  }
+
+  .featured { padding: 5rem 1.5rem; }
+  .services { padding: 5rem 1.5rem; }
+  .portfolio { padding: 5rem 0; }
+  .about-dark { padding: 4rem 1.5rem; }
+  .process { padding: 5rem 1.5rem; }
+  .testimonials { padding: 5rem 1.5rem; }
+  .press { padding: 5rem 1.5rem; }
+  .faq { padding: 5rem 1.5rem; }
+  .contact { padding: 5rem 1.5rem; }
+  .cta-section { padding: 6rem 1.5rem; }
+  .footer { padding: 4rem 1.5rem 2rem; }
+}
+</style>
+
+<style id="gwp-palette">
+html[data-palette="client"] {
+  --accent: #9CAF88;
+}
+html[data-palette-anim] *, html[data-palette-anim] *::before, html[data-palette-anim] *::after {
+  transition: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease !important;
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="nav" role="navigation" aria-label="Main navigation">
+  <a href="#home" class="nav-logo">Meridian</a>
+  <ul class="nav-links">
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#press">Press</a></li>
+    <li><a href="#contact" class="nav-cta">Begin a Project</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" role="navigation" aria-label="Mobile navigation">
+  <a href="#portfolio" class="mobile-link">Portfolio</a>
+  <a href="#services" class="mobile-link">Services</a>
+  <a href="#about" class="mobile-link">About</a>
+  <a href="#press" class="mobile-link">Press</a>
+  <a href="#contact" class="mobile-link">Begin a Project</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <span class="hero-label">Charleston, SC — Est. by Celeste Varro</span>
+  <div class="hero-content">
+    <h1 class="hero-title">MERIDIAN</h1>
+    <p class="hero-subtitle">Spaces That Define You</p>
+    <a href="#portfolio" class="hero-btn">View Our Work</a>
+  </div>
+  <div class="hero-marquee-wrap">
+    <div class="hero-marquee">
+      <span>Bespoke Residential</span>
+      <span>Boutique Hospitality</span>
+      <span>Architectural Precision</span>
+      <span>Curated Interiors</span>
+      <span>Full-Service Styling</span>
+      <span>Charleston, SC</span>
+      <span>As Seen in Architectural Digest</span>
+      <span>Elle Decor Featured</span>
+      <span>Bespoke Residential</span>
+      <span>Boutique Hospitality</span>
+      <span>Architectural Precision</span>
+      <span>Curated Interiors</span>
+      <span>Full-Service Styling</span>
+      <span>Charleston, SC</span>
+      <span>As Seen in Architectural Digest</span>
+      <span>Elle Decor Featured</span>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED PROJECT -->
+<section class="featured" id="featured">
+  <div class="featured-inner">
+    <div class="featured-meta reveal">
+      <span class="featured-tag">Featured Project — 2024</span>
+      <h2 class="featured-title">The <em>Ansonborough</em><br>Residence</h2>
+      <p class="featured-body">A historic Charleston single-house, reimagined. We stripped back decades of renovation to reveal the home's original proportions — then rebuilt every room with a palette of warm plaster, aged brass, and hand-sourced Belgian linen. The result is a home that feels both deeply rooted and quietly contemporary.</p>
+      <a href="#portfolio" class="btn-primary">Explore Portfolio</a>
+    </div>
+    <div class="featured-image-wrap clip-reveal">
+      <img src="https://images.pexels.com/photos/8092392/pexels-photo-8092392.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Ansonborough Residence — primary bedroom suite" loading="lazy">
+      <span class="featured-image-credit">Ansonborough, Charleston SC</span>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats" id="stats">
+  <div class="stats-inner">
+    <div class="stat-item reveal">
+      <span class="stat-number" data-target="12" data-suffix="">12</span>
+      <span class="stat-label">Projects Per Year, Maximum</span>
+    </div>
+    <div class="stat-item reveal">
+      <span class="stat-number" data-target="17" data-suffix="">17</span>
+      <span class="stat-label">Years of Bespoke Practice</span>
+    </div>
+    <div class="stat-item reveal">
+      <span class="stat-number" data-target="2" data-suffix="">2</span>
+      <span class="stat-label">Major Editorial Features</span>
+    </div>
+    <div class="stat-item reveal">
+      <span class="stat-number" data-target="100" data-suffix="%">100%</span>
+      <span class="stat-label">Client Referral Rate</span>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section class="portfolio" id="portfolio">
+  <div class="portfolio-header reveal">
+    <div>
+      <span class="section-label">Selected Works</span>
+      <h2 class="section-title">A Curated <em>Record</em></h2>
+    </div>
+    <a href="#contact" class="btn-outline">Commission a Project</a>
+  </div>
+  <div class="portfolio-grid">
+
+    <div class="portfolio-item clip-reveal">
+      <img src="https://images.unsplash.com/photo-1666037805138-f227944ed8d7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxoaWdoLWVuZCUyMHJlc2lkZW50aWFsJTIwcmVub3ZhdGlvbiUyMGxheWVyZWQlMjBsaXZpbmclMjByb29tJTIwZGVzaWdufGVufDB8MHx8fDE3NzcyNTk5MTh8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="Wentworth House living room with fireplace" loading="lazy">
+      <div class="portfolio-overlay">
+        <p class="portfolio-project-name">The Wentworth House</p>
+        <p class="portfolio-client">Private Residence — Charleston, SC</p>
+      </div>
+    </div>
+
+    <div class="portfolio-item clip-reveal">
+      <img src="https://images.unsplash.com/photo-1643768665263-1101308308d0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxib3V0aXF1ZSUyMGhvdGVsJTIwbG9iYnklMjBpbnRlcmlvciUyMGRlc2lnbiUyMHdhcm0lMjBlbGVnYW50JTIwaG9zcGl0YWxpdHl8ZW58MHwwfHx8MTc3NzI1OTkxOHww&ixlib=rb-4.1.0&q=80&w=1080" alt="Palmetto Inn boutique hotel lobby" loading="lazy">
+      <div class="portfolio-overlay">
+        <p class="portfolio-project-name">Palmetto Inn</p>
+        <p class="portfolio-client">Boutique Hotel — Kiawah Island, SC</p>
+      </div>
+    </div>
+
+    <div class="portfolio-item clip-reveal">
+      <img src="https://images.pexels.com/photos/7167986/pexels-photo-7167986.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="The Library — layered reading room with natural light" loading="lazy">
+      <div class="portfolio-overlay">
+        <p class="portfolio-project-name">The Library</p>
+        <p class="portfolio-client">Vacation Residence — Highlands, NC</p>
+      </div>
+    </div>
+
+    <div class="portfolio-item clip-reveal">
+      <img src="https://images.unsplash.com/photo-1750639258774-9a714379a093?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxtYWdhemluZS13b3J0aHklMjBsaXZpbmclMjByb29tJTIwbmV1dHJhbCUyMHBhbGV0dGUlMjBkZXNpZ25lciUyMGZ1cm5pdHVyZXxlbnwwfDB8fHwxNzc3MjU5OTE5fDA&ixlib=rb-4.1.0&q=80&w=1080" alt="Sullivan's Island neutral living space" loading="lazy">
+      <div class="portfolio-overlay">
+        <p class="portfolio-project-name">Sullivan's Light</p>
+        <p class="portfolio-client">Primary Residence — Sullivan's Island, SC</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="services-inner">
+    <div class="services-header reveal">
+      <div>
+        <span class="section-label">What We Offer</span>
+        <h2 class="section-title">Three Disciplines,<br><em>One Standard</em></h2>
+      </div>
+      <p class="services-intro">Every engagement begins with a single conversation. From there, our process unfolds with care — no rushed timelines, no templated solutions. We design for the particular, because nothing extraordinary was ever made for everyone.</p>
+    </div>
+    <div class="services-grid">
+
+      <div class="service-card">
+        <img src="https://images.unsplash.com/photo-1666037805138-f227944ed8d7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxoaWdoLWVuZCUyMHJlc2lkZW50aWFsJTIwcmVub3ZhdGlvbiUyMGxheWVyZWQlMjBsaXZpbmclMjByb29tJTIwZGVzaWdufGVufDB8MHx8fDE3NzcyNTk5MTh8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="Residential interior design service" loading="lazy">
+        <div class="service-card-content">
+          <span class="service-number">01</span>
+          <h3 class="service-name">Residential<br>Design</h3>
+          <p class="service-desc">Full-scope interior design for primary residences, vacation homes, and luxury apartments. We handle every layer — architecture, materials, furnishings, and art curation — with obsessive attention to how a space will be lived in.</p>
+          <a href="#contact" class="service-link">Inquire Now</a>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <img src="https://images.unsplash.com/photo-1643768665263-1101308308d0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxib3V0aXF1ZSUyMGhvdGVsJTIwbG9iYnklMjBpbnRlcmlvciUyMGRlc2lnbiUyMHdhcm0lMjBlbGVnYW50JTIwaG9zcGl0YWxpdHl8ZW58MHwwfHx8MTc3NzI1OTkxOHww&ixlib=rb-4.1.0&q=80&w=1080" alt="Boutique hospitality design service" loading="lazy">
+        <div class="service-card-content">
+          <span class="service-number">02</span>
+          <h3 class="service-name">Boutique<br>Hospitality</h3>
+          <p class="service-desc">For hotels, inns, and restaurants where the atmosphere is the experience. We collaborate closely with operators to design spaces that feel genuinely curated — not branded — so guests arrive as strangers and leave as devotees.</p>
+          <a href="#contact" class="service-link">Inquire Now</a>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <img src="https://images.pexels.com/photos/7167986/pexels-photo-7167986.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Full-service styling and fit-out" loading="lazy">
+        <div class="service-card-content">
+          <span class="service-number">03</span>
+          <h3 class="service-name">Full-Service<br>Fit-Out</h3>
+          <p class="service-desc">End-to-end interior commissions for luxury residential buildings, developer projects, and architect collaborations. We serve as the interior partner from initial concept through final installation, ensuring the design vision is never lost in translation.</p>
+          <a href="#contact" class="service-link">Inquire Now</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-dark reveal">
+    <span class="section-label">The Studio</span>
+    <h2 class="section-title" style="color:#fff;">Celeste Varro —<br><em>Principal Designer</em></h2>
+    <div class="divider"></div>
+    <p class="about-body">MERIDIAN was founded on a single belief: that the spaces we inhabit shape who we become. Celeste Varro established the studio in Charleston after a decade working alongside some of the most acclaimed interior practices in New York and London. She returned to the American South not as a retreat, but as a deliberate act — to build a practice rooted in place, craft, and the particular.</p>
+    <p class="about-body">Every MERIDIAN project begins with deep listening. Celeste meets each client not with a portfolio of finishes, but with questions — about memory, ritual, light. The resulting interiors are never arbitrary. They are layered records of the people who live in them, achieved through architectural rigor, material honesty, and an unwillingness to settle for good when extraordinary is possible.</p>
+    <p class="about-body">We deliberately limit our intake to twelve projects per year. This is not exclusivity for its own sake — it is the only way we know to do the work we were made to do.</p>
+    <span class="about-signature">Celeste Varro</span>
+  </div>
+  <div class="about-light">
+    <div class="about-image-wrap clip-reveal">
+      <img src="https://images.pexels.com/photos/6580001/pexels-photo-6580001.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Celeste Varro curating interior design samples and swatches" loading="lazy">
+    </div>
+    <div class="about-caption">
+      <p class="about-caption-title">Celeste Varro</p>
+      <p class="about-caption-role">Principal Designer — MERIDIAN Interiors, Charleston SC</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process" id="process">
+  <div class="process-inner">
+    <div class="process-header reveal">
+      <span class="section-label">How We Work</span>
+      <h2 class="section-title">The <em>MERIDIAN</em> Process</h2>
+      <div class="divider" style="margin: 1.8rem auto;"></div>
+      <p style="font-size:0.9rem; line-height:1.85; color:rgba(42,24,16,0.6); max-width:560px; margin:0 auto;">Four deliberate phases, each one earning the next. We move slowly by design — because the alternative is a room you stop seeing within a year.</p>
+    </div>
+    <div class="process-steps">
+      <div class="process-step reveal">
+        <div class="process-num">01</div>
+        <h3 class="process-step-title">Discovery</h3>
+        <p class="process-step-body">An unhurried conversation about how you live, what you love, and what the space must accomplish. We listen before we sketch a single line.</p>
+      </div>
+      <div class="process-step reveal">
+        <div class="process-num">02</div>
+        <h3 class="process-step-title">Concept</h3>
+        <p class="process-step-body">We develop a singular creative vision — presented as a rich, tactile story board rather than a list of specifications. You should feel it before you see it.</p>
+      </div>
+      <div class="process-step reveal">
+        <div class="process-num">03</div>
+        <h3 class="process-step-title">Execution</h3>
+        <p class="process-step-body">Celeste oversees every contractor, artisan, and vendor personally. Standards are non-negotiable. We do not delegate what matters most.</p>
+      </div>
+      <div class="process-step reveal">
+        <div class="process-num">04</div>
+        <h3 class="process-step-title">Installation</h3>
+        <p class="process-step-body">The reveal is a ritual. Every object is placed, every surface addressed, every light level calibrated — before you walk through the door.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="testimonials">
+  <div class="testimonials-inner">
+    <div class="testimonials-header reveal">
+      <span class="section-label">Client Voices</span>
+      <h2 class="section-title" style="color:#fff;">What Our Clients <em>Say</em></h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card reveal">
+        <span class="testimonial-quote-mark">"</span>
+        <p class="testimonial-text">Working with Celeste changed what I thought was possible in a home. She saw things in the space — and in us — that we couldn't articulate ourselves. Walking into our finished residence for the first time was one of the most moving experiences of my life.</p>
+        <span class="testimonial-client">M. Hawthorne, Private Collector</span>
+      </div>
+      <div class="testimonial-card reveal">
+        <span class="testimonial-quote-mark">"</span>
+        <p class="testimonial-text">The Palmetto Inn project exceeded every benchmark we had set — aesthetically, commercially, and in terms of guest response. Occupancy improved meaningfully after the redesign. MERIDIAN understands that hospitality design is not decoration; it is strategy.</p>
+        <span class="testimonial-client">T. Albright, Boutique Hotel Owner</span>
+      </div>
+      <div class="testimonial-card reveal">
+        <span class="testimonial-quote-mark">"</span>
+        <p class="testimonial-text">As an architect, I'm particular about the interior partners I collaborate with. Celeste brings a rigour that matches our own — and a warmth that our work alone doesn't always achieve. The result of our collaboration was a building that finally felt complete.</p>
+        <span class="testimonial-client">R. Elmore, Principal Architect</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRESS -->
+<section class="press" id="press">
+  <div class="press-inner">
+    <div class="press-header reveal">
+      <span class="section-label">Recognition</span>
+      <h2 class="section-title">As Seen In <em>Print</em></h2>
+      <div class="divider" style="margin: 1.8rem auto;"></div>
+    </div>
+    <div class="press-grid">
+      <div class="press-card reveal">
+        <span class="press-pub">Architectural Digest</span>
+        <h3 class="press-headline">"The Designers Redefining Southern Interiors for a New Generation"</h3>
+        <p class="press-excerpt">Celeste Varro's studio operates at the precise intersection where architectural restraint meets Southern warmth — a register that has, until now, been surprisingly elusive in luxury residential design. The Ansonborough project, featured exclusively in this issue, makes an urgent case for a slower, more considered way of making homes.</p>
+        <span class="press-read">Read Feature</span>
+      </div>
+      <div class="press-card reveal">
+        <span class="press-pub">Elle Decor</span>
+        <h3 class="press-headline">"Inside MERIDIAN: The Studio That Only Takes Twelve Clients a Year"</h3>
+        <p class="press-excerpt">In an industry where scale is often mistaken for success, Celeste Varro has built one of the most sought-after interior practices in the American South by doing the opposite. By keeping her client list radically small, she ensures that every home she touches becomes something singular. Elle Decor was granted rare access to the studio and three current projects.</p>
+        <span class="press-read">Read Feature</span>
+      </div>
+    </div>
+    <div class="press-logos reveal">
+      <span class="press-logos-label">As Featured In</span>
+      <div class="press-logos-list">
+        <span class="press-logo-text">Architectural Digest</span>
+        <span class="press-logo-text">Elle Decor</span>
+        <span class="press-logo-text">Veranda</span>
+        <span class="press-logo-text">House Beautiful</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div class="faq-inner">
+    <div class="faq-header reveal">
+      <span class="section-label">Frequently Asked</span>
+      <h2 class="section-title">Common <em>Questions</em></h2>
+    </div>
+
+    <div class="faq-item reveal">
+      <div class="faq-question" data-faq>
+        How far in advance should I reach out to begin a project?
+        <span class="faq-icon"></span>
+      </div>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">We typically book projects six to twelve months in advance, depending on scope and timing. We encourage prospective clients to reach out as early as possible — even if your renovation isn't scheduled for some time. An initial conversation costs nothing, and early planning allows us to give your project the full creative attention it deserves.</div>
+      </div>
+    </div>
+
+    <div class="faq-item reveal">
+      <div class="faq-question" data-faq>
+        What types of projects does MERIDIAN take on?
+        <span class="faq-icon"></span>
+      </div>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">We work on high-end residential renovations — primary homes and vacation properties — boutique hospitality projects including hotels, inns, and restaurants, and full-service interior fit-outs for luxury residential buildings in collaboration with architects and developers. Each project is evaluated individually; we take on work where we believe we can contribute something genuinely extraordinary.</div>
+      </div>
+    </div>
+
+    <div class="faq-item reveal">
+      <div class="faq-question" data-faq>
+        Do you work with clients outside of Charleston, SC?
+        <span class="faq-icon"></span>
+      </div>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">Yes. While Charleston is our home and the origin of our aesthetic sensibility, we work with clients across the Southeast and beyond for the right project. Travel and accommodation costs for site visits are factored into our project proposals. We have completed projects in the Florida Keys, the North Carolina mountains, and New York.</div>
+      </div>
+    </div>
+
+    <div class="faq-item reveal">
+      <div class="faq-question" data-faq>
+        What does your fee structure look like?
+        <span class="faq-icon"></span>
+      </div>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">Our fees are structured on a project basis following an initial discovery meeting. We do not publish standard rates because every project has different requirements, timelines, and levels of involvement. What we can tell you is that our pricing reflects the depth of creative and logistical commitment we bring — and our client retention and referral rate speaks to the value delivered.</div>
+      </div>
+    </div>
+
+    <div class="faq-item reveal">
+      <div class="faq-question" data-faq>
+        How involved will Celeste be in my project?
+        <span class="faq-icon"></span>
+      </div>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">Celeste leads every project personally from discovery through installation. She does not delegate client relationships or creative direction to junior staff. This is precisely why we limit the number of projects we accept per year — so that every client has Celeste's genuine, sustained attention for the full duration of their engagement.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-inner reveal">
+    <span class="section-label">Begin Something</span>
+    <h2 class="cta-title">Every Extraordinary Home<br>Begins With a <em>Single Conversation</em></h2>
+    <p class="cta-body">We accept a limited number of new projects each year. If you are considering a renovation, a new build, or a hospitality commission, we'd like to hear about it — before our calendar fills.</p>
+    <a href="#contact" class="hero-btn">Request a Consultation</a>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-inner">
+    <div class="contact-header reveal">
+      <span class="section-label">Begin a Project</span>
+      <h2 class="section-title">Request a <em>Consultation</em></h2>
+      <div class="divider" style="margin: 1.8rem auto;"></div>
+      <p style="font-size:0.88rem; line-height:1.85; color:rgba(42,24,16,0.6); max-width:460px; margin:0 auto;">Tell us about your project. Celeste reviews every inquiry personally and responds within five business days.</p>
+    </div>
+    <form class="contact-form reveal" action="#" method="POST">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="fname">First Name</label>
+          <input class="form-input" type="text" id="fname" name="first_name" placeholder="Your first name" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="lname">Last Name</label>
+          <input class="form-input" type="text" id="lname" name="last_name" placeholder="Your last name" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="email">Email Address</label>
+        <input class="form-input" type="email" id="email" name="email" placeholder="Your preferred email" required>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="project-type">Project Type</label>
+          <select class="form-select" id="project-type" name="project_type">
+            <option value="" disabled selected>Select a category</option>
+            <option value="residential">Residential — Primary Home</option>
+            <option value="vacation">Residential — Vacation Property</option>
+            <option value="hospitality">Boutique Hotel or Inn</option>
+            <option value="restaurant">Restaurant or Bar</option>
+            <option value="developer">Developer / Architect Fit-Out</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="timeline">Anticipated Timeline</label>
+          <select class="form-select" id="timeline" name="timeline">
+            <option value="" disabled selected>When do you plan to begin?</option>
+            <option value="immediately">Within 3 months</option>
+            <option value="six">3–6 months</option>
+            <option value="year">6–12 months</option>
+            <option value="beyond">More than 12 months out</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="location">Project Location</label>
+        <input class="form-input" type="text" id="location" name="location" placeholder="City and state">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="message">Tell Us About Your Project</label>
+        <textarea class="form-textarea" id="message" name="message" placeholder="Share the scope, your vision, and what matters most to you about this space..."></textarea>
+      </div>
+      <button type="submit" class="form-submit">Submit Inquiry</button>
+      <p class="form-note">MERIDIAN reviews all inquiries personally. We do not share your information with any third parties.<br>We accept a limited number of new projects each year.</p>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <span class="footer-brand-name">Meridian</span>
+        <p class="footer-brand-text">A bespoke interior design studio founded by Celeste Varro, creating layered, soulful interiors that balance architectural precision with warm, lived-in luxury. Based in Charleston, SC.</p>
+      </div>
+      <div>
+        <span class="footer-col-title">Navigate</span>
+        <ul class="footer-links">
+          <li><a href="#portfolio">Portfolio</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#press">Press</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="footer-col-title">Services</span>
+        <ul class="footer-links">
+          <li><a href="#services">Residential Design</a></li>
+          <li><a href="#services">Boutique Hospitality</a></li>
+          <li><a href="#services">Full-Service Fit-Out</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="footer-col-title">Recognition</span>
+        <ul class="footer-links">
+          <li><a href="#press">Architectural Digest</a></li>
+          <li><a href="#press">Elle Decor</a></li>
+          <li><a href="#contact">Begin a Project</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2025 MERIDIAN Interiors. All rights reserved.</p>
+      <p class="footer-tagline">Spaces That Define You</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── NAV SCROLL ──
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 60) {
+    nav.classList.add('scrolled');
+  } else {
+    nav.classList.remove('scrolled');
+  }
+}, { passive: true });
+
+// ── HAMBURGER ──
+const hamburger = document.getElementById('hamburger');
+hamburger.addEventListener('click', () => {
+  document.body.classList.toggle('nav-open');
+});
+
+document.querySelectorAll('.mobile-link').forEach(link => {
+  link.addEventListener('click', () => {
+    document.body.classList.remove('nav-open');
+  });
+});
+
+// ── INTERSECTION OBSERVER — REVEAL ──
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+// ── INTERSECTION OBSERVER — CLIP REVEAL ──
+const clipObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      clipObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.clip-reveal').forEach(el => clipObserver.observe(el));
+
+// ── COUNTER ANIMATION ──
+const counterObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const el = entry.target;
+      const target = parseInt(el.getAttribute('data-target'));
+      const suffix = el.getAttribute('data-suffix') || '';
+      const duration = 1800;
+      const start = performance.now();
+
+      const update = (now) => {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const current = Math.round(eased * target);
+        el.textContent = current + suffix;
+        if (progress < 1) requestAnimationFrame(update);
+      };
+
+      requestAnimationFrame(update);
+      counterObserver.unobserve(el);
+    }
+  });
+}, { threshold: 0.5 });
+
+document.querySelectorAll('.stat-number[data-target]').forEach(el => counterObserver.observe(el));
+
+// ── FAQ ACCORDION ──
+document.querySelectorAll('[data-faq]').forEach(question => {
+  question.addEventListener('click', () => {
+    const item = question.closest('.faq-item');
+    const answer = item.querySelector('.faq-answer');
+    const isOpen = item.classList.contains('open');
+
+    // Close all
+    document.querySelectorAll('.faq-item.open').forEach(openItem => {
+      openItem.classList.remove('open');
+      openItem.querySelector('.faq-answer').style.maxHeight = '0';
+    });
+
+    // Open clicked if it was closed
+    if (!isOpen) {
+      item.classList.add('open');
+      answer.style.maxHeight = answer.scrollHeight + 'px';
+    }
+  });
+});
+
+// ── MARQUEE DUPLICATE CHECK ──
+// Marquee is already duplicated in HTML for seamless loop
+
+// ── SCROLL REVEAL STAGGER for grid items ──
+const staggerObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      entry.target.style.transitionDelay = (i * 0.08) + 's';
+      entry.target.classList.add('visible');
+      staggerObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.08 });
+
+document.querySelectorAll('.process-step.reveal, .testimonial-card.reveal, .stat-item.reveal').forEach(el => {
+  staggerObserver.observe(el);
+});
+</script>
+
+
+<div id="gwp-switcher" style="position:fixed;bottom:20px;right:20px;z-index:2147483647;display:flex;flex-direction:column;align-items:flex-end;gap:5px;font-family:-apple-system,BlinkMacSystemFont,'Inter',sans-serif;">
+  <div style="font-size:9px;letter-spacing:0.14em;color:rgba(255,255,255,0.3);text-transform:uppercase;padding-right:3px;">gitworkdone &middot; palette</div>
+  <div style="background:rgba(8,8,8,0.88);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,0.1);border-radius:50px;padding:5px;display:flex;gap:3px;box-shadow:0 8px 32px rgba(0,0,0,0.55);">
+    <button id="gwp-ai-btn" onclick="gwpSet('ai')" style="border:none;border-radius:50px;padding:7px 15px;cursor:pointer;display:flex;align-items:center;gap:7px;font-size:11px;font-weight:600;letter-spacing:0.05em;background:rgba(255,255,255,0.13);color:#fff;line-height:1;">
+      <span style="width:10px;height:10px;border-radius:50%;background:#C4841A;flex-shrink:0;border:1px solid rgba(255,255,255,0.2);display:inline-block;"></span>AI Design
+    </button>
+    <button id="gwp-cl-btn" onclick="gwpSet('client')" style="border:none;border-radius:50px;padding:7px 15px;cursor:pointer;display:flex;align-items:center;gap:7px;font-size:11px;font-weight:600;letter-spacing:0.05em;background:transparent;color:rgba(255,255,255,0.38);line-height:1;">
+      <span style="width:10px;height:10px;border-radius:50%;background:#3D2B1F;flex-shrink:0;border:1px solid rgba(255,255,255,0.2);display:inline-block;"></span>Your Colors
+    </button>
+  </div>
+</div>
+<script>
+(function(){
+  function gwpSet(p){
+    var root=document.documentElement;
+    root.setAttribute('data-palette-anim','');
+    root.setAttribute('data-palette',p);
+    setTimeout(function(){root.removeAttribute('data-palette-anim');},400);
+    var ai=document.getElementById('gwp-ai-btn'),cl=document.getElementById('gwp-cl-btn');
+    if(p==='ai'){
+      ai.style.background='rgba(255,255,255,0.13)';ai.style.color='#fff';
+      cl.style.background='transparent';cl.style.color='rgba(255,255,255,0.38)';
+    } else {
+      cl.style.background='rgba(255,255,255,0.13)';cl.style.color='#fff';
+      ai.style.background='transparent';ai.style.color='rgba(255,255,255,0.38)';
+    }
+  }
+  window.gwpSet=gwpSet;
+})();
+</script>
+</body>
+</html>
