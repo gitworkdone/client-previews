@@ -3,1675 +3,1010 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jameel's Exotic Fragrances — Look Good, Smell Good, Feel Good</title>
+<title>Jameel's Exotic Fragrances — Look Good, Smell Good, Feel Good.</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,700;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
-  --primary: #F7F3EF;
-  --accent: #B89A5A;
-  --accent-light: #D4AF37;
-  --bg: #FAFAF8;
-  --bg-soft: #F4F0EB;
-  --bg-warm: #EDE8E0;
-  --text-dark: #1A1410;
-  --text-mid: #4A3F35;
-  --text-light: #8A7D72;
-  --border: rgba(184, 154, 90, 0.18);
-  --border-strong: rgba(184, 154, 90, 0.32);
-}
-
-*, *::before, *::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-  font-size: 16px;
-}
-
-body {
-  background: #FAFAF8;
-  color: #1A1410;
-  font-family: 'DM Sans', sans-serif;
-  font-weight: 300;
-  overflow-x: hidden;
-  line-height: 1.7;
-}
-
-h1, h2, h3, h4, h5 {
-  font-family: 'Cormorant Garamond', serif;
-  font-weight: 300;
-  line-height: 1.15;
-}
-
-/* ── NAV ── */
-.nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1000;
-  padding: 1.4rem 4rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  transition: background 0.4s ease, box-shadow 0.4s ease, padding 0.4s ease;
-  background: rgba(250, 250, 248, 0.0);
-}
-
-.nav.scrolled {
-  background: rgba(250, 250, 248, 0.97);
-  box-shadow: 0 1px 0 rgba(184, 154, 90, 0.15), 0 8px 32px rgba(26, 20, 16, 0.06);
-  padding: 1rem 4rem;
-  backdrop-filter: blur(16px);
-}
-
-.nav-logo {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.35rem;
-  font-weight: 400;
-  color: #1A1410;
-  text-decoration: none;
-  letter-spacing: 0.06em;
-}
-
-.nav-logo span {
-  color: #B89A5A;
-}
-
-.nav-links {
-  display: flex;
-  gap: 2.4rem;
-  list-style: none;
-  align-items: center;
-}
-
-.nav-links a {
-  color: #4A3F35;
-  text-decoration: none;
-  font-family: 'DM Sans', sans-serif;
-  font-weight: 400;
-  font-size: 0.8rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  position: relative;
-  padding-bottom: 4px;
-  transition: color 0.3s ease;
-}
-
-.nav-links a:hover {
-  color: #1A1410;
-}
-
-.nav-links a::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 1px;
-  background: #B89A5A;
-  transition: width 0.35s ease;
-}
-
-.nav-links a:hover::after {
-  width: 100%;
-}
-
-.nav-cta {
-  background: transparent !important;
-  color: #1A1410 !important;
-  padding: 0.5rem 1.4rem !important;
-  border: 1px solid rgba(26, 20, 16, 0.25) !important;
-  font-weight: 400 !important;
-  letter-spacing: 0.12em;
-  transition: border-color 0.3s ease, color 0.3s ease, background 0.3s ease !important;
-}
-
-.nav-cta::after {
-  display: none !important;
-}
-
-.nav-cta:hover {
-  border-color: #B89A5A !important;
-  color: #B89A5A !important;
-  background: transparent !important;
-}
-
-.hamburger {
-  display: none;
-  flex-direction: column;
-  gap: 5px;
-  cursor: pointer;
-  background: none;
-  border: none;
-  padding: 4px;
-}
-
-.hamburger span {
-  display: block;
-  width: 24px;
-  height: 1px;
-  background: #1A1410;
-  transition: all 0.3s ease;
-}
-
-.hamburger.active span:nth-child(1) {
-  transform: translateY(6px) rotate(45deg);
-}
-
-.hamburger.active span:nth-child(2) {
-  opacity: 0;
-}
-
-.hamburger.active span:nth-child(3) {
-  transform: translateY(-6px) rotate(-45deg);
-}
-
-/* ── HERO ── */
-#hero {
-  width: 100%;
-  height: 100vh;
-  min-height: 600px;
-  background-image: url("https://images.unsplash.com/photo-1610245169249-c7fbf6768884?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBmcmFncmFuY2UlMjBvaWwlMjBib3R0bGUlMjBnb2xkJTIwYmxhY2slMjBlbGVnYW50JTIwcHJvZHVjdCUyMHBob3RvZ3JhcGh5fGVufDB8MHx8fDE3NzcyNTU0MjR8MA&ixlib=rb-4.1.0&q=80&w=1080");
-  background-size: cover;
-  background-position: center right;
-  background-repeat: no-repeat;
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.hero-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to right, rgba(250,248,244,0.94) 0%, rgba(250,248,244,0.62) 52%, rgba(250,248,244,0.12) 100%);
-  z-index: 1;
-}
-
-.hero-content {
-  position: relative;
-  z-index: 2;
-  max-width: 50%;
-  padding-left: 6rem;
-}
-
-.hero-eyebrow {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.72rem;
-  font-weight: 400;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: #B89A5A;
-  margin-bottom: 1.4rem;
-}
-
-.hero-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 4.4rem;
-  font-weight: 300;
-  color: #1A1410;
-  line-height: 1.08;
-  margin-bottom: 0;
-}
-
-.hero-title em {
-  font-style: italic;
-  color: #B89A5A;
-}
-
-.hero-rule {
-  width: 48px;
-  height: 1px;
-  background: #B89A5A;
-  margin: 1.8rem 0;
-  border: none;
-}
-
-.hero-tagline {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 1rem;
-  font-weight: 300;
-  color: #4A3F35;
-  margin-bottom: 2.4rem;
-  max-width: 400px;
-  letter-spacing: 0.02em;
-  line-height: 1.75;
-}
-
-.hero-ctas {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-.btn-primary {
-  display: inline-block;
-  background: #1A1410;
-  color: #F7F3EF;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.78rem;
-  font-weight: 400;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  text-decoration: none;
-  padding: 0.9rem 2.2rem;
-  border: 1px solid #1A1410;
-  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-}
-
-.btn-primary:hover {
-  background: #B89A5A;
-  border-color: #B89A5A;
-  color: #F7F3EF;
-}
-
-.btn-outline {
-  display: inline-block;
-  background: transparent;
-  color: #1A1410;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.78rem;
-  font-weight: 400;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  text-decoration: none;
-  padding: 0.9rem 2.2rem;
-  border: 1px solid rgba(26, 20, 16, 0.3);
-  transition: border-color 0.3s ease, color 0.3s ease;
-}
-
-.btn-outline:hover {
-  border-color: #B89A5A;
-  color: #B89A5A;
-}
-
-.hero-scroll-indicator {
-  position: absolute;
-  bottom: 2.5rem;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.scroll-line {
-  width: 1px;
-  height: 50px;
-  background: linear-gradient(to bottom, #B89A5A, transparent);
-  animation: scrollDrop 2s ease infinite;
-}
-
-@keyframes scrollDrop {
-  0% { transform: scaleY(0); transform-origin: top; opacity: 1; }
-  50% { transform: scaleY(1); transform-origin: top; opacity: 1; }
-  100% { transform: scaleY(1); transform-origin: bottom; opacity: 0; }
-}
-
-/* ── STATS ── */
-#stats {
-  background: #F4F0EB;
-  padding: 5rem 6rem;
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-}
-
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.stat-item {
-  text-align: center;
-  border-left: 1px solid var(--border-strong);
-  padding: 1.5rem 2rem;
-}
-
-.stat-item:first-child {
-  border-left: none;
-}
-
-.stat-number {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 3.2rem;
-  font-weight: 300;
-  color: #B89A5A;
-  display: block;
-  line-height: 1;
-  margin-bottom: 0.5rem;
-}
-
-.stat-label {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.72rem;
-  font-weight: 400;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: #8A7D72;
-}
-
-/* ── SECTION SHARED ── */
-.section-eyebrow {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.68rem;
-  font-weight: 400;
-  letter-spacing: 0.35em;
-  text-transform: uppercase;
-  color: #B89A5A;
-  margin-bottom: 1rem;
-  display: block;
-}
-
-.section-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 2.9rem;
-  font-weight: 300;
-  color: #1A1410;
-  line-height: 1.15;
-  margin-bottom: 1.5rem;
-}
-
-.section-title em {
-  font-style: italic;
-  color: #B89A5A;
-}
-
-.gold-rule {
-  width: 40px;
-  height: 1px;
-  background: #B89A5A;
-  margin-bottom: 1.8rem;
-}
-
-/* ── ABOUT ── */
-#about {
-  background: #FAFAF8;
-  padding: 9rem 6rem;
-}
-
-.about-inner {
-  max-width: 1300px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 58fr 42fr;
-  gap: 6rem;
-  align-items: start;
-}
-
-.about-image-wrap {
-  position: relative;
-}
-
-.about-image-wrap img {
-  width: 100%;
-  height: 620px;
-  object-fit: cover;
-  display: block;
-  filter: brightness(0.96) contrast(1.02) saturate(0.9);
-}
-
-.about-image-caption {
-  position: absolute;
-  bottom: -1.5rem;
-  right: -1.5rem;
-  background: #FAFAF8;
-  border: 1px solid var(--border-strong);
-  padding: 1.2rem 1.6rem;
-  max-width: 220px;
-}
-
-.about-image-caption p {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: 0.95rem;
-  color: #8A7D72;
-  line-height: 1.55;
-}
-
-.about-text {
-  padding-top: 3rem;
-}
-
-.about-body {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.93rem;
-  font-weight: 300;
-  color: #4A3F35;
-  line-height: 1.9;
-  margin-bottom: 1.4rem;
-}
-
-.about-highlight {
-  border-left: 1px solid #B89A5A;
-  padding-left: 1.6rem;
-  margin: 2.2rem 0;
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.45rem;
-  font-weight: 300;
-  font-style: italic;
-  color: #1A1410;
-  line-height: 1.5;
-}
-
-/* ── SCENTS / ALTERNATING ROWS ── */
-#scents {
-  background: #F4F0EB;
-  padding: 7rem 0;
-}
-
-.scents-header {
-  text-align: center;
-  padding: 0 6rem;
-  margin-bottom: 5rem;
-}
-
-.alternating-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: center;
-  gap: 0;
-  margin-bottom: 0;
-  min-height: 520px;
-}
-
-.alternating-row.flip {
-  direction: rtl;
-}
-
-.alternating-row.flip > * {
-  direction: ltr;
-}
-
-.alt-image {
-  width: 100%;
-  height: 520px;
-  object-fit: cover;
-  display: block;
-  filter: brightness(0.94) contrast(1.02) saturate(0.85);
-  transition: transform 0.7s ease, filter 0.7s ease;
-}
-
-.alternating-row:hover .alt-image {
-  transform: scale(1.02);
-  filter: brightness(0.98) contrast(1.0) saturate(0.9);
-}
-
-.alt-image-wrap {
-  overflow: hidden;
-  height: 520px;
-}
-
-.alt-text {
-  background: #FAFAF8;
-  padding: 4.5rem 5rem;
-  height: 520px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-}
-
-.alt-text .section-title {
-  font-size: 2.3rem;
-}
-
-.alt-text p {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.9rem;
-  color: #4A3F35;
-  line-height: 1.9;
-  margin-bottom: 1.8rem;
-}
-
-.tag-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 2rem;
-}
-
-.tag {
-  border: 1px solid var(--border-strong);
-  color: #8A7D72;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.68rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  padding: 0.3rem 0.85rem;
-  background: transparent;
-}
-
-/* ── PRODUCT CARDS ── */
-#showcase {
-  background: #FAFAF8;
-  padding: 9rem 6rem;
-}
-
-.showcase-header {
-  text-align: center;
-  margin-bottom: 4.5rem;
-}
-
-.cards-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1px;
-  max-width: 1300px;
-  margin: 0 auto;
-  background: var(--border);
-}
-
-.product-card {
-  background: #FAFAF8;
-  overflow: hidden;
-  position: relative;
-  cursor: pointer;
-  transition: box-shadow 0.4s ease;
-}
-
-.product-card:hover {
-  box-shadow: 0 20px 60px rgba(26, 20, 16, 0.09);
-  z-index: 2;
-}
-
-.card-image-wrap {
-  overflow: hidden;
-  height: 320px;
-}
-
-.card-image-wrap img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform 0.6s ease;
-  filter: brightness(0.96) saturate(0.88);
-}
-
-.product-card:hover .card-image-wrap img {
-  transform: scale(1.04);
-}
-
-.card-body {
-  padding: 2rem 1.8rem;
-  border-top: 1px solid var(--border);
-}
-
-.card-category {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.65rem;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: #B89A5A;
-  margin-bottom: 0.5rem;
-}
-
-.card-name {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.55rem;
-  font-weight: 400;
-  color: #1A1410;
-  margin-bottom: 0.5rem;
-}
-
-.card-desc {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.82rem;
-  color: #8A7D72;
-  line-height: 1.65;
-  margin-bottom: 1.2rem;
-}
-
-.card-price {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.55rem;
-  font-weight: 300;
-  color: #1A1410;
-}
-
-.card-price span {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.75rem;
-  color: #8A7D72;
-  font-weight: 300;
-}
-
-/* ── HOW IT WORKS ── */
-#how {
-  background: #F4F0EB;
-  padding: 9rem 6rem;
-  border-top: 1px solid var(--border);
-}
-
-.how-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.how-header {
-  text-align: center;
-  margin-bottom: 5rem;
-}
-
-.steps-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0;
-  position: relative;
-}
-
-.steps-grid::before {
-  content: '';
-  position: absolute;
-  top: 2rem;
-  left: 12.5%;
-  right: 12.5%;
-  height: 1px;
-  background: linear-gradient(to right, transparent, rgba(184,154,90,0.3), rgba(184,154,90,0.3), transparent);
-}
-
-.step {
-  text-align: center;
-  padding: 0 2rem;
-  position: relative;
-}
-
-.step-number {
-  width: 4rem;
-  height: 4rem;
-  border: 1px solid var(--border-strong);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 1.8rem;
-  background: #F4F0EB;
-  position: relative;
-  z-index: 1;
-}
-
-.step-number span {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.3rem;
-  font-weight: 300;
-  color: #B89A5A;
-}
-
-.step h4 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.25rem;
-  font-weight: 400;
-  color: #1A1410;
-  margin-bottom: 0.8rem;
-}
-
-.step p {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.84rem;
-  color: #8A7D72;
-  line-height: 1.75;
-}
-
-/* ── TESTIMONIALS ── */
-#testimonials {
-  background: #FAFAF8;
-  padding: 9rem 0;
-  overflow: hidden;
-  border-top: 1px solid var(--border);
-}
-
-.testimonials-header {
-  text-align: center;
-  padding: 0 6rem;
-  margin-bottom: 4rem;
-}
-
-.testimonials-track {
-  display: flex;
-  gap: 1.5rem;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  padding: 1rem 6rem 2rem;
-  scrollbar-width: none;
-}
-
-.testimonials-track::-webkit-scrollbar {
-  display: none;
-}
-
-.testimonial-card {
-  flex: 0 0 380px;
-  scroll-snap-align: start;
-  background: #F4F0EB;
-  border: 1px solid var(--border);
-  padding: 2.5rem;
-  transition: box-shadow 0.4s ease;
-}
-
-.testimonial-card:hover {
-  box-shadow: 0 12px 40px rgba(26, 20, 16, 0.07);
-}
-
-.testimonial-stars {
-  display: flex;
-  gap: 3px;
-  margin-bottom: 1.2rem;
-}
-
-.star {
-  width: 10px;
-  height: 10px;
-  background: #B89A5A;
-  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-}
-
-.testimonial-quote {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.12rem;
-  font-style: italic;
-  font-weight: 300;
-  color: #1A1410;
-  line-height: 1.7;
-  margin-bottom: 1.8rem;
-}
-
-.testimonial-author {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.author-initials {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: rgba(184, 154, 90, 0.1);
-  border: 1px solid var(--border-strong);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 0.95rem;
-  color: #B89A5A;
-  flex-shrink: 0;
-}
-
-.author-name {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.84rem;
-  font-weight: 500;
-  color: #1A1410;
-  display: block;
-}
-
-.author-location {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.73rem;
-  color: #8A7D72;
-}
-
-/* ── GALLERY STRIP ── */
-.gallery-strip {
-  background: #FAFAF8;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1px;
-  background-color: var(--border);
-}
-
-.gallery-strip-item {
-  overflow: hidden;
-  height: 420px;
-  position: relative;
-}
-
-.gallery-strip-item img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  filter: brightness(0.82) contrast(1.04) saturate(0.8);
-  transition: transform 0.7s ease, filter 0.7s ease;
-}
-
-.gallery-strip-item:hover img {
-  transform: scale(1.03);
-  filter: brightness(0.9) contrast(1.02) saturate(0.85);
-}
-
-.gallery-overlay-text {
-  position: absolute;
-  bottom: 2.5rem;
-  left: 2.5rem;
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.7rem;
-  font-weight: 300;
-  color: #F7F3EF;
-  text-shadow: 0 2px 20px rgba(0,0,0,0.3);
-  line-height: 1.3;
-}
-
-.gallery-overlay-text span {
-  color: #D4AF37;
-}
-
-.gallery-panel-light {
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, #EDE8E0 0%, #E0D8CC 60%, #D4CAB8 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.gallery-panel-light-inner {
-  text-align: center;
-  padding: 3rem;
-}
-
-.gallery-panel-light-inner p {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 2.4rem;
-  font-weight: 300;
-  color: #1A1410;
-  line-height: 1.25;
-  margin-bottom: 1.4rem;
-}
-
-.gallery-panel-light-inner p em {
-  font-style: italic;
-  color: #B89A5A;
-}
-
-.gallery-panel-rule {
-  width: 36px;
-  height: 1px;
-  background: #B89A5A;
-  margin: 0 auto;
-}
-
-/* ── CTA SECTION ── */
-#shop {
-  position: relative;
-  background: #FAFAF8;
-  padding: 0;
-  overflow: hidden;
-}
-
-.cta-split {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  min-height: 580px;
-}
-
-.cta-image-side {
-  position: relative;
-  overflow: hidden;
-}
-
-.cta-image-side img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  filter: brightness(0.9) saturate(0.82) contrast(1.02);
-}
-
-.cta-text-side {
-  background: #F4F0EB;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 5rem;
-  border-left: 1px solid var(--border);
-}
-
-.cta-text-side .section-title {
-  font-size: 2.8rem;
-  margin-bottom: 1.2rem;
-}
-
-.cta-text-side p {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.93rem;
-  color: #4A3F35;
-  line-height: 1.85;
-  margin-bottom: 2.5rem;
-  max-width: 380px;
-}
-
-.cta-price-tag {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.15rem;
-  font-style: italic;
-  color: #8A7D72;
-  margin-bottom: 1rem;
-  display: block;
-}
-
-.cta-price-tag strong {
-  color: #B89A5A;
-  font-style: normal;
-  font-size: 1.55rem;
-  font-weight: 300;
-}
-
-.cta-btns {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-/* ── FAQ ── */
-#faq {
-  background: #FAFAF8;
-  padding: 9rem 6rem;
-  border-top: 1px solid var(--border);
-}
-
-.faq-inner {
-  max-width: 820px;
-  margin: 0 auto;
-}
-
-.faq-header {
-  text-align: center;
-  margin-bottom: 4rem;
-}
-
-.faq-item {
-  border-bottom: 1px solid var(--border);
-}
-
-.faq-question {
-  width: 100%;
-  background: none;
-  border: none;
-  text-align: left;
-  cursor: pointer;
-  padding: 1.6rem 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1rem;
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.2rem;
-  font-weight: 400;
-  color: #1A1410;
-  transition: color 0.3s ease;
-}
-
-.faq-question:hover {
-  color: #B89A5A;
-}
-
-.faq-icon {
-  flex-shrink: 0;
-  width: 20px;
-  height: 20px;
-  border: 1px solid var(--border-strong);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  transition: border-color 0.3s ease;
-}
-
-.faq-icon::before,
-.faq-icon::after {
-  content: '';
-  position: absolute;
-  background: #B89A5A;
-  transition: transform 0.35s ease, opacity 0.35s ease;
-}
-
-.faq-icon::before {
-  width: 9px;
-  height: 1px;
-}
-
-.faq-icon::after {
-  width: 1px;
-  height: 9px;
-}
-
-.faq-item.open .faq-icon::after {
-  opacity: 0;
-  transform: rotate(90deg);
-}
-
-.faq-item.open .faq-question {
-  color: #B89A5A;
-}
-
-.faq-answer {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.45s ease;
-}
-
-.faq-answer p {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.9rem;
-  color: #4A3F35;
-  line-height: 1.9;
-  padding-bottom: 1.6rem;
-}
-
-/* ── CONTACT ── */
-#contact {
-  background: #F4F0EB;
-  padding: 9rem 6rem;
-  border-top: 1px solid var(--border);
-}
-
-.contact-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 6rem;
-  align-items: start;
-}
-
-.contact-left .section-title {
-  font-size: 2.4rem;
-  margin-bottom: 1.2rem;
-}
-
-.contact-left p {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.92rem;
-  color: #4A3F35;
-  line-height: 1.9;
-  margin-bottom: 2.5rem;
-}
-
-.contact-info-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 1rem;
-  margin-bottom: 1.2rem;
-}
-
-.contact-info-label {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.68rem;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: #B89A5A;
-  min-width: 80px;
-  padding-top: 2px;
-}
-
-.contact-info-value {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.9rem;
-  color: #4A3F35;
-}
-
-.contact-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.2rem;
-}
-
-.form-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.2rem;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.45rem;
-}
-
-.form-group label {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.68rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: #8A7D72;
-}
-
-.form-group input,
-.form-group textarea,
-.form-group select {
-  background: #FAFAF8;
-  border: 1px solid var(--border-strong);
-  color: #1A1410;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.9rem;
-  font-weight: 300;
-  padding: 0.9rem 1rem;
-  outline: none;
-  transition: border-color 0.3s ease;
-  resize: none;
-  -webkit-appearance: none;
-}
-
-.form-group input:focus,
-.form-group textarea:focus,
-.form-group select:focus {
-  border-color: #B89A5A;
-}
-
-.form-group input::placeholder,
-.form-group textarea::placeholder {
-  color: #C0B5AC;
-}
-
-.form-group select option {
-  background: #FAFAF8;
-  color: #1A1410;
-}
-
-.form-group textarea {
-  min-height: 120px;
-}
-
-.form-submit {
-  background: #1A1410;
-  color: #F7F3EF;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.78rem;
-  font-weight: 400;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  border: 1px solid #1A1410;
-  padding: 1rem 2.2rem;
-  cursor: pointer;
-  transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
-  align-self: flex-start;
-}
-
-.form-submit:hover {
-  background: #B89A5A;
-  border-color: #B89A5A;
-  color: #F7F3EF;
-}
-
-/* ── FOOTER ── */
-footer {
-  background: #1A1410;
-  padding: 5rem 6rem 2.5rem;
-}
-
-.footer-inner {
-  max-width: 1300px;
-  margin: 0 auto;
-}
-
-.footer-top {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
-  gap: 4rem;
-  margin-bottom: 4rem;
-  padding-bottom: 4rem;
-  border-bottom: 1px solid rgba(184, 154, 90, 0.12);
-}
-
-.footer-brand .nav-logo {
-  font-size: 1.25rem;
-  display: block;
-  margin-bottom: 1.2rem;
-  color: #F7F3EF;
-}
-
-.footer-brand .nav-logo span {
-  color: #B89A5A;
-}
-
-.footer-brand p {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.84rem;
-  color: rgba(247, 243, 239, 0.42);
-  line-height: 1.85;
-  max-width: 260px;
-}
-
-.footer-col h5 {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.66rem;
-  font-weight: 400;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: #B89A5A;
-  margin-bottom: 1.4rem;
-}
-
-.footer-col ul {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.footer-col ul a {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.84rem;
-  color: rgba(247, 243, 239, 0.42);
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.footer-col ul a:hover {
-  color: #B89A5A;
-}
-
-.footer-bottom {
-  padding-top: 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-
-.footer-bottom p {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.76rem;
-  color: rgba(247, 243, 239, 0.22);
-}
-
-.footer-tagline {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: 0.95rem;
-  color: rgba(184, 154, 90, 0.5);
-}
-
-/* ── REVEAL ANIMATIONS ── */
-.reveal {
-  opacity: 0;
-  transform: translateY(22px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
-}
-
-.reveal.revealed {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.reveal-delay-1 { transition-delay: 0.1s; }
-.reveal-delay-2 { transition-delay: 0.2s; }
-.reveal-delay-3 { transition-delay: 0.3s; }
-.reveal-delay-4 { transition-delay: 0.4s; }
-
-/* ── MOBILE NAV OVERLAY ── */
-.mobile-nav {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(250, 250, 248, 0.98);
-  z-index: 999;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 2.5rem;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.4s ease;
-}
-
-.mobile-nav.active {
-  opacity: 1;
-  pointer-events: all;
-}
-
-.mobile-nav a {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 2rem;
-  font-weight: 300;
-  color: #1A1410;
-  text-decoration: none;
-  letter-spacing: 0.05em;
-  transition: color 0.3s ease;
-}
-
-.mobile-nav a:hover {
-  color: #B89A5A;
-}
-
-/* ── RESPONSIVE ── */
-@media (max-width: 1100px) {
-  .stats-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .stat-item:nth-child(3) {
-    border-left: none;
-  }
-  .steps-grid::before { display: none; }
-  .steps-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 3rem;
-  }
-  .footer-top {
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-  }
-}
-
-@media (max-width: 900px) {
-  .nav {
-    padding: 1.2rem 2rem;
-  }
-  .nav.scrolled {
-    padding: 1rem 2rem;
-  }
-  .nav-links {
-    display: none;
-  }
-  .hamburger {
-    display: flex;
-  }
-  .mobile-nav {
-    display: flex;
-  }
-  .hero-content {
-    max-width: 80%;
-    padding-left: 3rem;
-  }
-  .hero-title {
-    font-size: 3rem;
-  }
-  #about { padding: 6rem 3rem; }
-  .about-inner {
-    grid-template-columns: 1fr;
-    gap: 3rem;
-  }
-  .about-image-wrap img { height: 420px; }
-  #scents { padding: 6rem 0; }
-  .scents-header { padding: 0 3rem; }
-  .alternating-row {
-    grid-template-columns: 1fr;
-    min-height: auto;
-  }
-  .alternating-row.flip { direction: ltr; }
-  .alt-image-wrap { height: 320px; }
-  .alt-image { height: 320px; }
-  .alt-text { height: auto; padding: 3rem; }
-  #showcase { padding: 6rem 3rem; }
-  .cards-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-  #how { padding: 6rem 3rem; }
-  .cta-split { grid-template-columns: 1fr; }
-  .cta-image-side { height: 360px; }
-  .cta-text-side { padding: 3.5rem 3rem; }
-  #contact { padding: 6rem 3rem; }
-  .contact-inner {
-    grid-template-columns: 1fr;
-    gap: 3rem;
-  }
-  #stats { padding: 4rem 3rem; }
-  #faq { padding: 6rem 3rem; }
-  .gallery-strip { grid-template-columns: 1fr; }
-  .gallery-strip-item { height: 300px; }
-  footer { padding: 3.5rem 3rem 2rem; }
-  .footer-top {
-    grid-template-columns: 1fr 1fr;
-    gap: 2.5rem;
-  }
-}
-
-@media (max-width: 640px) {
-  .hero-content {
-    max-width: 95%;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-  }
-  .hero-title { font-size: 2.6rem; }
-  .hero-tagline { font-size: 0.95rem; }
-  .hero-ctas { flex-direction: column; }
-  .stats-grid { grid-template-columns: 1fr 1fr; }
-  .stat-item { border-left: none; border-top: 1px solid var(--border); padding: 1.2rem; }
-  .section-title { font-size: 2.2rem; }
-  #about { padding: 5rem 1.5rem; }
-  .about-image-caption { display: none; }
-  #showcase { padding: 5rem 1.5rem; }
-  .cards-grid { grid-template-columns: 1fr; }
-  .scents-header { padding: 0 1.5rem; }
-  .alt-text { padding: 2.5rem 1.5rem; }
-  #how { padding: 5rem 1.5rem; }
-  .steps-grid { grid-template-columns: 1fr; }
-  .testimonials-header { padding: 0 1.5rem; }
-  .testimonials-track { padding: 1rem 1.5rem 2rem; }
-  .testimonial-card { flex: 0 0 300px; }
-  #faq { padding: 5rem 1.5rem; }
-  #contact { padding: 5rem 1.5rem; }
-  .form-row { grid-template-columns: 1fr; }
-  .cta-text-side { padding: 3rem 1.5rem; }
-  footer { padding: 3rem 1.5rem 2rem; }
-  .footer-top { grid-template-columns: 1fr; gap: 2rem; }
-  .footer-bottom { flex-direction: column; text-align: center; }
-}
-</style>
-
-<style id="gwp-palette">
-html[data-palette="client"] {
-  --accent: #C9A84C;
-}
-html[data-palette-anim] *, html[data-palette-anim] *::before, html[data-palette-anim] *::after {
-  transition: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease !important;
-}
-</style>
-
-<style id="gwp-palette">
-html[data-palette="client"] {
-  --accent-light: #C9A84C;
-  --accent: #C9A84C;
-  --text-mid: #C9A84C;
-}
-html[data-palette-anim] *, html[data-palette-anim] *::before, html[data-palette-anim] *::after {
-  transition: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease !important;
+  --black: #0A0A0A;
+  --black-soft: #111111;
+  --black-card: #141414;
+  --black-elevated: #1A1A1A;
+  --gold: #C9A84C;
+  --gold-light: #DFC06A;
+  --gold-dim: rgba(201,168,76,0.15);
+  --gold-border: rgba(201,168,76,0.3);
+  --white: #FFFFFF;
+  --white-dim: rgba(255,255,255,0.08);
+  --white-muted: rgba(255,255,255,0.55);
+  --white-soft: rgba(255,255,255,0.75);
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans: 'DM Sans', system-ui, sans-serif;
+  --transition: 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
+  --transition-fast: 0.2s ease;
+  --section-pad: 120px 0;
+  --section-pad-sm: 80px 0;
+  --max-width: 1320px;
+  --radius: 2px;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;font-size:16px;}
+body{background-color:var(--black);color:var(--white);font-family:var(--sans);font-weight:300;line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+img{display:block;max-width:100%;height:auto;}
+a{text-decoration:none;color:inherit;}
+button{cursor:pointer;border:none;background:none;font-family:var(--sans);}
+ul{list-style:none;}
+
+/* ── UTILITY ── */
+.container{width:100%;max-width:var(--max-width);margin:0 auto;padding:0 24px;}
+.gold{color:var(--gold);}
+.serif{font-family:var(--serif);}
+.thin-rule{width:60px;height:1px;background:var(--gold);display:block;margin:0 auto;}
+.thin-rule-left{width:60px;height:1px;background:var(--gold);display:block;}
+.section-label{font-family:var(--sans);font-size:0.7rem;font-weight:500;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;}
+
+/* ── SCROLL REVEAL ── */
+.reveal{opacity:0;transform:translateY(40px);transition:opacity 0.75s cubic-bezier(0.25,0.46,0.45,0.94),transform 0.75s cubic-bezier(0.25,0.46,0.45,0.94);}
+.reveal.visible{opacity:1;transform:translateY(0);}
+.reveal-delay-1{transition-delay:0.1s;}
+.reveal-delay-2{transition-delay:0.2s;}
+.reveal-delay-3{transition-delay:0.3s;}
+.reveal-delay-4{transition-delay:0.4s;}
+.reveal-delay-5{transition-delay:0.5s;}
+
+/* ══════════════════════════════════════
+   NAVIGATION
+══════════════════════════════════════ */
+#nav{position:fixed;top:0;left:0;width:100%;z-index:1000;padding:28px 0;transition:padding var(--transition),background var(--transition),border-color var(--transition);border-bottom:1px solid transparent;}
+#nav.scrolled{padding:16px 0;background:rgba(10,10,10,0.96);border-bottom-color:var(--gold-border);backdrop-filter:blur(12px);}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;}
+.nav-logo{font-family:var(--serif);font-size:1.35rem;font-weight:400;letter-spacing:0.06em;line-height:1.2;}
+.nav-logo span{display:block;font-size:0.6rem;font-family:var(--sans);font-weight:400;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-top:2px;}
+.nav-links{display:none;align-items:center;gap:40px;}
+.nav-links a{font-size:0.72rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:var(--white-soft);transition:color var(--transition-fast);}
+.nav-links a:hover{color:var(--gold);}
+.nav-cta{display:none;font-size:0.7rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;padding:11px 26px;border:1px solid var(--gold);color:var(--gold);transition:background var(--transition-fast),color var(--transition-fast);}
+.nav-cta:hover{background:var(--gold);color:var(--black);}
+.hamburger{display:flex;flex-direction:column;gap:5px;padding:4px;z-index:1001;}
+.hamburger span{display:block;width:26px;height:1px;background:var(--white);transition:transform var(--transition),opacity var(--transition);}
+.hamburger.open span:nth-child(1){transform:translateY(6px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg);}
+
+/* Mobile menu */
+.mobile-menu{position:fixed;inset:0;background:var(--black);z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:40px;opacity:0;pointer-events:none;transition:opacity var(--transition);}
+.mobile-menu.open{opacity:1;pointer-events:all;}
+.mobile-menu a{font-family:var(--serif);font-size:2.2rem;font-weight:300;font-style:italic;color:var(--white);letter-spacing:0.04em;transition:color var(--transition-fast);}
+.mobile-menu a:hover{color:var(--gold);}
+.mobile-menu-gold{font-family:var(--sans);font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);}
+
+@media(min-width:768px){
+  .nav-links{display:flex;}
+  .nav-cta{display:block;}
+  .hamburger{display:none;}
+}
+
+/* ══════════════════════════════════════
+   HERO
+══════════════════════════════════════ */
+#hero{position:relative;width:100%;height:100vh;min-height:600px;background-image:url('https://images.unsplash.com/photo-1636859207113-9b497bc3c066?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBmcmFncmFuY2UlMjBvaWwlMjBib3R0bGVzJTIwZ29sZCUyMGJsYWNrJTIwZHJhbWF0aWMlMjBsaWdodGluZyUyMHByZW1pdW18ZW58MHwwfHx8MTc3NzI1NTc3MXww&ixlib=rb-4.1.0&q=80&w=1080');background-size:cover;background-position:center;background-attachment:fixed;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(160deg,rgba(10,10,10,0.82) 0%,rgba(10,10,10,0.55) 50%,rgba(10,10,10,0.88) 100%);}
+.hero-content{position:relative;z-index:2;max-width:880px;padding:0 24px;}
+.hero-eyebrow{font-size:0.65rem;font-weight:500;letter-spacing:0.4em;text-transform:uppercase;color:var(--gold);margin-bottom:28px;display:flex;align-items:center;justify-content:center;gap:16px;}
+.hero-eyebrow::before,.hero-eyebrow::after{content:'';display:block;width:40px;height:1px;background:var(--gold);}
+.hero-headline{font-family:var(--serif);font-size:clamp(3rem,8vw,6.5rem);font-weight:300;font-style:italic;line-height:1.08;letter-spacing:0.01em;margin-bottom:28px;color:var(--white);}
+.hero-headline em{font-style:normal;color:var(--gold);}
+.hero-sub{font-size:clamp(0.85rem,2vw,1rem);font-weight:300;letter-spacing:0.12em;color:var(--white-soft);margin-bottom:52px;max-width:480px;margin-left:auto;margin-right:auto;}
+.hero-buttons{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;}
+.btn-primary{font-size:0.7rem;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;padding:18px 44px;background:var(--gold);color:var(--black);transition:background var(--transition-fast),transform var(--transition);}
+.btn-primary:hover{background:var(--gold-light);transform:translateY(-2px);}
+.btn-outline{font-size:0.7rem;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;padding:18px 44px;border:1px solid rgba(255,255,255,0.4);color:var(--white);transition:border-color var(--transition-fast),color var(--transition-fast),transform var(--transition);}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-2px);}
+.hero-scroll{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:10px;}
+.hero-scroll span{font-size:0.6rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--white-muted);}
+.scroll-line{width:1px;height:50px;background:linear-gradient(to bottom,var(--gold),transparent);animation:scrollPulse 2s ease-in-out infinite;}
+@keyframes scrollPulse{0%,100%{opacity:0.4;transform:scaleY(1);}50%{opacity:1;transform:scaleY(1.1);}}
+
+/* ══════════════════════════════════════
+   MARQUEE STRIP
+══════════════════════════════════════ */
+.marquee-strip{background:var(--gold);padding:14px 0;overflow:hidden;}
+.marquee-track{display:flex;white-space:nowrap;animation:marquee 22s linear infinite;}
+.marquee-track span{font-family:var(--serif);font-style:italic;font-size:1rem;font-weight:400;color:var(--black);padding:0 32px;}
+.marquee-track .dot{color:var(--black);opacity:0.5;font-style:normal;}
+@keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* ══════════════════════════════════════
+   INTRO / STATEMENT
+══════════════════════════════════════ */
+#intro{padding:var(--section-pad);background:var(--black);}
+.intro-inner{display:grid;grid-template-columns:1fr;gap:60px;align-items:center;}
+.intro-text-col{}
+.intro-number{font-family:var(--serif);font-size:8rem;font-weight:300;color:var(--gold-dim);line-height:1;position:absolute;top:-20px;left:-10px;z-index:0;pointer-events:none;user-select:none;}
+.intro-headline{font-family:var(--serif);font-size:clamp(2.4rem,5vw,4rem);font-weight:300;font-style:italic;line-height:1.15;margin-bottom:28px;position:relative;}
+.intro-headline strong{font-weight:400;font-style:normal;color:var(--gold);}
+.intro-body{font-size:0.95rem;line-height:1.85;color:var(--white-soft);margin-bottom:36px;max-width:540px;}
+.intro-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px;padding-top:48px;border-top:1px solid var(--gold-border);}
+.stat-item{text-align:center;}
+.stat-number{font-family:var(--serif);font-size:2.8rem;font-weight:300;color:var(--gold);display:block;line-height:1;}
+.stat-label{font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--white-muted);margin-top:8px;display:block;}
+@media(min-width:1024px){
+  .intro-inner{grid-template-columns:1fr 1fr;gap:100px;}
+  .intro-stats{grid-template-columns:repeat(3,1fr);}
+}
+
+/* ══════════════════════════════════════
+   SERVICES / COLLECTION
+══════════════════════════════════════ */
+#services{padding:var(--section-pad);background:var(--black-soft);}
+.section-header{text-align:center;margin-bottom:72px;}
+.section-title{font-family:var(--serif);font-size:clamp(2.2rem,4.5vw,3.6rem);font-weight:300;font-style:italic;line-height:1.2;margin-top:16px;margin-bottom:20px;}
+.section-desc{font-size:0.9rem;color:var(--white-muted);max-width:480px;margin:0 auto;line-height:1.8;}
+.services-grid{display:grid;grid-template-columns:1fr;gap:2px;}
+.service-card{position:relative;overflow:hidden;background:var(--black-card);cursor:pointer;}
+.service-card-img{width:100%;height:440px;object-fit:cover;transition:transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94);display:block;}
+.service-card:hover .service-card-img{transform:scale(1.05);}
+.service-card-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,10,0.92) 0%,rgba(10,10,10,0.2) 60%,transparent 100%);transition:background var(--transition);}
+.service-card:hover .service-card-overlay{background:linear-gradient(to top,rgba(10,10,10,0.97) 0%,rgba(10,10,10,0.4) 70%,rgba(201,168,76,0.05) 100%);}
+.service-card-body{position:absolute;bottom:0;left:0;right:0;padding:40px 36px;transform:translateY(0);transition:transform var(--transition);}
+.service-card-tag{font-size:0.6rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
+.service-card-title{font-family:var(--serif);font-size:1.9rem;font-weight:300;font-style:italic;margin-bottom:12px;line-height:1.2;}
+.service-card-desc{font-size:0.82rem;color:var(--white-muted);line-height:1.7;max-height:0;overflow:hidden;transition:max-height 0.5s ease,opacity 0.4s ease;opacity:0;}
+.service-card:hover .service-card-desc{max-height:100px;opacity:1;}
+.service-card-cta{display:inline-flex;align-items:center;gap:10px;font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-top:20px;opacity:0;transform:translateY(8px);transition:opacity var(--transition),transform var(--transition);}
+.service-card:hover .service-card-cta{opacity:1;transform:translateY(0);}
+.arrow-line{display:block;width:30px;height:1px;background:var(--gold);}
+@media(min-width:768px){
+  .services-grid{grid-template-columns:repeat(2,1fr);}
+  .services-grid .service-card:last-child:nth-child(odd){grid-column:span 2;}
+}
+@media(min-width:1024px){
+  .services-grid{grid-template-columns:repeat(3,1fr);}
+  .services-grid .service-card:last-child:nth-child(odd){grid-column:span 1;}
+}
+
+/* ══════════════════════════════════════
+   ABOUT / STORY
+══════════════════════════════════════ */
+#about{padding:var(--section-pad);background:var(--black);}
+.about-inner{display:grid;grid-template-columns:1fr;gap:64px;align-items:center;}
+.about-img-wrap{position:relative;}
+.about-img{width:100%;height:540px;object-fit:cover;object-position:center;display:block;}
+.about-img-frame{position:absolute;top:20px;left:20px;right:-20px;bottom:-20px;border:1px solid var(--gold-border);z-index:-1;pointer-events:none;}
+.about-badge{position:absolute;bottom:-24px;right:24px;background:var(--gold);color:var(--black);padding:20px 28px;text-align:center;}
+.about-badge-num{font-family:var(--serif);font-size:2.2rem;font-weight:400;display:block;line-height:1;}
+.about-badge-text{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;display:block;margin-top:4px;}
+.about-text{padding-top:32px;}
+.about-headline{font-family:var(--serif);font-size:clamp(2rem,4vw,3.2rem);font-weight:300;font-style:italic;line-height:1.2;margin-bottom:28px;}
+.about-body{font-size:0.9rem;color:var(--white-muted);line-height:1.9;margin-bottom:20px;}
+.about-body strong{color:var(--white-soft);font-weight:400;}
+.about-pull{font-family:var(--serif);font-size:1.5rem;font-weight:300;font-style:italic;color:var(--gold);line-height:1.4;border-left:2px solid var(--gold);padding-left:24px;margin:36px 0;}
+.about-cta{margin-top:40px;}
+@media(min-width:1024px){
+  .about-inner{grid-template-columns:1fr 1fr;gap:100px;}
+}
+
+/* ══════════════════════════════════════
+   GALLERY STRIP
+══════════════════════════════════════ */
+#gallery{padding:var(--section-pad);background:var(--black-soft);}
+.gallery-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:48px;flex-wrap:wrap;gap:20px;}
+.gallery-grid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto auto;gap:2px;}
+.gallery-item{overflow:hidden;position:relative;}
+.gallery-item:first-child{grid-column:span 2;height:360px;}
+.gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94);}
+.gallery-item:hover img{transform:scale(1.06);}
+.gallery-item:not(:first-child){height:280px;}
+.gallery-item-overlay{position:absolute;inset:0;background:rgba(10,10,10,0);transition:background var(--transition);}
+.gallery-item:hover .gallery-item-overlay{background:rgba(201,168,76,0.08);}
+@media(min-width:768px){
+  .gallery-grid{grid-template-columns:repeat(3,1fr);}
+  .gallery-item:first-child{grid-column:span 2;height:480px;}
+  .gallery-item:not(:first-child){height:480px;}
+}
+
+/* ══════════════════════════════════════
+   TESTIMONIALS
+══════════════════════════════════════ */
+#testimonials{padding:var(--section-pad);background:var(--black);overflow:hidden;}
+.testimonials-inner{max-width:1000px;margin:0 auto;}
+.testimonials-grid{display:grid;grid-template-columns:1fr;gap:2px;margin-top:64px;}
+.testi-card{background:var(--black-elevated);padding:52px 44px;position:relative;overflow:hidden;transition:transform var(--transition),border-color var(--transition);border:1px solid transparent;}
+.testi-card:hover{transform:translateY(-6px);border-color:var(--gold-border);}
+.testi-quote-mark{font-family:var(--serif);font-size:9rem;font-weight:300;color:var(--gold);opacity:0.12;position:absolute;top:-10px;left:24px;line-height:1;pointer-events:none;}
+.testi-body{font-family:var(--serif);font-size:1.2rem;font-style:italic;font-weight:300;line-height:1.7;color:var(--white-soft);margin-bottom:32px;position:relative;z-index:1;}
+.testi-footer{display:flex;align-items:center;gap:16px;border-top:1px solid var(--gold-border);padding-top:24px;}
+.testi-avatar{width:44px;height:44px;border-radius:50%;background:var(--gold-dim);border:1px solid var(--gold-border);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.testi-avatar-letter{font-family:var(--serif);font-size:1.2rem;color:var(--gold);}
+.testi-name{font-size:0.72rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);}
+.testi-stars{display:flex;gap:3px;margin-top:4px;}
+.testi-star{width:10px;height:10px;background:var(--gold);clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);}
+@media(min-width:768px){
+  .testimonials-grid{grid-template-columns:repeat(3,1fr);}
+}
+
+/* ══════════════════════════════════════
+   FAQ
+══════════════════════════════════════ */
+#faq{padding:var(--section-pad);background:var(--black-soft);}
+.faq-inner{display:grid;grid-template-columns:1fr;gap:64px;align-items:start;}
+.faq-intro{}
+.faq-intro-headline{font-family:var(--serif);font-size:clamp(2rem,4vw,3rem);font-weight:300;font-style:italic;margin-top:16px;margin-bottom:24px;line-height:1.2;}
+.faq-intro-body{font-size:0.88rem;color:var(--white-muted);line-height:1.85;}
+.faq-list{display:flex;flex-direction:column;gap:0;}
+.faq-item{border-top:1px solid var(--gold-border);}
+.faq-item:last-child{border-bottom:1px solid var(--gold-border);}
+.faq-question{width:100%;display:flex;align-items:center;justify-content:space-between;padding:28px 0;text-align:left;font-size:0.9rem;font-weight:400;letter-spacing:0.04em;color:var(--white);transition:color var(--transition-fast);gap:20px;}
+.faq-question:hover{color:var(--gold);}
+.faq-icon{flex-shrink:0;width:24px;height:24px;border:1px solid var(--gold-border);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:background var(--transition-fast),border-color var(--transition-fast);}
+.faq-question.active .faq-icon{background:var(--gold);border-color:var(--gold);}
+.faq-icon-bar{display:block;width:10px;height:1px;background:var(--gold);position:relative;transition:transform var(--transition);}
+.faq-icon-bar::after{content:'';display:block;width:1px;height:10px;background:var(--gold);position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);transition:opacity var(--transition);}
+.faq-question.active .faq-icon-bar{transform:rotate(0);}
+.faq-question.active .faq-icon-bar::after{opacity:0;}
+.faq-question.active .faq-icon-bar,.faq-question.active .faq-icon .faq-icon-bar{background:var(--black);}
+.faq-question.active .faq-icon-bar::after{background:var(--black);}
+.faq-answer{max-height:0;overflow:hidden;transition:max-height 0.45s cubic-bezier(0.25,0.46,0.45,0.94);}
+.faq-answer-inner{padding:0 0 28px;font-size:0.88rem;color:var(--white-muted);line-height:1.85;}
+@media(min-width:1024px){
+  .faq-inner{grid-template-columns:1fr 2fr;gap:100px;}
+}
+
+/* ══════════════════════════════════════
+   CTA SECTION
+══════════════════════════════════════ */
+#cta{position:relative;padding:var(--section-pad);background:var(--black);}
+.cta-bg{position:absolute;inset:0;background-image:url('https://images.pexels.com/photos/36834269/pexels-photo-36834269.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');background-size:cover;background-position:center;background-attachment:fixed;}
+.cta-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(10,10,10,0.93) 0%,rgba(10,10,10,0.8) 100%);}
+.cta-inner{position:relative;z-index:2;display:grid;grid-template-columns:1fr;gap:64px;align-items:center;}
+.cta-text{}
+.cta-headline{font-family:var(--serif);font-size:clamp(2.2rem,5vw,4rem);font-weight:300;font-style:italic;line-height:1.15;margin-bottom:24px;}
+.cta-sub{font-size:0.9rem;color:var(--white-muted);line-height:1.8;margin-bottom:36px;max-width:480px;}
+.cta-price-badge{display:inline-flex;align-items:baseline;gap:8px;background:var(--gold-dim);border:1px solid var(--gold-border);padding:16px 28px;margin-bottom:40px;}
+.cta-price-from{font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);}
+.cta-price-num{font-family:var(--serif);font-size:3rem;font-weight:300;color:var(--gold);line-height:1;}
+.cta-price-per{font-size:0.7rem;color:var(--white-muted);}
+.cta-form-col{}
+.cta-form{display:flex;flex-direction:column;gap:16px;}
+.form-row{display:grid;grid-template-columns:1fr;gap:16px;}
+.form-field{display:flex;flex-direction:column;gap:6px;}
+.form-label{font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);}
+.form-input,.form-select,.form-textarea{background:rgba(255,255,255,0.04);border:1px solid var(--gold-border);color:var(--white);font-family:var(--sans);font-size:0.88rem;padding:14px 18px;transition:border-color var(--transition-fast);outline:none;width:100%;-webkit-appearance:none;}
+.form-input::placeholder,.form-textarea::placeholder{color:rgba(255,255,255,0.25);}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--gold);}
+.form-select option{background:var(--black-elevated);color:var(--white);}
+.form-textarea{resize:vertical;min-height:120px;}
+.form-submit{font-size:0.72rem;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;padding:20px 48px;background:var(--gold);color:var(--black);transition:background var(--transition-fast),transform var(--transition);align-self:flex-start;}
+.form-submit:hover{background:var(--gold-light);transform:translateY(-2px);}
+@media(min-width:768px){
+  .form-row{grid-template-columns:1fr 1fr;}
+}
+@media(min-width:1024px){
+  .cta-inner{grid-template-columns:1fr 1fr;gap:80px;}
+}
+
+/* ══════════════════════════════════════
+   FOOTER
+══════════════════════════════════════ */
+#footer{background:var(--black-soft);border-top:1px solid var(--gold-border);padding:80px 0 40px;}
+.footer-inner{display:grid;grid-template-columns:1fr;gap:64px;}
+.footer-brand{}
+.footer-logo{font-family:var(--serif);font-size:1.5rem;font-weight:400;margin-bottom:8px;}
+.footer-logo span{color:var(--gold);}
+.footer-tagline{font-size:0.7rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--white-muted);margin-bottom:24px;}
+.footer-brand-body{font-size:0.85rem;color:var(--white-muted);line-height:1.8;max-width:300px;margin-bottom:32px;}
+.footer-social{display:flex;gap:16px;}
+.footer-social-link{width:38px;height:38px;border:1px solid var(--gold-border);display:flex;align-items:center;justify-content:center;font-size:0.6rem;font-weight:500;letter-spacing:0.1em;color:var(--white-muted);text-transform:uppercase;transition:border-color var(--transition-fast),color var(--transition-fast),background var(--transition-fast);}
+.footer-social-link:hover{border-color:var(--gold);color:var(--gold);}
+.footer-nav-col{}
+.footer-nav-title{font-size:0.62rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:24px;}
+.footer-nav-list{display:flex;flex-direction:column;gap:12px;}
+.footer-nav-list a{font-size:0.85rem;color:var(--white-muted);transition:color var(--transition-fast);}
+.footer-nav-list a:hover{color:var(--gold);}
+.footer-bottom{margin-top:64px;padding-top:32px;border-top:1px solid var(--gold-border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;}
+.footer-copy{font-size:0.72rem;color:rgba(255,255,255,0.3);letter-spacing:0.05em;}
+.footer-made{font-size:0.72rem;color:rgba(255,255,255,0.2);letter-spacing:0.05em;}
+@media(min-width:768px){
+  .footer-inner{grid-template-columns:2fr 1fr 1fr;}
+}
+
+/* ══════════════════════════════════════
+   RESPONSIVE TWEAKS
+══════════════════════════════════════ */
+@media(max-width:767px){
+  :root{--section-pad:80px 0;}
+  .hero-eyebrow::before,.hero-eyebrow::after{width:20px;}
+  .about-badge{right:8px;bottom:-16px;padding:14px 18px;}
+  .testi-card{padding:36px 28px;}
+  .service-card-body{padding:28px 24px;}
+  .gallery-item:first-child{height:280px;}
+  .gallery-item:not(:first-child){height:200px;}
+  .intro-stats{grid-template-columns:repeat(3,1fr);}
 }
 </style>
 </head>
 <body>
 
-<!-- MOBILE NAV OVERLAY -->
-<div class="mobile-nav" id="mobileNav">
-  <a href="#hero" onclick="closeMobileNav()">Home</a>
-  <a href="#about" onclick="closeMobileNav()">About</a>
-  <a href="#scents" onclick="closeMobileNav()">Collections</a>
-  <a href="#how" onclick="closeMobileNav()">How It Works</a>
-  <a href="#testimonials" onclick="closeMobileNav()">Reviews</a>
-  <a href="#shop" onclick="closeMobileNav()">Shop Now</a>
-  <a href="#contact" onclick="closeMobileNav()">Contact</a>
+<!-- ══ MOBILE MENU ══ -->
+<div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-label="Navigation menu">
+  <p class="mobile-menu-gold">Navigate</p>
+  <a href="#intro" class="mobile-nav-link">Our Story</a>
+  <a href="#services" class="mobile-nav-link">Collections</a>
+  <a href="#about" class="mobile-nav-link">About</a>
+  <a href="#testimonials" class="mobile-nav-link">Reviews</a>
+  <a href="#faq" class="mobile-nav-link">FAQ</a>
+  <a href="#cta" class="mobile-nav-link">Shop Now</a>
 </div>
 
-<!-- NAV -->
-<nav class="nav" id="mainNav">
-  <a href="#hero" class="nav-logo">Jameel's <span>Exotic</span></a>
-  <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#scents">Collections</a></li>
-    <li><a href="#how">How It Works</a></li>
-    <li><a href="#testimonials">Reviews</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#shop" class="nav-cta">Shop Now</a></li>
-  </ul>
-  <button class="hamburger" id="hamburger" aria-label="Open menu" onclick="toggleMobileNav()">
-    <span></span>
-    <span></span>
-    <span></span>
-  </button>
-</nav>
-
-<!-- HERO -->
-<section id="hero">
-  <div class="hero-overlay"></div>
-  <div class="hero-content">
-    <p class="hero-eyebrow">Designer-Inspired Fragrance Oils</p>
-    <h1 class="hero-title">Jameel's<br><em>Exotic</em><br>Fragrances</h1>
-    <div class="hero-rule"></div>
-    <p class="hero-tagline">Look Good. Smell Good. Feel Good. Hundreds of designer-inspired scents — starting at just $5 a bottle.</p>
-    <div class="hero-ctas">
-      <a href="#shop" class="btn-primary">Shop the Collection</a>
-      <a href="#scents" class="btn-outline">Explore Scents</a>
+<!-- ══ NAVIGATION ══ -->
+<nav id="nav" role="navigation" aria-label="Main navigation">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="#hero" class="nav-logo" aria-label="Jameel's Exotic Fragrances home">
+        Jameel's Exotic
+        <span>Fragrances</span>
+      </a>
+      <ul class="nav-links" role="list">
+        <li><a href="#intro">Story</a></li>
+        <li><a href="#services">Collections</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#testimonials">Reviews</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+      <a href="#cta" class="nav-cta">Shop Now</a>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobileMenu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </div>
   </div>
-  <div class="hero-scroll-indicator">
+</nav>
+
+<!-- ══ HERO ══ -->
+<section id="hero" aria-label="Hero">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow reveal">Affordable Luxury Fragrance Oils</p>
+    <h1 class="hero-headline reveal reveal-delay-1">
+      Wear the Scent<br>of <em>Desire</em>
+    </h1>
+    <p class="hero-sub reveal reveal-delay-2">Hundreds of designer-inspired fragrance oils. Starting at just $5 a bottle. Smell extraordinary every single day.</p>
+    <div class="hero-buttons reveal reveal-delay-3">
+      <a href="#services" class="btn-primary">Explore Collections</a>
+      <a href="#about" class="btn-outline">Our Story</a>
+    </div>
+  </div>
+  <div class="hero-scroll" aria-hidden="true">
+    <span>Scroll</span>
     <div class="scroll-line"></div>
   </div>
 </section>
 
-<!-- STATS -->
-<section id="stats">
-  <div class="stats-grid">
-    <div class="stat-item reveal">
-      <span class="stat-number" data-target="500" data-suffix="+">0+</span>
-      <span class="stat-label">Scents in Our Collection</span>
-    </div>
-    <div class="stat-item reveal reveal-delay-1">
-      <span class="stat-number" data-target="5" data-prefix="$" data-suffix="">0</span>
-      <span class="stat-label">Starting Price Per Bottle</span>
-    </div>
-    <div class="stat-item reveal reveal-delay-2">
-      <span class="stat-number" data-target="98" data-suffix="%">0%</span>
-      <span class="stat-label">Customer Satisfaction</span>
-    </div>
-    <div class="stat-item reveal reveal-delay-3">
-      <span class="stat-number" data-target="50" data-suffix=" States">0</span>
-      <span class="stat-label">Nationwide Shipping</span>
+<!-- ══ MARQUEE ══ -->
+<div class="marquee-strip" aria-hidden="true">
+  <div class="marquee-track">
+    <span>Men's Collection</span><span class="dot">—</span>
+    <span>Women's Collection</span><span class="dot">—</span>
+    <span>Unisex Scents</span><span class="dot">—</span>
+    <span>Starting at $5</span><span class="dot">—</span>
+    <span>Ships Nationwide</span><span class="dot">—</span>
+    <span>Designer-Inspired</span><span class="dot">—</span>
+    <span>Hundreds of Scents</span><span class="dot">—</span>
+    <span>Look Good. Smell Good. Feel Good.</span><span class="dot">—</span>
+    <span>Men's Collection</span><span class="dot">—</span>
+    <span>Women's Collection</span><span class="dot">—</span>
+    <span>Unisex Scents</span><span class="dot">—</span>
+    <span>Starting at $5</span><span class="dot">—</span>
+    <span>Ships Nationwide</span><span class="dot">—</span>
+    <span>Designer-Inspired</span><span class="dot">—</span>
+    <span>Hundreds of Scents</span><span class="dot">—</span>
+    <span>Look Good. Smell Good. Feel Good.</span><span class="dot">—</span>
+  </div>
+</div>
+
+<!-- ══ INTRO / STATEMENT ══ -->
+<section id="intro" aria-labelledby="intro-heading">
+  <div class="container">
+    <div class="intro-inner">
+      <div>
+        <p class="section-label reveal">Our Philosophy</p>
+        <h2 class="intro-headline reveal reveal-delay-1" id="intro-heading">
+          Luxury Was Never<br><strong>This Attainable.</strong>
+        </h2>
+        <p class="intro-body reveal reveal-delay-2">
+          The world's finest fragrance houses charge hundreds of dollars for a single bottle. We believe the right to smell extraordinary should belong to everyone — not just those who can afford the designer label.
+        </p>
+        <p class="intro-body reveal reveal-delay-3">
+          At Jameel's Exotic Fragrances, we've built our entire world around one powerful idea: give every person access to the scents they've always wanted, at a price that doesn't make them think twice.
+        </p>
+        <a href="#cta" class="btn-primary reveal reveal-delay-4">Start Shopping from $5</a>
+        <div class="intro-stats reveal reveal-delay-5">
+          <div class="stat-item">
+            <span class="stat-number" data-target="500">0</span>
+            <span class="stat-label">Scents Available</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number" data-target="5" data-prefix="$">0</span>
+            <span class="stat-label">Starting Price</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number" data-target="50" data-suffix=" States">0</span>
+            <span class="stat-label">Nationwide Shipping</span>
+          </div>
+        </div>
+      </div>
+      <div class="reveal reveal-delay-2">
+        <img
+          src="https://images.pexels.com/photos/11711835/pexels-photo-11711835.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+          alt="A sleek perfume bottle with glowing golden liquid on a black surface"
+          loading="lazy"
+          style="width:100%;height:560px;object-fit:cover;display:block;"
+        >
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ABOUT -->
-<section id="about">
-  <div class="about-inner">
-    <div class="about-image-wrap reveal">
-      <img src="https://images.pexels.com/photos/755992/pexels-photo-755992.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Elegant eau de parfum bottle with luxurious golden liquid on a minimalistic white background">
-      <div class="about-image-caption">
-        <p>"Every bottle is a story waiting to be worn."</p>
-      </div>
+<!-- ══ SERVICES / COLLECTIONS ══ -->
+<section id="services" aria-labelledby="services-heading">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-label reveal">Our Collections</p>
+      <h2 class="section-title reveal reveal-delay-1" id="services-heading">Crafted for Every Identity</h2>
+      <p class="section-desc reveal reveal-delay-2">From bold and masculine to soft and feminine — and every beautiful note in between. Find your signature scent.</p>
     </div>
-    <div class="about-text">
-      <span class="section-eyebrow reveal">Our Story</span>
-      <h2 class="section-title reveal reveal-delay-1">The Luxury Scent.<br><em>Your Price.</em></h2>
-      <div class="gold-rule reveal reveal-delay-1"></div>
-      <p class="about-body reveal reveal-delay-2">At Jameel's Exotic Fragrances, we believe every person deserves to smell extraordinary. The fragrance world has long been gated behind triple-digit price tags — we changed that.</p>
-      <div class="about-highlight reveal reveal-delay-2">"Why spend $150 on a bottle when you can own the same captivating scent for $5?"</div>
-      <p class="about-body reveal reveal-delay-3">We carry hundreds of premium fragrance oils inspired by the world's most celebrated designer houses — for men, women, and everyone in between. Whether you're chasing a night-out statement or an everyday signature, our collection covers every mood, every season, every you.</p>
-      <p class="about-body reveal reveal-delay-3">We ship nationwide, so the luxury scent experience comes straight to your door — no boutique required.</p>
-      <a href="#shop" class="btn-primary reveal reveal-delay-4" style="margin-top:1rem; display:inline-block;">Discover Our Story</a>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <img
+          class="service-card-img"
+          src="https://images.pexels.com/photos/11265021/pexels-photo-11265021.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+          alt="Close-up of a perfume bottle on black surface with leather wallet — Men's Collection"
+          loading="lazy"
+        >
+        <div class="service-card-overlay"></div>
+        <div class="service-card-body">
+          <p class="service-card-tag">For Him</p>
+          <h3 class="service-card-title">Men's Collection</h3>
+          <p class="service-card-desc">Bold, commanding, and effortlessly refined. Inspired by the world's most iconic masculine fragrances — from smoky woods to crisp aquatics.</p>
+          <span class="service-card-cta">
+            Explore
+            <span class="arrow-line"></span>
+          </span>
+        </div>
+      </div>
+      <div class="service-card reveal reveal-delay-1">
+        <img
+          class="service-card-img"
+          src="https://images.pexels.com/photos/7670682/pexels-photo-7670682.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+          alt="Stylish perfume bottles on a round tray — Women's Collection"
+          loading="lazy"
+        >
+        <div class="service-card-overlay"></div>
+        <div class="service-card-body">
+          <p class="service-card-tag">For Her</p>
+          <h3 class="service-card-title">Women's Collection</h3>
+          <p class="service-card-desc">Floral, sensual, and utterly captivating. Inspired by the legendary perfumes worn by women who make the world stop and take notice.</p>
+          <span class="service-card-cta">
+            Explore
+            <span class="arrow-line"></span>
+          </span>
+        </div>
+      </div>
+      <div class="service-card reveal reveal-delay-2">
+        <img
+          class="service-card-img"
+          src="https://images.unsplash.com/photo-1622952826417-6212791163ab?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxkZXNpZ25lciUyMHNjZW50JTIwb2lsJTIwY29sbGVjdGlvbnMlMjBmb3IlMjBtZW4lMjB3b21lbiUyMHVuaXNleCUyMGJvbGR8ZW58MHwwfHx8MTc3NzI1NTc3Mnww&ixlib=rb-4.1.0&q=80&w=1080"
+          alt="Three glass fragrance bottles — Unisex Collection"
+          loading="lazy"
+        >
+        <div class="service-card-overlay"></div>
+        <div class="service-card-body">
+          <p class="service-card-tag">For All</p>
+          <h3 class="service-card-title">Unisex Collection</h3>
+          <p class="service-card-desc">Scent has no gender. These boundary-breaking blends transcend categories — complex, modern, and made for anyone bold enough to wear them.</p>
+          <span class="service-card-cta">
+            Explore
+            <span class="arrow-line"></span>
+          </span>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- SCENTS / ALTERNATING ROWS -->
-<section id="scents">
-  <div class="scents-header">
-    <span class="section-eyebrow reveal">Collections</span>
-    <h2 class="section-title reveal reveal-delay-1">Crafted for<br><em>Every Identity</em></h2>
-  </div>
-
-  <!-- Row 1: Image Left, Text Right -->
-  <div class="alternating-row reveal">
-    <div class="alt-image-wrap">
-      <img class="alt-image" src="https://images.unsplash.com/photo-1776651993626-7cc836bf03aa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxmcmFncmFuY2UlMjBvaWwlMjBjb2xsZWN0aW9uJTIwcmljaCUyMGNvbG9ycyUyMGRyYW1hdGljJTIwcHJvZHVjdCUyMGRpc3BsYXl8ZW58MHwwfHx8MTc3NzI1NTQyNXww&ixlib=rb-4.1.0&q=80&w=1080" alt="Rows of small glass bottles with colorful fragrance liquids">
-    </div>
-    <div class="alt-text">
-      <span class="section-eyebrow">For Him</span>
-      <h3 class="section-title">Bold. Dark.<br><em>Unforgettable.</em></h3>
-      <div class="gold-rule"></div>
-      <p>Commanding woods, smoky musks, and cool aquatics — our men's collection is built for the man who walks into a room and owns it. Designer-inspired profiles at prices that make sense.</p>
-      <div class="tag-list">
-        <span class="tag">Oud & Amber</span>
-        <span class="tag">Fresh Aquatic</span>
-        <span class="tag">Dark Woods</span>
-        <span class="tag">Citrus Noir</span>
+<!-- ══ ABOUT / STORY ══ -->
+<section id="about" aria-labelledby="about-heading">
+  <div class="container">
+    <div class="about-inner">
+      <div class="about-img-wrap reveal">
+        <img
+          class="about-img"
+          src="https://images.pexels.com/photos/954405/pexels-photo-954405.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+          alt="Aesthetic still life of assorted perfume bottles and an open book on a table"
+          loading="lazy"
+        >
+        <div class="about-img-frame" aria-hidden="true"></div>
+        <div class="about-badge">
+          <span class="about-badge-num">$5</span>
+          <span class="about-badge-text">Starting Price</span>
+        </div>
       </div>
-      <a href="#shop" class="btn-primary">Shop Men's</a>
-    </div>
-  </div>
-
-  <!-- Row 2: Text Left, Image Right (flip) -->
-  <div class="alternating-row flip reveal">
-    <div class="alt-image-wrap">
-      <img class="alt-image" src="https://images.unsplash.com/photo-1654524439321-51fe4a79fa49?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxkZXNpZ25lci1pbnNwaXJlZCUyMHNjZW50JTIwYm90dGxlcyUyMGdvbGQlMjBhY2NlbnRzJTIwbHV4dXJ5JTIwcGFja2FnaW5nJTIwZmxhdCUyMGxheXxlbnwwfDB8fHwxNzc3MjU1NDI2fDA&ixlib=rb-4.1.0&q=80&w=1080" alt="Designer-inspired fragrance bottles with gold accents">
-    </div>
-    <div class="alt-text">
-      <span class="section-eyebrow">For Her</span>
-      <h3 class="section-title">Soft. Radiant.<br><em>Magnetic.</em></h3>
-      <div class="gold-rule"></div>
-      <p>Delicate florals, warm vanillas, and intoxicating orientals — our women's collection captures the feminine energy of the world's most coveted perfume houses. A new signature every season.</p>
-      <div class="tag-list">
-        <span class="tag">Floral Bouquet</span>
-        <span class="tag">Warm Vanilla</span>
-        <span class="tag">Rose & Musk</span>
-        <span class="tag">Oriental Spice</span>
+      <div class="about-text">
+        <p class="section-label reveal">Our Story</p>
+        <h2 class="about-headline reveal reveal-delay-1" id="about-heading">
+          Born from a Belief<br>That <span class="gold">Luxury Belongs to All</span>
+        </h2>
+        <p class="about-body reveal reveal-delay-2">
+          Jameel's Exotic Fragrances was built on a simple but powerful truth: <strong>smelling incredible should never be a privilege.</strong> We watched people walk past designer fragrance counters, drawn to the scents but stopped by the price tags. So we changed that.
+        </p>
+        <p class="about-body reveal reveal-delay-3">
+          We source and craft premium fragrance oils inspired by the world's most coveted designer scents — the ones you already love. The same rich notes. The same lasting power. A fraction of the cost.
+        </p>
+        <blockquote class="about-pull reveal reveal-delay-4">
+          "Your signature scent is your invisible signature — make it unforgettable."
+        </blockquote>
+        <p class="about-body reveal reveal-delay-4">
+          With hundreds of scents available for men, women, and beyond, and nationwide shipping right to your door, we've made the luxury fragrance experience something anyone can live every single day.
+        </p>
+        <div class="about-cta reveal reveal-delay-5">
+          <a href="#services" class="btn-primary">Browse the Collections</a>
+        </div>
       </div>
-      <a href="#shop" class="btn-primary">Shop Women's</a>
-    </div>
-  </div>
-
-  <!-- Row 3: Image Left, Text Right -->
-  <div class="alternating-row reveal">
-    <div class="alt-image-wrap">
-      <img class="alt-image" src="https://images.pexels.com/photos/3785784/pexels-photo-3785784.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Sleek white perfume bottle on a soft gray background">
-    </div>
-    <div class="alt-text">
-      <span class="section-eyebrow">Unisex</span>
-      <h3 class="section-title">No Rules.<br><em>Pure Expression.</em></h3>
-      <div class="gold-rule"></div>
-      <p>Scent has no gender. Our unisex collection blends the unexpected — cedar and jasmine, bergamot and vetiver — creating profiles that defy convention and define individuality.</p>
-      <div class="tag-list">
-        <span class="tag">Cedar & Jasmine</span>
-        <span class="tag">Bergamot</span>
-        <span class="tag">Vetiver</span>
-        <span class="tag">Green Tea</span>
-      </div>
-      <a href="#shop" class="btn-primary">Shop Unisex</a>
     </div>
   </div>
 </section>
 
-<!-- PRODUCT SHOWCASE -->
-<section id="showcase">
-  <div class="showcase-header">
-    <span class="section-eyebrow reveal">Featured Picks</span>
-    <h2 class="section-title reveal reveal-delay-1">Customer <em>Favorites</em></h2>
-    <div class="gold-rule reveal reveal-delay-1" style="margin: 0 auto;"></div>
+<!-- ══ GALLERY ══ -->
+<section id="gallery" aria-labelledby="gallery-heading">
+  <div class="container">
+    <div class="gallery-header">
+      <div>
+        <p class="section-label reveal">Visual World</p>
+        <h2 class="section-title reveal reveal-delay-1" id="gallery-heading" style="text-align:left;margin-bottom:0;">The Aesthetic<br><span class="gold">of Desire</span></h2>
+      </div>
+      <a href="#cta" class="btn-outline reveal" style="flex-shrink:0;">Shop the Look</a>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item reveal">
+        <img
+          src="https://images.unsplash.com/photo-1655307245247-376885be7496?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxkcmFtYXRpYyUyMHByb2R1Y3QlMjBwaG90b2dyYXBoeSUyMHBlcmZ1bWUlMjBib3R0bGVzJTIwYmxhY2slMjBnb2xkJTIwY2luZW1hdGljJTIwc3R5bGluZ3xlbnwwfDB8fHwxNzc3MjU1NzczfDA&ixlib=rb-4.1.0&q=80&w=1080"
+          alt="Dramatic product photography — cinematic black and gold styling"
+          loading="lazy"
+          style="width:100%;height:100%;object-fit:cover;"
+        >
+        <div class="gallery-item-overlay"></div>
+      </div>
+      <div class="gallery-item reveal reveal-delay-2">
+        <img
+          src="https://images.pexels.com/photos/11265021/pexels-photo-11265021.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+          alt="Close-up fragrance bottle detail on black surface"
+          loading="lazy"
+          aria-hidden="true"
+          style="width:100%;height:100%;object-fit:cover;opacity:0;pointer-events:none;position:absolute;"
+        >
+        <img
+          src="https://images.pexels.com/photos/7670682/pexels-photo-7670682.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+          alt="Stylish perfume tray arrangement — luxurious product photography"
+          loading="lazy"
+          style="width:100%;height:100%;object-fit:cover;"
+        >
+        <div class="gallery-item-overlay"></div>
+      </div>
+      <div class="gallery-item reveal reveal-delay-3">
+        <img
+          src="https://images.pexels.com/photos/36834269/pexels-photo-36834269.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+          alt="Wild Black perfume bottle with dramatic bold lighting on stone"
+          loading="lazy"
+          aria-hidden="true"
+          style="width:100%;height:100%;object-fit:cover;opacity:0;pointer-events:none;position:absolute;"
+        >
+        <img
+          src="https://images.unsplash.com/photo-1622952826417-6212791163ab?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxkZXNpZ25lciUyMHNjZW50JTIwb2lsJTIwY29sbGVjdGlvbnMlMjBmb3IlMjBtZW4lMjB3b21lbiUyMHVuaXNleCUyMGJvbGR8ZW58MHwwfHx8MTc3NzI1NTc3Mnww&ixlib=rb-4.1.0&q=80&w=1080"
+          alt="Three glass fragrance bottles on white table — editorial product shot"
+          loading="lazy"
+          style="width:100%;height:100%;object-fit:cover;"
+        >
+        <div class="gallery-item-overlay"></div>
+      </div>
+    </div>
   </div>
-  <div class="cards-grid">
-    <div class="product-card reveal">
-      <div class="card-image-wrap">
-        <img src="https://images.pexels.com/photos/36779951/pexels-photo-36779951.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Luxury perfume bottle displayed elegantly on soft fabric">
+</section>
+
+<!-- ══ TESTIMONIALS ══ -->
+<section id="testimonials" aria-labelledby="testimonials-heading">
+  <div class="container">
+    <div class="testimonials-inner">
+      <div class="section-header">
+        <p class="section-label reveal">What People Are Saying</p>
+        <h2 class="section-title reveal reveal-delay-1" id="testimonials-heading">Scent Speaks<br><span class="gold">Louder Than Words</span></h2>
+        <div class="thin-rule reveal reveal-delay-2" style="margin-top:28px;"></div>
       </div>
-      <div class="card-body">
-        <p class="card-category">Women's — Floral Oriental</p>
-        <h3 class="card-name">Rose Noir</h3>
-        <p class="card-desc">Inspired by the legendary dark rose accord. Deep, dramatic, and intoxicatingly feminine.</p>
-        <div class="card-price">$8 <span>/ bottle</span></div>
+      <div class="testimonials-grid">
+        <article class="testi-card reveal">
+          <div class="testi-quote-mark" aria-hidden="true">"</div>
+          <p class="testi-body">I've been wearing designer fragrances for years and spent a fortune on them. Jameel's oil version of my favorite scent is indistinguishable — and I paid $5. I'll never go back.</p>
+          <div class="testi-footer">
+            <div class="testi-avatar" aria-hidden="true"><span class="testi-avatar-letter">M</span></div>
+            <div>
+              <p class="testi-name">Verified Customer</p>
+              <div class="testi-stars" aria-label="5 out of 5 stars">
+                <div class="testi-star"></div><div class="testi-star"></div><div class="testi-star"></div><div class="testi-star"></div><div class="testi-star"></div>
+              </div>
+            </div>
+          </div>
+        </article>
+        <article class="testi-card reveal reveal-delay-2">
+          <div class="testi-quote-mark" aria-hidden="true">"</div>
+          <p class="testi-body">The compliments haven't stopped since I started wearing these oils. People ask me what I'm wearing constantly. The longevity is incredible for the price. Absolutely obsessed.</p>
+          <div class="testi-footer">
+            <div class="testi-avatar" aria-hidden="true"><span class="testi-avatar-letter">A</span></div>
+            <div>
+              <p class="testi-name">Verified Customer</p>
+              <div class="testi-stars" aria-label="5 out of 5 stars">
+                <div class="testi-star"></div><div class="testi-star"></div><div class="testi-star"></div><div class="testi-star"></div><div class="testi-star"></div>
+              </div>
+            </div>
+          </div>
+        </article>
+        <article class="testi-card reveal reveal-delay-3">
+          <div class="testi-quote-mark" aria-hidden="true">"</div>
+          <p class="testi-body">I ordered five different scents and they all arrived quickly and smelled amazing. This brand is a secret weapon. Telling all my friends — and also maybe keeping it to myself.</p>
+          <div class="testi-footer">
+            <div class="testi-avatar" aria-hidden="true"><span class="testi-avatar-letter">J</span></div>
+            <div>
+              <p class="testi-name">Verified Customer</p>
+              <div class="testi-stars" aria-label="5 out of 5 stars">
+                <div class="testi-star"></div><div class="testi-star"></div><div class="testi-star"></div><div class="testi-star"></div><div class="testi-star"></div>
+              </div>
+            </div>
+          </div>
+        </article>
       </div>
     </div>
-    <div class="product-card reveal reveal-delay-1">
-      <div class="card-image-wrap">
-        <img src="https://images.pexels.com/photos/36834269/pexels-photo-36834269.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Wild Black perfume bottle with bold dramatic lighting">
+  </div>
+</section>
+
+<!-- ══ FAQ ══ -->
+<section id="faq" aria-labelledby="faq-heading">
+  <div class="container">
+    <div class="faq-inner">
+      <div class="faq-intro">
+        <p class="section-label reveal">Questions Answered</p>
+        <h2 class="faq-intro-headline reveal reveal-delay-1" id="faq-heading">Everything<br>You Need<br><span class="gold">to Know</span></h2>
+        <div class="thin-rule-left reveal reveal-delay-2" style="margin:28px 0;"></div>
+        <p class="faq-intro-body reveal reveal-delay-3">We want your experience to be effortless. If you have a question that isn't answered here, reach out to us directly through the contact form.</p>
       </div>
-      <div class="card-body">
-        <p class="card-category">Men's — Woody Aromatic</p>
-        <h3 class="card-name">Black Oud Elite</h3>
-        <p class="card-desc">Premium oud resin layered over smoky amber and sandalwood. A true statement scent.</p>
-        <div class="card-price">$10 <span>/ bottle</span></div>
+      <div class="faq-list reveal reveal-delay-1">
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            What exactly are fragrance oils and how are they different from perfume?
+            <span class="faq-icon" aria-hidden="true"><span class="faq-icon-bar"></span></span>
+          </button>
+          <div class="faq-answer" role="region">
+            <div class="faq-answer-inner">Fragrance oils are concentrated scent blends applied directly to the skin — no alcohol, no dilution. Unlike traditional spray perfumes which are largely alcohol, our oils deliver pure, rich scent with incredible staying power. A little goes a very long way, making them exceptional value.</div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            Are these inspired by real designer fragrances?
+            <span class="faq-icon" aria-hidden="true"><span class="faq-icon-bar"></span></span>
+          </button>
+          <div class="faq-answer" role="region">
+            <div class="faq-answer-inner">Yes. Our entire collection is inspired by the world's most celebrated designer fragrance houses. We carry hundreds of scents that capture the same notes, accords, and character as the originals — crafted to give you the experience you love at a price that's accessible to everyone.</div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            How long does the scent last on the skin?
+            <span class="faq-icon" aria-hidden="true"><span class="faq-icon-bar"></span></span>
+          </button>
+          <div class="faq-answer" role="region">
+            <div class="faq-answer-inner">Because our oils are alcohol-free and highly concentrated, they interact directly with your skin's natural chemistry. Most customers experience 6 to 10 hours of wear from a small application. Results vary depending on skin type, but overall longevity is a consistent highlight in our customer reviews.</div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            Do you ship nationwide? How fast is delivery?
+            <span class="faq-icon" aria-hidden="true"><span class="faq-icon-bar"></span></span>
+          </button>
+          <div class="faq-answer" role="region">
+            <div class="faq-answer-inner">Absolutely — we ship to all 50 states across the United States. Processing and delivery times are communicated at checkout. We take pride in packaging every order with care so it arrives looking as premium as it smells.</div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            Can I buy multiple scents for the same price?
+            <span class="faq-icon" aria-hidden="true"><span class="faq-icon-bar"></span></span>
+          </button>
+          <div class="faq-answer" role="region">
+            <div class="faq-answer-inner">That's one of the great joys of our pricing. Starting at just $5 a bottle, you can build a genuine fragrance wardrobe — a different scent for morning, evening, weekends, special occasions — without breaking the bank. Mix, match, and explore freely.</div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            Are the oils skin-safe and suitable for all skin types?
+            <span class="faq-icon" aria-hidden="true"><span class="faq-icon-bar"></span></span>
+          </button>
+          <div class="faq-answer" role="region">
+            <div class="faq-answer-inner">Our fragrance oils are formulated for skin application. As with any fragrance product, we recommend a small patch test if you have sensitive skin. If you have specific concerns or known allergies, please reach out through our contact form and we'll be happy to assist you find the right scents.</div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            How do I apply fragrance oil for best results?
+            <span class="faq-icon" aria-hidden="true"><span class="faq-icon-bar"></span></span>
+          </button>
+          <div class="faq-answer" role="region">
+            <div class="faq-answer-inner">Apply a small amount to your pulse points — wrists, neck, inner elbows, and behind the ears. These warm areas help diffuse the scent naturally throughout the day. Do not rub the oil in; let it absorb naturally. Less is often more with concentrated fragrance oils.</div>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="product-card reveal reveal-delay-2">
-      <div class="card-image-wrap" style="background: linear-gradient(135deg, #EDE8E0 0%, #DDD5C5 50%, #CFC5B0 100%); display:flex; align-items:center; justify-content:center;">
-        <div style="text-
+  </div>
+</section>
+
+<!-- ══ CTA / CONTACT ══ -->
+<section id="cta" aria-labelledby="cta-heading">
+  <div class="cta-bg"></div>
+  <div class="cta-overlay"></div>
+  <div class="container">
+    <div class="cta-inner">
+      <div class="cta-text">
+        <p class="section-label reveal">Start Today</p>
+        <h2 class="cta-headline reveal reveal-delay-1" id="cta-heading">Your Signature<br>Scent is<br><span class="gold">Waiting for You</span></h2>
+        <p class="cta-sub reveal reveal-delay-2">Hundreds of designer-inspired fragrance oils. Bold, beautiful, and built for real life. Don't pay $200 for a bottle — spend $5 and smell even better.</p>
+        <div class="cta-price-badge reveal reveal-delay-3" aria-label="Starting from $5 per bottle">
+          <span class="cta-price-from">From</span>
+          <span class="cta-price-num">$5</span>
+          <span class="cta-price-per">/ bottle</span>
+        </div>
+        <div class="reveal reveal-delay-4">
+          <p style="font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--white-muted);margin-bottom:12px;">Follow Us</p>
+          <div style="display:flex;gap:16px;flex-wrap:wrap;">
+            <a href="https://www.instagram.com/jameelsexoticfragrances" target="_blank" rel="noopener noreferrer" class="btn-outline" style="padding:12px 22px;font-size:0.65rem;">Instagram</a>
+            <a href="https://www.facebook.com/jameelsexoticfragrances" target="_blank" rel="noopener noreferrer" class="btn-outline" style="padding:12px 22px;font-size:0.65rem;">Facebook</a>
+            <a href="https://www.tiktok.com/@jameelsexoticfragrances" target="_blank" rel="noopener noreferrer" class="btn-outline" style="padding:12px 22px;font-size:0.65rem;">TikTok</a>
+          </div>
+        </div>
+      </div>
+      <div class="cta-form-col reveal reveal-delay-2">
+        <form class="cta-form" name="contact" aria-label="Contact and inquiry form">
+          <p style="font-family:var(--serif);font-size:1.5rem;font-style:italic;font-weight:300;margin-bottom:8px;color:var(--gold);">Send Us a Message</p>
+          <p style="font-size:0.78rem;color:var(--white-muted);margin-bottom:24px;line-height:1.7;">Have a question about a scent? Want to know if we carry your favorite? We'd love to hear from you.</p>
+          <div class="form-row">
+            <div class="form-field">
+              <label class="form-label" for="form-name">Your Name</label>
+              <input class="form-input" type="text" id="form-name" name="name" placeholder="First & Last Name" required autocomplete="name">
+            </div>
+            <div class="form-field">
+              <label class="form-label" for="form-email">Email Address</label>
+              <input class="form-input" type="email" id="form-email" name="email" placeholder="you@example.com" required autocomplete="email">
+            </div>
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="form-interest">I'm Interested In</label>
+            <select class="form-select" id="form-interest" name="interest">
+              <option value="" disabled selected>Select a collection</option>
+              <option value="mens">Men's Collection</option>
+              <option value="womens">Women's Collection</option>
+              <option value="unisex">Unisex Collection</option>
+              <option value="gift">Gift Sets</option>
+              <option value="wholesale">Wholesale / Bulk Orders</option>
+              <option value="other">General Inquiry</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="form-message">Your Message</label>
+            <textarea class="form-textarea" id="form-message" name="message" placeholder="Tell us what you're looking for, your favorite scent notes, or any questions you have..."></textarea>
+          </div>
+          <button type="submit" class="form-submit">Send Message</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer id="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <p class="footer-logo">Jameel's <span>Exotic</span> Fragrances</p>
+        <p class="footer-tagline">Look Good. Smell Good. Feel Good.</p>
+        <p class="footer-brand-body">Affordable designer-inspired fragrance oils for men, women, and everyone. Starting at just $5 a bottle, shipped nationwide.</p>
+        <div class="footer-social">
+          <a href="https://www.instagram.com/jameelsexoticfragrances" target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="Instagram">IG</a>
+          <a href="https://www.facebook.com/jameelsexoticfragrances" target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="Facebook">FB</a>
+          <a href="https://www.tiktok.com/@jameelsexoticfragrances" target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="TikTok">TT</a>
+        </div>
+      </div>
+      <div class="footer-nav-col">
+        <p class="footer-nav-title">Navigate</p>
+        <ul class="footer-nav-list" role="list">
+          <li><a href="#intro">Our Story</a></li>
+          <li><a href="#services">Collections</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+          <li><a href="#testimonials">Reviews</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-nav-col">
+        <p class="footer-nav-title">Collections</p>
+        <ul class="footer-nav-list" role="list">
+          <li><a href="#services">Men's Fragrances</a></li>
+          <li><a href="#services">Women's Fragrances</a></li>
+          <li><a href="#services">Unisex Scents</a></li>
+          <li><a href="#cta">Contact Us</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; Jameel's Exotic Fragrances. All rights reserved.</p>
+      <p class="footer-made">Luxury for All — Starting at $5</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ── SMOOTH SCROLL ── */
+  document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
+    anchor.addEventListener('click', function (e) {
+      var target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        var navH = document.getElementById('nav').offsetHeight;
+        var top = target.getBoundingClientRect().top + window.pageYOffset - navH;
+        window.scrollTo({ top: top, behavior: 'smooth' });
+        /* Close mobile menu if open */
+        if (mobileMenu.classList.contains('open')) {
+          closeMobileMenu();
+        }
+      }
+    });
+  });
+
+  /* ── STICKY NAV ── */
+  var nav = document.getElementById('nav');
+  function handleNavScroll() {
+    if (window.scrollY > 60) {
+      nav.classList.add('scrolled');
+    } else {
+      nav.classList.remove('scrolled');
+    }
+  }
+  window.addEventListener('scroll', handleNavScroll, { passive: true });
+  handleNavScroll();
+
+  /* ── HAMBURGER / MOBILE MENU ── */
+  var hamburger = document.getElementById('hamburger');
+  var mobileMenu = document.getElementById('mobileMenu');
+
+  function openMobileMenu() {
+    mobileMenu.classList.add('open');
+    hamburger.classList.add('open');
+    hamburger.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMobileMenu() {
+    mobileMenu.classList.remove('open');
+    hamburger.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+
+  hamburger.addEventListener('click', function () {
+    if (mobileMenu.classList.contains('open')) {
+      closeMobileMenu();
+    } else {
+      openMobileMenu();
+    }
+  });
+
+  document.querySelectorAll('.mobile-nav-link').forEach(function (link) {
+    link.addEventListener('click', closeMobileMenu);
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && mobileMenu.classList.contains('open')) {
+      closeMobileMenu();
+    }
+  });
+
+  /* ── INTERSECTION OBSERVER SCROLL REVEAL ── */
+  var reveals = document.querySelectorAll('.reveal');
+  var revealObserver = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  reveals.forEach(function (el) {
+    revealObserver.observe(el);
+  });
+
+  /* ── COUNTER ANIMATION ── */
+  var counters = document.querySelectorAll('[data-target]');
+  var counterObserver = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        animateCounter(entry.target);
+        counterObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  counters.forEach(function (counter) {
+    counterObserver.observe(counter);
+  });
+
+  function animateCounter(el) {
+    var target = parseInt(el.getAttribute('data-target'), 10);
+    var prefix = el.getAttribute('data-prefix') || '';
+    var suffix = el.getAttribute('data-suffix') || '';
+    var duration = 1800;
+    var start = null;
+
+    function step(timestamp) {
+      if (!start) start = timestamp;
+      var progress = Math.min((timestamp - start) / duration, 1);
+      var ease = 1 - Math.pow(1 - progress, 3);
+      var current = Math.floor(ease * target);
+      el.textContent = prefix + current + (progress === 1 ? suffix : '');
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      } else {
+        el.textContent = prefix + target + suffix;
+      }
+    }
+    requestAnimationFrame(step);
+  }
+
+  /* ── FAQ ACCORDION ── */
+  var faqItems = document.querySelectorAll('.faq-item');
+  faqItems.forEach(function (item) {
+    var question = item.querySelector('.faq-question');
+    var answer = item.querySelector('.faq-answer');
+    question.addEventListener('click', function () {
+      var isOpen = question.classList.contains('active');
+      /* Close all */
+      faqItems.forEach(function (otherItem) {
+        var otherQ = otherItem.querySelector('.faq-question');
+        var otherA = otherItem.querySelector('.faq-answer');
+        otherQ.classList.remove('active');
+        otherQ.setAttribute('aria-expanded', 'false');
+        otherA.style.maxHeight = null;
+      });
+      /* Open this one if it was closed */
+      if (!isOpen) {
+        question.classList.add('active');
+        question.setAttribute('aria-expanded', 'true');
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+      }
+    });
+  });
+
+  /* ── PARALLAX HERO (subtle) ── */
+  var hero = document.getElementById('hero');
+  function handleParallax() {
+    var scrolled = window.pageYOffset;
+    if (scrolled < window.innerHeight) {
+      hero.style.backgroundPositionY = 'calc(center + ' + (scrolled * 0.3) + 'px)';
+    }
+  }
+  window.addEventListener('scroll', handleParallax, { passive: true });
+
+})();
+</script>
+</body>
+</html>
