@@ -9,11 +9,17 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,700;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --primary: #0A0005;
-  --accent: #D4AF37;
-  --bg: #0A0005;
-  --text: #F5E6EC;
-  --dark: #050003;
+  --primary: #F7F3EF;
+  --accent: #B89A5A;
+  --accent-light: #D4AF37;
+  --bg: #FAFAF8;
+  --bg-soft: #F4F0EB;
+  --bg-warm: #EDE8E0;
+  --text-dark: #1A1410;
+  --text-mid: #4A3F35;
+  --text-light: #8A7D72;
+  --border: rgba(184, 154, 90, 0.18);
+  --border-strong: rgba(184, 154, 90, 0.32);
 }
 
 *, *::before, *::after {
@@ -28,8 +34,8 @@ html {
 }
 
 body {
-  background: #0A0005;
-  color: #F5E6EC;
+  background: #FAFAF8;
+  color: #1A1410;
   font-family: 'DM Sans', sans-serif;
   font-weight: 300;
   overflow-x: hidden;
@@ -54,26 +60,27 @@ h1, h2, h3, h4, h5 {
   align-items: center;
   justify-content: space-between;
   transition: background 0.4s ease, box-shadow 0.4s ease, padding 0.4s ease;
+  background: rgba(250, 250, 248, 0.0);
 }
 
 .nav.scrolled {
-  background: rgba(5, 0, 3, 0.96);
-  box-shadow: 0 2px 30px rgba(0,0,0,0.6);
+  background: rgba(250, 250, 248, 0.97);
+  box-shadow: 0 1px 0 rgba(184, 154, 90, 0.15), 0 8px 32px rgba(26, 20, 16, 0.06);
   padding: 1rem 4rem;
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(16px);
 }
 
 .nav-logo {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 1.4rem;
+  font-size: 1.35rem;
   font-weight: 400;
-  color: #F5E6EC;
+  color: #1A1410;
   text-decoration: none;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
 }
 
 .nav-logo span {
-  color: #D4AF37;
+  color: #B89A5A;
 }
 
 .nav-links {
@@ -84,15 +91,20 @@ h1, h2, h3, h4, h5 {
 }
 
 .nav-links a {
-  color: #F5E6EC;
+  color: #4A3F35;
   text-decoration: none;
   font-family: 'DM Sans', sans-serif;
   font-weight: 400;
-  font-size: 0.85rem;
-  letter-spacing: 0.1em;
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   position: relative;
   padding-bottom: 4px;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: #1A1410;
 }
 
 .nav-links a::after {
@@ -102,7 +114,7 @@ h1, h2, h3, h4, h5 {
   left: 0;
   width: 0;
   height: 1px;
-  background: #D4AF37;
+  background: #B89A5A;
   transition: width 0.35s ease;
 }
 
@@ -111,13 +123,13 @@ h1, h2, h3, h4, h5 {
 }
 
 .nav-cta {
-  background: #D4AF37;
-  color: #050003 !important;
-  padding: 0.55rem 1.4rem !important;
-  border-radius: 0;
-  font-weight: 500 !important;
+  background: transparent !important;
+  color: #1A1410 !important;
+  padding: 0.5rem 1.4rem !important;
+  border: 1px solid rgba(26, 20, 16, 0.25) !important;
+  font-weight: 400 !important;
   letter-spacing: 0.12em;
-  transition: background 0.3s ease, transform 0.2s ease !important;
+  transition: border-color 0.3s ease, color 0.3s ease, background 0.3s ease !important;
 }
 
 .nav-cta::after {
@@ -125,7 +137,9 @@ h1, h2, h3, h4, h5 {
 }
 
 .nav-cta:hover {
-  background: #b8952e !important;
+  border-color: #B89A5A !important;
+  color: #B89A5A !important;
+  background: transparent !important;
 }
 
 .hamburger {
@@ -140,14 +154,14 @@ h1, h2, h3, h4, h5 {
 
 .hamburger span {
   display: block;
-  width: 26px;
-  height: 1.5px;
-  background: #F5E6EC;
+  width: 24px;
+  height: 1px;
+  background: #1A1410;
   transition: all 0.3s ease;
 }
 
 .hamburger.active span:nth-child(1) {
-  transform: translateY(6.5px) rotate(45deg);
+  transform: translateY(6px) rotate(45deg);
 }
 
 .hamburger.active span:nth-child(2) {
@@ -155,7 +169,7 @@ h1, h2, h3, h4, h5 {
 }
 
 .hamburger.active span:nth-child(3) {
-  transform: translateY(-6.5px) rotate(-45deg);
+  transform: translateY(-6px) rotate(-45deg);
 }
 
 /* ── HERO ── */
@@ -163,7 +177,7 @@ h1, h2, h3, h4, h5 {
   width: 100%;
   height: 100vh;
   min-height: 600px;
-  background-image: url("https://images.unsplash.com/photo-1636859207113-9b497bc3c066?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBmcmFncmFuY2UlMjBvaWwlMjBib3R0bGVzJTIwZ29sZCUyMGJsYWNrJTIwZHJhbWF0aWMlMjBsaWdodGluZ3xlbnwwfDB8fHwxNzc3MjU0OTg4fDA&ixlib=rb-4.1.0&q=80&w=1080");
+  background-image: url("https://images.unsplash.com/photo-1610245169249-c7fbf6768884?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBmcmFncmFuY2UlMjBvaWwlMjBib3R0bGUlMjBnb2xkJTIwYmxhY2slMjBlbGVnYW50JTIwcHJvZHVjdCUyMHBob3RvZ3JhcGh5fGVufDB8MHx8fDE3NzcyNTU0MjR8MA&ixlib=rb-4.1.0&q=80&w=1080");
   background-size: cover;
   background-position: center right;
   background-repeat: no-repeat;
@@ -175,7 +189,7 @@ h1, h2, h3, h4, h5 {
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to right, #050003ee 0%, #05000344 60%);
+  background: linear-gradient(to right, rgba(250,248,244,0.94) 0%, rgba(250,248,244,0.62) 52%, rgba(250,248,244,0.12) 100%);
   z-index: 1;
 }
 
@@ -188,44 +202,45 @@ h1, h2, h3, h4, h5 {
 
 .hero-eyebrow {
   font-family: 'DM Sans', sans-serif;
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   font-weight: 400;
-  letter-spacing: 0.25em;
+  letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: #D4AF37;
+  color: #B89A5A;
   margin-bottom: 1.4rem;
 }
 
 .hero-title {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 4.2rem;
+  font-size: 4.4rem;
   font-weight: 300;
-  color: #ffffff;
-  line-height: 1.1;
+  color: #1A1410;
+  line-height: 1.08;
   margin-bottom: 0;
 }
 
 .hero-title em {
   font-style: italic;
-  color: #D4AF37;
+  color: #B89A5A;
 }
 
 .hero-rule {
-  width: 60px;
-  height: 2px;
-  background: #D4AF37;
+  width: 48px;
+  height: 1px;
+  background: #B89A5A;
   margin: 1.8rem 0;
   border: none;
 }
 
 .hero-tagline {
   font-family: 'DM Sans', sans-serif;
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 300;
-  color: rgba(245, 230, 236, 0.85);
+  color: #4A3F35;
   margin-bottom: 2.4rem;
-  max-width: 420px;
+  max-width: 400px;
   letter-spacing: 0.02em;
+  line-height: 1.75;
 }
 
 .hero-ctas {
@@ -236,56 +251,43 @@ h1, h2, h3, h4, h5 {
 
 .btn-primary {
   display: inline-block;
-  background: #D4AF37;
-  color: #050003;
+  background: #1A1410;
+  color: #F7F3EF;
   font-family: 'DM Sans', sans-serif;
-  font-size: 0.82rem;
-  font-weight: 500;
-  letter-spacing: 0.15em;
+  font-size: 0.78rem;
+  font-weight: 400;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   text-decoration: none;
-  padding: 0.9rem 2rem;
-  border: 1px solid #D4AF37;
-  transition: all 0.3s ease;
-  animation: pulse-gold 3s ease infinite;
+  padding: 0.9rem 2.2rem;
+  border: 1px solid #1A1410;
+  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
 .btn-primary:hover {
-  background: #b8952e;
-  border-color: #b8952e;
-  animation: none;
+  background: #B89A5A;
+  border-color: #B89A5A;
+  color: #F7F3EF;
 }
 
 .btn-outline {
   display: inline-block;
   background: transparent;
-  color: #ffffff;
+  color: #1A1410;
   font-family: 'DM Sans', sans-serif;
-  font-size: 0.82rem;
-  font-weight: 500;
-  letter-spacing: 0.15em;
+  font-size: 0.78rem;
+  font-weight: 400;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   text-decoration: none;
-  padding: 0.9rem 2rem;
-  border: 1px solid rgba(255,255,255,0.5);
-  transition: all 0.3s ease;
+  padding: 0.9rem 2.2rem;
+  border: 1px solid rgba(26, 20, 16, 0.3);
+  transition: border-color 0.3s ease, color 0.3s ease;
 }
 
 .btn-outline:hover {
-  border-color: #D4AF37;
-  color: #D4AF37;
-}
-
-@keyframes pulse-gold {
-  0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
-  50% { box-shadow: 0 0 0 15px rgba(212, 175, 55, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
-}
-
-@keyframes pulse-gold {
-  0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.5); }
-  50% { box-shadow: 0 0 0 15px rgba(212, 175, 55, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
+  border-color: #B89A5A;
+  color: #B89A5A;
 }
 
 .hero-scroll-indicator {
@@ -303,7 +305,7 @@ h1, h2, h3, h4, h5 {
 .scroll-line {
   width: 1px;
   height: 50px;
-  background: linear-gradient(to bottom, #D4AF37, transparent);
+  background: linear-gradient(to bottom, #B89A5A, transparent);
   animation: scrollDrop 2s ease infinite;
 }
 
@@ -315,8 +317,10 @@ h1, h2, h3, h4, h5 {
 
 /* ── STATS ── */
 #stats {
-  background: #050003;
+  background: #F4F0EB;
   padding: 5rem 6rem;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
 }
 
 .stats-grid {
@@ -329,7 +333,7 @@ h1, h2, h3, h4, h5 {
 
 .stat-item {
   text-align: center;
-  border-left: 1px solid rgba(212, 175, 55, 0.2);
+  border-left: 1px solid var(--border-strong);
   padding: 1.5rem 2rem;
 }
 
@@ -339,9 +343,9 @@ h1, h2, h3, h4, h5 {
 
 .stat-number {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 3.5rem;
+  font-size: 3.2rem;
   font-weight: 300;
-  color: #D4AF37;
+  color: #B89A5A;
   display: block;
   line-height: 1;
   margin-bottom: 0.5rem;
@@ -349,58 +353,58 @@ h1, h2, h3, h4, h5 {
 
 .stat-label {
   font-family: 'DM Sans', sans-serif;
-  font-size: 0.78rem;
+  font-size: 0.72rem;
   font-weight: 400;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: rgba(245, 230, 236, 0.6);
+  color: #8A7D72;
 }
 
 /* ── SECTION SHARED ── */
 .section-eyebrow {
   font-family: 'DM Sans', sans-serif;
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   font-weight: 400;
-  letter-spacing: 0.3em;
+  letter-spacing: 0.35em;
   text-transform: uppercase;
-  color: #D4AF37;
+  color: #B89A5A;
   margin-bottom: 1rem;
   display: block;
 }
 
 .section-title {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 3rem;
+  font-size: 2.9rem;
   font-weight: 300;
-  color: #F5E6EC;
+  color: #1A1410;
   line-height: 1.15;
   margin-bottom: 1.5rem;
 }
 
 .section-title em {
   font-style: italic;
-  color: #D4AF37;
+  color: #B89A5A;
 }
 
 .gold-rule {
-  width: 50px;
+  width: 40px;
   height: 1px;
-  background: #D4AF37;
+  background: #B89A5A;
   margin-bottom: 1.8rem;
 }
 
 /* ── ABOUT ── */
 #about {
-  background: #0A0005;
-  padding: 8rem 6rem;
+  background: #FAFAF8;
+  padding: 9rem 6rem;
 }
 
 .about-inner {
   max-width: 1300px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 70fr 30fr;
-  gap: 5rem;
+  grid-template-columns: 58fr 42fr;
+  gap: 6rem;
   align-items: start;
 }
 
@@ -413,16 +417,16 @@ h1, h2, h3, h4, h5 {
   height: 620px;
   object-fit: cover;
   display: block;
-  filter: brightness(0.88) contrast(1.05);
+  filter: brightness(0.96) contrast(1.02) saturate(0.9);
 }
 
 .about-image-caption {
   position: absolute;
   bottom: -1.5rem;
   right: -1.5rem;
-  background: #050003;
-  border: 1px solid rgba(212, 175, 55, 0.35);
-  padding: 1.2rem 1.5rem;
+  background: #FAFAF8;
+  border: 1px solid var(--border-strong);
+  padding: 1.2rem 1.6rem;
   max-width: 220px;
 }
 
@@ -430,8 +434,8 @@ h1, h2, h3, h4, h5 {
   font-family: 'Cormorant Garamond', serif;
   font-style: italic;
   font-size: 0.95rem;
-  color: rgba(245, 230, 236, 0.7);
-  line-height: 1.5;
+  color: #8A7D72;
+  line-height: 1.55;
 }
 
 .about-text {
@@ -440,29 +444,29 @@ h1, h2, h3, h4, h5 {
 
 .about-body {
   font-family: 'DM Sans', sans-serif;
-  font-size: 0.95rem;
+  font-size: 0.93rem;
   font-weight: 300;
-  color: rgba(245, 230, 236, 0.75);
-  line-height: 1.85;
+  color: #4A3F35;
+  line-height: 1.9;
   margin-bottom: 1.4rem;
 }
 
 .about-highlight {
-  border-left: 2px solid #D4AF37;
-  padding-left: 1.4rem;
-  margin: 2rem 0;
+  border-left: 1px solid #B89A5A;
+  padding-left: 1.6rem;
+  margin: 2.2rem 0;
   font-family: 'Cormorant Garamond', serif;
-  font-size: 1.4rem;
+  font-size: 1.45rem;
   font-weight: 300;
   font-style: italic;
-  color: #F5E6EC;
+  color: #1A1410;
   line-height: 1.5;
 }
 
-/* ── PRODUCTS / SERVICES ── */
+/* ── SCENTS / ALTERNATING ROWS ── */
 #scents {
-  background: #0A0005;
-  padding: 6rem 0;
+  background: #F4F0EB;
+  padding: 7rem 0;
 }
 
 .scents-header {
@@ -477,7 +481,7 @@ h1, h2, h3, h4, h5 {
   align-items: center;
   gap: 0;
   margin-bottom: 0;
-  min-height: 500px;
+  min-height: 520px;
 }
 
 .alternating-row.flip {
@@ -490,91 +494,94 @@ h1, h2, h3, h4, h5 {
 
 .alt-image {
   width: 100%;
-  height: 500px;
+  height: 520px;
   object-fit: cover;
   display: block;
-  filter: brightness(0.82) contrast(1.08);
-  transition: transform 0.6s ease, filter 0.6s ease;
+  filter: brightness(0.94) contrast(1.02) saturate(0.85);
+  transition: transform 0.7s ease, filter 0.7s ease;
 }
 
 .alternating-row:hover .alt-image {
-  transform: scale(1.03);
-  filter: brightness(0.9) contrast(1.05);
+  transform: scale(1.02);
+  filter: brightness(0.98) contrast(1.0) saturate(0.9);
 }
 
 .alt-image-wrap {
   overflow: hidden;
-  height: 500px;
+  height: 520px;
 }
 
 .alt-text {
-  background: #050003;
-  padding: 4rem 5rem;
-  height: 500px;
+  background: #FAFAF8;
+  padding: 4.5rem 5rem;
+  height: 520px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
 }
 
 .alt-text .section-title {
-  font-size: 2.4rem;
+  font-size: 2.3rem;
 }
 
 .alt-text p {
   font-family: 'DM Sans', sans-serif;
-  font-size: 0.92rem;
-  color: rgba(245, 230, 236, 0.7);
-  line-height: 1.85;
+  font-size: 0.9rem;
+  color: #4A3F35;
+  line-height: 1.9;
   margin-bottom: 1.8rem;
 }
 
 .tag-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.6rem;
+  gap: 0.5rem;
   margin-bottom: 2rem;
 }
 
 .tag {
-  border: 1px solid rgba(212, 175, 55, 0.4);
-  color: #D4AF37;
+  border: 1px solid var(--border-strong);
+  color: #8A7D72;
   font-family: 'DM Sans', sans-serif;
-  font-size: 0.72rem;
-  letter-spacing: 0.12em;
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  padding: 0.35rem 0.85rem;
+  padding: 0.3rem 0.85rem;
+  background: transparent;
 }
 
 /* ── PRODUCT CARDS ── */
 #showcase {
-  background: #0A0005;
-  padding: 8rem 6rem;
+  background: #FAFAF8;
+  padding: 9rem 6rem;
 }
 
 .showcase-header {
   text-align: center;
-  margin-bottom: 4rem;
+  margin-bottom: 4.5rem;
 }
 
 .cards-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 2px;
+  gap: 1px;
   max-width: 1300px;
   margin: 0 auto;
+  background: var(--border);
 }
 
 .product-card {
-  background: #050003;
+  background: #FAFAF8;
   overflow: hidden;
   position: relative;
   cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: box-shadow 0.4s ease;
 }
 
 .product-card:hover {
-  transform: scale(1.03);
-  box-shadow: 0 20px 60px rgba(0,0,0,0.7), 0 0 30px rgba(212, 175, 55, 0.08);
+  box-shadow: 0 20px 60px rgba(26, 20, 16, 0.09);
   z-index: 2;
 }
 
@@ -588,62 +595,63 @@ h1, h2, h3, h4, h5 {
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform 0.5s ease;
-  filter: brightness(0.85);
+  transition: transform 0.6s ease;
+  filter: brightness(0.96) saturate(0.88);
 }
 
 .product-card:hover .card-image-wrap img {
-  transform: scale(1.06);
+  transform: scale(1.04);
 }
 
 .card-body {
-  padding: 1.8rem;
-  border-top: 1px solid rgba(212, 175, 55, 0.2);
+  padding: 2rem 1.8rem;
+  border-top: 1px solid var(--border);
 }
 
 .card-category {
   font-family: 'DM Sans', sans-serif;
-  font-size: 0.68rem;
-  letter-spacing: 0.2em;
+  font-size: 0.65rem;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: #D4AF37;
+  color: #B89A5A;
   margin-bottom: 0.5rem;
 }
 
 .card-name {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 1.5rem;
+  font-size: 1.55rem;
   font-weight: 400;
-  color: #F5E6EC;
+  color: #1A1410;
   margin-bottom: 0.5rem;
 }
 
 .card-desc {
   font-family: 'DM Sans', sans-serif;
   font-size: 0.82rem;
-  color: rgba(245, 230, 236, 0.55);
-  line-height: 1.6;
+  color: #8A7D72;
+  line-height: 1.65;
   margin-bottom: 1.2rem;
 }
 
 .card-price {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 1.6rem;
+  font-size: 1.55rem;
   font-weight: 300;
-  color: #D4AF37;
+  color: #1A1410;
 }
 
 .card-price span {
   font-family: 'DM Sans', sans-serif;
-  font-size: 0.78rem;
-  color: rgba(245, 230, 236, 0.4);
+  font-size: 0.75rem;
+  color: #8A7D72;
   font-weight: 300;
 }
 
 /* ── HOW IT WORKS ── */
 #how {
-  background: #050003;
-  padding: 8rem 6rem;
+  background: #F4F0EB;
+  padding: 9rem 6rem;
+  border-top: 1px solid var(--border);
 }
 
 .how-inner {
@@ -670,7 +678,7 @@ h1, h2, h3, h4, h5 {
   left: 12.5%;
   right: 12.5%;
   height: 1px;
-  background: linear-gradient(to right, transparent, rgba(212,175,55,0.4), rgba(212,175,55,0.4), transparent);
+  background: linear-gradient(to right, transparent, rgba(184,154,90,0.3), rgba(184,154,90,0.3), transparent);
 }
 
 .step {
@@ -682,43 +690,44 @@ h1, h2, h3, h4, h5 {
 .step-number {
   width: 4rem;
   height: 4rem;
-  border: 1px solid #D4AF37;
+  border: 1px solid var(--border-strong);
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0 auto 1.8rem;
-  background: #050003;
+  background: #F4F0EB;
   position: relative;
   z-index: 1;
 }
 
 .step-number span {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   font-weight: 300;
-  color: #D4AF37;
+  color: #B89A5A;
 }
 
 .step h4 {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 1.3rem;
+  font-size: 1.25rem;
   font-weight: 400;
-  color: #F5E6EC;
+  color: #1A1410;
   margin-bottom: 0.8rem;
 }
 
 .step p {
   font-family: 'DM Sans', sans-serif;
-  font-size: 0.85rem;
-  color: rgba(245, 230, 236, 0.6);
-  line-height: 1.7;
+  font-size: 0.84rem;
+  color: #8A7D72;
+  line-height: 1.75;
 }
 
 /* ── TESTIMONIALS ── */
 #testimonials {
-  background: #0A0005;
-  padding: 8rem 0;
+  background: #FAFAF8;
+  padding: 9rem 0;
   overflow: hidden;
+  border-top: 1px solid var(--border);
 }
 
 .testimonials-header {
@@ -744,15 +753,14 @@ h1, h2, h3, h4, h5 {
 .testimonial-card {
   flex: 0 0 380px;
   scroll-snap-align: start;
-  background: #050003;
-  border: 1px solid rgba(212, 175, 55, 0.15);
+  background: #F4F0EB;
+  border: 1px solid var(--border);
   padding: 2.5rem;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: box-shadow 0.4s ease;
 }
 
 .testimonial-card:hover {
-  transform: scale(1.03);
-  box-shadow: 0 15px 50px rgba(0,0,0,0.5), 0 0 20px rgba(212, 175, 55, 0.06);
+  box-shadow: 0 12px 40px rgba(26, 20, 16, 0.07);
 }
 
 .testimonial-stars {
@@ -762,19 +770,19 @@ h1, h2, h3, h4, h5 {
 }
 
 .star {
-  width: 12px;
-  height: 12px;
-  background: #D4AF37;
+  width: 10px;
+  height: 10px;
+  background: #B89A5A;
   clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
 }
 
 .testimonial-quote {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 1.15rem;
+  font-size: 1.12rem;
   font-style: italic;
   font-weight: 300;
-  color: #F5E6EC;
-  line-height: 1.65;
+  color: #1A1410;
+  line-height: 1.7;
   margin-bottom: 1.8rem;
 }
 
@@ -785,45 +793,46 @@ h1, h2, h3, h4, h5 {
 }
 
 .author-initials {
-  width: 42px;
-  height: 42px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  background: rgba(212, 175, 55, 0.15);
-  border: 1px solid rgba(212, 175, 55, 0.3);
+  background: rgba(184, 154, 90, 0.1);
+  border: 1px solid var(--border-strong);
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: 'Cormorant Garamond', serif;
-  font-size: 1rem;
-  color: #D4AF37;
+  font-size: 0.95rem;
+  color: #B89A5A;
   flex-shrink: 0;
 }
 
 .author-name {
   font-family: 'DM Sans', sans-serif;
-  font-size: 0.85rem;
+  font-size: 0.84rem;
   font-weight: 500;
-  color: #F5E6EC;
+  color: #1A1410;
   display: block;
 }
 
 .author-location {
   font-family: 'DM Sans', sans-serif;
-  font-size: 0.75rem;
-  color: rgba(245, 230, 236, 0.45);
+  font-size: 0.73rem;
+  color: #8A7D72;
 }
 
 /* ── GALLERY STRIP ── */
 .gallery-strip {
-  background: #0A0005;
+  background: #FAFAF8;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 2px;
+  gap: 1px;
+  background-color: var(--border);
 }
 
 .gallery-strip-item {
   overflow: hidden;
-  height: 400px;
+  height: 420px;
   position: relative;
 }
 
@@ -832,34 +841,70 @@ h1, h2, h3, h4, h5 {
   height: 100%;
   object-fit: cover;
   display: block;
-  filter: brightness(0.75) contrast(1.1);
-  transition: transform 0.6s ease, filter 0.6s ease;
+  filter: brightness(0.82) contrast(1.04) saturate(0.8);
+  transition: transform 0.7s ease, filter 0.7s ease;
 }
 
 .gallery-strip-item:hover img {
-  transform: scale(1.04);
-  filter: brightness(0.85) contrast(1.05);
+  transform: scale(1.03);
+  filter: brightness(0.9) contrast(1.02) saturate(0.85);
 }
 
 .gallery-overlay-text {
   position: absolute;
-  bottom: 2rem;
-  left: 2rem;
+  bottom: 2.5rem;
+  left: 2.5rem;
   font-family: 'Cormorant Garamond', serif;
-  font-size: 1.6rem;
+  font-size: 1.7rem;
   font-weight: 300;
-  color: #F5E6EC;
-  text-shadow: 0 2px 15px rgba(0,0,0,0.7);
+  color: #F7F3EF;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+  line-height: 1.3;
 }
 
 .gallery-overlay-text span {
   color: #D4AF37;
 }
 
+.gallery-panel-light {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #EDE8E0 0%, #E0D8CC 60%, #D4CAB8 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gallery-panel-light-inner {
+  text-align: center;
+  padding: 3rem;
+}
+
+.gallery-panel-light-inner p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.4rem;
+  font-weight: 300;
+  color: #1A1410;
+  line-height: 1.25;
+  margin-bottom: 1.4rem;
+}
+
+.gallery-panel-light-inner p em {
+  font-style: italic;
+  color: #B89A5A;
+}
+
+.gallery-panel-rule {
+  width: 36px;
+  height: 1px;
+  background: #B89A5A;
+  margin: 0 auto;
+}
+
 /* ── CTA SECTION ── */
 #shop {
   position: relative;
-  background: #0A0005;
+  background: #FAFAF8;
   padding: 0;
   overflow: hidden;
 }
@@ -867,7 +912,7 @@ h1, h2, h3, h4, h5 {
 .cta-split {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  min-height: 550px;
+  min-height: 580px;
 }
 
 .cta-image-side {
@@ -880,16 +925,16 @@ h1, h2, h3, h4, h5 {
   height: 100%;
   object-fit: cover;
   display: block;
-  filter: brightness(0.65) saturate(0.9);
+  filter: brightness(0.9) saturate(0.82) contrast(1.02);
 }
 
 .cta-text-side {
-  background: #050003;
+  background: #F4F0EB;
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding: 5rem;
-  border-left: 1px solid rgba(212, 175, 55, 0.15);
+  border-left: 1px solid var(--border);
 }
 
 .cta-text-side .section-title {
@@ -899,26 +944,26 @@ h1, h2, h3, h4, h5 {
 
 .cta-text-side p {
   font-family: 'DM Sans', sans-serif;
-  font-size: 0.95rem;
-  color: rgba(245, 230, 236, 0.65);
-  line-height: 1.8;
+  font-size: 0.93rem;
+  color: #4A3F35;
+  line-height: 1.85;
   margin-bottom: 2.5rem;
   max-width: 380px;
 }
 
 .cta-price-tag {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 1.2rem;
+  font-size: 1.15rem;
   font-style: italic;
-  color: rgba(245, 230, 236, 0.5);
+  color: #8A7D72;
   margin-bottom: 1rem;
   display: block;
 }
 
 .cta-price-tag strong {
-  color: #D4AF37;
+  color: #B89A5A;
   font-style: normal;
-  font-size: 1.6rem;
+  font-size: 1.55rem;
   font-weight: 300;
 }
 
@@ -930,12 +975,13 @@ h1, h2, h3, h4, h5 {
 
 /* ── FAQ ── */
 #faq {
-  background: #050003;
-  padding: 8rem 6rem;
+  background: #FAFAF8;
+  padding: 9rem 6rem;
+  border-top: 1px solid var(--border);
 }
 
 .faq-inner {
-  max-width: 860px;
+  max-width: 820px;
   margin: 0 auto;
 }
 
@@ -945,7 +991,7 @@ h1, h2, h3, h4, h5 {
 }
 
 .faq-item {
-  border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+  border-bottom: 1px solid var(--border);
 }
 
 .faq-question {
@@ -962,19 +1008,19 @@ h1, h2, h3, h4, h5 {
   font-family: 'Cormorant Garamond', serif;
   font-size: 1.2rem;
   font-weight: 400;
-  color: #F5E6EC;
+  color: #1A1410;
   transition: color 0.3s ease;
 }
 
 .faq-question:hover {
-  color: #D4AF37;
+  color: #B89A5A;
 }
 
 .faq-icon {
   flex-shrink: 0;
-  width: 22px;
-  height: 22px;
-  border: 1px solid rgba(212, 175, 55, 0.4);
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--border-strong);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -986,18 +1032,18 @@ h1, h2, h3, h4, h5 {
 .faq-icon::after {
   content: '';
   position: absolute;
-  background: #D4AF37;
+  background: #B89A5A;
   transition: transform 0.35s ease, opacity 0.35s ease;
 }
 
 .faq-icon::before {
-  width: 10px;
+  width: 9px;
   height: 1px;
 }
 
 .faq-icon::after {
   width: 1px;
-  height: 10px;
+  height: 9px;
 }
 
 .faq-item.open .faq-icon::after {
@@ -1006,7 +1052,7 @@ h1, h2, h3, h4, h5 {
 }
 
 .faq-item.open .faq-question {
-  color: #D4AF37;
+  color: #B89A5A;
 }
 
 .faq-answer {
@@ -1018,15 +1064,16 @@ h1, h2, h3, h4, h5 {
 .faq-answer p {
   font-family: 'DM Sans', sans-serif;
   font-size: 0.9rem;
-  color: rgba(245, 230, 236, 0.65);
-  line-height: 1.85;
+  color: #4A3F35;
+  line-height: 1.9;
   padding-bottom: 1.6rem;
 }
 
 /* ── CONTACT ── */
 #contact {
-  background: #0A0005;
-  padding: 8rem 6rem;
+  background: #F4F0EB;
+  padding: 9rem 6rem;
+  border-top: 1px solid var(--border);
 }
 
 .contact-inner {
@@ -1046,8 +1093,8 @@ h1, h2, h3, h4, h5 {
 .contact-left p {
   font-family: 'DM Sans', sans-serif;
   font-size: 0.92rem;
-  color: rgba(245, 230, 236, 0.65);
-  line-height: 1.85;
+  color: #4A3F35;
+  line-height: 1.9;
   margin-bottom: 2.5rem;
 }
 
@@ -1060,10 +1107,10 @@ h1, h2, h3, h4, h5 {
 
 .contact-info-label {
   font-family: 'DM Sans', sans-serif;
-  font-size: 0.72rem;
-  letter-spacing: 0.2em;
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: #D4AF37;
+  color: #B89A5A;
   min-width: 80px;
   padding-top: 2px;
 }
@@ -1071,7 +1118,7 @@ h1, h2, h3, h4, h5 {
 .contact-info-value {
   font-family: 'DM Sans', sans-serif;
   font-size: 0.9rem;
-  color: rgba(245, 230, 236, 0.7);
+  color: #4A3F35;
 }
 
 .contact-form {
@@ -1089,23 +1136,23 @@ h1, h2, h3, h4, h5 {
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
+  gap: 0.45rem;
 }
 
 .form-group label {
   font-family: 'DM Sans', sans-serif;
-  font-size: 0.72rem;
-  letter-spacing: 0.15em;
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: rgba(245, 230, 236, 0.5);
+  color: #8A7D72;
 }
 
 .form-group input,
 .form-group textarea,
 .form-group select {
-  background: #050003;
-  border: 1px solid rgba(212, 175, 55, 0.2);
-  color: #F5E6EC;
+  background: #FAFAF8;
+  border: 1px solid var(--border-strong);
+  color: #1A1410;
   font-family: 'DM Sans', sans-serif;
   font-size: 0.9rem;
   font-weight: 300;
@@ -1119,11 +1166,17 @@ h1, h2, h3, h4, h5 {
 .form-group input:focus,
 .form-group textarea:focus,
 .form-group select:focus {
-  border-color: #D4AF37;
+  border-color: #B89A5A;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: #C0B5AC;
 }
 
 .form-group select option {
-  background: #050003;
+  background: #FAFAF8;
+  color: #1A1410;
 }
 
 .form-group textarea {
@@ -1131,30 +1184,30 @@ h1, h2, h3, h4, h5 {
 }
 
 .form-submit {
-  background: #D4AF37;
-  color: #050003;
+  background: #1A1410;
+  color: #F7F3EF;
   font-family: 'DM Sans', sans-serif;
-  font-size: 0.82rem;
-  font-weight: 500;
-  letter-spacing: 0.15em;
+  font-size: 0.78rem;
+  font-weight: 400;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  border: 1px solid #D4AF37;
-  padding: 1rem 2rem;
+  border: 1px solid #1A1410;
+  padding: 1rem 2.2rem;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
   align-self: flex-start;
 }
 
 .form-submit:hover {
-  background: #b8952e;
-  border-color: #b8952e;
+  background: #B89A5A;
+  border-color: #B89A5A;
+  color: #F7F3EF;
 }
 
 /* ── FOOTER ── */
 footer {
-  background: #050003;
-  padding: 4rem 6rem 2.5rem;
-  border-top: 1px solid rgba(212, 175, 55, 0.15);
+  background: #1A1410;
+  padding: 5rem 6rem 2.5rem;
 }
 
 .footer-inner {
@@ -1166,55 +1219,61 @@ footer {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr 1fr;
   gap: 4rem;
-  margin-bottom: 3.5rem;
+  margin-bottom: 4rem;
+  padding-bottom: 4rem;
+  border-bottom: 1px solid rgba(184, 154, 90, 0.12);
 }
 
 .footer-brand .nav-logo {
-  font-size: 1.3rem;
+  font-size: 1.25rem;
   display: block;
-  margin-bottom: 1rem;
+  margin-bottom: 1.2rem;
+  color: #F7F3EF;
+}
+
+.footer-brand .nav-logo span {
+  color: #B89A5A;
 }
 
 .footer-brand p {
   font-family: 'DM Sans', sans-serif;
-  font-size: 0.85rem;
-  color: rgba(245, 230, 236, 0.5);
-  line-height: 1.8;
+  font-size: 0.84rem;
+  color: rgba(247, 243, 239, 0.42);
+  line-height: 1.85;
   max-width: 260px;
 }
 
 .footer-col h5 {
   font-family: 'DM Sans', sans-serif;
-  font-size: 0.7rem;
-  font-weight: 500;
-  letter-spacing: 0.2em;
+  font-size: 0.66rem;
+  font-weight: 400;
+  letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: #D4AF37;
-  margin-bottom: 1.2rem;
+  color: #B89A5A;
+  margin-bottom: 1.4rem;
 }
 
 .footer-col ul {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 0.7rem;
+  gap: 0.75rem;
 }
 
 .footer-col ul a {
   font-family: 'DM Sans', sans-serif;
-  font-size: 0.85rem;
-  color: rgba(245, 230, 236, 0.5);
+  font-size: 0.84rem;
+  color: rgba(247, 243, 239, 0.42);
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 .footer-col ul a:hover {
-  color: #D4AF37;
+  color: #B89A5A;
 }
 
 .footer-bottom {
-  border-top: 1px solid rgba(212, 175, 55, 0.1);
-  padding-top: 2rem;
+  padding-top: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -1224,27 +1283,27 @@ footer {
 
 .footer-bottom p {
   font-family: 'DM Sans', sans-serif;
-  font-size: 0.78rem;
-  color: rgba(245, 230, 236, 0.35);
+  font-size: 0.76rem;
+  color: rgba(247, 243, 239, 0.22);
 }
 
 .footer-tagline {
   font-family: 'Cormorant Garamond', serif;
   font-style: italic;
   font-size: 0.95rem;
-  color: rgba(212, 175, 55, 0.6);
+  color: rgba(184, 154, 90, 0.5);
 }
 
 /* ── REVEAL ANIMATIONS ── */
 .reveal {
   opacity: 0;
-  transform: translateY(28px) scale(0.96);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  transform: translateY(22px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
 }
 
 .reveal.revealed {
   opacity: 1;
-  transform: translateY(0) scale(1);
+  transform: translateY(0);
 }
 
 .reveal-delay-1 { transition-delay: 0.1s; }
@@ -1257,7 +1316,7 @@ footer {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(5, 0, 3, 0.98);
+  background: rgba(250, 250, 248, 0.98);
   z-index: 999;
   flex-direction: column;
   align-items: center;
@@ -1277,14 +1336,14 @@ footer {
   font-family: 'Cormorant Garamond', serif;
   font-size: 2rem;
   font-weight: 300;
-  color: #F5E6EC;
+  color: #1A1410;
   text-decoration: none;
   letter-spacing: 0.05em;
   transition: color 0.3s ease;
 }
 
 .mobile-nav a:hover {
-  color: #D4AF37;
+  color: #B89A5A;
 }
 
 /* ── RESPONSIVE ── */
@@ -1343,6 +1402,7 @@ footer {
   }
   .alternating-row.flip { direction: ltr; }
   .alt-image-wrap { height: 320px; }
+  .alt-image { height: 320px; }
   .alt-text { height: auto; padding: 3rem; }
   #showcase { padding: 6rem 3rem; }
   .cards-grid {
@@ -1350,7 +1410,7 @@ footer {
   }
   #how { padding: 6rem 3rem; }
   .cta-split { grid-template-columns: 1fr; }
-  .cta-image-side { height: 350px; }
+  .cta-image-side { height: 360px; }
   .cta-text-side { padding: 3.5rem 3rem; }
   #contact { padding: 6rem 3rem; }
   .contact-inner {
@@ -1360,8 +1420,8 @@ footer {
   #stats { padding: 4rem 3rem; }
   #faq { padding: 6rem 3rem; }
   .gallery-strip { grid-template-columns: 1fr; }
-  .gallery-strip-item { height: 280px; }
-  footer { padding: 3rem 3rem 2rem; }
+  .gallery-strip-item { height: 300px; }
+  footer { padding: 3.5rem 3rem 2rem; }
   .footer-top {
     grid-template-columns: 1fr 1fr;
     gap: 2.5rem;
@@ -1374,11 +1434,11 @@ footer {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
   }
-  .hero-title { font-size: 2.4rem; }
-  .hero-tagline { font-size: 1rem; }
+  .hero-title { font-size: 2.6rem; }
+  .hero-tagline { font-size: 0.95rem; }
   .hero-ctas { flex-direction: column; }
   .stats-grid { grid-template-columns: 1fr 1fr; }
-  .stat-item { border-left: none; border-top: 1px solid rgba(212,175,55,0.15); padding: 1.2rem; }
+  .stat-item { border-left: none; border-top: 1px solid var(--border); padding: 1.2rem; }
   .section-title { font-size: 2.2rem; }
   #about { padding: 5rem 1.5rem; }
   .about-image-caption { display: none; }
@@ -1404,6 +1464,17 @@ footer {
 <style id="gwp-palette">
 html[data-palette="client"] {
   --accent: #C9A84C;
+}
+html[data-palette-anim] *, html[data-palette-anim] *::before, html[data-palette-anim] *::after {
+  transition: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease !important;
+}
+</style>
+
+<style id="gwp-palette">
+html[data-palette="client"] {
+  --accent-light: #C9A84C;
+  --accent: #C9A84C;
+  --text-mid: #C9A84C;
 }
 html[data-palette-anim] *, html[data-palette-anim] *::before, html[data-palette-anim] *::after {
   transition: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease !important;
@@ -1485,7 +1556,7 @@ html[data-palette-anim] *, html[data-palette-anim] *::before, html[data-palette-
 <section id="about">
   <div class="about-inner">
     <div class="about-image-wrap reveal">
-      <img src="https://images.pexels.com/photos/8796361/pexels-photo-8796361.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Antique perfume bottles in an open rustic wooden box, showcasing elegance and luxury">
+      <img src="https://images.pexels.com/photos/755992/pexels-photo-755992.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Elegant eau de parfum bottle with luxurious golden liquid on a minimalistic white background">
       <div class="about-image-caption">
         <p>"Every bottle is a story waiting to be worn."</p>
       </div>
@@ -1513,7 +1584,7 @@ html[data-palette-anim] *, html[data-palette-anim] *::before, html[data-palette-
   <!-- Row 1: Image Left, Text Right -->
   <div class="alternating-row reveal">
     <div class="alt-image-wrap">
-      <img class="alt-image" src="https://images.unsplash.com/photo-1695049999693-bf4f95cfae6e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxleG90aWMlMjBmcmFncmFuY2UlMjBvaWwlMjBjb2xsZWN0aW9uJTIwZm9yJTIwbWVuJTIwd29tZW4lMjB1bmlzZXh8ZW58MHwwfHx8MTc3NzI1NDk4OXww&ixlib=rb-4.1.0&q=80&w=1080" alt="Exotic fragrance oil collection for men, women, and unisex">
+      <img class="alt-image" src="https://images.unsplash.com/photo-1776651993626-7cc836bf03aa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxmcmFncmFuY2UlMjBvaWwlMjBjb2xsZWN0aW9uJTIwcmljaCUyMGNvbG9ycyUyMGRyYW1hdGljJTIwcHJvZHVjdCUyMGRpc3BsYXl8ZW58MHwwfHx8MTc3NzI1NTQyNXww&ixlib=rb-4.1.0&q=80&w=1080" alt="Rows of small glass bottles with colorful fragrance liquids">
     </div>
     <div class="alt-text">
       <span class="section-eyebrow">For Him</span>
@@ -1533,7 +1604,7 @@ html[data-palette-anim] *, html[data-palette-anim] *::before, html[data-palette-
   <!-- Row 2: Text Left, Image Right (flip) -->
   <div class="alternating-row flip reveal">
     <div class="alt-image-wrap">
-      <img class="alt-image" src="https://images.unsplash.com/photo-1621814374283-57cc5d0d39c2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxhZmZvcmRhYmxlJTIwZGVzaWduZXItaW5zcGlyZWQlMjBzY2VudCUyMGJvdHRsZXMlMjBzdGFydGluZyUyMGZpdmUlMjBkb2xsYXJzfGVufDB8MHx8fDE3NzcyNTQ5ODl8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="Affordable designer-inspired fragrance bottles">
+      <img class="alt-image" src="https://images.unsplash.com/photo-1654524439321-51fe4a79fa49?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxkZXNpZ25lci1pbnNwaXJlZCUyMHNjZW50JTIwYm90dGxlcyUyMGdvbGQlMjBhY2NlbnRzJTIwbHV4dXJ5JTIwcGFja2FnaW5nJTIwZmxhdCUyMGxheXxlbnwwfDB8fHwxNzc3MjU1NDI2fDA&ixlib=rb-4.1.0&q=80&w=1080" alt="Designer-inspired fragrance bottles with gold accents">
     </div>
     <div class="alt-text">
       <span class="section-eyebrow">For Her</span>
@@ -1553,7 +1624,7 @@ html[data-palette-anim] *, html[data-palette-anim] *::before, html[data-palette-
   <!-- Row 3: Image Left, Text Right -->
   <div class="alternating-row reveal">
     <div class="alt-image-wrap">
-      <img class="alt-image" src="https://images.pexels.com/photos/7771970/pexels-photo-7771970.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Glass bottles with essential oils arranged on a wooden shelf">
+      <img class="alt-image" src="https://images.pexels.com/photos/3785784/pexels-photo-3785784.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Sleek white perfume bottle on a soft gray background">
     </div>
     <div class="alt-text">
       <span class="section-eyebrow">Unisex</span>
@@ -1592,7 +1663,7 @@ html[data-palette-anim] *, html[data-palette-anim] *::before, html[data-palette-
     </div>
     <div class="product-card reveal reveal-delay-1">
       <div class="card-image-wrap">
-        <img src="https://images.unsplash.com/photo-1774682060922-c395859148c9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxoaWdoLWVuZCUyMHBlcmZ1bWUlMjBib3R0bGUlMjBwaG90b2dyYXBoeSUyMGdvbGQlMjBhY2NlbnRzJTIwZGFyayUyMGJhY2tncm91bmR8ZW58MHwwfHx8MTc3NzI1NDk5MHww&ixlib=rb-4.1.0&q=80&w=1080" alt="A clear glass perfume bottle on dark fabric">
+        <img src="https://images.pexels.com/photos/36834269/pexels-photo-36834269.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Wild Black perfume bottle with bold dramatic lighting">
       </div>
       <div class="card-body">
         <p class="card-category">Men's — Woody Aromatic</p>
@@ -1602,484 +1673,5 @@ html[data-palette-anim] *, html[data-palette-anim] *::before, html[data-palette-
       </div>
     </div>
     <div class="product-card reveal reveal-delay-2">
-      <div class="card-image-wrap" style="background: linear-gradient(135deg, #1a0a1e 0%, #2d1a0a 50%, #0a0a1e 100%); display:flex; align-items:center; justify-content:center;">
-        <div style="text-align:center; padding: 2rem;">
-          <div style="width:80px; height:80px; border:1px solid rgba(212,175,55,0.4); margin:0 auto 1.5rem; display:flex; align-items:center; justify-content:center;">
-            <div style="width:30px; height:50px; background: linear-gradient(to bottom, rgba(212,175,55,0.6), rgba(212,175,55,0.1)); border-radius:2px 2px 10px 10px;"></div>
-          </div>
-          <p style="font-family:'Cormorant Garamond',serif; font-size:1.2rem; color:rgba(212,175,55,0.7); letter-spacing:0.1em;">500+ Scents Available</p>
-        </div>
-      </div>
-      <div class="card-body">
-        <p class="card-category">Unisex — Citrus Fresh</p>
-        <h3 class="card-name">Golden Bergamot</h3>
-        <p class="card-desc">Bright Italian bergamot over a warm cashmere base. Effortlessly versatile for any occasion.</p>
-        <div class="card-price">$5 <span>/ bottle</span></div>
-      </div>
-    </div>
-  </div>
-  <div style="text-align:center; margin-top:3.5rem;">
-    <a href="#shop" class="btn-primary reveal">View Full Collection</a>
-  </div>
-</section>
-
-<!-- GALLERY STRIP -->
-<div class="gallery-strip">
-  <div class="gallery-strip-item">
-    <img src="https://images.pexels.com/photos/36779951/pexels-photo-36779951.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Luxury perfume bottle on soft fabric" style="display:none;">
-    <div style="width:100%; height:100%; background: linear-gradient(135deg, #1a0510 0%, #050003 60%, #2d1506 100%); display:flex; align-items:center; justify-content:center;">
-      <div style="text-align:center; padding:3rem;">
-        <p style="font-family:'Cormorant Garamond',serif; font-size:2.2rem; font-weight:300; color:#F5E6EC; line-height:1.3; margin-bottom:1.2rem;">Wear Your<br><em style="color:#D4AF37;">Confidence</em></p>
-        <div style="width:40px; height:1px; background:#D4AF37; margin:0 auto;"></div>
-      </div>
-    </div>
-  </div>
-  <div class="gallery-strip-item">
-    <img src="https://images.unsplash.com/photo-1774682060922-c395859148c9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxoaWdoLWVuZCUyMHBlcmZ1bWUlMjBib3R0bGUlMjBwaG90b2dyYXBoeSUyMGdvbGQlMjBhY2NlbnRzJTIwZGFyayUyMGJhY2tncm91bmR8ZW58MHwwfHx8MTc3NzI1NDk5MHww&ixlib=rb-4.1.0&q=80&w=1080" alt="High-end perfume bottle with gold accents on dark background">
-    <div class="gallery-overlay-text">Designer-<span>Inspired</span><br>Starting at <span>$5</span></div>
-  </div>
-</div>
-
-<!-- HOW IT WORKS -->
-<section id="how">
-  <div class="how-inner">
-    <div class="how-header">
-      <span class="section-eyebrow reveal">The Process</span>
-      <h2 class="section-title reveal reveal-delay-1">Getting Your Scent is<br><em>That Simple</em></h2>
-    </div>
-    <div class="steps-grid">
-      <div class="step reveal">
-        <div class="step-number"><span>01</span></div>
-        <h4>Browse the Collection</h4>
-        <p>Explore hundreds of designer-inspired fragrance oils for men, women, and unisex. Filter by mood, notes, or inspiration.</p>
-      </div>
-      <div class="step reveal reveal-delay-1">
-        <div class="step-number"><span>02</span></div>
-        <h4>Choose Your Scent</h4>
-        <p>Select from bold ouds, fresh florals, warm vanillas, and everything in between — starting at just $5 a bottle.</p>
-      </div>
-      <div class="step reveal reveal-delay-2">
-        <div class="step-number"><span>03</span></div>
-        <h4>Order Online</h4>
-        <p>Secure checkout in seconds. We ship nationwide, right to your door — no minimum order required.</p>
-      </div>
-      <div class="step reveal reveal-delay-3">
-        <div class="step-number"><span>04</span></div>
-        <h4>Smell Incredible</h4>
-        <p>Open your package and experience a luxury-quality scent without the luxury price tag. Look good. Smell good. Feel good.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- TESTIMONIALS -->
-<section id="testimonials">
-  <div class="testimonials-header">
-    <span class="section-eyebrow reveal">Real Reviews</span>
-    <h2 class="section-title reveal reveal-delay-1">What Our Community<br><em>Is Saying</em></h2>
-  </div>
-  <div class="testimonials-track">
-    <div class="testimonial-card reveal">
-      <div class="testimonial-stars">
-        <div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div>
-      </div>
-      <p class="testimonial-quote">"I was skeptical at first — $5 for a fragrance oil? But after my first order I was completely hooked. The Black Oud smells just like a $120 designer bottle. People stop me constantly and ask what I'm wearing."</p>
-      <div class="testimonial-author">
-        <div class="author-initials">DM</div>
-        <div>
-          <span class="author-name">Darius M.</span>
-          <span class="author-location">Atlanta, GA</span>
-        </div>
-      </div>
-    </div>
-    <div class="testimonial-card reveal reveal-delay-1">
-      <div class="testimonial-stars">
-        <div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div>
-      </div>
-      <p class="testimonial-quote">"Found Jameel's through Instagram and I'm so glad I did. I ordered five bottles for the price of one designer perfume. Each one lasts all day and smells absolutely gorgeous. This is my new go-to."</p>
-      <div class="testimonial-author">
-        <div class="author-initials">TL</div>
-        <div>
-          <span class="author-name">Tasha L.</span>
-          <span class="author-location">Houston, TX</span>
-        </div>
-      </div>
-    </div>
-    <div class="testimonial-card reveal reveal-delay-2">
-      <div class="testimonial-stars">
-        <div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div>
-      </div>
-      <p class="testimonial-quote">"The Rose Noir fragrance oil is my everything. I get compliments every single time I wear it. My coworker thought I was wearing a $200 perfume. Fast shipping, beautiful packaging, and the quality is unreal."</p>
-      <div class="testimonial-author">
-        <div class="author-initials">JB</div>
-        <div>
-          <span class="author-name">Jordan B.</span>
-          <span class="author-location">Chicago, IL</span>
-        </div>
-      </div>
-    </div>
-    <div class="testimonial-card reveal reveal-delay-3">
-      <div class="testimonial-stars">
-        <div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div>
-      </div>
-      <p class="testimonial-quote">"I buy in bulk for gifts and everyone always thinks I spent a fortune. The variety is incredible — they have something for everyone. Never going back to overpriced department store perfumes."</p>
-      <div class="testimonial-author">
-        <div class="author-initials">KR</div>
-        <div>
-          <span class="author-name">Keisha R.</span>
-          <span class="author-location">New York, NY</span>
-        </div>
-      </div>
-    </div>
-    <div class="testimonial-card reveal reveal-delay-4">
-      <div class="testimonial-stars">
-        <div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div>
-      </div>
-      <p class="testimonial-quote">"Been ordering from Jameel's for over a year. The scent quality is seriously top-tier and I love that I can afford to switch up my fragrance depending on my mood. The customer service is also amazing."</p>
-      <div class="testimonial-author">
-        <div class="author-initials">MS</div>
-        <div>
-          <span class="author-name">Marcus S.</span>
-          <span class="author-location">Los Angeles, CA</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- SHOP CTA -->
-<section id="shop">
-  <div class="cta-split">
-    <div class="cta-image-side">
-      <img src="https://images.unsplash.com/photo-1543857261-f71238eb4188?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxib2xkJTIwYmxhY2slMjBnb2xkJTIwcHJlbWl1bSUyMGJlYXV0eSUyMGZyYWdyYW5jZSUyMGUtY29tbWVyY2V8ZW58MHwwfHx8MTc3NzI1NDk5MXww&ixlib=rb-4.1.0&q=80&w=1080" alt="Premium bold beauty fragrance">
-    </div>
-    <div class="cta-text-side">
-      <span class="section-eyebrow reveal">Ready to Elevate?</span>
-      <h2 class="section-title reveal reveal-delay-1">Your Signature<br>Scent <em>Awaits.</em></h2>
-      <p class="reveal reveal-delay-2">Hundreds of designer-inspired fragrance oils. Nationwide shipping. No minimums. Join thousands of fragrance lovers who've made the switch — without sacrificing a single drop of luxury.</p>
-      <span class="cta-price-tag reveal reveal-delay-2">Starting at just <strong>$5</strong> per bottle</span>
-      <div class="cta-btns reveal reveal-delay-3">
-        <a href="#" class="btn-primary">Shop Now</a>
-        <a href="#contact" class="btn-outline">Get in Touch</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FAQ -->
-<section id="faq">
-  <div class="faq-inner">
-    <div class="faq-header">
-      <span class="section-eyebrow reveal">Questions</span>
-      <h2 class="section-title reveal reveal-delay-1">Frequently <em>Asked</em></h2>
-    </div>
-    <div class="faq-list">
-      <div class="faq-item reveal">
-        <button class="faq-question" onclick="toggleFAQ(this)">
-          <span>Are these the same as designer perfumes?</span>
-          <span class="faq-icon"></span>
-        </button>
-        <div class="faq-answer">
-          <p>Our fragrance oils are inspired by — and designed to closely resemble — popular designer perfume profiles. They are not the original brand products, but are crafted to deliver a strikingly similar scent experience at a fraction of the cost. We're transparent about that — and our customers love the quality.</p>
-        </div>
-      </div>
-      <div class="faq-item reveal reveal-delay-1">
-        <button class="faq-question" onclick="toggleFAQ(this)">
-          <span>How long do the fragrance oils last on skin?</span>
-          <span class="faq-icon"></span>
-        </button>
-        <div class="faq-answer">
-          <p>Our fragrance oils are highly concentrated, which means they typically last 4-8 hours on skin — often longer than alcohol-based sprays because there's no carrier to evaporate away. A little goes a long way. Apply to pulse points for maximum longevity.</p>
-        </div>
-      </div>
-      <div class="faq-item reveal reveal-delay-2">
-        <button class="faq-question" onclick="toggleFAQ(this)">
-          <span>Do you ship nationwide?</span>
-          <span class="faq-icon"></span>
-        </button>
-        <div class="faq-answer">
-          <p>Yes — we ship to all 50 states across the United States. Orders are carefully packaged to ensure your bottles arrive safe and intact. Shipping times vary by location, and we provide tracking information with every order.</p>
-        </div>
-      </div>
-      <div class="faq-item reveal reveal-delay-3">
-        <button class="faq-question" onclick="toggleFAQ(this)">
-          <span>Is there a minimum order quantity?</span>
-          <span class="faq-icon"></span>
-        </button>
-        <div class="faq-answer">
-          <p>No minimum order required. You can order a single $5 bottle or stock up on your favorites — it's entirely up to you. Many of our customers love ordering a variety to build their personal scent wardrobe.</p>
-        </div>
-      </div>
-      <div class="faq-item reveal reveal-delay-4">
-        <button class="faq-question" onclick="toggleFAQ(this)">
-          <span>How do I find my inspiration scent from the list?</span>
-          <span class="faq-icon"></span>
-        </button>
-        <div class="faq-answer">
-          <p>Our online shop organizes scents by gender category (Men's, Women's, Unisex) and by scent family (floral, woody, fresh, oriental, etc.). If you know the designer fragrance you love, you can search for it directly — we carry inspirations from hundreds of popular designer houses. Have questions? Use our contact form and we'll help you find your perfect match.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section id="contact">
-  <div class="contact-inner">
-    <div class="contact-left">
-      <span class="section-eyebrow reveal">Get in Touch</span>
-      <h2 class="section-title reveal reveal-delay-1">We'd Love to<br><em>Hear From You</em></h2>
-      <div class="gold-rule reveal reveal-delay-1"></div>
-      <p class="reveal reveal-delay-2">Have a question about a specific scent? Need help finding your perfect match? Looking to place a bulk order? Reach out — our team is here to help you smell extraordinary.</p>
-      <div class="reveal reveal-delay-3">
-        <div class="contact-info-item">
-          <span class="contact-info-label">Shop</span>
-          <span class="contact-info-value">Online — Nationwide Delivery Available</span>
-        </div>
-        <div class="contact-info-item">
-          <span class="contact-info-label">Social</span>
-          <span class="contact-info-value">Find us on Instagram &amp; Facebook — @JameelsExotic</span>
-        </div>
-        <div class="contact-info-item">
-          <span class="contact-info-label">Orders</span>
-          <span class="contact-info-value">Shipped nationwide — all 50 states</span>
-        </div>
-      </div>
-    </div>
-    <div>
-      <form class="contact-form reveal reveal-delay-2" onsubmit="handleFormSubmit(event)">
-        <div class="form-row">
-          <div class="form-group">
-            <label for="fname">First Name</label>
-            <input type="text" id="fname" name="first_name" placeholder="Your first name" required>
-          </div>
-          <div class="form-group">
-            <label for="lname">Last Name</label>
-            <input type="text" id="lname" name="last_name" placeholder="Your last name" required>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="email">Email Address</label>
-          <input type="email" id="email" name="email" placeholder="your@email.com" required>
-        </div>
-        <div class="form-group">
-          <label for="interest">I'm interested in</label>
-          <select id="interest" name="interest">
-            <option value="">Select a category...</option>
-            <option value="mens">Men's Fragrances</option>
-            <option value="womens">Women's Fragrances</option>
-            <option value="unisex">Unisex Fragrances</option>
-            <option value="bulk">Bulk / Wholesale Inquiry</option>
-            <option value="other">General Question</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="message">Your Message</label>
-          <textarea id="message" name="message" placeholder="Tell us about the scent you're looking for, or any questions you have..." required></textarea>
-        </div>
-        <button type="submit" class="form-submit">Send Message</button>
-      </form>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <div class="footer-inner">
-    <div class="footer-top">
-      <div class="footer-brand">
-        <a href="#hero" class="nav-logo">Jameel's <span>Exotic</span></a>
-        <p>Designer-inspired fragrance oils starting at $5. Look good. Smell good. Feel good. Shipped nationwide to fragrance lovers who refuse to compromise on scent.</p>
-      </div>
-      <div class="footer-col">
-        <h5>Shop</h5>
-        <ul>
-          <li><a href="#shop">Men's Collection</a></li>
-          <li><a href="#shop">Women's Collection</a></li>
-          <li><a href="#shop">Unisex Collection</a></li>
-          <li><a href="#shop">New Arrivals</a></li>
-          <li><a href="#shop">Best Sellers</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h5>Navigate</h5>
-        <ul>
-          <li><a href="#about">About Us</a></li>
-          <li><a href="#how">How It Works</a></li>
-          <li><a href="#testimonials">Reviews</a></li>
-          <li><a href="#faq">FAQ</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h5>Connect</h5>
-        <ul>
-          <li><a href="#">Instagram</a></li>
-          <li><a href="#">Facebook</a></li>
-          <li><a href="#">TikTok</a></li>
-          <li><a href="#">Twitter / X</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>&copy; 2025 Jameel's Exotic Fragrances. All rights reserved.</p>
-      <p class="footer-tagline">Look Good. Smell Good. Feel Good.</p>
-    </div>
-  </div>
-</footer>
-
-<script>
-// ── NAV SCROLL BEHAVIOR ──
-const mainNav = document.getElementById('mainNav');
-window.addEventListener('scroll', () => {
-  if (window.scrollY > 60) {
-    mainNav.classList.add('scrolled');
-  } else {
-    mainNav.classList.remove('scrolled');
-  }
-});
-
-// ── HAMBURGER / MOBILE NAV ──
-const hamburger = document.getElementById('hamburger');
-const mobileNav = document.getElementById('mobileNav');
-
-function toggleMobileNav() {
-  hamburger.classList.toggle('active');
-  mobileNav.classList.toggle('active');
-  document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : '';
-}
-
-function closeMobileNav() {
-  hamburger.classList.remove('active');
-  mobileNav.classList.remove('active');
-  document.body.style.overflow = '';
-}
-
-// ── INTERSECTION OBSERVER: REVEAL ──
-const revealElements = document.querySelectorAll('.reveal');
-const revealObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('revealed');
-      revealObserver.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-
-revealElements.forEach(el => revealObserver.observe(el));
-
-// ── COUNTER ANIMATION ──
-function animateCounter(el) {
-  const target = parseInt(el.getAttribute('data-target'));
-  const suffix = el.getAttribute('data-suffix') || '';
-  const prefix = el.getAttribute('data-prefix') || '';
-  const duration = 1800;
-  const start = performance.now();
-
-  function update(now) {
-    const elapsed = now - start;
-    const progress = Math.min(elapsed / duration, 1);
-    const eased = 1 - Math.pow(1 - progress, 3);
-    const current = Math.floor(eased * target);
-    el.textContent = prefix + current.toLocaleString() + suffix;
-    if (progress < 1) requestAnimationFrame(update);
-    else el.textContent = prefix + target.toLocaleString() + suffix;
-  }
-
-  requestAnimationFrame(update);
-}
-
-const statNumbers = document.querySelectorAll('.stat-number');
-const counterObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      animateCounter(entry.target);
-      counterObserver.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.5 });
-
-statNumbers.forEach(el => counterObserver.observe(el));
-
-// ── FAQ ACCORDION ──
-function toggleFAQ(btn) {
-  const item = btn.closest('.faq-item');
-  const answer = item.querySelector('.faq-answer');
-  const isOpen = item.classList.contains('open');
-
-  // Close all
-  document.querySelectorAll('.faq-item.open').forEach(openItem => {
-    openItem.classList.remove('open');
-    openItem.querySelector('.faq-answer').style.maxHeight = null;
-  });
-
-  // Open clicked if it wasn't already open
-  if (!isOpen) {
-    item.classList.add('open');
-    answer.style.maxHeight = answer.scrollHeight + 'px';
-  }
-}
-
-// ── CONTACT FORM SUBMIT ──
-function handleFormSubmit(e) {
-  e.preventDefault();
-  const btn = e.target.querySelector('.form-submit');
-  btn.textContent = 'Message Sent!';
-  btn.style.background = '#2a6e3a';
-  btn.style.borderColor = '#2a6e3a';
-  btn.style.color = '#fff';
-  setTimeout(() => {
-    btn.textContent = 'Send Message';
-    btn.style.background = '';
-    btn.style.borderColor = '';
-    btn.style.color = '';
-    e.target.reset();
-  }, 3500);
-}
-
-// ── SMOOTH ANCHOR OFFSET FOR FIXED NAV ──
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function(e) {
-    const target = document.querySelector(this.getAttribute('href'));
-    if (target) {
-      e.preventDefault();
-      const navHeight = mainNav.offsetHeight;
-      const targetPos = target.getBoundingClientRect().top + window.scrollY - navHeight;
-      window.scrollTo({ top: targetPos, behavior: 'smooth' });
-    }
-  });
-});
-</script>
-
-<div id="gwp-switcher" style="position:fixed;bottom:20px;right:20px;z-index:2147483647;display:flex;flex-direction:column;align-items:flex-end;gap:5px;font-family:-apple-system,BlinkMacSystemFont,'Inter',sans-serif;">
-  <div style="font-size:9px;letter-spacing:0.14em;color:rgba(255,255,255,0.3);text-transform:uppercase;padding-right:3px;">gitworkdone &middot; palette</div>
-  <div style="background:rgba(8,8,8,0.88);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,0.1);border-radius:50px;padding:5px;display:flex;gap:3px;box-shadow:0 8px 32px rgba(0,0,0,0.55);">
-    <button id="gwp-ai-btn" onclick="gwpSet('ai')" style="border:none;border-radius:50px;padding:7px 15px;cursor:pointer;display:flex;align-items:center;gap:7px;font-size:11px;font-weight:600;letter-spacing:0.05em;background:rgba(255,255,255,0.13);color:#fff;line-height:1;">
-      <span style="width:10px;height:10px;border-radius:50%;background:#D4AF37;flex-shrink:0;border:1px solid rgba(255,255,255,0.2);display:inline-block;"></span>AI Design
-    </button>
-    <button id="gwp-cl-btn" onclick="gwpSet('client')" style="border:none;border-radius:50px;padding:7px 15px;cursor:pointer;display:flex;align-items:center;gap:7px;font-size:11px;font-weight:600;letter-spacing:0.05em;background:transparent;color:rgba(255,255,255,0.38);line-height:1;">
-      <span style="width:10px;height:10px;border-radius:50%;background:#C9A84C;flex-shrink:0;border:1px solid rgba(255,255,255,0.2);display:inline-block;"></span>Your Colors
-    </button>
-  </div>
-</div>
-<script>
-(function(){
-  function gwpSet(p){
-    var root=document.documentElement;
-    root.setAttribute('data-palette-anim','');
-    root.setAttribute('data-palette',p);
-    setTimeout(function(){root.removeAttribute('data-palette-anim');},400);
-    var ai=document.getElementById('gwp-ai-btn'),cl=document.getElementById('gwp-cl-btn');
-    if(p==='ai'){
-      ai.style.background='rgba(255,255,255,0.13)';ai.style.color='#fff';
-      cl.style.background='transparent';cl.style.color='rgba(255,255,255,0.38)';
-    } else {
-      cl.style.background='rgba(255,255,255,0.13)';cl.style.color='#fff';
-      ai.style.background='transparent';ai.style.color='rgba(255,255,255,0.38)';
-    }
-  }
-  window.gwpSet=gwpSet;
-})();
-</script>
-</body>
-</html>
+      <div class="card-image-wrap" style="background: linear-gradient(135deg, #EDE8E0 0%, #DDD5C5 50%, #CFC5B0 100%); display:flex; align-items:center; justify-content:center;">
+        <div style="text-
