@@ -250,7 +250,7 @@ html.js-loaded .reveal-delay-6 { transition-delay: 0.6s; }
 #hero {
   position: relative;
   width: 100%;
-  height: 100vh;
+  height: 100vh; height: 100svh;
   min-height: 600px;
   background-image: url('https://images.unsplash.com/photo-1762363145724-8a0b0c93f81e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBwcmVzc3VyZSUyMHdhc2hpbmclMjByZXNpZGVudGlhbCUyMGhvbWUlMjBleHRlcmlvciUyMGNsZWFufGVufDB8MHx8fDE3NzczNDY3ODd8MA&ixlib=rb-4.1.0&q=80&w=1080');
   background-size: cover;
@@ -1554,6 +1554,76 @@ html[data-palette="b"] {
   --orange-dark: #0f8ec9;
 }
 html[data-palette-anim] *, html[data-palette-anim] *::before, html[data-palette-anim] *::after { transition: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease !important; }
+</style>
+<style id="gwp-mobile">
+/* ── Portrait phones: ensure no horizontal bleed ── */
+@media screen and (max-width: 767px) and (orientation: portrait) {
+  html, body { overflow-x: hidden; }
+  img, video, iframe { max-width: 100% !important; }
+
+  /* Service list table-style grid collapses to single column */
+  .service-list, .service-grid { grid-template-columns: 1fr !important; }
+
+  /* Stats grid: 2 columns on small portrait instead of 4 */
+  .stats-grid { grid-template-columns: 1fr 1fr !important; gap: 1.5rem !important; }
+
+  /* Neighbourhood pills: wrap tightly */
+  .area-zones, .area-pills { gap: 0.4rem !important; }
+}
+
+/* ── Landscape phones: compact everything to fit the short viewport ── */
+@media screen and (max-width: 900px) and (orientation: landscape) {
+  /* Hero — pull back from full-screen so content below is hinted */
+  #hero {
+    height: 56svh !important;
+    height: 56vh !important;
+    min-height: 280px !important;
+  }
+
+  /* Nav — tighten vertical padding; hide hamburger, show links inline */
+  nav {
+    padding-top: 0.35rem !important;
+    padding-bottom: 0.35rem !important;
+  }
+  .hamburger { display: none !important; }
+  .nav-links {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 1.2rem !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    position: static !important;
+    background: transparent !important;
+    padding: 0 !important;
+  }
+  .nav-links a { font-size: 0.75rem !important; }
+  .nav-cta { padding: 0.35rem 0.9rem !important; font-size: 0.75rem !important; }
+
+  /* Hero headings — scale down ~15% so they don't crowd */
+  #hero h1, #hero h2,
+  .hero-title, .hero-heading, .hero-headline { font-size: clamp(1.4rem, 5vw, 2.2rem) !important; }
+  .hero-sub, .hero-tagline, .hero-description { font-size: clamp(0.85rem, 2.5vw, 1rem) !important; }
+
+  /* Stats: single row in landscape */
+  .stats-grid { grid-template-columns: repeat(4, 1fr) !important; gap: 1rem !important; padding: 2rem 1rem !important; }
+
+  /* Generic section padding reduction */
+  section { padding-top: 2.5rem !important; padding-bottom: 2.5rem !important; }
+}
+
+/* ── All phones: fluid heading scale so rotation never breaks layout ── */
+@media screen and (max-width: 900px) {
+  h1, .hero-title, .hero-heading, .hero-headline {
+    font-size: clamp(1.6rem, 6vw, 3rem);
+    line-height: 1.15;
+  }
+  h2, .section-title, .section-heading {
+    font-size: clamp(1.3rem, 4.5vw, 2.2rem);
+  }
+  h3, .card-title, .service-card-title {
+    font-size: clamp(1rem, 3.5vw, 1.6rem);
+  }
+}
 </style>
 </head>
 <body>
