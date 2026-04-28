@@ -1558,6 +1558,7 @@ html[data-palette-anim] *, html[data-palette-anim] *::before, html[data-palette-
 
 
 
+
 <style id="gwp-mobile">
 /* ═══════════════════════════════════════════════════════════
    PORTRAIT PHONES  (<768px, orientation:portrait)
@@ -1591,7 +1592,20 @@ html[data-palette-anim] *, html[data-palette-anim] *::before, html[data-palette-
 
   .area-zones, .area-pills { gap: 0.4rem !important; }
 
-  /* Move palette switcher to top-right below nav on portrait (stats bar is 262px tall — bottom conflicts) */
+  /* Hero: stack content above stats bar (stats bar is position:absolute — causes overlap in row layout) */
+  #hero {
+    flex-direction: column !important;
+    justify-content: flex-end !important;
+    align-items: stretch !important;
+  }
+  .hero-stats-bar {
+    position: relative !important;
+    z-index: 3 !important;
+    width: 100% !important;
+    flex-shrink: 0 !important;
+  }
+
+  /* Move palette switcher to top-right below nav (stats bar too tall for bottom placement) */
   #gwp-switcher {
     bottom: auto !important;
     top: 68px !important;
