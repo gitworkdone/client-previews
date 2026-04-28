@@ -1560,6 +1560,7 @@ html[data-palette-anim] *, html[data-palette-anim] *::before, html[data-palette-
 
 
 
+
 <style id="gwp-mobile">
 /* ═══════════════════════════════════════════════════════════
    PORTRAIT PHONES  (<768px, orientation:portrait)
@@ -1593,11 +1594,13 @@ html[data-palette-anim] *, html[data-palette-anim] *::before, html[data-palette-
 
   .area-zones, .area-pills { gap: 0.4rem !important; }
 
-  /* Hero: stack content above stats bar (stats bar is position:absolute — causes overlap in row layout) */
+  /* Hero: column layout, clear fixed nav (82px), eliminate original 96px padding-bottom that compressed flex space */
   #hero {
     flex-direction: column !important;
     justify-content: flex-end !important;
     align-items: stretch !important;
+    padding-top: 82px !important;
+    padding-bottom: 0 !important;
   }
   .hero-stats-bar {
     position: relative !important;
