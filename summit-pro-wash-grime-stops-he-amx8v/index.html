@@ -1559,6 +1559,7 @@ html[data-palette-anim] *, html[data-palette-anim] *::before, html[data-palette-
 
 
 
+
 <style id="gwp-mobile">
 /* ═══════════════════════════════════════════════════════════
    PORTRAIT PHONES  (<768px, orientation:portrait)
@@ -1605,11 +1606,12 @@ html[data-palette-anim] *, html[data-palette-anim] *::before, html[data-palette-
     flex-shrink: 0 !important;
   }
 
-  /* Move palette switcher to top-right below nav (stats bar too tall for bottom placement) */
+  /* Move palette switcher to top-LEFT below nav — avoids right-side eyebrow text and hamburger */
   #gwp-switcher {
     bottom: auto !important;
     top: 68px !important;
-    right: 12px !important;
+    left: 16px !important;
+    right: auto !important;
     flex-direction: row !important;
     align-items: center !important;
   }
