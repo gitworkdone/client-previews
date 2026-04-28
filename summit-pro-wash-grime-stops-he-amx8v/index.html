@@ -1562,15 +1562,9 @@ html[data-palette-anim] *, html[data-palette-anim] *::before, html[data-palette-
 @media screen and (max-width: 767px) and (orientation: portrait) {
   html, body { overflow-x: hidden; }
   img, video, iframe { max-width: 100% !important; }
-
-  /* Service list: single column */
   .service-list,
   .service-grid { grid-template-columns: 1fr !important; }
-
-  /* Stats: 2×2 on narrow portrait instead of 4-wide */
   .stats-grid { grid-template-columns: 1fr 1fr !important; gap: 1.5rem !important; }
-
-  /* Service category badges: stop wrapping mid-word */
   .service-category,
   .service-badge,
   [class*="service-tag"] {
@@ -1578,61 +1572,61 @@ html[data-palette-anim] *, html[data-palette-anim] *::before, html[data-palette-
     font-size: 0.65rem !important;
     padding: 0.3rem 0.6rem !important;
   }
-
-  /* Neighbourhood pills: tighter wrap */
-  .area-zones,
-  .area-pills { gap: 0.4rem !important; }
+  .area-zones, .area-pills { gap: 0.4rem !important; }
 }
 
 /* ═══════════════════════════════════════════════════════════
    LANDSCAPE PHONES  (≤900px, orientation:landscape)
-   Root problem: #hero is align-items:flex-end and 280px tall,
-   but .hero-content is 365px — heading renders above y=0 (hidden).
 ═══════════════════════════════════════════════════════════ */
 @media screen and (max-width: 900px) and (orientation: landscape) {
 
-  /* ── Hero: flip to top-aligned, pad below fixed nav ── */
+  /* Hero: top-aligned, pad below fixed nav */
   #hero {
     height: 56svh !important;
     height: 56vh !important;
     min-height: 260px !important;
-    align-items: flex-start !important;   /* was flex-end: pushed content above viewport */
-    padding-top: 52px !important;         /* clears the 45px fixed nav + 7px breathing room */
-    padding-bottom: 1rem !important;
+    align-items: flex-start !important;
+    padding-top: 52px !important;
+    padding-bottom: 0 !important;
     box-sizing: border-box !important;
   }
 
-  /* Constrain content width to landscape readable column */
+  /* Hero stats bar: hide in landscape — stats repeat in dedicated section below */
+  .hero-stats-bar { display: none !important; }
+
+  /* Hero sub-description: hide to save vertical space */
+  .hero-sub { display: none !important; }
+
+  /* Allow hero content to breathe */
   .hero-content {
-    max-width: 65% !important;
+    max-width: 70% !important;
     padding-bottom: 0 !important;
-    gap: 0.5rem !important;
   }
 
-  /* Heading: reduce + allow it to spread wider → 1-2 lines instead of 3 */
-  h1.hero-headline,
-  .hero-headline {
-    font-size: clamp(1.3rem, 4vw, 2rem) !important;
+  /* Heading: slightly smaller so 3 <br>-forced lines fit comfortably */
+  h1.hero-headline, .hero-headline {
+    font-size: clamp(1.2rem, 3.8vw, 1.9rem) !important;
     line-height: 1.1 !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.6rem !important;
     margin-bottom: 0.4rem !important;
   }
 
-  /* Eyebrow label: compact */
-  .hero-eyebrow { font-size: 0.65rem !important; margin-bottom: 0.3rem !important; }
-
-  /* Description: hide in landscape — saves 82px; story repeats in About section */
-  .hero-sub { display: none !important; }
-
-  /* CTA buttons: tighter */
   .hero-actions {
     flex-direction: row !important;
     gap: 0.6rem !important;
-    margin-top: 0.4rem !important;
+    margin-top: 0.5rem !important;
   }
   .hero-actions a,
-  .hero-actions button { padding: 0.5rem 1.2rem !important; font-size: 0.78rem !important; }
+  .hero-actions button {
+    padding: 0.45rem 1.1rem !important;
+    font-size: 0.75rem !important;
+  }
 
-  /* ── Nav: inline links, no hamburger ── */
+  /* Nav: inline links instead of hamburger */
   nav { padding-top: 0.3rem !important; padding-bottom: 0.3rem !important; }
   .hamburger { display: none !important; }
   .nav-links {
@@ -1644,24 +1638,23 @@ html[data-palette-anim] *, html[data-palette-anim] *::before, html[data-palette-
     position: static !important;
     background: transparent !important;
     padding: 0 !important;
-    flex-direction: row !important;
   }
   .nav-links a { font-size: 0.72rem !important; }
   .nav-cta { padding: 0.3rem 0.8rem !important; font-size: 0.72rem !important; }
 
-  /* ── Stats: 4-wide single row ── */
+  /* Stats section: 4-wide single row */
   .stats-grid {
     grid-template-columns: repeat(4, 1fr) !important;
     padding: 2rem 1.5rem !important;
     gap: 1rem !important;
   }
 
-  /* ── Section padding: halved ── */
+  /* Section padding: halved */
   section { padding-top: 2.5rem !important; padding-bottom: 2.5rem !important; }
 }
 
 /* ═══════════════════════════════════════════════════════════
-   ALL PHONES  (≤900px) — fluid headings survive rotation
+   ALL PHONES  (≤900px) — fluid headings survive any rotation
 ═══════════════════════════════════════════════════════════ */
 @media screen and (max-width: 900px) {
   h1, .hero-headline {
