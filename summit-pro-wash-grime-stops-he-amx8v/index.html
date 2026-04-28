@@ -1555,6 +1555,7 @@ html[data-palette="b"] {
 }
 html[data-palette-anim] *, html[data-palette-anim] *::before, html[data-palette-anim] *::after { transition: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease !important; }
 </style>
+
 <style id="gwp-mobile">
 /* ═══════════════════════════════════════════════════════════
    PORTRAIT PHONES  (<768px, orientation:portrait)
@@ -1565,13 +1566,27 @@ html[data-palette-anim] *, html[data-palette-anim] *::before, html[data-palette-
   .service-list,
   .service-grid { grid-template-columns: 1fr !important; }
   .stats-grid { grid-template-columns: 1fr 1fr !important; gap: 1.5rem !important; }
-  .service-category,
-  .service-badge,
-  [class*="service-tag"] {
-    white-space: nowrap !important;
-    font-size: 0.65rem !important;
-    padding: 0.3rem 0.6rem !important;
+
+  /* Service list rows — fix name wrapping + tag no-wrap */
+  .service-list-item {
+    padding: 12px 16px !important;
+    gap: 8px !important;
+    align-items: center !important;
   }
+  .service-list-name {
+    flex: 1 !important;
+    min-width: 0 !important;
+    font-size: 0.82rem !important;
+    line-height: 1.3 !important;
+  }
+  .service-list-tag {
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+    font-size: 0.6rem !important;
+    padding: 0.25rem 0.55rem !important;
+    letter-spacing: 0.04em !important;
+  }
+
   .area-zones, .area-pills { gap: 0.4rem !important; }
 }
 
