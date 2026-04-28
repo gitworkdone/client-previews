@@ -1557,6 +1557,7 @@ html[data-palette-anim] *, html[data-palette-anim] *::before, html[data-palette-
 </style>
 
 
+
 <style id="gwp-mobile">
 /* ═══════════════════════════════════════════════════════════
    PORTRAIT PHONES  (<768px, orientation:portrait)
@@ -1590,8 +1591,18 @@ html[data-palette-anim] *, html[data-palette-anim] *::before, html[data-palette-
 
   .area-zones, .area-pills { gap: 0.4rem !important; }
 
-  /* Raise GWP palette switcher above hero stats bar (121px tall) */
-  #gwp-switcher { bottom: 136px !important; }
+  /* Move palette switcher to top-right below nav on portrait (stats bar is 262px tall — bottom conflicts) */
+  #gwp-switcher {
+    bottom: auto !important;
+    top: 68px !important;
+    right: 12px !important;
+    flex-direction: row !important;
+    align-items: center !important;
+  }
+  /* Hide "gitworkdone · palette" label in portrait — pill alone is sufficient */
+  #gwp-switcher > div:first-child {
+    display: none !important;
+  }
 }
 
 /* ═══════════════════════════════════════════════════════════
