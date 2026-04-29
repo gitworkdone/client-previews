@@ -28,7 +28,7 @@
   --rule:          rgba(61,107,79,0.2);
   --serif:         'Cormorant Garamond', Georgia, serif;
   --sans:          'DM Sans', system-ui, sans-serif;
-  --radius:        8px;
+  --radius:        6px;
   --trans:         0.4s cubic-bezier(0.25,0.46,0.45,0.94);
 }
 
@@ -182,7 +182,7 @@ html.js-loaded .reveal-delay-5 { transition-delay: 0.5s; }
   font-weight: 500;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  border-radius: var(--radius);
+  border-radius: 99px;
   transition: background var(--trans), transform var(--trans), box-shadow var(--trans);
   border: 1px solid var(--accent);
 }
@@ -201,13 +201,14 @@ html.js-loaded .reveal-delay-5 { transition-delay: 0.5s; }
   font-weight: 500;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  border-radius: var(--radius);
+  border-radius: 99px;
   border: 1px solid rgba(30,58,47,0.35);
-  transition: background var(--trans), border-color var(--trans), transform var(--trans);
+  transition: background var(--trans), border-color var(--trans), transform var(--trans), color var(--trans);
 }
 .btn-ghost:hover {
-  background: rgba(30,58,47,0.06);
-  border-color: var(--accent-dark);
+  background: rgba(30,58,47,0.07);
+  border-color: var(--accent);
+  color: var(--accent);
   transform: translateY(-3px);
 }
 .btn-dark {
@@ -220,7 +221,7 @@ html.js-loaded .reveal-delay-5 { transition-delay: 0.5s; }
   font-weight: 500;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  border-radius: var(--radius);
+  border-radius: 99px;
   border: 1px solid var(--accent-dark);
   transition: background var(--trans), transform var(--trans), box-shadow var(--trans);
 }
@@ -318,7 +319,7 @@ html.js-loaded .reveal-delay-5 { transition-delay: 0.5s; }
   font-weight: 500;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  border-radius: var(--radius);
+  border-radius: 99px;
   transition: background var(--trans), transform var(--trans);
 }
 .nav-book:hover { background: var(--accent-dark); transform: translateY(-2px); }
@@ -339,6 +340,7 @@ html.js-loaded .reveal-delay-5 { transition-delay: 0.5s; }
   transition: transform var(--trans), opacity var(--trans), background var(--trans);
   border-radius: 2px;
 }
+#nav.scrolled .nav-hamburger span { background: var(--accent-dark); }
 .nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
 .nav-hamburger.open span:nth-child(2) { opacity: 0; }
 .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
@@ -422,11 +424,11 @@ html.js-loaded .reveal-delay-5 { transition-delay: 0.5s; }
   min-height: 100vh;
   min-height: 100svh;
   display: flex;
-  align-items: stretch;
+  flex-direction: row;
   overflow: hidden;
 }
 
-/* Left panel: full-height cover photo, no text */
+/* Left panel — full-height cover photo, no text */
 .hero-image-panel {
   position: relative;
   width: 55%;
@@ -442,40 +444,58 @@ html.js-loaded .reveal-delay-5 { transition-delay: 0.5s; }
   object-position: center;
   display: block;
 }
+/* Subtle warm vignette on photo edge for depth — no text lives here */
+.hero-image-panel::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, transparent 70%, rgba(30,52,40,0.18) 100%);
+  pointer-events: none;
+}
 
-/* Right panel: brand background color with all text content */
+/* Right panel — solid brand color, all text lives here */
 .hero-text-panel {
   width: 45%;
   flex-shrink: 0;
-  background: var(--bg);
+  background: var(--bg-green);
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: clamp(3rem, 6vw, 7rem) clamp(2rem, 5vw, 5.5rem);
+  padding: clamp(3rem, 6vw, 6rem) clamp(2rem, 5vw, 5.5rem);
   position: relative;
   overflow: hidden;
 }
 
-/* Subtle warm texture accent on right panel */
+/* Decorative botanical watermark */
 .hero-text-panel::before {
   content: '';
   position: absolute;
-  top: 0;
-  right: 0;
-  width: 280px;
-  height: 280px;
-  background: radial-gradient(circle at top right, rgba(197,149,108,0.08) 0%, transparent 70%);
+  bottom: -4rem;
+  right: -4rem;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  border: 1px solid rgba(122,158,135,0.12);
   pointer-events: none;
 }
 .hero-text-panel::after {
   content: '';
   position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 200px;
-  height: 200px;
-  background: radial-gradient(circle at bottom left, rgba(122,158,135,0.07) 0%, transparent 70%);
+  bottom: -6rem;
+  right: -6rem;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  border: 1px solid rgba(122,158,135,0.07);
   pointer-events: none;
+}
+
+.hero-text-inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
 }
 
 .hero-eyebrow {
@@ -486,45 +506,49 @@ html.js-loaded .reveal-delay-5 { transition-delay: 0.5s; }
 }
 .hero-eyebrow-line {
   display: block;
-  width: 40px;
+  width: 36px;
   height: 1px;
   background: var(--accent-warm);
   flex-shrink: 0;
 }
 .hero-eyebrow-text {
   font-size: 0.65rem;
-  letter-spacing: 0.25em;
+  letter-spacing: 0.28em;
   text-transform: uppercase;
   font-weight: 500;
   color: var(--accent-warm);
 }
+
 .hero-headline {
   font-family: var(--serif);
   font-weight: 300;
-  font-size: clamp(3rem, 5.5vw, 6.5rem);
-  line-height: 0.93;
+  font-size: clamp(2.8rem, 5vw, 5.5rem);
+  line-height: 0.95;
   letter-spacing: -0.025em;
-  color: var(--accent-dark);
-  margin-bottom: 1.75rem;
+  color: var(--text-inv);
+  margin-bottom: 1.5rem;
 }
 .hero-headline em {
   font-style: italic;
-  color: var(--accent);
+  color: var(--accent-sage);
+  display: block;
 }
 .hero-headline .hero-line-accent {
   display: block;
-  color: var(--accent-sage);
+  color: rgba(251,248,244,0.82);
 }
+
 .hero-sub {
   font-family: var(--serif);
   font-weight: 300;
   font-style: italic;
   font-size: clamp(1rem, 1.8vw, 1.3rem);
-  color: var(--text-mid);
+  color: rgba(251,248,244,0.65);
   margin-bottom: 2.5rem;
-  max-width: 380px;
   line-height: 1.65;
+  max-width: 340px;
 }
+
 .hero-actions {
   display: flex;
   align-items: center;
@@ -532,63 +556,67 @@ html.js-loaded .reveal-delay-5 { transition-delay: 0.5s; }
   flex-wrap: wrap;
   margin-bottom: 3rem;
 }
-.hero-trust-stack {
+
+/* Warm divider line */
+.hero-divider {
+  width: 48px;
+  height: 1px;
+  background: rgba(122,158,135,0.35);
+  margin-bottom: 2rem;
+}
+
+.hero-trust-list {
   display: flex;
   flex-direction: column;
   gap: 0.6rem;
-  padding-top: 2rem;
-  border-top: 1px solid var(--rule);
 }
 .hero-trust-item {
-  font-size: 0.67rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--text-light);
   display: flex;
   align-items: center;
-  gap: 0.6rem;
+  gap: 0.65rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(251,248,244,0.5);
+  font-weight: 400;
 }
 .hero-trust-dot {
-  width: 5px;
-  height: 5px;
+  width: 4px;
+  height: 4px;
   border-radius: 50%;
   background: var(--accent-warm);
+  opacity: 0.7;
   flex-shrink: 0;
 }
 
-/* Stats bar — sits below the split panels */
+/* Stats bar — sits below the split hero */
 .hero-stats {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 45%;
-  background: var(--accent-dark);
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 0;
-  z-index: 5;
+  background: var(--bg-alt);
+  border-top: 1px solid var(--rule);
 }
 .hero-stat {
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
-  padding: clamp(1rem, 2.5vh, 1.75rem) clamp(1rem, 2vw, 1.5rem);
-  border-right: 1px solid rgba(251,248,244,0.12);
+  padding: clamp(1.25rem, 2.5vh, 2rem) clamp(1.5rem, 3vw, 3rem);
+  border-right: 1px solid var(--rule);
 }
 .hero-stat:last-child { border-right: none; }
 .hero-stat-num {
   font-family: var(--serif);
   font-weight: 300;
-  font-size: clamp(1.6rem, 3vw, 2.4rem);
-  color: var(--text-inv);
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  color: var(--accent-dark);
   line-height: 1;
   letter-spacing: -0.02em;
 }
 .hero-stat-label {
-  font-size: 0.58rem;
-  letter-spacing: 0.18em;
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: rgba(251,248,244,0.5);
+  color: var(--text-light);
 }
 
 /* ============================================================
@@ -640,7 +668,6 @@ html.js-loaded .reveal-delay-5 { transition-delay: 0.5s; }
   align-items: end;
   margin-bottom: clamp(3rem, 6vw, 5rem);
 }
-.services-header-left {}
 .services-header-right {
   display: flex;
   flex-direction: column;
@@ -675,7 +702,7 @@ html.js-loaded .reveal-delay-5 { transition-delay: 0.5s; }
   left: 0;
   right: 0;
   height: 3px;
-  background: linear-gradient(to right, var(--accent-warm), var(--accent-sage));
+  background: linear-gradient(to right, var(--accent-warm), var(--accent));
   transform: scaleX(0);
   transform-origin: left;
   transition: transform var(--trans);
@@ -757,7 +784,7 @@ html.js-loaded .reveal-delay-5 { transition-delay: 0.5s; }
 .about-img-main {
   width: 100%;
   height: clamp(380px, 55vw, 680px);
-  border-radius: 12px;
+  border-radius: 14px;
   overflow: hidden;
 }
 .about-img-main img {
@@ -771,7 +798,7 @@ html.js-loaded .reveal-delay-5 { transition-delay: 0.5s; }
   background: var(--accent);
   color: var(--text-inv);
   padding: 1.75rem 2rem;
-  border-radius: 10px;
+  border-radius: 12px;
   text-align: center;
 }
 .about-img-badge-num {
@@ -1014,7 +1041,7 @@ html.js-loaded .reveal-delay-5 { transition-delay: 0.5s; }
 .testimonial-card {
   background: var(--bg);
   padding: clamp(1.75rem, 3vw, 2.5rem);
-  border-radius: 12px;
+  border-radius: 14px;
   border: 1px solid var(--rule);
   display: flex;
   flex-direction: column;
@@ -1181,7 +1208,7 @@ html.js-loaded .reveal-delay-5 { transition-delay: 0.5s; }
 .cta-bg-img {
   position: absolute;
   inset: 0;
-  background-image: url('https://images.unsplash.com/photo-1764206648397-f561415584de?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxtb3JuaW5nJTIwbGlnaHQlMjB0cmVlcyUyMGdhcmRlbiUyMHBlYWNlZnVsJTIwb3V0ZG9vciUyMGxpdmluZyUyMHNwYWNlfGVufDB8MHx8fDE3Nzc0NzY5NDh8MA&ixlib=rb-4.1.0&q=80&w=1080');
+  background-image: url('https://images.unsplash.com/photo-1770113677523-eacd9fce6e81?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxmcmVzaCUyMG1vcm5pbmclMjBsaWdodCUyMGdhcmRlbiUyMGZvbGlhZ2UlMjBuYXR1cmFsJTIwb3V0ZG9vciUyMHBlYWNlZnVsfGVufDB8MHx8fDE3Nzc0NzcwNzl8MA&ixlib=rb-4.1.0&q=80&w=1080');
   background-size: cover;
   background-position: center;
   opacity: 0.18;
@@ -1248,7 +1275,7 @@ html.js-loaded .reveal-delay-5 { transition-delay: 0.5s; }
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(251,248,244,0.12);
-  border-radius: 12px;
+  border-radius: 14px;
   padding: clamp(2rem, 4vw, 3rem);
 }
 .cta-form-title {
@@ -1315,7 +1342,7 @@ html.js-loaded .reveal-delay-5 { transition-delay: 0.5s; }
   font-weight: 500;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  border-radius: 8px;
+  border-radius: 99px;
   border: none;
   cursor: pointer;
   transition: background var(--trans), transform var(--trans);
@@ -1433,37 +1460,12 @@ footer {
 /* ============================================================
    MOBILE & RESPONSIVE
    ============================================================ */
+@media (max-width: 1200px) {
+  .services-grid { grid-template-columns: repeat(2, 1fr); }
+  .footer-inner { grid-template-columns: 1fr 1fr; }
+}
 
-/* Hero split — tablet */
 @media (max-width: 1024px) {
-  #hero {
-    flex-direction: column;
-    min-height: auto;
-  }
-  .hero-image-panel {
-    width: 100%;
-    height: 52vw;
-    min-height: 320px;
-    max-height: 520px;
-    position: relative;
-  }
-  .hero-image-panel img {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-  }
-  .hero-text-panel {
-    width: 100%;
-    padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 5vw, 4rem);
-  }
-  .hero-stats {
-    position: static;
-    width: 100%;
-    background: var(--accent-dark);
-    grid-template-columns: repeat(3, 1fr);
-  }
-  .hero-sub { max-width: 100%; }
   .services-header { grid-template-columns: 1fr; gap: 1.5rem; }
   .about-grid { grid-template-columns: 1fr; gap: 3rem; }
   .about-img-wrap { max-width: 600px; }
@@ -1476,11 +1478,29 @@ footer {
   .gal-item-1 { grid-column: 1 / 7; height: 380px; }
   .gal-item-2 { grid-column: 7 / 13; height: 180px; }
   .gal-item-3 { grid-column: 7 / 13; height: 184px; }
-}
 
-@media (max-width: 1200px) {
-  .services-grid { grid-template-columns: repeat(2, 1fr); }
-  .footer-inner { grid-template-columns: 1fr 1fr; }
+  /* Hero split collapses to stacked on tablet */
+  #hero {
+    flex-direction: column;
+    min-height: auto;
+  }
+  .hero-image-panel {
+    width: 100%;
+    height: 55vw;
+    min-height: 280px;
+    max-height: 480px;
+    position: relative;
+  }
+  .hero-image-panel img {
+    position: absolute;
+  }
+  .hero-text-panel {
+    width: 100%;
+    padding: clamp(2.5rem, 6vw, 4rem) clamp(1.5rem, 5vw, 4rem);
+  }
+  .hero-headline {
+    font-size: clamp(2.4rem, 6vw, 4rem);
+  }
 }
 
 @media (max-width: 768px) {
@@ -1501,16 +1521,11 @@ footer {
   .footer-bottom { flex-direction: column; text-align: center; }
   .footer-legal { flex-wrap: wrap; justify-content: center; }
   .about-awards { grid-template-columns: 1fr 1fr; }
-  .hero-image-panel {
-    height: 65vw;
-    min-height: 280px;
-  }
-  .hero-stats { grid-template-columns: repeat(3, 1fr); }
 }
 
 @media (max-width: 480px) {
   .hero-stats { grid-template-columns: 1fr; }
-  .hero-stat { border-right: none; border-bottom: 1px solid rgba(251,248,244,0.1); padding: 1rem 1.25rem; }
+  .hero-stat { border-right: none; border-bottom: 1px solid var(--rule); }
   .hero-stat:last-child { border-bottom: none; }
   .about-awards { grid-template-columns: 1fr; }
   .services-header-right { flex-direction: column; align-items: flex-start; }
@@ -1548,30 +1563,28 @@ footer {
     padding: 0.4rem 1rem;
   }
   .nav-hamburger { display: none; }
+
+  /* Hero landscape: keep split but at reduced height */
   #hero {
     flex-direction: row;
-    min-height: 56svh;
+    min-height: 60svh;
   }
   .hero-image-panel {
     width: 55%;
-    height: 56svh;
-    min-height: unset;
-    max-height: unset;
+    height: auto;
+    min-height: 60svh;
+  }
+  .hero-image-panel img {
+    position: absolute;
   }
   .hero-text-panel {
     width: 45%;
-    padding: 1.5rem clamp(1rem, 3vw, 2.5rem);
+    min-height: 60svh;
+    padding: 1.5rem 2rem;
   }
-  .hero-headline { font-size: clamp(2rem, 5vw, 3.5rem); }
-  .hero-sub { font-size: 0.95rem; margin-bottom: 1.25rem; }
-  .hero-actions { gap: 0.75rem; }
-  .hero-trust-stack { padding-top: 1rem; gap: 0.4rem; }
-  .hero-stats {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 45%;
-  }
+  .hero-headline { font-size: clamp(1.8rem, 4vw, 3rem); }
+  .hero-sub { font-size: 0.9rem; margin-bottom: 1.25rem; }
+  .hero-actions { margin-bottom: 1.5rem; }
   .t-heading { font-size: clamp(1.6rem, 3.5vw, 2.8rem); }
   .section-pad { padding: 3rem 0; }
   .process-steps { grid-template-columns: repeat(4, 1fr); }
@@ -1636,7 +1649,7 @@ html[data-palette-anim] *, html[data-palette-anim] *::before, html[data-palette-
 
 <!-- Mobile Menu -->
 <div class="nav-mobile-menu" id="mobile-menu" role="dialog" aria-label="Navigation Menu" aria-modal="true">
-  <button class="nav-mobile-close" id="mobile-close" aria-label="Close menu">✕</button>
+  <button class="nav-mobile-close" id="mobile-close" aria-label="Close menu">&#x2715;</button>
   <a href="#services" class="mobile-link">Services</a>
   <a href="#about" class="mobile-link">About</a>
   <a href="#gallery" class="mobile-link">Gallery</a>
@@ -1656,67 +1669,79 @@ html[data-palette-anim] *, html[data-palette-anim] *::before, html[data-palette-
   <!-- Left: full-height cover photo, no text -->
   <div class="hero-image-panel" aria-hidden="true">
     <img
-      src="https://images.unsplash.com/photo-1499233662171-69cf37deb71b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxzZXJlbmUlMjBiYWNreWFyZCUyMGdhcmRlbiUyMG1vcm5pbmclMjBsaWdodCUyMG5hdHVyYWwlMjBsYW5kc2NhcGV8ZW58MHwwfHx8MTc3NzQ3Njk0Nnww&ixlib=rb-4.1.0&q=80&w=1080"
-      alt=""
-      role="presentation"
+      src="https://images.unsplash.com/photo-1499233662171-69cf37deb71b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxzZXJlbmUlMjBiYWNreWFyZCUyMGdhcmRlbiUyMG1vcm5pbmclMjBsaWdodCUyMHBlYWNlZnVsJTIwbGFuZHNjYXBlJTIwZGVzaWdufGVufDB8MHx8fDE3Nzc0NzcwNzZ8MA&ixlib=rb-4.1.0&q=80&w=1080"
+      alt="Serene backyard garden in morning light"
       loading="eager"
     >
   </div>
 
-  <!-- Right: solid brand color panel with all content -->
+  <!-- Right: solid brand color panel, all text lives here -->
   <div class="hero-text-panel">
+    <div class="hero-text-inner">
 
-    <div class="hero-eyebrow" aria-hidden="true">
-      <span class="hero-eyebrow-line"></span>
-      <span class="hero-eyebrow-text">Greater Atlanta · Full-Service Landscaping</span>
-    </div>
-
-    <h1 class="hero-headline">
-      Where<br>
-      <em>Nature</em>
-      <span class="hero-line-accent">Meets Design.</span>
-    </h1>
-
-    <p class="hero-sub">
-      Turning outdoor spaces into places people come home to — since 2008.
-    </p>
-
-    <div class="hero-actions">
-      <a href="#contact" class="btn-primary">Request a Free Quote</a>
-      <a href="#services" class="btn-ghost">Explore Services</a>
-    </div>
-
-    <div class="hero-trust-stack" aria-label="Trust credentials">
-      <div class="hero-trust-item"><span class="hero-trust-dot" aria-hidden="true"></span> Licensed &amp; Insured in Georgia</div>
-      <div class="hero-trust-item"><span class="hero-trust-dot" aria-hidden="true"></span> 5-Star Rated on Google</div>
-      <div class="hero-trust-item"><span class="hero-trust-dot" aria-hidden="true"></span> Serving Greater Atlanta Since 2008</div>
-    </div>
-
-  </div>
-
-  <!-- Stats bar — anchored to bottom of right panel -->
-  <div class="hero-stats" role="list" aria-label="Company statistics">
-    <div class="hero-stat reveal" role="listitem">
-      <div style="display:flex;align-items:flex-end;gap:0.15rem;">
-        <span class="hero-stat-num counter" data-target="18">0</span><span class="hero-stat-num" style="font-size:clamp(0.9rem,1.6vw,1.3rem);padding-bottom:0.2rem;color:var(--accent-sage);">+</span>
+      <div class="hero-eyebrow reveal" aria-hidden="true">
+        <span class="hero-eyebrow-line"></span>
+        <span class="hero-eyebrow-text">Greater Atlanta &middot; Full-Service Landscaping</span>
       </div>
-      <span class="hero-stat-label">Years of Craft</span>
-    </div>
-    <div class="hero-stat reveal reveal-delay-2" role="listitem">
-      <div style="display:flex;align-items:flex-end;gap:0.15rem;">
-        <span class="hero-stat-num counter" data-target="1200">0</span><span class="hero-stat-num" style="font-size:clamp(0.9rem,1.6vw,1.3rem);padding-bottom:0.2rem;color:var(--accent-sage);">+</span>
+
+      <h1 class="hero-headline reveal reveal-delay-1">
+        Where<br>
+        <em>Nature</em>
+        <span class="hero-line-accent">Meets Design.</span>
+      </h1>
+
+      <p class="hero-sub reveal reveal-delay-2">
+        Turning outdoor spaces into places people come home to &mdash; since 2008.
+      </p>
+
+      <div class="hero-actions reveal reveal-delay-3">
+        <a href="#contact" class="btn-primary">Request a Free Quote</a>
+        <a href="#services" class="btn-ghost">Explore Services</a>
       </div>
-      <span class="hero-stat-label">Properties Transformed</span>
-    </div>
-    <div class="hero-stat reveal reveal-delay-3" role="listitem">
-      <div style="display:flex;align-items:flex-end;gap:0.15rem;">
-        <span class="hero-stat-num counter" data-target="98">0</span><span class="hero-stat-num" style="font-size:clamp(0.9rem,1.6vw,1.3rem);padding-bottom:0.2rem;color:var(--accent-sage);">%</span>
+
+      <div class="hero-divider reveal reveal-delay-4" aria-hidden="true"></div>
+
+      <div class="hero-trust-list reveal reveal-delay-4" aria-label="Trust credentials">
+        <div class="hero-trust-item">
+          <span class="hero-trust-dot" aria-hidden="true"></span>
+          Licensed &amp; Insured
+        </div>
+        <div class="hero-trust-item">
+          <span class="hero-trust-dot" aria-hidden="true"></span>
+          5-Star Rated on Google
+        </div>
+        <div class="hero-trust-item">
+          <span class="hero-trust-dot" aria-hidden="true"></span>
+          Serving Greater Atlanta
+        </div>
       </div>
-      <span class="hero-stat-label">Client Satisfaction</span>
+
     </div>
   </div>
 
 </section>
+
+<!-- Stats bar — warm, readable, below the split hero -->
+<div class="hero-stats" role="list" aria-label="Company statistics">
+  <div class="hero-stat reveal" role="listitem">
+    <div style="display:flex;align-items:flex-end;gap:0.15rem;">
+      <span class="hero-stat-num counter" data-target="18">0</span><span class="hero-stat-num" style="font-size:clamp(0.9rem,1.8vw,1.4rem);padding-bottom:0.2rem;color:var(--accent-warm);">+</span>
+    </div>
+    <span class="hero-stat-label">Years of Craft</span>
+  </div>
+  <div class="hero-stat reveal reveal-delay-2" role="listitem">
+    <div style="display:flex;align-items:flex-end;gap:0.15rem;">
+      <span class="hero-stat-num counter" data-target="1200">0</span><span class="hero-stat-num" style="font-size:clamp(0.9rem,1.8vw,1.4rem);padding-bottom:0.2rem;color:var(--accent-warm);">+</span>
+    </div>
+    <span class="hero-stat-label">Properties Transformed</span>
+  </div>
+  <div class="hero-stat reveal reveal-delay-3" role="listitem">
+    <div style="display:flex;align-items:flex-end;gap:0.15rem;">
+      <span class="hero-stat-num counter" data-target="98">0</span><span class="hero-stat-num" style="font-size:clamp(0.9rem,1.8vw,1.4rem);padding-bottom:0.2rem;color:var(--accent-warm);">%</span>
+    </div>
+    <span class="hero-stat-label">Client Satisfaction</span>
+  </div>
+</div>
 
 <!-- Marquee -->
 <div class="marquee-wrap" aria-hidden="true">
@@ -1763,11 +1788,11 @@ html[data-palette-anim] *, html[data-palette-anim] *::before, html[data-palette-
       <!-- Service 1 -->
       <div class="service-card reveal">
         <div class="service-card-img">
-          <img src="https://images.unsplash.com/photo-1666987567673-6f9f533d35f6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxsdXNoJTIwbGF3biUyMGNhcmUlMjBtYWludGVuYW5jZSUyMGhvbWVvd25lciUyMGdyZWVuJTIwZ3Jhc3MlMjBoZWFsdGh5fGVufDB8MHx8fDE3Nzc0NzY5NDd8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="Lush healthy green grass lawn care" loading="lazy">
+          <img src="https://images.unsplash.com/photo-1764969370921-7c8df49171cd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxsdXNoJTIwZ3JlZW4lMjBsYXduJTIwbWFpbnRlbmFuY2UlMjBoZWFsdGh5JTIwZ3Jhc3MlMjBjYXJlJTIwaG9tZW93bmVyfGVufDB8MHx8fDE3Nzc0NzcwNzd8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="Freshly mown lush green lawn" loading="lazy">
         </div>
-        <span class="service-number">01 — Lawn Care</span>
-        <h3 class="t-card-title">Lawn Care &amp; Maintenance</h3>
-        <p class="t-body" style="font-size:0.88rem;">Weekly and bi-weekly mowing, edging, fertilization, and seasonal treatments tailored to Atlanta's growing seasons. We keep your lawn thick, green, and healthy year-round.</p>
+        <span class="service-number">01 &mdash; Lawn Care</span>
+        <h3 class="t-card-title">Lawn Care &amp; Mowing</h3>
+        <p class="t-body" style="font-size:0.88rem;">Regular mowing, edging, fertilization, and seasonal treatments to keep your lawn lush, healthy, and the envy of the neighborhood — on a schedule that works for you.</p>
         <div class="service-meta">
           <span class="service-duration">Recurring plans available</span>
           <div class="service-arrow" aria-hidden="true">
@@ -1781,13 +1806,13 @@ html[data-palette-anim] *, html[data-palette-anim] *::before, html[data-palette-
       <!-- Service 2 -->
       <div class="service-card reveal reveal-delay-1">
         <div class="service-card-img">
-          <img src="https://images.unsplash.com/photo-1759355787109-fd0df9c47e2e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxjdXN0b20lMjBnYXJkZW4lMjBkZXNpZ24lMjBwbGFudGluZyUyMHNlYXNvbmFsJTIwZmxvd2VycyUyMHJlc2lkZW50aWFsJTIwcHJvcGVydHl8ZW58MHwwfHx8MTc3NzQ3Njk0N3ww&ixlib=rb-4.1.0&q=80&w=1080" alt="Charming house with lush blooming garden design" loading="lazy">
+          <img src="https://images.unsplash.com/photo-1762811054950-b74e0a055c80?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBoYXJkc2NhcGluZyUyMHN0b25lJTIwcGF0aW8lMjBkZXNpZ24lMjByZXNpZGVudGlhbCUyMGJhY2t5YXJkfGVufDB8MHx8fDE3Nzc0NzcwNzd8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="Modern home with pool and outdoor hardscaped patio" loading="lazy">
         </div>
-        <span class="service-number">02 — Garden Design</span>
-        <h3 class="t-card-title">Planting &amp; Garden Architecture</h3>
-        <p class="t-body" style="font-size:0.88rem;">Thoughtful plant selection, seasonal color rotations, and curated garden layouts that evolve with the seasons. We design with the Atlanta climate in mind — what thrives here, beautifully.</p>
+        <span class="service-number">02 &mdash; Hardscaping</span>
+        <h3 class="t-card-title">Patios, Paths &amp; Stone Work</h3>
+        <p class="t-body" style="font-size:0.88rem;">Custom stone patios, walkways, retaining walls, and outdoor living structures built to last and designed to impress. We blend natural materials with architectural precision.</p>
         <div class="service-meta">
-          <span class="service-duration">Design + install · Starting consultations</span>
+          <span class="service-duration">Custom project &middot; Consultation required</span>
           <div class="service-arrow" aria-hidden="true">
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5">
               <path d="M2 10L10 2M10 2H4M10 2V8"/>
@@ -1799,13 +1824,13 @@ html[data-palette-anim] *, html[data-palette-anim] *::before, html[data-palette-
       <!-- Service 3 -->
       <div class="service-card reveal reveal-delay-2">
         <div class="service-card-img">
-          <img src="https://images.pexels.com/photos/16239802/pexels-photo-16239802.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Professional paving stone installation for hardscaping project" loading="lazy">
+          <img src="https://images.pexels.com/photos/34220279/pexels-photo-34220279.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Colorful seasonal garden with chrysanthemums and decorative plantings" loading="lazy">
         </div>
-        <span class="service-number">03 — Hardscaping</span>
-        <h3 class="t-card-title">Patios, Paths &amp; Stone Work</h3>
-        <p class="t-body" style="font-size:0.88rem;">Custom stone patios, walkways, retaining walls, and outdoor living structures built to last and designed to impress. We blend natural materials with architectural precision.</p>
+        <span class="service-number">03 &mdash; Garden Design</span>
+        <h3 class="t-card-title">Planting &amp; Garden Architecture</h3>
+        <p class="t-body" style="font-size:0.88rem;">Thoughtful plant selection, seasonal color rotations, and curated garden layouts that evolve beautifully with the seasons — designed specifically for the Atlanta climate.</p>
         <div class="service-meta">
-          <span class="service-duration">Custom project · Consultation required</span>
+          <span class="service-duration">Design + install &middot; Starting consultations</span>
           <div class="service-arrow" aria-hidden="true">
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5">
               <path d="M2 10L10 2M10 2H4M10 2V8"/>
@@ -1843,7 +1868,7 @@ html[data-palette-anim] *, html[data-palette-anim] *::before, html[data-palette-
     <div class="about-grid">
       <div class="about-img-wrap reveal">
         <div class="about-img-main">
-          <img src="https://images.pexels.com/photos/27033657/pexels-photo-27033657.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Aerial view of a vibrant garden pathway with lush greenery in a residential area" loading="lazy">
+          <img src="https://images.pexels.com/photos/34581908/pexels-photo-34581908.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Landscaping professional managing tree care and outdoor work" loading="lazy">
         </div>
         <div class="about-img-badge" aria-label="18 years in business">
           <span class="about-img-badge-num">18</span>
@@ -1871,7 +1896,7 @@ html[data-palette-anim] *, html[data-palette-anim] *::before, html[data-palette-
 
         <div class="about-awards reveal reveal-delay-5">
           <div class="about-award-item">
-            <span class="about-award-val">5★</span>
+            <span class="about-award-val">5&#9733;</span>
             <span class="about-award-label">Google Rating</span>
           </div>
           <div class="about-award-item">
@@ -1965,26 +1990,26 @@ html[data-palette-anim] *, html[data-palette-anim] *::before, html[data-palette-
 
     <div class="gallery-mosaic">
       <div class="gal-item gal-item-1 reveal">
-        <img src="https://images.pexels.com/photos/25972319/pexels-photo-25972319.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Tranquil backyard garden with vibrant flowers, lush greenery, and patio furniture" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1774789452881-9f8c502bb117?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxiZWF1dGlmdWwlMjBtYW5pY3VyZWQlMjBnYXJkZW4lMjBsYW5kc2NhcGUlMjBkZXNpZ24lMjBuYXR1cmFsJTIwYWVzdGhldGljJTIwb3V0ZG9vcnxlbnwwfDB8fHwxNzc3NDc3MDc4fDA&ixlib=rb-4.1.0&q=80&w=1080" alt="Circular manicured garden beds with walking paths from above" loading="lazy">
         <div class="gal-overlay">
-          <span class="gal-caption">Residential Garden Transformation</span>
+          <span class="gal-caption">Garden Architecture</span>
         </div>
       </div>
       <div class="gal-item gal-item-2 reveal reveal-delay-1">
-        <img src="https://images.pexels.com/photos/10519601/pexels-photo-10519601.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Rustic house facade with lush greenery and warm inviting entrance framed by mature trees" loading="lazy">
+        <img src="https://images.pexels.com/photos/7174103/pexels-photo-7174103.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Charming wooden garden structure near pond surrounded by lush greenery" loading="lazy">
         <div class="gal-overlay">
-          <span class="gal-caption">Curb Appeal &amp; Entrance Design</span>
+          <span class="gal-caption">Outdoor Living Design</span>
         </div>
       </div>
       <div class="gal-item gal-item-3 reveal reveal-delay-2">
-        <div style="width:100%;height:100%;background:linear-gradient(135deg,var(--accent-dark) 0%,var(--accent) 50%,var(--accent-sage) 100%);display:flex;align-items:center;justify-content:center;">
+        <div style="width:100%;height:100%;background:linear-gradient(135deg, #2d5a3d 0%, #7A9E87 55%, #C5956C 100%);display:flex;align-items:center;justify-content:center;">
           <div style="text-align:center;color:var(--text-inv);padding:2rem;">
-            <p style="font-family:var(--serif);font-style:italic;font-size:clamp(1.3rem,2.5vw,1.8rem);font-weight:300;opacity:0.9;line-height:1.3;">Your yard<br>could be next.</p>
-            <a href="#contact" style="display:inline-block;margin-top:1.25rem;font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(251,248,244,0.7);border-bottom:1px solid rgba(251,248,244,0.35);padding-bottom:2px;">Request a Quote</a>
+            <p style="font-family:var(--serif);font-style:italic;font-size:clamp(1.3rem,2.5vw,1.8rem);font-weight:300;opacity:0.9;line-height:1.3;">Your yard,<br>transformed.</p>
+            <p style="font-size:0.65rem;letter-spacing:0.22em;text-transform:uppercase;margin-top:0.75rem;opacity:0.55;">Your Next Project</p>
           </div>
         </div>
         <div class="gal-overlay">
-          <span class="gal-caption">Start Your Project Today</span>
+          <span class="gal-caption">Your Vision, Our Craft</span>
         </div>
       </div>
     </div>
@@ -2008,7 +2033,7 @@ html[data-palette-anim] *, html[data-palette-anim] *::before, html[data-palette-
 
     <div class="testimonials-grid">
       <div class="testimonial-card reveal">
-        <div class="testimonial-quote-mark" aria-hidden="true">"</div>
+        <div class="testimonial-quote-mark" aria-hidden="true">&ldquo;</div>
         <div class="testimonial-stars" aria-label="5 star rating">
           <div class="testimonial-star"></div>
           <div class="testimonial-star"></div>
@@ -2017,16 +2042,16 @@ html[data-palette-anim] *, html[data-palette-anim] *::before, html[data-palette-
           <div class="testimonial-star"></div>
         </div>
         <p class="testimonial-text">
-          "Binda's completely transformed our backyard — what was a patchy, overgrown mess is now the most beautiful part of our home. Neighbors stop to ask about it. The design team listened to everything we wanted and delivered beyond what we imagined."
+          &ldquo;Binda's completely transformed our backyard — what was a patchy, overgrown mess is now the most beautiful part of our home. Neighbors stop to ask about it. The design team listened to everything we wanted and delivered beyond what we imagined.&rdquo;
         </p>
         <div class="testimonial-author">
           <span class="testimonial-name">Verified Google Review</span>
-          <span class="testimonial-role">Homeowner · East Atlanta</span>
+          <span class="testimonial-role">Homeowner &middot; East Atlanta</span>
         </div>
       </div>
 
       <div class="testimonial-card reveal reveal-delay-1">
-        <div class="testimonial-quote-mark" aria-hidden="true">"</div>
+        <div class="testimonial-quote-mark" aria-hidden="true">&ldquo;</div>
         <div class="testimonial-stars" aria-label="5 star rating">
           <div class="testimonial-star"></div>
           <div class="testimonial-star"></div>
@@ -2035,16 +2060,16 @@ html[data-palette-anim] *, html[data-palette-anim] *::before, html[data-palette-
           <div class="testimonial-star"></div>
         </div>
         <p class="testimonial-text">
-          "We've been using Binda's for our HOA properties for three years now. Consistent quality, always on time, and the crews are professional and respectful. Our property values have genuinely improved. This is the kind of company you keep for the long term."
+          &ldquo;We've been using Binda's for our HOA properties for three years now. Consistent quality, always on time, and the crews are professional and respectful. Our property values have genuinely improved. This is the kind of company you keep for the long term.&rdquo;
         </p>
         <div class="testimonial-author">
           <span class="testimonial-name">Verified Google Review</span>
-          <span class="testimonial-role">HOA Property Manager · North Atlanta</span>
+          <span class="testimonial-role">HOA Property Manager &middot; North Atlanta</span>
         </div>
       </div>
 
       <div class="testimonial-card reveal reveal-delay-2">
-        <div class="testimonial-quote-mark" aria-hidden="true">"</div>
+        <div class="testimonial-quote-mark" aria-hidden="true">&ldquo;</div>
         <div class="testimonial-stars" aria-label="5 star rating">
           <div class="testimonial-star"></div>
           <div class="testimonial-star"></div>
@@ -2053,11 +2078,11 @@ html[data-palette-anim] *, html[data-palette-anim] *::before, html[data-palette-
           <div class="testimonial-star"></div>
         </div>
         <p class="testimonial-text">
-          "Just moved into a new home and the yard was a blank canvas. Binda's team designed and installed everything — irrigation, sod, beds, stone border — in just a few days. I walk outside every morning now just to enjoy it. Worth every penny."
+          &ldquo;Just moved into a new home and the yard was a blank canvas. Binda's team designed and installed everything — irrigation, sod, beds, stone border — in just a few days. I walk outside every morning now just to enjoy it. Worth every penny.&rdquo;
         </p>
         <div class="testimonial-author">
           <span class="testimonial-name">Verified Google Review</span>
-          <span class="testimonial-role">New Homeowner · Alpharetta</span>
+          <span class="testimonial-role">New Homeowner &middot; Alpharetta</span>
         </div>
       </div>
     </div>
@@ -2065,7 +2090,7 @@ html[data-palette-anim] *, html[data-palette-anim] *::before, html[data-palette-
     <!-- Trust signals bar -->
     <div style="margin-top:3rem;display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:12px;overflow:hidden;" class="reveal">
       <div style="background:var(--bg);padding:1.25rem 1.5rem;text-align:center;">
-        <p style="font-family:var(--serif);font-size:1.5rem;font-weight:300;color:var(--accent);">5★</p>
+        <p style="font-family:var(--serif);font-size:1.5rem;font-weight:300;color:var(--accent);">5&#9733;</p>
         <p style="font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-light);margin-top:0.25rem;">Google Rating</p>
       </div>
       <div style="background:var(--bg);padding:1.25rem 1.5rem;text-align:center;">
@@ -2325,7 +2350,7 @@ html[data-palette-anim] *, html[data-palette-anim] *::before, html[data-palette-
     </div>
 
     <div class="footer-bottom">
-      <p class="footer-copy">© <span id="copyright-year"></span> Binda's Landscaping. All rights reserved.</p>
+      <p class="footer-copy">&copy; <span id="copyright-year"></span> Binda's Landscaping. All rights reserved.</p>
       <p class="footer-service-area">Greater Atlanta, Georgia</p>
       <div class="footer-legal">
         <a href="#contact">Privacy Policy</a>
