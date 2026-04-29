@@ -3,63 +3,58 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Binda's Landscaping — Full-service landscaping and hardscaping in Atlanta, GA. Retaining walls, French drains, yard regrading, stone patios. Serving North Decatur, DeKalb, and surrounding areas since 2008.">
+<meta name="description" content="Binda's Landscaping — Full-service landscaping and hardscaping in Atlanta, GA. Retaining walls, drainage solutions, stone patios, and yard regrading. Serving North Decatur and DeKalb since 2008.">
 <title>Binda's Landscaping | Built by Hand. Built to Last. | Atlanta, GA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
+/* ============================================================
+   ROOT — PALETTE A (Primary)
+   ============================================================ */
 :root {
-  --dark: #111111;
-  --dark-2: #1a1a1a;
-  --dark-3: #222222;
-  --dark-4: #2a2a2a;
-  --accent: #2d5a3d;
-  --accent-mid: #3a7a52;
-  --accent-light: #4e9e6a;
-  --accent-glow: rgba(45,90,61,0.18);
-  --stone: #e8dcc8;
-  --stone-dim: #c8bca8;
-  --stone-muted: #a89880;
-  --text: #f0ece4;
-  --text-dim: #b8b0a4;
-  --text-muted: #7a7570;
-  --border: rgba(232,220,200,0.10);
-  --border-accent: rgba(45,90,61,0.35);
-  --nav-height: 72px;
-  --radius-sm: 4px;
-  --radius: 8px;
-  --radius-lg: 16px;
-  --transition: 0.35s cubic-bezier(0.4,0,0.2,1);
-  --shadow: 0 8px 40px rgba(0,0,0,0.55);
-  --shadow-sm: 0 2px 16px rgba(0,0,0,0.35);
-  --font-display: 'Inter', 'Helvetica Neue', Arial, sans-serif;
-  --font-body: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  --dark:            #1a1a1a;
+  --dark-mid:        #2a2a2a;
+  --forest:          #2d5a3d;
+  --forest-light:    #3a7350;
+  --forest-muted:    #4a7c5f;
+  --stone:           #e8dcc8;
+  --stone-light:     #f2ece0;
+  --stone-dark:      #c8b898;
+  --bg:              #f7f3ec;
+  --bg-alt:          #eee8da;
+  --text:            #1a1a1a;
+  --text-mid:        #3d3830;
+  --text-muted:      #7a6f62;
+  --accent:          #2d5a3d;
+  --accent-dark:     #1e3e2a;
+  --accent-light:    #3a7350;
+  --accent-secondary:#8fa880;
+  --rule:            #d4c9b4;
+  --white:           #ffffff;
+  --nav-height:      72px;
+  --radius-sm:       4px;
+  --radius-md:       8px;
+  --radius-lg:       16px;
+  --transition:      0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
+/* ============================================================
+   PALETTE B — "Terracotta" variant
+   ============================================================ */
 html[data-palette="b"] {
-  --accent: #2a4d6e;
-  --accent-mid: #356090;
-  --accent-light: #4a80b8;
-  --accent-glow: rgba(42,77,110,0.18);
-  --border-accent: rgba(42,77,110,0.35);
+  --accent:          #8b4a2f;
+  --accent-dark:     #6b3520;
+  --accent-light:    #a85e3d;
+  --accent-secondary:#c49070;
+  --forest:          #8b4a2f;
+  --forest-light:    #a85e3d;
+  --forest-muted:    #b87050;
 }
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-html {
-  scroll-behavior: smooth;
-  overflow-x: hidden;
-  font-size: 16px;
-}
-
-body {
-  background: var(--dark);
-  color: var(--text);
-  font-family: var(--font-body);
-  line-height: 1.6;
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
+/* ============================================================
+   PROGRESSIVE ENHANCEMENT REVEAL
+   ============================================================ */
 html.js-loaded .reveal {
   opacity: 0;
   transform: translateY(30px);
@@ -73,51 +68,63 @@ html.js-loaded .reveal-delay-1 { transition-delay: 0.1s; }
 html.js-loaded .reveal-delay-2 { transition-delay: 0.2s; }
 html.js-loaded .reveal-delay-3 { transition-delay: 0.3s; }
 html.js-loaded .reveal-delay-4 { transition-delay: 0.4s; }
-html.js-loaded .reveal-delay-5 { transition-delay: 0.5s; }
 
-img {
-  max-width: 100%;
-  display: block;
-  object-fit: cover;
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+html, body { overflow-x: hidden; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
 }
+img { max-width: 100%; display: block; }
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+button { cursor: pointer; border: none; background: none; font-family: inherit; }
 
-a { color: inherit; text-decoration: none; }
+/* ============================================================
+   TYPOGRAPHY
+   ============================================================ */
+.serif { font-family: 'Cormorant Garamond', Georgia, serif; }
 
-button {
-  cursor: pointer;
-  font-family: var(--font-body);
-  border: none;
-  background: none;
-}
-
-/* ─── TYPOGRAPHY ─── */
 h1, h2, h3, h4 {
-  font-family: var(--font-display);
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  line-height: 1.05;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-weight: 400;
+  line-height: 1.15;
+  color: var(--text);
 }
 
-h1 { font-size: clamp(2.8rem, 8vw, 7rem); }
-h2 { font-size: clamp(2rem, 5vw, 4rem); }
-h3 { font-size: clamp(1.3rem, 3vw, 2rem); }
-h4 { font-size: clamp(1rem, 2vw, 1.3rem); }
+h1 { font-size: clamp(2.8rem, 7vw, 6rem); font-weight: 300; letter-spacing: -0.02em; }
+h2 { font-size: clamp(2rem, 4.5vw, 3.8rem); font-weight: 300; letter-spacing: -0.01em; }
+h3 { font-size: clamp(1.4rem, 2.5vw, 2rem); font-weight: 400; }
+h4 { font-size: clamp(1.1rem, 1.8vw, 1.4rem); font-weight: 400; }
 
-.label {
-  font-size: clamp(0.65rem, 1.5vw, 0.75rem);
-  font-weight: 700;
-  letter-spacing: 0.2em;
+p { font-size: clamp(0.9rem, 1.4vw, 1.05rem); color: var(--text-mid); line-height: 1.75; }
+
+.eyebrow {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.65rem, 1.2vw, 0.75rem);
+  font-weight: 600;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--accent-light);
+  color: var(--accent);
 }
 
-p {
-  font-size: clamp(0.95rem, 2vw, 1.1rem);
-  color: var(--text-dim);
-  line-height: 1.75;
+.section-rule {
+  width: 48px;
+  height: 1px;
+  background: var(--accent);
+  margin: 1.2rem 0 1.6rem;
 }
 
-/* ─── LAYOUT ─── */
+/* ============================================================
+   LAYOUT UTILITIES
+   ============================================================ */
 .container {
   width: 100%;
   max-width: 1200px;
@@ -125,1390 +132,1410 @@ p {
   padding: 0 24px;
 }
 
-.container-wide {
+.container--wide {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.section-pad {
+  padding: 100px 0;
+}
+
+.section-pad--sm {
+  padding: 64px 0;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 48px;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+}
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 36px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-radius: var(--radius-sm);
+  transition: var(--transition);
+  white-space: nowrap;
+  min-height: 44px;
+}
+
+.btn--primary {
+  background: var(--accent);
+  color: var(--white);
+  border: 1px solid var(--accent);
+}
+.btn--primary:hover {
+  background: var(--accent-dark);
+  border-color: var(--accent-dark);
+  transform: translateY(-2px);
+}
+
+.btn--outline {
+  background: transparent;
+  color: var(--white);
+  border: 1px solid rgba(255,255,255,0.6);
+}
+.btn--outline:hover {
+  background: rgba(255,255,255,0.1);
+  border-color: var(--white);
+  transform: translateY(-2px);
+}
+
+.btn--outline-dark {
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+}
+.btn--outline-dark:hover {
+  background: var(--accent);
+  color: var(--white);
+  transform: translateY(-2px);
+}
+
+.btn-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  transition: gap var(--transition);
+}
+.btn-arrow::after {
+  content: '→';
+  font-size: 1em;
+  transition: transform var(--transition);
+}
+.btn-arrow:hover::after { transform: translateX(4px); }
+
+/* ============================================================
+   NAVIGATION
+   ============================================================ */
+#nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  height: var(--nav-height);
+  display: flex;
+  align-items: center;
+  transition: background 0.4s ease, box-shadow 0.4s ease, height 0.3s ease;
+}
+
+#nav.nav--transparent {
+  background: transparent;
+}
+
+#nav.nav--solid {
+  background: rgba(247, 243, 236, 0.97);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 1px 0 var(--rule);
+}
+
+.nav__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
   padding: 0 24px;
 }
 
-section {
-  position: relative;
-}
-
-/* ─── BUTTONS ─── */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 16px 32px;
-  font-size: 0.85rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  border-radius: var(--radius-sm);
-  transition: var(--transition);
-  white-space: nowrap;
-  min-height: 44px;
-}
-
-.btn-primary {
-  background: var(--accent);
-  color: var(--stone);
-  border: 2px solid var(--accent);
-}
-.btn-primary:hover {
-  background: var(--accent-mid);
-  border-color: var(--accent-mid);
-  transform: translateY(-2px);
-  box-shadow: 0 12px 32px rgba(45,90,61,0.4);
-}
-
-.btn-outline {
-  background: transparent;
-  color: var(--stone);
-  border: 2px solid rgba(232,220,200,0.4);
-}
-.btn-outline:hover {
-  border-color: var(--stone);
-  background: rgba(232,220,200,0.05);
-  transform: translateY(-2px);
-}
-
-.btn-arrow::after {
-  content: '→';
-  font-size: 1rem;
-  transition: transform 0.25s ease;
-}
-.btn-arrow:hover::after {
-  transform: translateX(4px);
-}
-
-/* ─── NAV ─── */
-#nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1000;
-  height: var(--nav-height);
-  display: flex;
-  align-items: center;
-  transition: background var(--transition), border-color var(--transition), box-shadow var(--transition);
-  border-bottom: 1px solid transparent;
-}
-
-#nav.scrolled {
-  background: rgba(17,17,17,0.97);
-  border-color: var(--border);
-  box-shadow: 0 4px 32px rgba(0,0,0,0.5);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-}
-
-.nav-inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-}
-
-.nav-logo {
+.nav__logo {
   display: flex;
   flex-direction: column;
   gap: 1px;
 }
 
-.nav-logo-name {
-  font-size: clamp(1rem, 2.5vw, 1.25rem);
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  color: var(--stone);
+.nav__logo-name {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  font-weight: 500;
+  color: var(--white);
   line-height: 1;
+  transition: color 0.4s ease;
+  letter-spacing: 0.02em;
 }
 
-.nav-logo-tag {
+.nav__logo-tag {
+  font-family: 'Inter', sans-serif;
   font-size: 0.6rem;
-  font-weight: 600;
-  letter-spacing: 0.18em;
+  font-weight: 500;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--accent-light);
+  color: rgba(255,255,255,0.65);
+  transition: color 0.4s ease;
 }
 
-.nav-links {
+#nav.nav--solid .nav__logo-name { color: var(--dark); }
+#nav.nav--solid .nav__logo-tag { color: var(--text-muted); }
+
+.nav__links {
   display: none;
   align-items: center;
   gap: 36px;
-  list-style: none;
 }
 
-.nav-links a {
-  font-size: 0.78rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
+.nav__links a {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--text-dim);
+  color: rgba(255,255,255,0.85);
   transition: color var(--transition);
 }
-.nav-links a:hover {
-  color: var(--stone);
-}
+.nav__links a:hover { color: var(--white); }
+#nav.nav--solid .nav__links a { color: var(--text-mid); }
+#nav.nav--solid .nav__links a:hover { color: var(--accent); }
 
-.nav-cta {
+.nav__cta {
   display: none;
 }
 
-.hamburger {
+.nav__hamburger {
   display: flex;
   flex-direction: column;
-  gap: 5px;
-  padding: 8px;
-  min-width: 44px;
-  min-height: 44px;
-  align-items: center;
   justify-content: center;
-  background: none;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  transition: border-color var(--transition);
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  padding: 10px;
+  cursor: pointer;
 }
-.hamburger:hover { border-color: var(--accent-light); }
 
-.hamburger span {
+.nav__hamburger span {
   display: block;
-  width: 22px;
-  height: 2px;
-  background: var(--stone);
-  border-radius: 2px;
-  transition: var(--transition);
+  height: 1.5px;
+  background: var(--white);
+  transition: all 0.35s ease;
+  transform-origin: center;
 }
-.hamburger.open span:nth-child(1) {
-  transform: translateY(7px) rotate(45deg);
-}
-.hamburger.open span:nth-child(2) {
-  opacity: 0;
-}
-.hamburger.open span:nth-child(3) {
-  transform: translateY(-7px) rotate(-45deg);
-}
+#nav.nav--solid .nav__hamburger span { background: var(--dark); }
 
-.mobile-menu {
+.nav__hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.nav__hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.nav__hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+/* Mobile menu overlay */
+.nav__mobile-menu {
   position: fixed;
   top: var(--nav-height);
   left: 0;
-  width: 100%;
-  background: rgba(17,17,17,0.98);
+  right: 0;
+  background: rgba(247, 243, 236, 0.98);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--border);
-  padding: 24px;
+  padding: 32px 24px 40px;
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  transform: translateY(-110%);
-  transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+  gap: 8px;
+  transform: translateY(-100%);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  border-bottom: 1px solid var(--rule);
   z-index: 999;
 }
-.mobile-menu.open {
+
+.nav__mobile-menu.open {
   transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
 }
 
-.mobile-menu a {
-  display: block;
-  padding: 14px 0;
-  font-size: 1.1rem;
-  font-weight: 700;
-  letter-spacing: -0.01em;
-  color: var(--text-dim);
-  border-bottom: 1px solid var(--border);
-  transition: color var(--transition);
+.nav__mobile-menu a {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(1.4rem, 4vw, 1.8rem);
+  font-weight: 400;
+  color: var(--text);
+  padding: 10px 0;
+  border-bottom: 1px solid var(--rule);
+  transition: color var(--transition), padding-left var(--transition);
 }
-.mobile-menu a:hover { color: var(--stone); }
-.mobile-menu a:last-of-type { border-bottom: none; }
-
-.mobile-menu .mobile-cta {
-  margin-top: 16px;
+.nav__mobile-menu a:hover {
+  color: var(--accent);
+  padding-left: 8px;
 }
+.nav__mobile-menu a:last-child { border-bottom: none; }
 
-/* ─── HERO ─── */
+/* ============================================================
+   HERO
+   ============================================================ */
 #hero {
   position: relative;
   width: 100%;
   min-height: 100vh;
   min-height: 100svh;
   display: flex;
-  align-items: flex-end;
-  background-image: url('https://images.pexels.com/photos/36459/stones-wall-background-quarry-stone.jpg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
+  align-items: center;
+  background-image: url('https://images.pexels.com/photos/33529507/pexels-photo-33529507.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
   background-size: cover;
   background-position: center;
-  background-attachment: scroll;
+  background-attachment: fixed;
 }
 
-.hero-overlay {
+.hero__overlay {
   position: absolute;
   inset: 0;
   background: linear-gradient(
-    165deg,
-    rgba(6,6,6,0.82) 0%,
-    rgba(10,10,10,0.60) 30%,
-    rgba(12,12,12,0.88) 70%,
-    rgba(6,6,6,0.98) 100%
+    135deg,
+    rgba(26, 26, 26, 0.82) 0%,
+    rgba(45, 90, 61, 0.55) 60%,
+    rgba(26, 26, 26, 0.45) 100%
   );
-  z-index: 1;
 }
 
-.hero-content {
+.hero__content {
   position: relative;
   z-index: 2;
-  padding: 120px 24px 72px;
-  width: 100%;
-  max-width: 1200px;
+  padding: calc(var(--nav-height) + 48px) 24px 80px;
+  max-width: 1400px;
   margin: 0 auto;
+  width: 100%;
 }
 
-.hero-label {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 28px;
-}
-
-.hero-label-line {
-  width: 40px;
-  height: 1px;
-  background: var(--accent-light);
-}
-
-.hero-badge {
-  font-size: 0.65rem;
-  font-weight: 700;
+.hero__eyebrow {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.6rem, 1.2vw, 0.72rem);
+  font-weight: 600;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--accent-light);
+  color: var(--stone);
+  opacity: 0.9;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.hero__eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 32px;
+  height: 1px;
+  background: var(--stone);
+  opacity: 0.7;
 }
 
-.hero-headline {
-  max-width: 820px;
-  margin-bottom: 12px;
+.hero__headline {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(3rem, 8vw, 7rem);
+  font-weight: 300;
+  color: var(--white);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  max-width: 800px;
+  margin-bottom: 8px;
 }
 
-.hero-headline em {
-  font-style: normal;
-  color: var(--accent-light);
-  display: block;
+.hero__headline em {
+  font-style: italic;
+  color: var(--stone);
 }
 
-.hero-tagline {
-  font-size: clamp(0.9rem, 2vw, 1.1rem);
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  color: var(--stone-dim);
+.hero__tagline {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+  font-weight: 300;
+  font-style: italic;
+  color: rgba(232, 220, 200, 0.85);
+  margin-bottom: 40px;
+  letter-spacing: 0.02em;
+}
+
+.hero__rule {
+  width: 48px;
+  height: 1px;
+  background: var(--stone);
+  opacity: 0.5;
   margin-bottom: 32px;
-  text-transform: uppercase;
 }
 
-.hero-body {
+.hero__body {
+  font-size: clamp(0.9rem, 1.5vw, 1.05rem);
+  color: rgba(255,255,255,0.72);
   max-width: 480px;
-  margin-bottom: 44px;
-  color: var(--text-dim);
+  line-height: 1.75;
+  margin-bottom: 48px;
 }
 
-.hero-actions {
+.hero__actions {
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
   align-items: center;
-  margin-bottom: 64px;
 }
 
-/* ─── HERO FOUNDING STRIP (replaces stats bar) ─── */
-.hero-founding {
-  display: inline-flex;
-  align-items: center;
-  gap: 20px;
-  border-top: 1px solid var(--border);
-  padding-top: 32px;
-}
-
-.hero-founding-line {
-  width: 24px;
-  height: 2px;
-  background: var(--accent);
-  flex-shrink: 0;
-}
-
-.hero-founding-text {
-  font-size: clamp(0.72rem, 1.8vw, 0.85rem);
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--stone-dim);
-}
-
-/* ─── SECTION INTRO ─── */
-.section-intro {
-  max-width: 560px;
-}
-
-.section-intro.center {
-  margin: 0 auto;
-  text-align: center;
-}
-
-.section-intro .label {
-  margin-bottom: 16px;
-  display: block;
-}
-
-.section-intro h2 {
-  margin-bottom: 20px;
-  color: var(--stone);
-}
-
-.section-intro p {
-  color: var(--text-dim);
-}
-
-/* ─── SERVICES ─── */
-#services {
-  background: var(--dark-2);
-  padding: 112px 0;
-}
-
-.services-header {
+.hero__trust {
   display: flex;
-  flex-wrap: wrap;
-  gap: 40px;
-  align-items: flex-end;
-  justify-content: space-between;
-  margin-bottom: 72px;
+  align-items: center;
+  gap: 24px;
+  margin-top: 80px;
+  padding-top: 32px;
+  border-top: 1px solid rgba(255,255,255,0.12);
 }
 
-.services-grid {
-  display: grid;
-  grid-template-columns: 1fr;
+.hero__trust-item {
+  display: flex;
+  flex-direction: column;
   gap: 2px;
 }
 
-.service-card {
-  position: relative;
+.hero__trust-num {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 400;
+  color: var(--white);
+  line-height: 1;
+}
+
+.hero__trust-label {
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+}
+
+.hero__trust-divider {
+  width: 1px;
+  height: 40px;
+  background: rgba(255,255,255,0.15);
+}
+
+/* ============================================================
+   SERVICES
+   ============================================================ */
+#services {
+  background: var(--bg);
+  padding: 120px 0;
+}
+
+.services__header {
+  max-width: 640px;
+  margin-bottom: 72px;
+}
+
+.services__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-md);
   overflow: hidden;
-  background: var(--dark-3);
-  transition: var(--transition);
+}
+
+.service-card {
+  background: var(--bg);
+  padding: 48px 40px;
+  position: relative;
+  transition: background var(--transition);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .service-card:hover {
-  background: var(--dark-4);
+  background: var(--stone-light);
 }
 
-.service-card-inner {
-  display: grid;
-  grid-template-columns: 1fr;
-  min-height: 300px;
+.service-card__num {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 300;
+  color: var(--stone-dark);
+  line-height: 1;
+  opacity: 0.6;
 }
 
-.service-card-featured .service-card-inner {
-  min-height: 420px;
-}
-
-.service-card-img {
-  position: relative;
-  overflow: hidden;
-  height: 240px;
-}
-
-.service-card-featured .service-card-img {
-  height: 300px;
-}
-
-.service-card-img img {
+.service-card__img {
   width: 100%;
-  height: 100%;
+  height: 220px;
   object-fit: cover;
-  transition: transform 0.6s cubic-bezier(0.4,0,0.2,1);
-  filter: grayscale(20%) brightness(0.85);
-}
-.service-card:hover .service-card-img img {
-  transform: scale(1.04);
-  filter: grayscale(0%) brightness(0.9);
-}
-
-.service-card-img-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to bottom, transparent 40%, rgba(17,17,17,0.8) 100%);
-}
-
-.service-card-body {
-  padding: 32px 36px 36px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.service-card-number {
-  font-size: 0.65rem;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  color: var(--accent-light);
+  border-radius: var(--radius-sm);
+  margin-bottom: 8px;
 }
 
 .service-card h3 {
-  color: var(--stone);
-  font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+  font-size: clamp(1.2rem, 2vw, 1.6rem);
+  font-weight: 400;
+  color: var(--dark);
 }
 
 .service-card p {
   font-size: 0.9rem;
-  color: var(--text-dim);
-  line-height: 1.65;
+  color: var(--text-muted);
+  line-height: 1.7;
+  flex-grow: 1;
 }
 
-.service-card-divider {
-  width: 32px;
-  height: 1px;
-  background: var(--accent);
-  margin: 8px 0;
-}
-
-.service-tag-list {
+.service-card__detail {
   display: flex;
-  flex-wrap: wrap;
+  align-items: center;
   gap: 8px;
-  margin-top: 8px;
+  padding-top: 16px;
+  border-top: 1px solid var(--rule);
+  margin-top: auto;
 }
 
-.service-tag {
-  font-size: 0.65rem;
-  font-weight: 700;
-  letter-spacing: 0.15em;
+.service-card__detail-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+
+.service-card__detail span {
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  padding: 5px 12px;
-  border: 1px solid var(--border-accent);
-  border-radius: var(--radius-sm);
-  color: var(--accent-light);
-}
-
-/* ─── PROCESS ─── */
-#process {
-  background: var(--dark);
-  padding: 112px 0;
-}
-
-.process-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 0;
-  margin-top: 72px;
-}
-
-.process-step {
-  display: grid;
-  grid-template-columns: 64px 1fr;
-  gap: 28px;
-  padding: 40px 0;
-  border-bottom: 1px solid var(--border);
-  align-items: start;
-}
-.process-step:first-child {
-  border-top: 1px solid var(--border);
-}
-
-.process-step-num {
-  font-size: clamp(2.5rem, 5vw, 4rem);
-  font-weight: 800;
-  letter-spacing: -0.04em;
-  color: var(--dark-4);
-  line-height: 1;
-  transition: color var(--transition);
-}
-.process-step:hover .process-step-num {
   color: var(--accent);
 }
 
-.process-step-content h3 {
-  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
-  color: var(--stone);
-  margin-bottom: 10px;
+.services__image-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  margin-top: 64px;
 }
 
-.process-step-content p {
-  font-size: 0.9rem;
-  color: var(--text-dim);
+.services__image-card {
+  position: relative;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  height: 320px;
 }
 
-/* ─── ABOUT ─── */
+.services__image-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.services__image-card:hover img { transform: scale(1.04); }
+
+.services__image-label {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 32px 28px 24px;
+  background: linear-gradient(transparent, rgba(26,26,26,0.82));
+}
+
+.services__image-label span {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(1rem, 2vw, 1.4rem);
+  font-weight: 400;
+  color: var(--white);
+  letter-spacing: 0.02em;
+}
+
+/* ============================================================
+   ABOUT / STORY
+   ============================================================ */
 #about {
-  background: var(--dark-2);
-  padding: 112px 0;
+  background: var(--bg-alt);
+  padding: 120px 0;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
 }
 
-.about-grid {
+.about__grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 64px;
   align-items: center;
 }
 
-.about-img-wrap {
+.about__image-wrap {
   position: relative;
 }
 
-.about-img-main {
+.about__img {
   width: 100%;
   height: 480px;
-  border-radius: var(--radius);
-  overflow: hidden;
-}
-
-.about-img-main img {
-  width: 100%;
-  height: 100%;
   object-fit: cover;
-  filter: grayscale(15%) brightness(0.85);
+  border-radius: var(--radius-md);
 }
 
-.about-img-accent {
+.about__image-badge {
   position: absolute;
   bottom: -24px;
-  right: -24px;
-  width: 180px;
-  height: 180px;
+  right: -16px;
   background: var(--accent);
+  color: var(--white);
+  padding: 20px 24px;
   border-radius: var(--radius-sm);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  padding: 20px;
   text-align: center;
 }
 
-.about-img-accent-main {
-  font-size: 0.75rem;
-  font-weight: 800;
+.about__image-badge-num {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 2.4rem;
+  font-weight: 400;
+  line-height: 1;
+  display: block;
+}
+
+.about__image-badge-text {
+  font-size: 0.65rem;
+  font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--stone);
-  line-height: 1.2;
-  text-align: center;
+  opacity: 0.85;
+  display: block;
+  margin-top: 4px;
 }
 
-.about-img-accent-label {
-  font-size: 0.58rem;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: rgba(232,220,200,0.65);
-  text-align: center;
+.about__content {
+  padding-top: 24px;
 }
 
-.about-body {
-  display: flex;
-  flex-direction: column;
-  gap: 28px;
+.about__body {
+  margin-bottom: 24px;
 }
 
-.about-body h2 {
-  color: var(--stone);
-}
-
-.about-body p {
-  color: var(--text-dim);
-}
-
-.about-signature {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  padding: 24px 0 0;
-  border-top: 1px solid var(--border);
-}
-
-.about-sig-initial {
-  width: 52px;
-  height: 52px;
-  background: var(--accent);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.2rem;
-  font-weight: 800;
-  color: var(--stone);
-  flex-shrink: 0;
-}
-
-.about-sig-name {
-  font-size: 1rem;
-  font-weight: 800;
-  color: var(--stone);
-  letter-spacing: -0.01em;
-}
-
-.about-sig-title {
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--accent-light);
-  margin-top: 2px;
-}
-
-.trust-badges {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-}
-
-.trust-badge {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 12px 20px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  background: rgba(255,255,255,0.02);
-}
-
-.trust-badge-icon {
-  width: 8px;
-  height: 8px;
-  background: var(--accent-light);
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-
-.trust-badge-text {
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--text-dim);
-}
-
-/* ─── GALLERY ─── */
-#gallery {
-  background: var(--dark);
-  padding: 112px 0;
-}
-
-.gallery-header {
-  margin-bottom: 56px;
-}
-
-.gallery-grid {
+.about__values {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto auto;
-  gap: 2px;
+  gap: 24px;
+  margin: 40px 0;
 }
 
-.gallery-item {
-  position: relative;
-  overflow: hidden;
-  background: var(--dark-3);
-}
-
-.gallery-item:first-child {
-  grid-column: 1 / -1;
-}
-
-.gallery-item img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.7s cubic-bezier(0.4,0,0.2,1), filter 0.5s ease;
-  filter: grayscale(20%) brightness(0.8);
-}
-
-.gallery-item:hover img {
-  transform: scale(1.04);
-  filter: grayscale(0%) brightness(0.9);
-}
-
-.gallery-item-1 { height: 420px; }
-.gallery-item-2 { height: 300px; }
-.gallery-item-3 { height: 300px; }
-
-.gallery-item-label {
-  position: absolute;
-  bottom: 20px;
-  left: 20px;
-  background: rgba(17,17,17,0.85);
-  border: 1px solid var(--border);
-  padding: 8px 16px;
+.about__value {
+  padding: 24px;
+  border: 1px solid var(--rule);
   border-radius: var(--radius-sm);
-  font-size: 0.65rem;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--accent-light);
-  backdrop-filter: blur(8px);
+  background: var(--bg);
 }
 
-/* ─── TESTIMONIALS ─── */
-#testimonials {
-  background: var(--dark-2);
-  padding: 112px 0;
+.about__value-title {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--dark);
+  margin-bottom: 6px;
 }
 
-.testimonials-header {
-  margin-bottom: 64px;
+.about__value p {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.6;
 }
 
-.testimonials-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 2px;
-}
-
-.testimonial-card {
-  background: var(--dark-3);
-  padding: 48px 44px;
-  position: relative;
-  transition: background var(--transition);
-}
-.testimonial-card:hover {
-  background: var(--dark-4);
-}
-
-.testimonial-card::before {
-  content: '"';
-  position: absolute;
-  top: 28px;
-  left: 40px;
-  font-size: 6rem;
-  font-weight: 800;
-  color: var(--accent);
-  opacity: 0.25;
-  line-height: 1;
-  font-family: Georgia, serif;
-}
-
-.testimonial-stars {
+.about__signature {
   display: flex;
-  gap: 4px;
-  margin-bottom: 20px;
+  align-items: center;
+  gap: 16px;
+  margin-top: 40px;
+  padding-top: 32px;
+  border-top: 1px solid var(--rule);
 }
 
-.star {
-  width: 14px;
-  height: 14px;
-  background: var(--accent-light);
-  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-}
-
-.testimonial-text {
-  font-size: clamp(1rem, 2vw, 1.15rem);
-  color: var(--stone);
-  line-height: 1.7;
-  margin-bottom: 28px;
-  font-weight: 400;
-  position: relative;
-  z-index: 1;
-}
-
-.testimonial-meta {
+.about__signature-line {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  padding-top: 24px;
-  border-top: 1px solid var(--border);
+  gap: 2px;
 }
 
-.testimonial-name {
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: var(--stone);
-  letter-spacing: -0.01em;
+.about__signature-name {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--dark);
+  font-style: italic;
 }
 
-.testimonial-location {
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--accent-light);
-}
-
-.testimonial-source {
-  font-size: 0.65rem;
+.about__signature-role {
+  font-size: 0.68rem;
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--text-muted);
-  margin-top: 2px;
 }
 
-/* ─── FAQ ─── */
-#faq {
-  background: var(--dark);
-  padding: 112px 0;
-}
-
-.faq-header {
-  margin-bottom: 64px;
-}
-
-.faq-list {
-  max-width: 780px;
-  margin: 0 auto;
-}
-
-.faq-item {
-  border-top: 1px solid var(--border);
-}
-.faq-item:last-child {
-  border-bottom: 1px solid var(--border);
-}
-
-.faq-question {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  padding: 28px 0;
-  text-align: left;
-  background: none;
-  color: var(--stone);
-  font-size: clamp(0.95rem, 2vw, 1.1rem);
-  font-weight: 700;
-  letter-spacing: -0.01em;
-  transition: color var(--transition);
-  min-height: 44px;
-}
-.faq-question:hover {
-  color: var(--accent-light);
-}
-
-.faq-icon {
-  width: 28px;
-  height: 28px;
-  border: 1px solid var(--border);
+.about__avatar {
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
+  background: var(--accent);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  transition: var(--transition);
-  position: relative;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.2rem;
+  color: var(--white);
+  font-weight: 500;
 }
 
-.faq-icon::before,
-.faq-icon::after {
-  content: '';
-  position: absolute;
-  background: var(--text-dim);
-  border-radius: 2px;
-  transition: var(--transition);
-}
-.faq-icon::before {
-  width: 10px;
-  height: 1px;
-}
-.faq-icon::after {
-  width: 1px;
-  height: 10px;
+/* ============================================================
+   WHY CHOOSE US
+   ============================================================ */
+#why {
+  background: var(--dark);
+  padding: 120px 0;
 }
 
-.faq-item.open .faq-question {
-  color: var(--accent-light);
-}
-.faq-item.open .faq-icon {
-  background: var(--accent);
-  border-color: var(--accent);
-}
-.faq-item.open .faq-icon::before,
-.faq-item.open .faq-icon::after {
-  background: var(--stone);
-}
-.faq-item.open .faq-icon::after {
-  transform: rotate(90deg);
-  opacity: 0;
-}
+#why .eyebrow { color: var(--stone); }
+#why h2 { color: var(--white); }
+#why .section-rule { background: var(--stone-dark); }
 
-.faq-answer {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.45s cubic-bezier(0.4,0,0.2,1);
-}
-
-.faq-answer-inner {
-  padding: 0 0 28px;
-}
-
-.faq-answer-inner p {
-  font-size: 0.95rem;
-  color: var(--text-dim);
-  line-height: 1.75;
-}
-
-/* ─── CTA ─── */
-#contact {
-  background: var(--dark-2);
-  padding: 112px 0;
-}
-
-.cta-grid {
+.why__grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 64px;
-  align-items: start;
+  gap: 32px;
+  margin-top: 64px;
 }
 
-.cta-panel {
-  border-radius: var(--radius);
-  overflow: hidden;
-  min-height: 400px;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
+.why__item {
   padding: 40px;
-  background: linear-gradient(135deg, var(--dark-3) 0%, var(--accent) 60%, var(--dark-2) 100%);
+  border: 1px solid rgba(232, 220, 200, 0.12);
+  border-radius: var(--radius-sm);
+  transition: border-color var(--transition), background var(--transition);
 }
 
-.cta-panel-content {
-  display: flex;
-  flex-direction: column;
+.why__item:hover {
+  border-color: rgba(232, 220, 200, 0.28);
+  background: rgba(232, 220, 200, 0.04);
+}
+
+.why__item-num {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 3rem;
+  font-weight: 300;
+  color: rgba(232, 220, 200, 0.2);
+  line-height: 1;
+  margin-bottom: 20px;
+}
+
+.why__item h3 {
+  color: var(--white);
+  font-size: clamp(1.1rem, 2vw, 1.5rem);
+  margin-bottom: 12px;
+}
+
+.why__item p {
+  color: rgba(255,255,255,0.55);
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+/* ============================================================
+   GALLERY
+   ============================================================ */
+#gallery {
+  background: var(--bg);
+  padding: 120px 0;
+  border-top: 1px solid var(--rule);
+}
+
+.gallery__intro {
+  max-width: 560px;
+  margin-bottom: 64px;
+}
+
+.gallery__masonry {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.gallery__item {
+  position: relative;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.gallery__item img {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+  display: block;
+}
+
+.gallery__item:hover img { transform: scale(1.05); }
+
+.gallery__item--tall {
+  grid-row: span 2;
+}
+
+.gallery__item--tall img { height: 100%; min-height: 496px; }
+
+.gallery__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(transparent 50%, rgba(26,26,26,0.7));
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+
+.gallery__item:hover .gallery__overlay { opacity: 1; }
+
+/* ============================================================
+   TESTIMONIALS
+   ============================================================ */
+#testimonials {
+  background: var(--bg-alt);
+  padding: 120px 0;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+
+.testimonials__header {
+  max-width: 560px;
+  margin-bottom: 72px;
+}
+
+.testimonials__grid {
+  display: grid;
+  grid-template-columns: 1fr;
   gap: 24px;
 }
 
-.cta-panel-eyebrow {
-  font-size: 0.65rem;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: rgba(232,220,200,0.6);
-  margin-bottom: 8px;
+.testimonial-card {
+  background: var(--bg);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-md);
+  padding: 40px;
+  position: relative;
+  transition: transform var(--transition), box-shadow var(--transition);
 }
 
-.cta-panel-headline {
-  font-size: clamp(1.3rem, 3vw, 2rem);
-  font-weight: 800;
-  color: var(--stone);
-  letter-spacing: -0.02em;
-  line-height: 1.1;
+.testimonial-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 24px 64px rgba(26,26,26,0.08);
 }
 
-.cta-panel-list {
+.testimonial-card__quote-mark {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 5rem;
+  font-weight: 300;
+  color: var(--accent);
+  opacity: 0.2;
+  line-height: 0.6;
+  margin-bottom: 20px;
+  display: block;
+}
+
+.testimonial-card p {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(1rem, 1.8vw, 1.25rem);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--text-mid);
+  line-height: 1.7;
+  margin-bottom: 28px;
+}
+
+.testimonial-card__author {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-top: 24px;
+  border-top: 1px solid var(--rule);
+}
+
+.testimonial-card__avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--accent-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1rem;
+  color: var(--white);
+  font-weight: 500;
+}
+
+.testimonial-card__author-info {
+  flex: 1;
+}
+
+.testimonial-card__name {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--dark);
+  letter-spacing: 0.04em;
+}
+
+.testimonial-card__location {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.testimonial-card__stars {
+  font-size: 0.7rem;
+  color: #c8a84b;
+  letter-spacing: 1px;
+}
+
+/* ============================================================
+   FAQ
+   ============================================================ */
+#faq {
+  background: var(--bg);
+  padding: 120px 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.faq__header {
+  max-width: 560px;
+  margin-bottom: 64px;
+}
+
+.faq__list {
+  max-width: 760px;
+}
+
+.faq__item {
+  border-bottom: 1px solid var(--rule);
+}
+
+.faq__item:first-child {
+  border-top: 1px solid var(--rule);
+}
+
+.faq__question {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 28px 0;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(1rem, 1.8vw, 1.25rem);
+  font-weight: 400;
+  color: var(--dark);
+  text-align: left;
+  min-height: 44px;
+  transition: color var(--transition);
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+.faq__question:hover { color: var(--accent); }
+
+.faq__icon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  border: 1px solid var(--rule);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition);
+  font-size: 0.75rem;
+  color: var(--accent);
+}
+
+.faq__item.open .faq__icon {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--white);
+  transform: rotate(45deg);
+}
+
+.faq__answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.faq__answer-inner {
+  padding: 0 0 28px;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.8;
+  max-width: 640px;
+}
+
+/* ============================================================
+   CTA / CONTACT
+   ============================================================ */
+#contact {
+  position: relative;
+  background: var(--bg);
+  padding: 0;
+  overflow: hidden;
+}
+
+.contact__hero-img {
+  width: 100%;
+  height: 480px;
+  object-fit: cover;
+  display: block;
+}
+
+.contact__panel {
+  background: var(--dark);
+  padding: 80px 0;
+}
+
+.contact__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 64px;
+}
+
+.contact__left h2 { color: var(--white); }
+.contact__left .eyebrow { color: var(--stone-dark); }
+.contact__left .section-rule { background: var(--stone-dark); opacity: 0.5; }
+
+.contact__left p {
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 32px;
+}
+
+.contact__trust-list {
   display: flex;
   flex-direction: column;
   gap: 12px;
+  margin-top: 32px;
 }
 
-.cta-panel-item {
+.contact__trust-item {
   display: flex;
   align-items: center;
   gap: 12px;
-  font-size: 0.85rem;
-  color: rgba(232,220,200,0.8);
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.7);
+  font-family: 'Inter', sans-serif;
 }
 
-.cta-panel-dot {
-  width: 6px;
-  height: 6px;
-  background: var(--accent-light);
+.contact__trust-check {
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
+  background: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex-shrink: 0;
-}
-
-.cta-form-wrap {
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-}
-
-.cta-form-intro h2 {
-  color: var(--stone);
-  margin-bottom: 16px;
-}
-
-.cta-form-intro p {
-  color: var(--text-dim);
-}
-
-.contact-form {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.form-row {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 16px;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.form-label {
-  font-size: 0.7rem;
+  font-size: 0.6rem;
+  color: var(--white);
   font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--text-dim);
 }
 
-.form-input,
-.form-select,
-.form-textarea {
+.contact__form {
+  background: var(--bg);
+  border-radius: var(--radius-md);
+  padding: 48px 40px;
+}
+
+.contact__form h3 {
+  font-size: clamp(1.4rem, 2.5vw, 1.8rem);
+  margin-bottom: 8px;
+  color: var(--dark);
+}
+
+.contact__form-sub {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 32px;
+  line-height: 1.6;
+}
+
+.form__group {
+  margin-bottom: 20px;
+}
+
+.form__group label {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.form__group input,
+.form__group select,
+.form__group textarea {
   width: 100%;
-  background: var(--dark-3);
-  border: 1px solid var(--border);
+  padding: 14px 16px;
+  background: var(--bg-alt);
+  border: 1px solid var(--rule);
   border-radius: var(--radius-sm);
-  padding: 14px 18px;
-  color: var(--text);
-  font-family: var(--font-body);
-  font-size: 0.95rem;
-  transition: border-color var(--transition), background var(--transition);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  color: var(--dark);
+  transition: border-color var(--transition), box-shadow var(--transition);
   min-height: 44px;
   appearance: none;
   -webkit-appearance: none;
 }
 
-.form-input:focus,
-.form-select:focus,
-.form-textarea:focus {
+.form__group input:focus,
+.form__group select:focus,
+.form__group textarea:focus {
   outline: none;
-  border-color: var(--accent-mid);
-  background: var(--dark-4);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(45, 90, 61, 0.12);
 }
 
-.form-input::placeholder,
-.form-textarea::placeholder {
-  color: var(--text-muted);
+.form__group textarea { resize: vertical; min-height: 100px; line-height: 1.6; }
+
+.form__row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
 }
 
-.form-select {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237a7570' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 16px center;
-  padding-right: 40px;
-  cursor: pointer;
-}
-
-.form-select option {
-  background: var(--dark-3);
-  color: var(--text);
-}
-
-.form-textarea {
-  resize: vertical;
-  min-height: 120px;
-}
-
-.form-submit-wrap {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.form-disclaimer {
-  font-size: 0.72rem;
-  color: var(--text-muted);
-  line-height: 1.5;
-}
-
-/* ─── AREAS ─── */
-#areas {
-  background: var(--dark);
-  padding: 80px 0;
-  border-top: 1px solid var(--border);
-}
-
-.areas-inner {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 40px;
-  justify-content: space-between;
-}
-
-.areas-label-wrap {
-  flex-shrink: 0;
-}
-
-.areas-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  flex: 1;
-}
-
-.area-chip {
-  font-size: 0.72rem;
+.form__submit {
+  width: 100%;
+  padding: 18px;
+  background: var(--accent);
+  color: var(--white);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
   font-weight: 600;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  padding: 8px 18px;
-  border: 1px solid var(--border);
-  border-radius: 100px;
-  color: var(--text-dim);
-  transition: var(--transition);
-  min-height: 44px;
-  display: flex;
-  align-items: center;
-}
-.area-chip:hover {
-  border-color: var(--accent-mid);
-  color: var(--accent-light);
-  background: var(--accent-glow);
+  border-radius: var(--radius-sm);
+  border: none;
+  cursor: pointer;
+  transition: background var(--transition), transform var(--transition);
+  min-height: 56px;
+  margin-top: 8px;
 }
 
-/* ─── FOOTER ─── */
-#footer {
-  background: var(--dark-2);
-  border-top: 1px solid var(--border);
-  padding: 64px 0 32px;
+.form__submit:hover {
+  background: var(--accent-dark);
+  transform: translateY(-2px);
 }
 
-.footer-grid {
+/* ============================================================
+   SERVICE AREAS
+   ============================================================ */
+#areas {
+  background: var(--stone-light);
+  padding: 80px 0;
+  border-top: 1px solid var(--rule);
+}
+
+.areas__inner {
   display: grid;
   grid-template-columns: 1fr;
   gap: 48px;
-  padding-bottom: 48px;
-  border-bottom: 1px solid var(--border);
-}
-
-.footer-brand-name {
-  font-size: 1.3rem;
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  color: var(--stone);
-  margin-bottom: 8px;
-}
-
-.footer-brand-tagline {
-  font-size: 0.65rem;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--accent-light);
-  margin-bottom: 20px;
-}
-
-.footer-brand-desc {
-  font-size: 0.88rem;
-  color: var(--text-muted);
-  line-height: 1.65;
-  max-width: 320px;
-}
-
-.footer-col-title {
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--text-dim);
-  margin-bottom: 20px;
-}
-
-.footer-links {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  list-style: none;
-}
-
-.footer-links a {
-  font-size: 0.88rem;
-  color: var(--text-muted);
-  transition: color var(--transition);
-}
-.footer-links a:hover {
-  color: var(--stone);
-}
-
-.footer-bottom {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
   align-items: center;
-  justify-content: space-between;
-  padding-top: 28px;
 }
 
-.footer-copy {
-  font-size: 0.75rem;
-  color: var(--text-muted);
+.areas__intro h2 { font-size: clamp(1.6rem, 3vw, 2.4rem); }
+
+.areas__list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 24px;
 }
 
-.footer-accent-line {
-  width: 32px;
-  height: 2px;
+.areas__list-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: var(--text-mid);
+  padding: 8px 0;
+}
+
+.areas__list-item::before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
   background: var(--accent);
   flex-shrink: 0;
 }
 
-/* ─── RESPONSIVE: 480px ─── */
-@media (min-width: 480px) {
-  .form-row {
-    grid-template-columns: 1fr 1fr;
-  }
-  .gallery-item-2,
-  .gallery-item-3 {
-    height: 340px;
-  }
+.areas__badge {
+  background: var(--bg);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-md);
+  padding: 32px;
+  text-align: center;
 }
 
-/* ─── RESPONSIVE: 768px ─── */
-@media (min-width: 768px) {
-  :root { --nav-height: 80px; }
-
-  .nav-links { display: flex; }
-  .nav-cta { display: inline-flex; }
-  .hamburger { display: none; }
-
-  .services-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .service-card-featured .service-card-inner {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .service-card-featured .service-card-img {
-    height: 100%;
-    min-height: 320px;
-  }
-
-  .about-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .gallery-item-1 { height: 520px; }
-  .gallery-item-2,
-  .gallery-item-3 { height: 380px; }
-
-  .testimonials-grid {
-    grid-template-columns: 1fr 1fr 1fr;
-  }
-
-  .cta-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .process-grid {
-    grid-template-columns: 1fr 1fr;
-    gap: 0 64px;
-  }
-
-  .footer-grid {
-    grid-template-columns: 2fr 1fr 1fr;
-  }
+.areas__badge p {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  font-style: italic;
+  color: var(--text-mid);
+  margin-bottom: 20px;
 }
 
-/* ─── RESPONSIVE: 1024px ─── */
-@media (min-width: 1024px) {
-  .services-grid {
-    grid-template-columns: 1fr 1fr 1fr;
-  }
-
-  .service-card-featured {
-    grid-column: 1 / -1;
-  }
+/* ============================================================
+   FOOTER
+   ============================================================ */
+#footer {
+  background: var(--dark);
+  padding: 72px 0 40px;
 }
 
-/* ─── PORTRAIT MEDIA ─── */
-@media (orientation: portrait) {
-  #hero {
-    min-height: 100vh;
-    min-height: 100svh;
-    align-items: flex-end;
-  }
-  .hero-content {
-    padding-bottom: 64px;
-  }
+.footer__inner {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 48px;
+  margin-bottom: 64px;
 }
 
-/* ─── LANDSCAPE PHONES ─── */
+.footer__brand-name {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(1.4rem, 2.5vw, 1.8rem);
+  font-weight: 400;
+  color: var(--white);
+  margin-bottom: 8px;
+  letter-spacing: 0.02em;
+}
+
+.footer__brand-tag {
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+  margin-bottom: 20px;
+}
+
+.footer__brand-desc {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.45);
+  line-height: 1.7;
+  max-width: 280px;
+}
+
+.footer__col-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+  margin-bottom: 20px;
+}
+
+.footer__links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer__links a {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.55);
+  transition: color var(--transition);
+}
+.footer__links a:hover { color: var(--stone); }
+
+.footer__rule {
+  border: none;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  margin: 0 0 32px;
+}
+
+.footer__bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.footer__copy {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.3);
+}
+
+.footer__legal {
+  display: flex;
+  gap: 24px;
+}
+
+.footer__legal a {
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.3);
+  transition: color var(--transition);
+}
+.footer__legal a:hover { color: rgba(255,255,255,0.6); }
+
+/* ============================================================
+   LANDSCAPE PHONE OVERRIDES
+   ============================================================ */
 @media (max-width: 900px) and (orientation: landscape) {
   :root { --nav-height: 52px; }
 
   #hero {
     min-height: 56svh;
-    align-items: center;
   }
 
-  .hero-content {
-    padding: 72px 24px 32px;
+  .hero__content {
+    padding-top: calc(var(--nav-height) + 24px);
+    padding-bottom: 40px;
   }
 
-  h1 { font-size: clamp(1.8rem, 6vw, 3rem); }
-  h2 { font-size: clamp(1.5rem, 4vw, 2.5rem); }
+  .hero__headline { font-size: clamp(2rem, 5vw, 3.5rem); }
+  .hero__trust { margin-top: 32px; }
 
-  #nav {
-    height: var(--nav-height);
-  }
+  h2 { font-size: clamp(1.6rem, 3.5vw, 2.4rem); }
 
-  .hamburger { display: none; }
-  .nav-links { display: flex; gap: 20px; }
-  .nav-cta { display: inline-flex; }
+  .section-pad { padding: 64px 0; }
+  .section-pad--sm { padding: 40px 0; }
 
-  .mobile-menu { display: none; }
+  #services, #about, #why, #gallery, #testimonials, #faq { padding: 64px 0; }
+  #contact .contact__panel { padding: 56px 0; }
 
-  .nav-links a { font-size: 0.68rem; }
+  .about__grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+  .testimonials__grid { grid-template-columns: 1fr 1fr; }
+  .why__grid { grid-template-columns: 1fr 1fr; }
 
-  section { padding: 56px 0; }
+  .nav__links { display: flex; }
+  .nav__hamburger { display: none; }
+  .nav__cta { display: flex; }
 
-  .hero-founding {
-    padding-top: 20px;
-    margin-bottom: 0;
-  }
+  .nav__links a { font-size: 0.65rem; }
+  .nav__inner { padding: 0 20px; }
 
-  .hero-body { display: none; }
+  .container { padding: 0 20px; }
+}
 
-  .hero-actions {
-    margin-bottom: 24px;
-  }
+/* ============================================================
+   PORTRAIT PHONE
+   ============================================================ */
+@media (orientation: portrait) {
+  .nav__links { display: none; }
+  .nav__cta { display: none; }
+  .nav__hamburger { display: flex; }
+}
 
-  .about-grid,
-  .cta-grid {
+/* ============================================================
+   TABLET — 768px
+   ============================================================ */
+@media (min-width: 768px) {
+  .services__grid {
     grid-template-columns: 1fr 1fr;
-    gap: 32px;
   }
 
-  .gallery-item-1 { height: 280px; }
-  .gallery-item-2,
-  .gallery-item-3 { height: 200px; }
+  .services__image-row {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .about__values {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .why__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .testimonials__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .gallery__masonry {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .gallery__item img { height: 280px; }
+  .gallery__item--tall img { min-height: 576px; }
+
+  .contact__inner {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .areas__inner {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .footer__inner {
+    grid-template-columns: 2fr 1fr 1fr;
+  }
+
+  .footer__bottom {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .form__row {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
-/* ─── SCROLLBAR ─── */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--dark); }
-::-webkit-scrollbar-thumb { background: var(--dark-4); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+/* ============================================================
+   DESKTOP — 1024px
+   ============================================================ */
+@media (min-width: 1024px) {
+  .nav__links { display: flex; }
+  .nav__cta { display: flex; }
+  .nav__hamburger { display: none; }
+  .nav__mobile-menu { display: none !important; }
 
-/* ─── SELECTION ─── */
-::selection {
-  background: var(--accent);
-  color: var(--stone);
+  .services__grid {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .why__grid {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .testimonials__grid {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .about__grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 96px;
+  }
+
+  .contact__inner {
+    grid-template-columns: 1fr 1.2fr;
+    gap: 80px;
+  }
+
+  .footer__inner {
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+  }
 }
-
-/* ─── UTILITY ─── */
-.visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border: 0;
-}
-</style>
-
-<style id="gwp-palette">
-html[data-palette-anim] *, html[data-palette-anim] *::before, html[data-palette-anim] *::after { transition: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease !important; }
 </style>
 
 <style id="gwp-palette">
@@ -1517,159 +1544,217 @@ html[data-palette-anim] *, html[data-palette-anim] *::before, html[data-palette-
 </head>
 <body>
 
-<!-- ─── NAVIGATION ─── -->
-<nav id="nav" role="navigation" aria-label="Main navigation">
-  <div class="container">
-    <div class="nav-inner">
-      <a href="#hero" class="nav-logo" aria-label="Binda's Landscaping home">
-        <span class="nav-logo-name">Binda's Landscaping</span>
-        <span class="nav-logo-tag">Atlanta, GA · Est. 2008</span>
-      </a>
-      <ul class="nav-links" role="list">
-        <li><a href="#services">Services</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#gallery">Work</a></li>
-        <li><a href="#testimonials">Reviews</a></li>
-        <li><a href="#faq">FAQ</a></li>
-      </ul>
-      <a href="#contact" class="btn btn-primary nav-cta btn-arrow">Get a Quote</a>
-      <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
+<!-- ============================================================
+     NAVIGATION
+     ============================================================ -->
+<nav id="nav" class="nav--transparent" role="navigation" aria-label="Main navigation">
+  <div class="nav__inner">
+    <a href="#hero" class="nav__logo" aria-label="Binda's Landscaping — Home">
+      <span class="nav__logo-name">Binda's Landscaping</span>
+      <span class="nav__logo-tag">Atlanta, GA · Est. 2008</span>
+    </a>
+
+    <div class="nav__links" role="list">
+      <a href="#services" role="listitem">Services</a>
+      <a href="#about" role="listitem">About</a>
+      <a href="#gallery" role="listitem">Gallery</a>
+      <a href="#testimonials" role="listitem">Reviews</a>
+      <a href="#faq" role="listitem">FAQ</a>
     </div>
+
+    <a href="#contact" class="nav__cta btn btn--primary" style="padding:12px 24px; font-size:0.7rem;">
+      Free Estimate
+    </a>
+
+    <button class="nav__hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
   </div>
 </nav>
 
-<!-- Mobile Menu -->
-<div class="mobile-menu" id="mobile-menu" role="dialog" aria-label="Mobile navigation">
-  <a href="#services" class="mobile-nav-link">Services</a>
-  <a href="#about" class="mobile-nav-link">About</a>
-  <a href="#gallery" class="mobile-nav-link">Our Work</a>
-  <a href="#testimonials" class="mobile-nav-link">Reviews</a>
-  <a href="#faq" class="mobile-nav-link">FAQ</a>
-  <a href="#contact" class="btn btn-primary mobile-cta btn-arrow">Get a Free Quote</a>
+<!-- Mobile menu -->
+<div class="nav__mobile-menu" id="mobileMenu" role="dialog" aria-label="Mobile navigation">
+  <a href="#services" class="mobile-link">Services</a>
+  <a href="#about" class="mobile-link">About</a>
+  <a href="#gallery" class="mobile-link">Gallery</a>
+  <a href="#testimonials" class="mobile-link">Reviews</a>
+  <a href="#faq" class="mobile-link">FAQ</a>
+  <a href="#contact" class="mobile-link">Free Estimate</a>
 </div>
 
-<!-- ─── HERO ─── -->
+<!-- ============================================================
+     HERO
+     ============================================================ -->
 <section id="hero" aria-label="Hero">
-  <div class="hero-overlay" aria-hidden="true"></div>
-  <div class="hero-content">
-    <div class="hero-label reveal">
-      <span class="hero-label-line" aria-hidden="true"></span>
-      <span class="hero-badge">North Decatur · DeKalb · Greater Atlanta</span>
-    </div>
-    <h1 class="hero-headline reveal reveal-delay-1">
-      Built by Hand.
+  <div class="hero__overlay" aria-hidden="true"></div>
+  <div class="hero__content">
+    <p class="hero__eyebrow">Binda's Landscaping &nbsp;·&nbsp; North Decatur &amp; DeKalb, GA</p>
+    <h1 class="hero__headline">
+      Built by Hand.<br>
       <em>Built to Last.</em>
     </h1>
-    <p class="hero-tagline reveal reveal-delay-2">Binda's Landscaping · Owner-Operated Since 2008</p>
-    <p class="hero-body reveal reveal-delay-3">Retaining walls, drainage systems, stone hardscaping, and yard regrading done right the first time. Trusted by Atlanta homeowners through Nextdoor and neighbor referrals — because quality work speaks louder than any ad.</p>
-    <div class="hero-actions reveal reveal-delay-4">
-      <a href="#contact" class="btn btn-primary btn-arrow">Request a Free Quote</a>
-      <a href="#services" class="btn btn-outline">View Our Work</a>
+    <p class="hero__tagline">Crafting landscapes Atlanta homeowners trust for life.</p>
+    <div class="hero__rule" aria-hidden="true"></div>
+    <p class="hero__body">
+      From retaining walls and stone patios to French drains and yard regrading —
+      owner-operated craftsmanship that's stood the test of Atlanta's terrain since 2008.
+    </p>
+    <div class="hero__actions">
+      <a href="#contact" class="btn btn--primary">Get a Free Estimate</a>
+      <a href="#services" class="btn btn--outline">Explore Services</a>
     </div>
-    <div class="hero-founding reveal reveal-delay-5">
-      <span class="hero-founding-line" aria-hidden="true"></span>
-      <span class="hero-founding-text">Est. 2008 · Owner-Operated</span>
+
+    <div class="hero__trust" aria-label="Key statistics">
+      <div class="hero__trust-item">
+        <span class="hero__trust-num" data-count="16">16</span>
+        <span class="hero__trust-label">Years in Business</span>
+      </div>
+      <div class="hero__trust-divider" aria-hidden="true"></div>
+      <div class="hero__trust-item">
+        <span class="hero__trust-num" data-count="500">500+</span>
+        <span class="hero__trust-label">Projects Completed</span>
+      </div>
+      <div class="hero__trust-divider" aria-hidden="true"></div>
+      <div class="hero__trust-item">
+        <span class="hero__trust-num">5★</span>
+        <span class="hero__trust-label">Nextdoor &amp; Google</span>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ─── SERVICES ─── -->
-<section id="services" aria-label="Services">
-  <div class="container-wide" style="padding-top:112px;padding-bottom:112px;">
-    <div class="services-header">
-      <div class="section-intro reveal">
-        <span class="label">What We Do</span>
-        <h2>Serious Craft.<br>Every Project.</h2>
-      </div>
-      <p class="reveal reveal-delay-2" style="max-width:360px;color:var(--text-dim);font-size:0.95rem;">From draining a problem yard to setting precision-cut stone, every job is handled personally by MK with the same attention to craft that built our reputation across DeKalb.</p>
+<!-- ============================================================
+     SERVICES
+     ============================================================ -->
+<section id="services" class="section-pad" aria-label="Services">
+  <div class="container--wide">
+
+    <div class="services__header reveal">
+      <p class="eyebrow">What We Do</p>
+      <div class="section-rule" aria-hidden="true"></div>
+      <h2>Hardscaping &amp; Landscaping,<br><em>Done Right</em></h2>
     </div>
 
-    <div class="services-grid">
+    <div class="services__grid">
 
-      <!-- Featured Card -->
-      <div class="service-card service-card-featured reveal">
-        <div class="service-card-inner">
-          <div class="service-card-img">
-            <img src="https://images.pexels.com/photos/8143668/pexels-photo-8143668.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Luxury estate with manicured lawn and architectural hardscape design" loading="lazy">
-            <div class="service-card-img-overlay" aria-hidden="true"></div>
-          </div>
-          <div class="service-card-body">
-            <span class="service-card-number">01</span>
-            <h3>Retaining Walls</h3>
-            <div class="service-card-divider" aria-hidden="true"></div>
-            <p>Structurally engineered walls that hold back slopes, prevent erosion, and reshape your property's usable space. We work in natural stone, segmental block, and poured concrete — chosen for your site conditions, not our convenience.</p>
-            <div class="service-tag-list">
-              <span class="service-tag">Natural Stone</span>
-              <span class="service-tag">Block Systems</span>
-              <span class="service-tag">Erosion Control</span>
-              <span class="service-tag">Slope Stabilization</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Card 2 -->
       <div class="service-card reveal reveal-delay-1">
-        <div class="service-card-inner">
-          <div class="service-card-img">
-            <img src="https://images.unsplash.com/photo-1722169008852-012bec0885fc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBuYXR1cmFsJTIwc3RvbmUlMjBwYXRpbyUyMGhhcmRzY2FwaW5nJTIwZGFyayUyMGVsZWdhbnR8ZW58MHwwfHx8MTc3NzQzNzY2OXww&ixlib=rb-4.1.0&q=80&w=1080" alt="Natural stone garden with rocks and planting — hardscape detail" loading="lazy">
-            <div class="service-card-img-overlay" aria-hidden="true"></div>
-          </div>
-          <div class="service-card-body">
-            <span class="service-card-number">02</span>
-            <h3>French Drains &amp; Drainage</h3>
-            <div class="service-card-divider" aria-hidden="true"></div>
-            <p>Standing water, soggy lawns, and flooded basements all trace back to water going the wrong direction. We diagnose and permanently redirect it — French drains, channel drains, downspout rerouting, and full grading solutions.</p>
-            <div class="service-tag-list">
-              <span class="service-tag">French Drains</span>
-              <span class="service-tag">Channel Systems</span>
-              <span class="service-tag">Downspout Routing</span>
-            </div>
-          </div>
+        <div class="service-card__num" aria-hidden="true">01</div>
+        <h3>Retaining Walls</h3>
+        <p>
+          Engineered to hold. From natural stone to concrete block, we build retaining walls that manage
+          your slope, prevent erosion, and add lasting structure to your property.
+        </p>
+        <div class="service-card__detail">
+          <div class="service-card__detail-dot" aria-hidden="true"></div>
+          <span>Most Requested Service</span>
         </div>
       </div>
 
-      <!-- Card 3 -->
       <div class="service-card reveal reveal-delay-2">
-        <div class="service-card-inner">
-          <div class="service-card-img">
-            <img src="https://images.pexels.com/photos/36459/stones-wall-background-quarry-stone.jpg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Textured quarry stone wall — natural stone construction detail" loading="lazy">
-            <div class="service-card-img-overlay" aria-hidden="true"></div>
-          </div>
-          <div class="service-card-body">
-            <span class="service-card-number">03</span>
-            <h3>Stone Patios &amp; Hardscaping</h3>
-            <div class="service-card-divider" aria-hidden="true"></div>
-            <p>Outdoor living spaces built to architectural standards. Natural stone, pavers, and dry-stack work that ages gracefully and holds its structure for decades — not just until the next freeze-thaw cycle.</p>
-            <div class="service-tag-list">
-              <span class="service-tag">Stone Patios</span>
-              <span class="service-tag">Walkways</span>
-              <span class="service-tag">Steps &amp; Edging</span>
-            </div>
-          </div>
+        <div class="service-card__num" aria-hidden="true">02</div>
+        <h3>French Drains &amp; Drainage</h3>
+        <p>
+          Persistent pooling, soggy yards, and foundation runoff are solved — not masked. We
+          design and install drainage systems that redirect water away from your home permanently.
+        </p>
+        <div class="service-card__detail">
+          <div class="service-card__detail-dot" aria-hidden="true"></div>
+          <span>Drainage Specialists</span>
         </div>
       </div>
 
-      <!-- Card 4 — Yard Regrading -->
       <div class="service-card reveal reveal-delay-3">
-        <div class="service-card-inner">
-          <div class="service-card-img" style="background:linear-gradient(135deg, var(--dark-3) 0%, var(--accent) 100%);">
-          </div>
-          <div class="service-card-body">
-            <span class="service-card-number">04</span>
-            <h3>Yard Regrading</h3>
-            <div class="service-card-divider" aria-hidden="true"></div>
-            <p>When your yard slopes toward your home instead of away from it, you have a serious problem waiting to happen. We recontour the earth so water flows correctly — protecting your foundation and making your yard actually usable again.</p>
-            <div class="service-tag-list">
-              <span class="service-tag">Foundation Protection</span>
-              <span class="service-tag">Grade Correction</span>
-              <span class="service-tag">Lawn Leveling</span>
-            </div>
-          </div>
+        <div class="service-card__num" aria-hidden="true">03</div>
+        <h3>Yard Regrading</h3>
+        <p>
+          Uneven terrain causes erosion and water damage. Precision regrading corrects slope and
+          gives your yard a clean, functional grade that protects your landscape investment long-term.
+        </p>
+        <div class="service-card__detail">
+          <div class="service-card__detail-dot" aria-hidden="true"></div>
+          <span>Foundation Protection</span>
+        </div>
+      </div>
+
+      <div class="service-card reveal reveal-delay-1">
+        <div class="service-card__num" aria-hidden="true">04</div>
+        <h3>Stone Patios</h3>
+        <p>
+          Flagstone, pavers, natural cut stone — hand-laid outdoor living spaces that complement your
+          home's architecture and hold up through Georgia's seasons for decades.
+        </p>
+        <div class="service-card__detail">
+          <div class="service-card__detail-dot" aria-hidden="true"></div>
+          <span>Outdoor Living</span>
+        </div>
+      </div>
+
+      <div class="service-card reveal reveal-delay-2">
+        <div class="service-card__num" aria-hidden="true">05</div>
+        <h3>Hardscaping</h3>
+        <p>
+          Walkways, steps, garden borders, and structural elements — every hardscape project is
+          planned to enhance curb appeal while solving real-world terrain and traffic challenges.
+        </p>
+        <div class="service-card__detail">
+          <div class="service-card__detail-dot" aria-hidden="true"></div>
+          <span>Curb Appeal &amp; Function</span>
+        </div>
+      </div>
+
+      <div class="service-card reveal reveal-delay-3">
+        <div class="service-card__num" aria-hidden="true">06</div>
+        <h3>General Landscaping</h3>
+        <p>
+          Grading, sod installation, planting beds, mulching — we handle the full picture so your
+          outdoor space looks intentional, maintained, and ready for the next generation.
+        </p>
+        <div class="service-card__detail">
+          <div class="service-card__detail-dot" aria-hidden="true"></div>
+          <span>Full-Service Care</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Service image row -->
+    <div class="services__image-row" aria-label="Service examples">
+
+      <div class="services__image-card reveal reveal-delay-1">
+        <img
+          src="https://images.unsplash.com/photo-1678851069637-220620f2942b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxlbGVnYW50JTIwcmV0YWluaW5nJTIwd2FsbCUyMHN0b25lJTIwY29uc3RydWN0aW9uJTIwbmF0dXJhbCUyMHRleHR1cmVzJTIwbHV4dXJ5JTIwb3V0ZG9vciUyMGRlc2lnbnxlbnwwfDB8fHwxNzc3NDM4MTQ0fDA&ixlib=rb-4.1.0&q=80&w=1080"
+          alt="Natural stone retaining wall construction"
+          loading="lazy"
+          style="width:100%;height:100%;object-fit:cover;"
+        >
+        <div class="services__image-label">
+          <span>Retaining Walls</span>
+        </div>
+      </div>
+
+      <div class="services__image-card reveal reveal-delay-2">
+        <img
+          src="https://images.pexels.com/photos/115835/pexels-photo-115835.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+          alt="Stone courtyard with greenery and drainage"
+          loading="lazy"
+          style="width:100%;height:100%;object-fit:cover;"
+        >
+        <div class="services__image-label">
+          <span>Drainage &amp; Patios</span>
+        </div>
+      </div>
+
+      <div class="services__image-card reveal reveal-delay-3">
+        <img
+          src="https://images.pexels.com/photos/13213841/pexels-photo-13213841.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+          alt="Natural stone textures alongside wooden deck planks"
+          loading="lazy"
+          style="width:100%;height:100%;object-fit:cover;"
+        >
+        <div class="services__image-label">
+          <span>Stone &amp; Hardscaping</span>
         </div>
       </div>
 
@@ -1677,94 +1762,67 @@ html[data-palette-anim] *, html[data-palette-anim] *::before, html[data-palette-
   </div>
 </section>
 
-<!-- ─── PROCESS ─── -->
-<section id="process" aria-label="Our Process">
-  <div class="container">
-    <div class="section-intro reveal">
-      <span class="label">How We Work</span>
-      <h2>No Guesswork.<br>No Shortcuts.</h2>
-      <p>Every project starts with a proper site assessment. No cookie-cutter quotes, no subcontracting your job to an unfamiliar crew.</p>
-    </div>
-
-    <div class="process-grid">
-      <div class="process-step reveal">
-        <div class="process-step-num" aria-hidden="true">01</div>
-        <div class="process-step-content">
-          <h3>Site Assessment</h3>
-          <p>MK walks your property personally. We identify drainage paths, soil conditions, slope angles, and existing issues before recommending anything.</p>
-        </div>
-      </div>
-      <div class="process-step reveal reveal-delay-1">
-        <div class="process-step-num" aria-hidden="true">02</div>
-        <div class="process-step-content">
-          <h3>Honest Proposal</h3>
-          <p>You receive a clear, itemized quote with materials, labor, and timeline explained in plain language. No hidden charges, no pressure-sell upsells.</p>
-        </div>
-      </div>
-      <div class="process-step reveal reveal-delay-2">
-        <div class="process-step-num" aria-hidden="true">03</div>
-        <div class="process-step-content">
-          <h3>Owner-Led Execution</h3>
-          <p>Manoj Kumar is on every job — hands on, not managing from a truck. Your project doesn't get handed off to a crew you've never met.</p>
-        </div>
-      </div>
-      <div class="process-step reveal reveal-delay-3">
-        <div class="process-step-num" aria-hidden="true">04</div>
-        <div class="process-step-content">
-          <h3>Final Walkthrough</h3>
-          <p>Before we leave, we walk the finished project with you. Every drain is tested, every wall is checked, every edge is clean. You sign off when it's right.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ─── ABOUT ─── -->
+<!-- ============================================================
+     ABOUT / STORY
+     ============================================================ -->
 <section id="about" aria-label="About Binda's Landscaping">
   <div class="container">
-    <div class="about-grid">
-      <div class="about-img-wrap reveal">
-        <div class="about-img-main">
-          <img src="https://images.pexels.com/photos/4509092/pexels-photo-4509092.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Craftsman laying bricks by hand on a landscaping job site" loading="lazy">
-        </div>
-        <div class="about-img-accent" aria-hidden="true">
-          <span class="about-img-accent-main">Est. 2008</span>
-          <span class="about-img-accent-label">Owner-Operated · Atlanta, GA</span>
+    <div class="about__grid">
+
+      <div class="about__image-wrap reveal">
+        <img
+          class="about__img"
+          src="https://images.pexels.com/photos/30563521/pexels-photo-30563521.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+          alt="Skilled craftsman demonstrating traditional tile-making technique"
+          loading="lazy"
+        >
+        <div class="about__image-badge" aria-label="Serving Atlanta since 2008">
+          <span class="about__image-badge-num">2008</span>
+          <span class="about__image-badge-text">Est. Atlanta, GA</span>
         </div>
       </div>
 
-      <div class="about-body reveal reveal-delay-2">
-        <div>
-          <span class="label" style="display:block;margin-bottom:16px;">The Craftsman Behind the Work</span>
-          <h2 style="color:var(--stone);margin-bottom:20px;">Owner-Operated.<br>Neighbor-Trusted.</h2>
-        </div>
-        <p>Binda's Landscaping was built by Manoj Kumar — known throughout North Decatur and DeKalb simply as MK. Since 2008, he's been the guy neighbors recommend when someone on Nextdoor asks who fixed their drainage problem or built that beautiful retaining wall on the street.</p>
-        <p>This isn't a franchise. MK isn't going to send a crew you've never met to do the work. He shows up, he assesses, he builds. That's been the model since day one, and it's why the work holds up and the referrals keep coming.</p>
+      <div class="about__content reveal reveal-delay-2">
+        <p class="eyebrow">The Craftsman Behind the Work</p>
+        <div class="section-rule" aria-hidden="true"></div>
+        <h2>Owner-Operated.<br><em>Every Single Job.</em></h2>
 
-        <div class="trust-badges reveal reveal-delay-3">
-          <div class="trust-badge">
-            <span class="trust-badge-icon" aria-hidden="true"></span>
-            <span class="trust-badge-text">Fully Insured</span>
+        <p class="about__body" style="margin-top:24px;">
+          Manoj Kumar — known to clients as MK — built Binda's Landscaping from the ground up.
+          Not as a franchise. Not as a high-volume crew that dispatches strangers to your yard.
+          He shows up on every job, manages every project, and holds every project to the standard
+          he'd demand in his own home.
+        </p>
+        <p class="about__body">
+          For over 16 years, Atlanta homeowners in North Decatur, DeKalb, and surrounding neighborhoods
+          have trusted MK with their most challenging yard problems — steep slopes, chronic flooding,
+          crumbling walls — because they know the work gets done right the first time.
+        </p>
+
+        <div class="about__values">
+          <div class="about__value">
+            <div class="about__value-title">No Shortcuts</div>
+            <p>Proper drainage, correct grading, quality materials. Always.</p>
           </div>
-          <div class="trust-badge">
-            <span class="trust-badge-icon" aria-hidden="true"></span>
-            <span class="trust-badge-text">Owner on Every Job</span>
+          <div class="about__value">
+            <div class="about__value-title">Neighbor Trusted</div>
+            <p>Most clients come from Nextdoor and neighbor referrals — not ads.</p>
           </div>
-          <div class="trust-badge">
-            <span class="trust-badge-icon" aria-hidden="true"></span>
-            <span class="trust-badge-text">Est. 2008</span>
+          <div class="about__value">
+            <div class="about__value-title">Real Warranties</div>
+            <p>Our walls, drains, and patios are built to outlast the short-term fix.</p>
           </div>
-          <div class="trust-badge">
-            <span class="trust-badge-icon" aria-hidden="true"></span>
-            <span class="trust-badge-text">Nextdoor Recommended</span>
+          <div class="about__value">
+            <div class="about__value-title">Atlanta Terrain</div>
+            <p>16 years of DeKalb soil, slope, and clay — we know this land.</p>
           </div>
         </div>
 
-        <div class="about-signature reveal reveal-delay-4">
-          <div class="about-sig-initial" aria-hidden="true">MK</div>
-          <div>
-            <div class="about-sig-name">Manoj Kumar</div>
-            <div class="about-sig-title">Owner &amp; Lead Craftsman, Binda's Landscaping</div>
+        <div class="about__signature">
+          <div class="about__avatar" aria-hidden="true">MK</div>
+          <div class="about__signature-line">
+            <span class="about__signature-name">Manoj Kumar</span>
+            <span class="about__signature-role">Owner &amp; Lead Craftsman, Binda's Landscaping</span>
           </div>
         </div>
       </div>
@@ -1772,176 +1830,275 @@ html[data-palette-anim] *, html[data-palette-anim] *::before, html[data-palette-
   </div>
 </section>
 
-<!-- ─── GALLERY ─── -->
-<section id="gallery" aria-label="Project Gallery">
-  <div class="container-wide" style="padding-top:112px;padding-bottom:112px;">
-    <div class="gallery-header container">
-      <div class="section-intro reveal">
-        <span class="label">The Work</span>
-        <h2>Results That<br>Hold Up Over Time</h2>
-      </div>
-    </div>
-    <div class="gallery-grid">
-      <div class="gallery-item gallery-item-1 reveal">
-        <img src="https://images.unsplash.com/photo-1761637823293-f96835ec5038?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxmaW5pc2hlZCUyMHN0b25lJTIwcGF0aW8lMjB3aXRoJTIwd2FybSUyMGVhcnRoJTIwdG9uZXMlMjBoYXJkc2NhcGV8ZW58MHwwfHx8MTc3NzQzNzY3MHww&ixlib=rb-4.1.0&q=80&w=1080" alt="Curved stone wall surrounding a circular paved area — finished hardscape project" loading="lazy">
-        <span class="gallery-item-label">Stone Patio &amp; Wall</span>
-      </div>
-      <div class="gallery-item gallery-item-2 reveal reveal-delay-1">
-        <img src="https://images.pexels.com/photos/32675702/pexels-photo-32675702.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Structural outdoor build in a natural landscape setting" loading="lazy">
-        <span class="gallery-item-label">Structural Build</span>
-      </div>
-      <div class="gallery-item gallery-item-3 reveal reveal-delay-2">
-        <img src="https://images.unsplash.com/photo-1679108230151-77401eb692b6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxjcmFmdHNtYW4lMjBpbnN0YWxsaW5nJTIwc3RvbmUlMjBoYXJkc2NhcGUlMjBjbG9zZS11cCUyMGhhbmRzJTIwd29ya3xlbnwwfDB8fHwxNzc3NDM3NjcwfDA&ixlib=rb-4.1.0&q=80&w=1080" alt="Craftsman hands-on installing hardscape stonework" loading="lazy">
-        <span class="gallery-item-label">Craftsman at Work</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ─── TESTIMONIALS ─── -->
-<section id="testimonials" aria-label="Client Testimonials">
+<!-- ============================================================
+     WHY CHOOSE US
+     ============================================================ -->
+<section id="why" aria-label="Why choose Binda's Landscaping">
   <div class="container">
-    <div class="testimonials-header reveal">
-      <div class="section-intro">
-        <span class="label">What Neighbors Say</span>
-        <h2>The Referrals<br>Speak for Themselves</h2>
-      </div>
+
+    <div class="reveal">
+      <p class="eyebrow">Why Binda's</p>
+      <div class="section-rule" aria-hidden="true"></div>
+      <h2 style="color:var(--white);">The Difference is in<br><em>the Details</em></h2>
     </div>
 
-    <div class="testimonials-grid">
+    <div class="why__grid">
 
-      <div class="testimonial-card reveal">
-        <div class="testimonial-stars" aria-label="5 stars">
-          <span class="star" aria-hidden="true"></span>
-          <span class="star" aria-hidden="true"></span>
-          <span class="star" aria-hidden="true"></span>
-          <span class="star" aria-hidden="true"></span>
-          <span class="star" aria-hidden="true"></span>
-        </div>
-        <p class="testimonial-text">"MK rebuilt our retaining wall after it failed during a heavy rain season. He assessed the drainage issue underneath — something two other contractors had missed entirely — and fixed the root problem. The wall has been perfect through two Atlanta winters since."</p>
-        <div class="testimonial-meta">
-          <span class="testimonial-name">Homeowner, North Decatur</span>
-          <span class="testimonial-location">DeKalb County, GA</span>
-          <span class="testimonial-source">Via Nextdoor Recommendation</span>
-        </div>
+      <div class="why__item reveal reveal-delay-1">
+        <div class="why__item-num" aria-hidden="true">01</div>
+        <h3>Owner Present, Always</h3>
+        <p>MK is on-site for every project — not just the estimate. You deal with the decision-maker from start to finish, not a crew manager who doesn't know your yard.</p>
       </div>
 
-      <div class="testimonial-card reveal reveal-delay-1">
-        <div class="testimonial-stars" aria-label="5 stars">
-          <span class="star" aria-hidden="true"></span>
-          <span class="star" aria-hidden="true"></span>
-          <span class="star" aria-hidden="true"></span>
-          <span class="star" aria-hidden="true"></span>
-          <span class="star" aria-hidden="true"></span>
-        </div>
-        <p class="testimonial-text">"We had standing water against our foundation for years. MK came out, walked the grade, and within a week had a French drain system installed that completely redirected the flow. No more water in the basement. Could not recommend him more highly to anyone in the area."</p>
-        <div class="testimonial-meta">
-          <span class="testimonial-name">Homeowner, Clarkston Area</span>
-          <span class="testimonial-location">DeKalb County, GA</span>
-          <span class="testimonial-source">Via Google Review</span>
-        </div>
+      <div class="why__item reveal reveal-delay-2">
+        <div class="why__item-num" aria-hidden="true">02</div>
+        <h3>Built for Atlanta's Challenges</h3>
+        <p>Georgia clay, red-dirt slopes, and seasonal downpours demand specific expertise. We've solved these exact problems hundreds of times across DeKalb County.</p>
       </div>
 
-      <div class="testimonial-card reveal reveal-delay-2">
-        <div class="testimonial-stars" aria-label="5 stars">
-          <span class="star" aria-hidden="true"></span>
-          <span class="star" aria-hidden="true"></span>
-          <span class="star" aria-hidden="true"></span>
-          <span class="star" aria-hidden="true"></span>
-          <span class="star" aria-hidden="true"></span>
-        </div>
-        <p class="testimonial-text">"The stone patio MK installed has become the best feature of our backyard. He took time to understand what we wanted, sourced material that actually matched our home's aesthetic, and executed it without cutting corners. He's the only person I recommend when my neighbors ask."</p>
-        <div class="testimonial-meta">
-          <span class="testimonial-name">Homeowner, Tucker Area</span>
-          <span class="testimonial-location">DeKalb County, GA</span>
-          <span class="testimonial-source">Via Neighbor Referral</span>
-        </div>
+      <div class="why__item reveal reveal-delay-3">
+        <div class="why__item-num" aria-hidden="true">03</div>
+        <h3>Neighbor-Level Trust</h3>
+        <p>Most of our clients find us through Nextdoor or a neighbor's recommendation — because the yard across the street is the best review we could ever get.</p>
+      </div>
+
+      <div class="why__item reveal reveal-delay-1">
+        <div class="why__item-num" aria-hidden="true">04</div>
+        <h3>Transparent Estimates</h3>
+        <p>Clear scope, honest pricing, no surprise invoices. We walk you through every line item before a single shovel goes into the ground.</p>
+      </div>
+
+      <div class="why__item reveal reveal-delay-2">
+        <div class="why__item-num" aria-hidden="true">05</div>
+        <h3>Materials That Last</h3>
+        <p>We select stone, block, and drainage components rated for Georgia's conditions. No cost-cutting on materials that will define your property for decades.</p>
+      </div>
+
+      <div class="why__item reveal reveal-delay-3">
+        <div class="why__item-num" aria-hidden="true">06</div>
+        <h3>16 Years of Proof</h3>
+        <p>Since 2008, we've built retaining walls, patios, and drainage systems that still look and perform exactly as designed — long after other contractors' work has failed.</p>
       </div>
 
     </div>
   </div>
 </section>
 
-<!-- ─── FAQ ─── -->
-<section id="faq" aria-label="Frequently Asked Questions">
-  <div class="container">
-    <div class="faq-header reveal">
-      <div class="section-intro center">
-        <span class="label">Common Questions</span>
-        <h2>Straight Answers</h2>
-      </div>
+<!-- ============================================================
+     GALLERY
+     ============================================================ -->
+<section id="gallery" aria-label="Project gallery">
+  <div class="container--wide">
+
+    <div class="gallery__intro reveal">
+      <p class="eyebrow">The Work</p>
+      <div class="section-rule" aria-hidden="true"></div>
+      <h2>Craftsmanship You Can<br><em>See and Touch</em></h2>
+      <p style="margin-top:16px;">
+        Every project in Atlanta's North Decatur and DeKalb neighborhoods — built to hold, to drain,
+        and to impress for years to come.
+      </p>
     </div>
 
-    <div class="faq-list" role="list">
+    <div class="gallery__masonry" role="list" aria-label="Project photos">
 
-      <div class="faq-item" role="listitem">
-        <button class="faq-question" aria-expanded="false">
-          Do you give free estimates?
-          <span class="faq-icon" aria-hidden="true"></span>
-        </button>
-        <div class="faq-answer" role="region">
-          <div class="faq-answer-inner">
-            <p>Yes. MK will walk your property personally, assess the site conditions, and provide a clear written proposal at no charge. We don't do drive-by estimates — a proper quote requires seeing the grade, the soil, and the drainage pattern with your own eyes.</p>
-          </div>
-        </div>
+      <div class="gallery__item gallery__item--tall reveal reveal-delay-1" role="listitem">
+        <img
+          src="https://images.pexels.com/photos/36459/stones-wall-background-quarry-stone.jpg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+          alt="Detailed textured stone wall showing various shades and natural shapes"
+          loading="lazy"
+        >
+        <div class="gallery__overlay" aria-hidden="true"></div>
       </div>
 
-      <div class="faq-item" role="listitem">
-        <button class="faq-question" aria-expanded="false">
+      <div class="gallery__item reveal reveal-delay-2" role="listitem">
+        <img
+          src="https://images.pexels.com/photos/32500243/pexels-photo-32500243.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+          alt="Garden seating area with white chairs and natural stone decor"
+          loading="lazy"
+        >
+        <div class="gallery__overlay" aria-hidden="true"></div>
+      </div>
+
+      <div class="gallery__item reveal reveal-delay-3" role="listitem">
+        <img
+          src="https://images.unsplash.com/photo-1776362552930-fea1349d22af?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxiZWF1dGlmdWwlMjBnYXJkZW4lMjBvdXRkb29yJTIwc3BhY2UlMjBuYXR1cmFsJTIwbGlnaHQlMjB3YXJtJTIwc3RvbmUlMjBtYXRlcmlhbHMlMjBpbnZpdGluZ3xlbnwwfDB8fHwxNzc3NDM4MTQ2fDA&ixlib=rb-4.1.0&q=80&w=1080"
+          alt="Modern garden with lush greenery and illuminated stone pathway"
+          loading="lazy"
+        >
+        <div class="gallery__overlay" aria-hidden="true"></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     TESTIMONIALS
+     ============================================================ -->
+<section id="testimonials" aria-label="Customer testimonials">
+  <div class="container">
+
+    <div class="testimonials__header reveal">
+      <p class="eyebrow">What Neighbors Say</p>
+      <div class="section-rule" aria-hidden="true"></div>
+      <h2>Trusted Across<br><em>DeKalb County</em></h2>
+    </div>
+
+    <div class="testimonials__grid" role="list">
+
+      <article class="testimonial-card reveal reveal-delay-1" role="listitem">
+        <span class="testimonial-card__quote-mark" aria-hidden="true">"</span>
+        <p>
+          MK transformed our nightmare slope into a beautiful terraced garden with a retaining wall
+          that has held perfectly through three rainy seasons. He was on-site every single day and
+          the attention to detail was extraordinary. Worth every penny.
+        </p>
+        <div class="testimonial-card__author">
+          <div class="testimonial-card__avatar" aria-hidden="true">SR</div>
+          <div class="testimonial-card__author-info">
+            <div class="testimonial-card__name">S.R.</div>
+            <div class="testimonial-card__location">North Decatur, GA · via Nextdoor</div>
+          </div>
+          <div class="testimonial-card__stars" aria-label="5 stars">★★★★★</div>
+        </div>
+      </article>
+
+      <article class="testimonial-card reveal reveal-delay-2" role="listitem">
+        <span class="testimonial-card__quote-mark" aria-hidden="true">"</span>
+        <p>
+          We had chronic flooding in the backyard for years. Binda's installed a French drain system
+          that completely solved it — and the yard looks better than it ever has. The grading work
+          alone changed how the entire property feels.
+        </p>
+        <div class="testimonial-card__author">
+          <div class="testimonial-card__avatar" aria-hidden="true">JP</div>
+          <div class="testimonial-card__author-info">
+            <div class="testimonial-card__name">J.P.</div>
+            <div class="testimonial-card__location">Decatur, GA · via Google</div>
+          </div>
+          <div class="testimonial-card__stars" aria-label="5 stars">★★★★★</div>
+        </div>
+      </article>
+
+      <article class="testimonial-card reveal reveal-delay-3" role="listitem">
+        <span class="testimonial-card__quote-mark" aria-hidden="true">"</span>
+        <p>
+          My neighbor recommended Binda's and I now understand why. Manoj is the real deal — shows
+          up when he says he will, explains everything clearly, and the stone patio they built is
+          the best investment we've made in this house in 10 years.
+        </p>
+        <div class="testimonial-card__author">
+          <div class="testimonial-card__avatar" aria-hidden="true">TW</div>
+          <div class="testimonial-card__author-info">
+            <div class="testimonial-card__name">T.W.</div>
+            <div class="testimonial-card__location">Stone Mountain, GA · via Nextdoor</div>
+          </div>
+          <div class="testimonial-card__stars" aria-label="5 stars">★★★★★</div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FAQ
+     ============================================================ -->
+<section id="faq" aria-label="Frequently asked questions">
+  <div class="container">
+
+    <div class="faq__header reveal">
+      <p class="eyebrow">Common Questions</p>
+      <div class="section-rule" aria-hidden="true"></div>
+      <h2>Before You Call,<br><em>Here Are the Answers</em></h2>
+    </div>
+
+    <div class="faq__list reveal" role="list">
+
+      <div class="faq__item" role="listitem">
+        <button class="faq__question" aria-expanded="false" aria-controls="faq-answer-1">
           What areas do you serve?
-          <span class="faq-icon" aria-hidden="true"></span>
+          <span class="faq__icon" aria-hidden="true">+</span>
         </button>
-        <div class="faq-answer" role="region">
-          <div class="faq-answer-inner">
-            <p>We're based in and primarily serve North Decatur, DeKalb County, and the surrounding Atlanta metro area — including Tucker, Clarkston, Stone Mountain, Lithonia, and neighboring communities. Not sure if you're in range? Reach out and we'll let you know.</p>
+        <div class="faq__answer" id="faq-answer-1" role="region">
+          <div class="faq__answer-inner">
+            We serve North Decatur, DeKalb County, and surrounding Atlanta neighborhoods including
+            Decatur, Stone Mountain, Tucker, Clarkston, Avondale Estates, and nearby communities.
+            If you're unsure whether we cover your area, reach out — we're happy to confirm.
           </div>
         </div>
       </div>
 
-      <div class="faq-item" role="listitem">
-        <button class="faq-question" aria-expanded="false">
-          How do I know if I need a retaining wall or just regrading?
-          <span class="faq-icon" aria-hidden="true"></span>
+      <div class="faq__item" role="listitem">
+        <button class="faq__question" aria-expanded="false" aria-controls="faq-answer-2">
+          How do I get an estimate?
+          <span class="faq__icon" aria-hidden="true">+</span>
         </button>
-        <div class="faq-answer" role="region">
-          <div class="faq-answer-inner">
-            <p>It depends on the slope severity, soil type, and how water is currently moving across your property. A retaining wall is the right solution when you need to hold back significant earth — typically slopes over 2 feet of vertical drop. Regrading handles milder slope corrections and water flow issues. MK will assess both during the site visit and recommend only what your property actually needs.</p>
+        <div class="faq__answer" id="faq-answer-2" role="region">
+          <div class="faq__answer-inner">
+            Fill out the contact form below with a description of your project and we'll schedule
+            a free on-site estimate. MK visits every project in person before providing a quote —
+            no ballpark numbers without seeing the actual conditions.
           </div>
         </div>
       </div>
 
-      <div class="faq-item" role="listitem">
-        <button class="faq-question" aria-expanded="false">
-          Are you insured?
-          <span class="faq-icon" aria-hidden="true"></span>
+      <div class="faq__item" role="listitem">
+        <button class="faq__question" aria-expanded="false" aria-controls="faq-answer-3">
+          Do you offer warranties on your work?
+          <span class="faq__icon" aria-hidden="true">+</span>
         </button>
-        <div class="faq-answer" role="region">
-          <div class="faq-answer-inner">
-            <p>Yes, Binda's Landscaping carries full general liability insurance. We're happy to provide proof of coverage before any work begins — just ask during your estimate.</p>
+        <div class="faq__answer" id="faq-answer-3" role="region">
+          <div class="faq__answer-inner">
+            Yes. We stand behind every project. Warranty terms depend on the scope — retaining walls,
+            drainage systems, and patio installations each carry specific coverage. We'll walk you
+            through the details during your estimate so expectations are clear from day one.
           </div>
         </div>
       </div>
 
-      <div class="faq-item" role="listitem">
-        <button class="faq-question" aria-expanded="false">
-          Will the owner actually be on my job?
-          <span class="faq-icon" aria-hidden="true"></span>
+      <div class="faq__item" role="listitem">
+        <button class="faq__question" aria-expanded="false" aria-controls="faq-answer-4">
+          How long have you been in business?
+          <span class="faq__icon" aria-hidden="true">+</span>
         </button>
-        <div class="faq-answer" role="region">
-          <div class="faq-answer-inner">
-            <p>Yes. Manoj Kumar (MK) is hands-on at every project. We don't operate as a company that takes your job and sends an unfamiliar crew to do the work. When you hire Binda's Landscaping, you get MK. That's been the standard since 2008 and it's what makes our reputation what it is.</p>
+        <div class="faq__answer" id="faq-answer-4" role="region">
+          <div class="faq__answer-inner">
+            Binda's Landscaping has been serving Atlanta homeowners since 2008 — over 16 years of
+            owner-operated work in the North Decatur and DeKalb area. The majority of our clients
+            come through Nextdoor recommendations and neighbor referrals, which speaks to the consistency
+            of our results.
           </div>
         </div>
       </div>
 
-      <div class="faq-item" role="listitem">
-        <button class="faq-question" aria-expanded="false">
-          How long does a typical project take?
-          <span class="faq-icon" aria-hidden="true"></span>
+      <div class="faq__item" role="listitem">
+        <button class="faq__question" aria-expanded="false" aria-controls="faq-answer-5">
+          Can you handle drainage AND landscaping on the same project?
+          <span class="faq__icon" aria-hidden="true">+</span>
         </button>
-        <div class="faq-answer" role="region">
-          <div class="faq-answer-inner">
-            <p>Project timelines vary significantly based on scope. A French drain installation might take one to two days. A full retaining wall build on a sloped lot could be four to seven days. MK will give you a realistic timeline in your proposal — we don't rush work to move to the next job, and we don't pad timelines to inflate billing.</p>
+        <div class="faq__answer" id="faq-answer-5" role="region">
+          <div class="faq__answer-inner">
+            Absolutely — and most of our larger projects involve multiple scopes. Regrading a yard,
+            installing a French drain, and then finishing with sod, mulch, and a stone patio is a
+            typical full-service project for us. Handling it all with one crew means cleaner results
+            and no coordination headaches for you.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq__item" role="listitem">
+        <button class="faq__question" aria-expanded="false" aria-controls="faq-answer-6">
+          How long does a typical retaining wall project take?
+          <span class="faq__icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq__answer" id="faq-answer-6" role="region">
+          <div class="faq__answer-inner">
+            Timeline depends on the length, height, and site conditions. A straightforward residential
+            retaining wall typically takes two to five days. Larger, multi-tiered walls or those
+            requiring significant excavation may take longer. We provide a realistic project schedule
+            during the estimate — and we stick to it.
           </div>
         </div>
       </div>
@@ -1950,89 +2107,102 @@ html[data-palette-anim] *, html[data-palette-anim] *::before, html[data-palette-
   </div>
 </section>
 
-<!-- ─── CTA / CONTACT ─── -->
-<section id="contact" aria-label="Request a Quote">
-  <div class="container">
-    <div class="cta-grid">
+<!-- ============================================================
+     CTA / CONTACT
+     ============================================================ -->
+<section id="contact" aria-label="Get a free estimate">
 
-      <div class="cta-panel reveal">
-        <div class="cta-panel-content">
-          <div>
-            <div class="cta-panel-eyebrow">Why Homeowners Choose Us</div>
-            <div class="cta-panel-headline">No subcontractors.<br>No guesswork.<br>No shortcuts.</div>
+  <div class="contact__panel">
+    <div class="contact__inner container">
+
+      <div class="contact__left reveal">
+        <p class="eyebrow">Start Your Project</p>
+        <div class="section-rule" aria-hidden="true"></div>
+        <h2>Let's Talk About<br><em>Your Yard</em></h2>
+        <p style="margin-top:20px;">
+          Fill out the form and MK will personally review your project and get back to you
+          to schedule a free on-site estimate. No automated systems — a real conversation
+          with the person who will do the work.
+        </p>
+
+        <div class="contact__trust-list" aria-label="Trust signals">
+          <div class="contact__trust-item">
+            <div class="contact__trust-check" aria-hidden="true">✓</div>
+            Free, no-obligation on-site estimate
           </div>
-          <div class="cta-panel-list">
-            <div class="cta-panel-item">
-              <span class="cta-panel-dot" aria-hidden="true"></span>
-              MK on every single job
-            </div>
-            <div class="cta-panel-item">
-              <span class="cta-panel-dot" aria-hidden="true"></span>
-              Proper site diagnosis before any quote
-            </div>
-            <div class="cta-panel-item">
-              <span class="cta-panel-dot" aria-hidden="true"></span>
-              Fully insured, established 2008
-            </div>
-            <div class="cta-panel-item">
-              <span class="cta-panel-dot" aria-hidden="true"></span>
-              Trusted on Nextdoor across DeKalb
-            </div>
+          <div class="contact__trust-item">
+            <div class="contact__trust-check" aria-hidden="true">✓</div>
+            Owner-operated — MK handles every project personally
+          </div>
+          <div class="contact__trust-item">
+            <div class="contact__trust-check" aria-hidden="true">✓</div>
+            Serving DeKalb &amp; North Decatur since 2008
+          </div>
+          <div class="contact__trust-item">
+            <div class="contact__trust-check" aria-hidden="true">✓</div>
+            Trusted on Nextdoor &amp; Google — 5-star rated
+          </div>
+          <div class="contact__trust-item">
+            <div class="contact__trust-check" aria-hidden="true">✓</div>
+            Clear pricing, no surprise invoices
           </div>
         </div>
       </div>
 
-      <div class="cta-form-wrap reveal reveal-delay-2">
-        <div class="cta-form-intro">
-          <span class="label" style="display:block;margin-bottom:16px;">Get a Free Quote</span>
-          <h2 style="color:var(--stone);margin-bottom:16px;">Tell Us About<br>Your Project</h2>
-          <p>Fill out the form and MK will follow up within one business day to schedule a site visit. No pressure, no obligation.</p>
-        </div>
+      <div class="contact__form reveal reveal-delay-2">
+        <h3>Request a Free Estimate</h3>
+        <p class="contact__form-sub">Tell us about your yard and project. We'll be in touch within one business day.</p>
 
-        <form class="contact-form" name="quote-request" method="POST" novalidate aria-label="Quote request form">
-          <div class="form-row">
-            <div class="form-group">
-              <label class="form-label" for="fname">First Name</label>
-              <input class="form-input" type="text" id="fname" name="first_name" placeholder="Your first name" autocomplete="given-name" required>
+        <form name="estimate-request" method="POST" aria-label="Estimate request form">
+          <div class="form__row">
+            <div class="form__group">
+              <label for="first-name">First Name</label>
+              <input type="text" id="first-name" name="first_name" placeholder="Your first name" required autocomplete="given-name">
             </div>
-            <div class="form-group">
-              <label class="form-label" for="lname">Last Name</label>
-              <input class="form-input" type="text" id="lname" name="last_name" placeholder="Your last name" autocomplete="family-name" required>
+            <div class="form__group">
+              <label for="last-name">Last Name</label>
+              <input type="text" id="last-name" name="last_name" placeholder="Your last name" required autocomplete="family-name">
             </div>
           </div>
 
-          <div class="form-group">
-            <label class="form-label" for="email">Email Address</label>
-            <input class="form-input" type="email" id="email" name="email" placeholder="your@email.com" autocomplete="email" required>
+          <div class="form__group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="your@email.com" required autocomplete="email">
           </div>
 
-          <div class="form-group">
-            <label class="form-label" for="area">Neighborhood / Area</label>
-            <input class="form-input" type="text" id="area" name="area" placeholder="e.g. North Decatur, Tucker, Clarkston" autocomplete="address-level2">
+          <div class="form__group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" placeholder="(xxx) xxx-xxxx" autocomplete="tel">
           </div>
 
-          <div class="form-group">
-            <label class="form-label" for="service">Primary Service Needed</label>
-            <select class="form-select" id="service" name="service" required>
-              <option value="" disabled selected>Select a service</option>
+          <div class="form__group">
+            <label for="address">Property Address / Neighborhood</label>
+            <input type="text" id="address" name="address" placeholder="e.g. North Decatur, Decatur, Stone Mountain..." autocomplete="street-address">
+          </div>
+
+          <div class="form__group">
+            <label for="service">Service Needed</label>
+            <select id="service" name="service" required>
+              <option value="" disabled selected>Select a service…</option>
               <option value="retaining-wall">Retaining Wall</option>
               <option value="french-drain">French Drain / Drainage</option>
               <option value="regrading">Yard Regrading</option>
-              <option value="stone-patio">Stone Patio / Hardscaping</option>
+              <option value="stone-patio">Stone Patio</option>
+              <option value="hardscaping">Hardscaping</option>
               <option value="general-landscaping">General Landscaping</option>
-              <option value="multiple">Multiple / Not Sure Yet</option>
+              <option value="multiple">Multiple Services</option>
+              <option value="not-sure">Not Sure — Need Advice</option>
             </select>
           </div>
 
-          <div class="form-group">
-            <label class="form-label" for="message">Describe Your Project</label>
-            <textarea class="form-textarea" id="message" name="message" placeholder="Tell us what's going on — drainage issues, slope problems, what you'd like to build or fix. The more detail, the better we can prepare for the site visit." rows="5"></textarea>
+          <div class="form__group">
+            <label for="message">Describe Your Project</label>
+            <textarea id="message" name="message" placeholder="Tell us about your yard, the challenges you're facing, and what you're hoping to achieve…" rows="4"></textarea>
           </div>
 
-          <div class="form-submit-wrap">
-            <button type="submit" class="btn btn-primary btn-arrow" style="width:100%;justify-content:center;">Send My Request</button>
-            <p class="form-disclaimer">We typically respond within one business day. Your information is never shared with third parties.</p>
-          </div>
+          <button type="submit" class="form__submit">
+            Request My Free Estimate
+          </button>
         </form>
       </div>
 
@@ -2040,191 +2210,260 @@ html[data-palette-anim] *, html[data-palette-anim] *::before, html[data-palette-
   </div>
 </section>
 
-<!-- ─── SERVICE AREAS ─── -->
-<section id="areas" aria-label="Service Areas">
+<!-- ============================================================
+     SERVICE AREAS
+     ============================================================ -->
+<section id="areas" aria-label="Service areas">
   <div class="container">
-    <div class="areas-inner">
-      <div class="areas-label-wrap reveal">
-        <span class="label" style="display:block;margin-bottom:8px;">Service Areas</span>
-        <p style="font-size:0.85rem;color:var(--text-muted);max-width:200px;">Serving Atlanta, GA and surrounding DeKalb County communities</p>
+    <div class="areas__inner">
+
+      <div class="reveal">
+        <p class="eyebrow">Where We Work</p>
+        <div class="section-rule" aria-hidden="true"></div>
+        <h2>Serving Greater<br><em>Atlanta</em></h2>
+        <p style="margin-top:16px; max-width:400px;">
+          Based in the North Decatur area, we serve homeowners across DeKalb County
+          and surrounding Atlanta neighborhoods.
+        </p>
+
+        <ul class="areas__list" aria-label="Service area neighborhoods">
+          <li class="areas__list-item">North Decatur</li>
+          <li class="areas__list-item">Decatur</li>
+          <li class="areas__list-item">DeKalb County</li>
+          <li class="areas__list-item">Stone Mountain</li>
+          <li class="areas__list-item">Tucker</li>
+          <li class="areas__list-item">Clarkston</li>
+          <li class="areas__list-item">Avondale Estates</li>
+          <li class="areas__list-item">Lithonia</li>
+          <li class="areas__list-item">Panthersville</li>
+          <li class="areas__list-item">Atlanta Metro</li>
+        </ul>
       </div>
-      <div class="areas-list reveal reveal-delay-1">
-        <span class="area-chip">North Decatur</span>
-        <span class="area-chip">DeKalb County</span>
-        <span class="area-chip">Tucker</span>
-        <span class="area-chip">Clarkston</span>
-        <span class="area-chip">Stone Mountain</span>
-        <span class="area-chip">Lithonia</span>
-        <span class="area-chip">Avondale Estates</span>
-        <span class="area-chip">Scottdale</span>
-        <span class="area-chip">Greater Atlanta</span>
+
+      <div class="areas__badge reveal reveal-delay-2">
+        <p>
+          "If you're not sure whether we cover your neighborhood, just reach out — chances
+          are we've worked on your street or with your neighbor."
+        </p>
+        <div style="display:flex;align-items:center;gap:12px;justify-content:center;margin-top:8px;">
+          <div class="about__avatar" aria-hidden="true">MK</div>
+          <div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:1rem;font-style:italic;color:var(--dark);">Manoj Kumar</div>
+            <div style="font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);font-weight:600;">Owner, Binda's Landscaping</div>
+          </div>
+        </div>
+        <a href="#contact" class="btn btn--primary" style="margin-top:28px; width:100%; justify-content:center;">
+          Get a Free Estimate
+        </a>
       </div>
+
     </div>
   </div>
 </section>
 
-<!-- ─── FOOTER ─── -->
-<footer id="footer" role="contentinfo">
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer id="footer" role="contentinfo" aria-label="Footer">
   <div class="container">
-    <div class="footer-grid">
+
+    <div class="footer__inner">
+
       <div>
-        <div class="footer-brand-name">Binda's Landscaping</div>
-        <div class="footer-brand-tagline">Built by Hand. Built to Last.</div>
-        <p class="footer-brand-desc">Full-service landscaping and hardscaping in Atlanta, GA. Owner-operated by Manoj Kumar since 2008. Retaining walls, French drains, stone patios, yard regrading, and more — done right, every time.</p>
+        <div class="footer__brand-name">Binda's Landscaping</div>
+        <div class="footer__brand-tag">Built by Hand. Built to Last.</div>
+        <p class="footer__brand-desc">
+          Owner-operated landscaping and hardscaping in Atlanta, GA. Serving North Decatur,
+          DeKalb County, and surrounding neighborhoods since 2008.
+        </p>
       </div>
+
       <div>
-        <div class="footer-col-title">Services</div>
-        <ul class="footer-links">
-          <li><a href="#services">Retaining Walls</a></li>
-          <li><a href="#services">French Drains</a></li>
-          <li><a href="#services">Yard Regrading</a></li>
-          <li><a href="#services">Stone Patios</a></li>
-          <li><a href="#services">Hardscaping</a></li>
-        </ul>
+        <div class="footer__col-title">Services</div>
+        <nav class="footer__links" aria-label="Services navigation">
+          <a href="#services">Retaining Walls</a>
+          <a href="#services">French Drains</a>
+          <a href="#services">Yard Regrading</a>
+          <a href="#services">Stone Patios</a>
+          <a href="#services">Hardscaping</a>
+          <a href="#services">General Landscaping</a>
+        </nav>
       </div>
+
       <div>
-        <div class="footer-col-title">Company</div>
-        <ul class="footer-links">
-          <li><a href="#about">About MK</a></li>
-          <li><a href="#gallery">Our Work</a></li>
-          <li><a href="#testimonials">Reviews</a></li>
-          <li><a href="#faq">FAQ</a></li>
-          <li><a href="#contact">Get a Quote</a></li>
-        </ul>
+        <div class="footer__col-title">Company</div>
+        <nav class="footer__links" aria-label="Company navigation">
+          <a href="#about">About MK</a>
+          <a href="#testimonials">Reviews</a>
+          <a href="#gallery">Project Gallery</a>
+          <a href="#faq">FAQ</a>
+          <a href="#areas">Service Areas</a>
+        </nav>
+      </div>
+
+      <div>
+        <div class="footer__col-title">Get in Touch</div>
+        <div class="footer__links">
+          <a href="#contact">Free Estimate</a>
+          <span style="font-size:0.82rem;color:rgba(255,255,255,0.4);line-height:1.6;">
+            Atlanta, GA<br>
+            North Decatur &amp; DeKalb County
+          </span>
+        </div>
+      </div>
+
+    </div>
+
+    <hr class="footer__rule">
+
+    <div class="footer__bottom">
+      <p class="footer__copy">
+        &copy; <span id="copyright-year"></span> Binda's Landscaping. All rights reserved.
+      </p>
+      <div class="footer__legal">
+        <a href="#hero">Privacy</a>
+        <a href="#hero">Terms</a>
       </div>
     </div>
-    <div class="footer-bottom">
-      <span class="footer-copy">&copy; <span id="copyright-year"></span> Binda's Landscaping. Atlanta, GA. All rights reserved.</span>
-      <span class="footer-accent-line" aria-hidden="true"></span>
-      <span class="footer-copy">North Decatur · DeKalb County · Est. 2008 · Owner-Operated</span>
-    </div>
+
   </div>
 </footer>
 
+<!-- ============================================================
+     JAVASCRIPT
+     ============================================================ -->
 <script>
 document.documentElement.classList.add('js-loaded');
 
-// ─── COPYRIGHT YEAR ───
+/* ──────────────────────────────────────────
+   Copyright year
+────────────────────────────────────────── */
 document.getElementById('copyright-year').textContent = new Date().getFullYear();
 
-// ─── STICKY NAV ───
-(function () {
-  const nav = document.getElementById('nav');
-  let ticking = false;
-  window.addEventListener('scroll', function () {
-    if (!ticking) {
-      requestAnimationFrame(function () {
-        if (window.scrollY > 40) {
-          nav.classList.add('scrolled');
-        } else {
-          nav.classList.remove('scrolled');
-        }
-        ticking = false;
-      });
-      ticking = true;
+/* ──────────────────────────────────────────
+   Sticky nav
+────────────────────────────────────────── */
+(function() {
+  var nav = document.getElementById('nav');
+  var scrollThreshold = 60;
+
+  function updateNav() {
+    if (window.scrollY > scrollThreshold) {
+      nav.classList.remove('nav--transparent');
+      nav.classList.add('nav--solid');
+    } else {
+      nav.classList.remove('nav--solid');
+      nav.classList.add('nav--transparent');
     }
-  }, { passive: true });
-})();
-
-// ─── HAMBURGER MENU ───
-(function () {
-  const hamburger = document.getElementById('hamburger');
-  const mobileMenu = document.getElementById('mobile-menu');
-  const mobileLinks = mobileMenu.querySelectorAll('a');
-
-  function closeMenu() {
-    hamburger.classList.remove('open');
-    mobileMenu.classList.remove('open');
-    hamburger.setAttribute('aria-expanded', 'false');
-    document.body.style.overflow = '';
   }
 
+  window.addEventListener('scroll', updateNav, { passive: true });
+  updateNav();
+})();
+
+/* ──────────────────────────────────────────
+   Hamburger menu
+────────────────────────────────────────── */
+(function() {
+  var hamburger = document.getElementById('hamburger');
+  var mobileMenu = document.getElementById('mobileMenu');
+  var mobileLinks = document.querySelectorAll('.mobile-link');
+  var isOpen = false;
+
   function openMenu() {
+    isOpen = true;
     hamburger.classList.add('open');
     mobileMenu.classList.add('open');
     hamburger.setAttribute('aria-expanded', 'true');
     document.body.style.overflow = 'hidden';
   }
 
-  hamburger.addEventListener('click', function () {
-    if (mobileMenu.classList.contains('open')) {
-      closeMenu();
-    } else {
-      openMenu();
-    }
+  function closeMenu() {
+    isOpen = false;
+    hamburger.classList.remove('open');
+    mobileMenu.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+
+  hamburger.addEventListener('click', function() {
+    if (isOpen) { closeMenu(); } else { openMenu(); }
   });
 
-  mobileLinks.forEach(function (link) {
+  mobileLinks.forEach(function(link) {
     link.addEventListener('click', closeMenu);
   });
 
-  // Close on escape
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && mobileMenu.classList.contains('open')) {
-      closeMenu();
-    }
+  /* Landscape phone: force close if viewport rotates to desktop-ish */
+  window.addEventListener('resize', function() {
+    if (window.innerWidth >= 1024) { closeMenu(); }
   });
 })();
 
-// ─── SMOOTH SCROLL ───
-(function () {
-  document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
-    anchor.addEventListener('click', function (e) {
-      const targetId = this.getAttribute('href');
-      if (targetId === '#') return;
-      const target = document.querySelector(targetId);
-      if (target) {
-        e.preventDefault();
-        const navHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-height')) || 72;
-        const targetTop = target.getBoundingClientRect().top + window.scrollY - navHeight;
-        window.scrollTo({ top: targetTop, behavior: 'smooth' });
-      }
-    });
+/* ──────────────────────────────────────────
+   Smooth scroll on all anchor links
+────────────────────────────────────────── */
+document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+  anchor.addEventListener('click', function(e) {
+    var targetId = this.getAttribute('href');
+    if (targetId === '#') return;
+    var target = document.querySelector(targetId);
+    if (!target) return;
+    e.preventDefault();
+    var navHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-height')) || 72;
+    var targetPosition = target.getBoundingClientRect().top + window.scrollY - navHeight;
+    window.scrollTo({ top: targetPosition, behavior: 'smooth' });
   });
-})();
+});
 
-// ─── INTERSECTION OBSERVER REVEAL ───
-(function () {
-  const revealEls = document.querySelectorAll('.reveal');
-  if (!revealEls.length) return;
+/* ──────────────────────────────────────────
+   IntersectionObserver scroll reveal
+────────────────────────────────────────── */
+(function() {
+  var revealElements = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window)) {
+    revealElements.forEach(function(el) { el.classList.add('visible'); });
+    return;
+  }
 
-  const observer = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry) {
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
       if (entry.isIntersecting) {
         entry.target.classList.add('visible');
         observer.unobserve(entry.target);
       }
     });
   }, {
-    threshold: 0.1,
-    rootMargin: '0px 0px -60px 0px'
+    threshold: 0.12,
+    rootMargin: '0px 0px -40px 0px'
   });
 
-  revealEls.forEach(function (el) {
-    observer.observe(el);
-  });
+  revealElements.forEach(function(el) { observer.observe(el); });
 })();
 
-// ─── FAQ ACCORDION ───
-(function () {
-  const faqItems = document.querySelectorAll('.faq-item');
+/* ──────────────────────────────────────────
+   FAQ accordion
+────────────────────────────────────────── */
+(function() {
+  var faqItems = document.querySelectorAll('.faq__item');
 
-  faqItems.forEach(function (item) {
-    const question = item.querySelector('.faq-question');
-    const answer = item.querySelector('.faq-answer');
+  faqItems.forEach(function(item) {
+    var question = item.querySelector('.faq__question');
+    var answer = item.querySelector('.faq__answer');
 
-    question.addEventListener('click', function () {
-      const isOpen = item.classList.contains('open');
+    question.addEventListener('click', function() {
+      var isOpen = item.classList.contains('open');
 
-      // Close all
-      faqItems.forEach(function (otherItem) {
-        const otherAnswer = otherItem.querySelector('.faq-answer');
+      /* Close all items */
+      faqItems.forEach(function(otherItem) {
         otherItem.classList.remove('open');
+        var otherAnswer = otherItem.querySelector('.faq__answer');
+        var otherQuestion = otherItem.querySelector('.faq__question');
         otherAnswer.style.maxHeight = null;
-        otherItem.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+        otherQuestion.setAttribute('aria-expanded', 'false');
       });
 
-      // Open clicked if was closed
+      /* If it was closed, open it */
       if (!isOpen) {
         item.classList.add('open');
         answer.style.maxHeight = answer.scrollHeight + 'px';
@@ -2234,74 +2473,69 @@ document.getElementById('copyright-year').textContent = new Date().getFullYear()
   });
 })();
 
-// ─── COUNTER ANIMATION ───
-(function () {
-  const counters = document.querySelectorAll('[data-count]');
-  if (!counters.length) return;
+/* ──────────────────────────────────────────
+   Counter animation (hero stats)
+────────────────────────────────────────── */
+(function() {
+  var counters = document.querySelectorAll('[data-count]');
+  var counted = false;
 
-  function animateCounter(el) {
-    const target = parseInt(el.getAttribute('data-count'), 10);
-    const suffix = el.getAttribute('data-suffix') || '';
-    const duration = 1800;
-    const start = performance.now();
+  function animateCounters() {
+    if (counted) return;
+    counted = true;
 
-    function step(timestamp) {
-      const elapsed = timestamp - start;
-      const progress = Math.min(elapsed / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      const current = Math.floor(eased * target);
-      el.textContent = current + suffix;
+    counters.forEach(function(counter) {
+      var target = parseInt(counter.getAttribute('data-count'));
+      var suffix = counter.textContent.replace(/[0-9]/g, '').trim();
+      var duration = 1600;
+      var start = null;
 
-      if (progress < 1) {
-        requestAnimationFrame(step);
-      } else {
-        el.textContent = target + suffix;
+      function step(timestamp) {
+        if (!start) start = timestamp;
+        var progress = Math.min((timestamp - start) / duration, 1);
+        var eased = 1 - Math.pow(1 - progress, 3);
+        var current = Math.floor(eased * target);
+        counter.textContent = current + suffix;
+        if (progress < 1) { requestAnimationFrame(step); }
+        else { counter.textContent = target + suffix; }
       }
-    }
 
-    requestAnimationFrame(step);
+      requestAnimationFrame(step);
+    });
   }
 
-  const counterObserver = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry) {
+  var heroSection = document.getElementById('hero');
+  var heroObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
       if (entry.isIntersecting) {
-        animateCounter(entry.target);
-        counterObserver.unobserve(entry.target);
+        setTimeout(animateCounters, 800);
+        heroObserver.disconnect();
       }
     });
   }, { threshold: 0.5 });
 
-  counters.forEach(function (el) {
-    counterObserver.observe(el);
-  });
+  if (heroSection) heroObserver.observe(heroSection);
 })();
 
-// ─── LANDSCAPE PHONE NAV HANDLING ───
-(function () {
-  function checkOrientation() {
-    const isLandscapePhone = window.matchMedia('(max-width: 900px) and (orientation: landscape)').matches;
-    const hamburger = document.getElementById('hamburger');
-    const mobileMenu = document.getElementById('mobile-menu');
+/* ──────────────────────────────────────────
+   Landscape phone orientation handling
+────────────────────────────────────────── */
+(function() {
+  function handleOrientation() {
+    var isLandscapePhone = window.innerWidth <= 900 &&
+      window.innerHeight < window.innerWidth;
 
-    if (isLandscapePhone) {
-      hamburger.style.display = 'none';
-      mobileMenu.classList.remove('open');
-      hamburger.classList.remove('open');
-      hamburger.setAttribute('aria-expanded', 'false');
-      document.body.style.overflow = '';
-    } else {
-      hamburger.style.display = '';
-    }
+    /* Nothing extra needed — CSS handles the reflow via media queries.
+       This JS hook is here for any future dynamic adjustments. */
   }
 
-  window.addEventListener('orientationchange', checkOrientation);
-  window.addEventListener('resize', checkOrientation);
-  checkOrientation();
+  window.addEventListener('orientationchange', handleOrientation);
+  window.addEventListener('resize', handleOrientation, { passive: true });
+  handleOrientation();
 })();
 </script>
 
-<div id="gwp-switcher" style="position:fixed;bottom:20px;right:20px;z-index:2147483647;display:flex;flex-direction:column;align-items:flex-end;gap:5px;font-family:-apple-system,BlinkMacSystemFont,'Inter',sans-serif;"><div style="font-size:9px;letter-spacing:0.14em;color:rgba(255,255,255,0.3);text-transform:uppercase;padding-right:3px;">gitworkdone &middot; palette</div><div style="background:rgba(8,8,8,0.88);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,0.1);border-radius:50px;padding:5px;display:flex;gap:3px;box-shadow:0 8px 32px rgba(0,0,0,0.55);"><button id="gwp-a-btn" onclick="gwpSet('a')" style="border:none;border-radius:50px;padding:7px 15px;cursor:pointer;display:flex;align-items:center;gap:7px;font-size:11px;font-weight:600;letter-spacing:0.05em;background:rgba(255,255,255,0.13);color:#fff;line-height:1;"><span style="width:10px;height:10px;border-radius:50%;background:#3a7a52;flex-shrink:0;border:1px solid rgba(255,255,255,0.2);display:inline-block;"></span>Design A</button><button id="gwp-b-btn" onclick="gwpSet('b')" style="border:none;border-radius:50px;padding:7px 15px;cursor:pointer;display:flex;align-items:center;gap:7px;font-size:11px;font-weight:600;letter-spacing:0.05em;background:transparent;color:rgba(255,255,255,0.38);line-height:1;"><span style="width:10px;height:10px;border-radius:50%;background:#2a4d6e;flex-shrink:0;border:1px solid rgba(255,255,255,0.2);display:inline-block;"></span>"Slate" — Steel blue accent, 180° hue shift from forest green</button></div></div><script>(function(){function gwpSet(p){var root=document.documentElement;root.setAttribute('data-palette-anim','');if(p==='a'){root.removeAttribute('data-palette');}else{root.setAttribute('data-palette','b');}setTimeout(function(){root.removeAttribute('data-palette-anim');},400);var a=document.getElementById('gwp-a-btn'),b=document.getElementById('gwp-b-btn');if(p==='a'){a.style.background='rgba(255,255,255,0.13)';a.style.color='#fff';b.style.background='transparent';b.style.color='rgba(255,255,255,0.38)';}else{b.style.background='rgba(255,255,255,0.13)';b.style.color='#fff';a.style.background='transparent';a.style.color='rgba(255,255,255,0.38)';}}window.gwpSet=gwpSet;})();</script>
 
-<div id="gwp-switcher" style="position:fixed;bottom:20px;right:20px;z-index:2147483647;display:flex;flex-direction:column;align-items:flex-end;gap:5px;font-family:-apple-system,BlinkMacSystemFont,'Inter',sans-serif;"><div style="font-size:9px;letter-spacing:0.14em;color:rgba(255,255,255,0.3);text-transform:uppercase;padding-right:3px;">gitworkdone &middot; palette</div><div style="background:rgba(8,8,8,0.88);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,0.1);border-radius:50px;padding:5px;display:flex;gap:3px;box-shadow:0 8px 32px rgba(0,0,0,0.55);"><button id="gwp-a-btn" onclick="gwpSet('a')" style="border:none;border-radius:50px;padding:7px 15px;cursor:pointer;display:flex;align-items:center;gap:7px;font-size:11px;font-weight:600;letter-spacing:0.05em;background:rgba(255,255,255,0.13);color:#fff;line-height:1;"><span style="width:10px;height:10px;border-radius:50%;background:#3a7a52;flex-shrink:0;border:1px solid rgba(255,255,255,0.2);display:inline-block;"></span>Design A</button><button id="gwp-b-btn" onclick="gwpSet('b')" style="border:none;border-radius:50px;padding:7px 15px;cursor:pointer;display:flex;align-items:center;gap:7px;font-size:11px;font-weight:600;letter-spacing:0.05em;background:transparent;color:rgba(255,255,255,0.38);line-height:1;"><span style="width:10px;height:10px;border-radius:50%;background:#2a4d6e;flex-shrink:0;border:1px solid rgba(255,255,255,0.2);display:inline-block;"></span>Design B</button></div></div><script>(function(){function gwpSet(p){var root=document.documentElement;root.setAttribute('data-palette-anim','');if(p==='a'){root.removeAttribute('data-palette');}else{root.setAttribute('data-palette','b');}setTimeout(function(){root.removeAttribute('data-palette-anim');},400);var a=document.getElementById('gwp-a-btn'),b=document.getElementById('gwp-b-btn');if(p==='a'){a.style.background='rgba(255,255,255,0.13)';a.style.color='#fff';b.style.background='transparent';b.style.color='rgba(255,255,255,0.38)';}else{b.style.background='rgba(255,255,255,0.13)';b.style.color='#fff';a.style.background='transparent';a.style.color='rgba(255,255,255,0.38)';}}window.gwpSet=gwpSet;})();</script>
+<div id="gwp-switcher" style="position:fixed;bottom:20px;right:20px;z-index:2147483647;display:flex;flex-direction:column;align-items:flex-end;gap:5px;font-family:-apple-system,BlinkMacSystemFont,'Inter',sans-serif;"><div style="font-size:9px;letter-spacing:0.14em;color:rgba(255,255,255,0.3);text-transform:uppercase;padding-right:3px;">gitworkdone &middot; palette</div><div style="background:rgba(8,8,8,0.88);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,0.1);border-radius:50px;padding:5px;display:flex;gap:3px;box-shadow:0 8px 32px rgba(0,0,0,0.55);"><button id="gwp-a-btn" onclick="gwpSet('a')" style="border:none;border-radius:50px;padding:7px 15px;cursor:pointer;display:flex;align-items:center;gap:7px;font-size:11px;font-weight:600;letter-spacing:0.05em;background:rgba(255,255,255,0.13);color:#fff;line-height:1;"><span style="width:10px;height:10px;border-radius:50%;background:#1e3e2a;flex-shrink:0;border:1px solid rgba(255,255,255,0.2);display:inline-block;"></span>Design A</button><button id="gwp-b-btn" onclick="gwpSet('b')" style="border:none;border-radius:50px;padding:7px 15px;cursor:pointer;display:flex;align-items:center;gap:7px;font-size:11px;font-weight:600;letter-spacing:0.05em;background:transparent;color:rgba(255,255,255,0.38);line-height:1;"><span style="width:10px;height:10px;border-radius:50%;background:#8b4a2f;flex-shrink:0;border:1px solid rgba(255,255,255,0.2);display:inline-block;"></span>Design B</button></div></div><script>(function(){function gwpSet(p){var root=document.documentElement;root.setAttribute('data-palette-anim','');if(p==='a'){root.removeAttribute('data-palette');}else{root.setAttribute('data-palette','b');}setTimeout(function(){root.removeAttribute('data-palette-anim');},400);var a=document.getElementById('gwp-a-btn'),b=document.getElementById('gwp-b-btn');if(p==='a'){a.style.background='rgba(255,255,255,0.13)';a.style.color='#fff';b.style.background='transparent';b.style.color='rgba(255,255,255,0.38)';}else{b.style.background='rgba(255,255,255,0.13)';b.style.color='#fff';a.style.background='transparent';a.style.color='rgba(255,255,255,0.38)';}}window.gwpSet=gwpSet;})();</script>
 </body>
 </html>
