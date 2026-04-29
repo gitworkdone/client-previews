@@ -1,397 +1,753 @@
 <!DOCTYPE html>
 <html lang="en" data-palette="a">
-<head><script>document.documentElement.classList.add("js-loaded");</script>
+<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Binda's Landscaping — Where Nature Meets Design. Full-service landscaping serving greater Atlanta since 2008. Lawn care, garden design, hardscaping, irrigation, and maintenance.">
 <title>Binda's Landscaping — Where Nature Meets Design</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { overflow-x: hidden; }
-
+/* ============================================================
+   ROOT — DESIGN TOKENS
+   ============================================================ */
 :root {
-  --primary: #3A2E20;
-  --accent: #C4956A;
-  --accent-dark: #a87a52;
-  --bg: #FDF5E6;
-  --bg-alt: #F5EDD6;
-  --text: #3A2E20;
-  --dark: #1F1810;
-  --dark-alt: #2a2015;
-  --white: #ffffff;
-  --font-heading: 'Libre Baskerville', Georgia, serif;
-  --font-body: 'Source Sans 3', sans-serif;
-  --radius: 4px;
-  --transition: 0.35s ease;
+  --bg:            #FBF8F4;
+  --bg-alt:        #F2EDE6;
+  --bg-green:      #1E3A2F;
+  --accent:        #3D6B4F;
+  --accent-dark:   #1E3A2F;
+  --accent-sage:   #7A9E87;
+  --accent-sky:    #7DAFC4;
+  --accent-warm:   #C5956C;
+  --text-dark:     #1A1A1A;
+  --text-mid:      #4A4A44;
+  --text-light:    #8A8A82;
+  --text-inv:      #FBF8F4;
+  --rule:          rgba(61,107,79,0.2);
+  --serif:         'Cormorant Garamond', Georgia, serif;
+  --sans:          'DM Sans', system-ui, sans-serif;
+  --radius:        4px;
+  --trans:         0.4s cubic-bezier(0.25,0.46,0.45,0.94);
 }
 
 html[data-palette="b"] {
-  /* Palette B: Sage — complementary green, ~150° from warm amber */
-  --accent: #6A9E7A;
-  --accent-dark: #527f62;
+  /* Palette B: "Dusk Sky" — blue-teal complementary accent */
+  --accent:        #2E6E82;
+  --accent-dark:   #1A3F4D;
+  --accent-sage:   #5B8E9F;
+  --accent-sky:    #3D9DB5;
+  --accent-warm:   #C5956C;
 }
 
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+html, body { overflow-x: hidden; }
 body {
+  font-family: var(--sans);
   background: var(--bg);
-  color: var(--text);
-  font-family: var(--font-body);
-  font-weight: 400;
-  line-height: 1.7;
+  color: var(--text-dark);
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
-
 img { max-width: 100%; display: block; object-fit: cover; }
 a { text-decoration: none; color: inherit; }
+button { cursor: pointer; border: none; background: none; font-family: inherit; }
 ul { list-style: none; }
 
-/* ─── TYPOGRAPHY ─── */
-h1, h2, h3, h4 { font-family: var(--font-heading); line-height: 1.2; color: var(--primary); }
-h1 { font-size: clamp(2.2rem, 6vw, 4.2rem); font-weight: 700; }
-h2 { font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 700; }
-h3 { font-size: clamp(1.2rem, 2.5vw, 1.6rem); font-weight: 700; }
-h4 { font-size: clamp(1rem, 2vw, 1.2rem); font-weight: 700; }
-p { font-size: clamp(0.95rem, 1.5vw, 1.05rem); }
-
-/* ─── UTILITIES ─── */
-.container { width: 100%; max-width: 1180px; margin: 0 auto; padding: 0 24px; }
-.section-label {
-  font-family: var(--font-body);
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 12px;
-  display: block;
-}
-.section-heading { margin-bottom: 16px; }
-.section-subtext { font-size: clamp(0.95rem, 1.5vw, 1.1rem); color: #6b5e4e; max-width: 560px; line-height: 1.75; }
-.text-center { text-align: center; }
-.text-center .section-subtext { margin: 0 auto; }
-
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 14px 28px;
-  border-radius: var(--radius);
-  font-family: var(--font-body);
-  font-weight: 600;
-  font-size: 0.95rem;
-  letter-spacing: 0.04em;
-  cursor: pointer;
-  border: 2px solid transparent;
-  transition: transform 0.25s ease, brightness 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
-  min-height: 44px;
-}
-.btn:hover { transform: translateY(-2px); filter: brightness(1.08); box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
-.btn-accent { background: var(--accent); color: var(--white); border-color: var(--accent); }
-.btn-outline { background: transparent; color: var(--white); border-color: var(--white); }
-.btn-outline:hover { background: var(--white); color: var(--primary); }
-.btn-primary { background: var(--accent); color: var(--white); border-color: var(--accent); }
-.btn-primary:hover { background: var(--accent-dark); border-color: var(--accent-dark); }
-.btn-ghost { background: transparent; color: var(--accent); border-color: var(--accent); }
-.btn-ghost:hover { background: var(--accent); color: var(--white); }
-
-/* ─── REVEAL ANIMATIONS ─── */
-.reveal {
+/* ============================================================
+   REVEAL ANIMATION (progressive enhancement)
+   ============================================================ */
+html.js-loaded .reveal {
   opacity: 0;
   transform: translateY(30px);
   transition: opacity 0.7s ease, transform 0.7s ease;
 }
-.reveal.visible { opacity: 1; transform: translateY(0); }
+html.js-loaded .reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+html.js-loaded .reveal-delay-1 { transition-delay: 0.1s; }
+html.js-loaded .reveal-delay-2 { transition-delay: 0.2s; }
+html.js-loaded .reveal-delay-3 { transition-delay: 0.3s; }
+html.js-loaded .reveal-delay-4 { transition-delay: 0.4s; }
+html.js-loaded .reveal-delay-5 { transition-delay: 0.5s; }
 
-/* ─── STICKY NAV ─── */
-#navbar {
+/* ============================================================
+   TYPOGRAPHY SCALE
+   ============================================================ */
+.t-display {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(3.2rem, 8vw, 8rem);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+}
+.t-hero-sub {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-style: italic;
+  font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+  line-height: 1.5;
+}
+.t-section-label {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--accent-warm);
+}
+.t-heading {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(2rem, 4.5vw, 4rem);
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+}
+.t-heading-italic {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-style: italic;
+  font-size: clamp(2rem, 4.5vw, 4rem);
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+}
+.t-body {
+  font-family: var(--sans);
+  font-size: clamp(0.9rem, 1.5vw, 1.05rem);
+  line-height: 1.75;
+  color: var(--text-mid);
+  font-weight: 300;
+}
+.t-card-title {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(1.3rem, 2.5vw, 1.9rem);
+  letter-spacing: -0.01em;
+}
+.t-price {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.2rem;
+  color: var(--accent-warm);
+}
+
+/* ============================================================
+   LAYOUT UTILITIES
+   ============================================================ */
+.container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 clamp(1.25rem, 4vw, 5rem);
+}
+.section-pad {
+  padding: clamp(5rem, 10vw, 9rem) 0;
+}
+.hr-thin {
+  border: none;
+  border-top: 1px solid var(--rule);
+  width: 100%;
+  margin: 0;
+}
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.9rem;
+  border: 1px solid var(--rule);
+  border-radius: 99px;
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--accent);
+  background: transparent;
+}
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+.btn-primary {
+  display: inline-block;
+  padding: 1rem 2.5rem;
+  background: var(--accent);
+  color: var(--text-inv);
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  border-radius: var(--radius);
+  transition: background var(--trans), transform var(--trans), box-shadow var(--trans);
+  border: 1px solid var(--accent);
+}
+.btn-primary:hover {
+  background: var(--accent-dark);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(30,58,47,0.22);
+}
+.btn-ghost {
+  display: inline-block;
+  padding: 1rem 2.5rem;
+  background: transparent;
+  color: var(--text-inv);
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  border-radius: var(--radius);
+  border: 1px solid rgba(251,248,244,0.5);
+  transition: background var(--trans), border-color var(--trans), transform var(--trans);
+}
+.btn-ghost:hover {
+  background: rgba(251,248,244,0.12);
+  border-color: rgba(251,248,244,0.9);
+  transform: translateY(-3px);
+}
+.btn-dark {
+  display: inline-block;
+  padding: 1rem 2.5rem;
+  background: var(--accent-dark);
+  color: var(--text-inv);
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  border-radius: var(--radius);
+  border: 1px solid var(--accent-dark);
+  transition: background var(--trans), transform var(--trans), box-shadow var(--trans);
+}
+.btn-dark:hover {
+  background: var(--accent);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(30,58,47,0.2);
+}
+
+/* ============================================================
+   NAVIGATION
+   ============================================================ */
+#nav {
   position: fixed;
-  top: 0; left: 0; right: 0;
+  top: 0;
+  left: 0;
+  right: 0;
   z-index: 1000;
-  padding: 20px 0;
-  transition: background 0.4s ease, padding 0.4s ease, box-shadow 0.4s ease;
-}
-#navbar.scrolled {
-  background: var(--bg);
-  padding: 12px 0;
-  box-shadow: 0 2px 20px rgba(58,46,32,0.1);
-}
-.nav-inner {
+  padding: 1.5rem clamp(1.25rem, 4vw, 5rem);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 24px;
+  transition: background var(--trans), padding var(--trans), backdrop-filter var(--trans), box-shadow var(--trans);
+}
+#nav.scrolled {
+  background: rgba(251,248,244,0.96);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 1rem clamp(1.25rem, 4vw, 5rem);
+  box-shadow: 0 1px 0 var(--rule), 0 8px 32px rgba(30,58,47,0.06);
 }
 .nav-logo {
-  font-family: var(--font-heading);
-  font-size: clamp(1rem, 2.5vw, 1.25rem);
-  font-weight: 700;
-  color: var(--white);
-  transition: color 0.4s ease;
-  line-height: 1.2;
-  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
 }
-.nav-logo span { color: var(--accent); }
-#navbar.scrolled .nav-logo { color: var(--primary); }
+.nav-logo-name {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(1.15rem, 2vw, 1.4rem);
+  letter-spacing: 0.03em;
+  color: var(--text-inv);
+  transition: color var(--trans);
+}
+#nav.scrolled .nav-logo-name { color: var(--accent-dark); }
+.nav-logo-tag {
+  font-family: var(--sans);
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(251,248,244,0.7);
+  transition: color var(--trans);
+}
+#nav.scrolled .nav-logo-tag { color: var(--text-light); }
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 32px;
+  gap: 2.5rem;
 }
 .nav-links a {
-  font-family: var(--font-body);
-  font-size: 0.9rem;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  color: rgba(255,255,255,0.9);
-  transition: color 0.3s ease;
-  min-height: 44px;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(251,248,244,0.85);
+  transition: color var(--trans);
+  position: relative;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--accent-warm);
+  transition: width var(--trans);
+}
+.nav-links a:hover::after { width: 100%; }
+.nav-links a:hover { color: rgba(251,248,244,1); }
+#nav.scrolled .nav-links a { color: var(--text-mid); }
+#nav.scrolled .nav-links a:hover { color: var(--accent); }
+.nav-cta {
   display: flex;
   align-items: center;
+  gap: 1rem;
 }
-.nav-links a:hover { color: var(--accent); }
-#navbar.scrolled .nav-links a { color: var(--primary); }
-#navbar.scrolled .nav-links a:hover { color: var(--accent); }
-.nav-cta { margin-left: 8px; }
+.nav-book {
+  display: inline-block;
+  padding: 0.6rem 1.4rem;
+  background: var(--accent);
+  color: var(--text-inv);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  border-radius: var(--radius);
+  transition: background var(--trans), transform var(--trans);
+}
+.nav-book:hover { background: var(--accent-dark); transform: translateY(-2px); }
+#nav.scrolled .nav-book { background: var(--accent); }
 
-.hamburger {
+/* Hamburger */
+.nav-hamburger {
   display: none;
   flex-direction: column;
   gap: 5px;
+  width: 28px;
   cursor: pointer;
-  padding: 8px;
-  background: none;
-  border: none;
-  min-width: 44px;
-  min-height: 44px;
-  align-items: center;
-  justify-content: center;
+  padding: 4px;
 }
-.hamburger span {
+.nav-hamburger span {
   display: block;
-  width: 24px;
-  height: 2px;
-  background: var(--white);
+  height: 1.5px;
+  background: var(--text-inv);
+  transition: transform var(--trans), opacity var(--trans), background var(--trans);
   border-radius: 2px;
-  transition: all 0.3s ease;
 }
-#navbar.scrolled .hamburger span { background: var(--primary); }
-.hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-.hamburger.active span:nth-child(2) { opacity: 0; }
-.hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+#nav.scrolled .nav-hamburger span { background: var(--accent-dark); }
+.nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 
-.mobile-menu {
+/* Mobile menu */
+.nav-mobile-menu {
   display: none;
   position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: var(--bg);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--bg-green);
   z-index: 999;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 32px;
+  gap: 2rem;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.35s ease;
+  transition: opacity var(--trans);
 }
-.mobile-menu.open {
+.nav-mobile-menu.open {
   opacity: 1;
   pointer-events: all;
 }
-.mobile-menu a {
-  font-family: var(--font-heading);
-  font-size: clamp(1.5rem, 5vw, 2rem);
-  color: var(--primary);
-  font-weight: 700;
-  min-height: 44px;
-  display: flex;
-  align-items: center;
+.nav-mobile-menu a {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 7vw, 3rem);
+  font-weight: 300;
+  color: var(--text-inv);
+  letter-spacing: 0.02em;
+  transition: color var(--trans);
 }
-.mobile-menu a:hover { color: var(--accent); }
-.mobile-menu-close {
+.nav-mobile-menu a:hover { color: var(--accent-warm); }
+.nav-mobile-close {
   position: absolute;
-  top: 24px; right: 24px;
-  background: none;
-  border: none;
-  cursor: pointer;
+  top: 1.5rem;
+  right: 1.5rem;
+  color: var(--text-inv);
   font-size: 1.5rem;
-  color: var(--primary);
-  min-width: 44px;
-  min-height: 44px;
+  cursor: pointer;
+  width: 44px;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-/* ─── STICKY MOBILE CTA ─── */
-.sticky-mobile-cta {
+/* Sticky book now (mobile) */
+.sticky-book {
   display: none;
   position: fixed;
-  bottom: 0; left: 0; right: 0;
+  bottom: 1.25rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 900;
   background: var(--accent);
-  color: var(--white);
-  text-align: center;
-  padding: 14px 20px;
-  font-family: var(--font-body);
-  font-weight: 600;
-  font-size: 1rem;
-  z-index: 998;
-  border-top: 3px solid var(--accent-dark);
+  color: var(--text-inv);
+  padding: 0.9rem 2.5rem;
+  border-radius: 99px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  box-shadow: 0 8px 32px rgba(30,58,47,0.3);
+  transition: transform var(--trans), box-shadow var(--trans);
+  white-space: nowrap;
+}
+.sticky-book:hover {
+  transform: translateX(-50%) translateY(-3px);
+  box-shadow: 0 14px 40px rgba(30,58,47,0.35);
 }
 
-/* ─── HERO ─── */
-#home {
-  height: 100vh;
+/* ============================================================
+   HERO
+   ============================================================ */
+#hero {
+  position: relative;
+  width: 100%;
   min-height: 100vh;
   min-height: 100svh;
-  background-image: url("https://images.unsplash.com/photo-1499233662171-69cf37deb71b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxzZXJlbmUlMjBiYWNreWFyZCUyMGdhcmRlbiUyMG1vcm5pbmclMjBsaWdodCUyMGZyZXNoJTIwYWlyfGVufDB8MHx8fDE3Nzc0Mzk5NTN8MA&ixlib=rb-4.1.0&q=80&w=1080");
+  display: flex;
+  align-items: flex-end;
+  background-image: url('https://images.unsplash.com/photo-1599665816768-5cf2ad154ee6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjByZXNpZGVudGlhbCUyMGdhcmRlbiUyMGRlc2lnbiUyMG1vcm5pbmclMjBsaWdodCUyMGFyY2hpdGVjdHVyYWwlMjBsYW5kc2NhcGluZ3xlbnwwfDB8fHwxNzc3NDczOTAzfDA&ixlib=rb-4.1.0&q=80&w=1080');
   background-size: cover;
   background-position: center;
-  position: relative;
-  display: flex;
-  align-items: center;
+  background-attachment: fixed;
+  overflow: hidden;
 }
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to right, #1F1810cc 0%, #1F181033 60%);
+  background: linear-gradient(
+    160deg,
+    rgba(10,26,18,0.15) 0%,
+    rgba(10,26,18,0.35) 40%,
+    rgba(10,26,18,0.72) 100%
+  );
+  z-index: 1;
 }
 .hero-content {
   position: relative;
   z-index: 2;
-  max-width: 620px;
-  padding-top: 80px;
+  width: 100%;
+  padding: 0 clamp(1.25rem, 5vw, 7rem) clamp(3rem, 8vh, 7rem);
 }
 .hero-eyebrow {
-  font-family: var(--font-body);
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.hero-eyebrow-line {
   display: block;
+  width: 48px;
+  height: 1px;
+  background: var(--accent-warm);
 }
-.hero-content h1 {
-  color: var(--white);
-  font-weight: 700;
-  margin-bottom: 20px;
-  text-shadow: 0 2px 12px rgba(0,0,0,0.3);
+.hero-eyebrow-text {
+  font-size: 0.68rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--accent-warm);
 }
-.hero-tagline {
-  font-size: clamp(1rem, 2vw, 1.2rem);
-  color: rgba(255,255,255,0.9);
-  margin-bottom: 36px;
-  line-height: 1.7;
+.hero-headline {
+  font-family: var(--serif);
   font-weight: 300;
+  font-size: clamp(3.5rem, 10vw, 9.5rem);
+  line-height: 0.92;
+  letter-spacing: -0.025em;
+  color: var(--text-inv);
+  margin-bottom: 1.75rem;
+  max-width: 900px;
 }
-.hero-ctas { display: flex; gap: 16px; flex-wrap: wrap; }
-.hero-scroll {
+.hero-headline em {
+  font-style: italic;
+  color: rgba(251,248,244,0.85);
+}
+.hero-headline .hero-line-accent {
+  display: block;
+  color: var(--accent-sage);
+}
+.hero-sub {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-style: italic;
+  font-size: clamp(1rem, 2vw, 1.45rem);
+  color: rgba(251,248,244,0.8);
+  margin-bottom: 2.5rem;
+  max-width: 500px;
+  line-height: 1.6;
+}
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+.hero-trust {
   position: absolute;
-  bottom: 36px;
+  bottom: clamp(1.5rem, 4vh, 3rem);
+  right: clamp(1.25rem, 5vw, 7rem);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+}
+.hero-trust-item {
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(251,248,244,0.6);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.hero-trust-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--accent-warm);
+  flex-shrink: 0;
+}
+.hero-scroll-hint {
+  position: absolute;
+  bottom: clamp(1.5rem, 4vh, 3rem);
   left: 50%;
   transform: translateX(-50%);
   z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
-  color: rgba(255,255,255,0.7);
-  font-size: 0.75rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  font-family: var(--font-body);
+  gap: 0.5rem;
 }
-.scroll-line {
+.hero-scroll-line {
   width: 1px;
-  height: 40px;
-  background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.7));
-  animation: scrollPulse 1.8s ease-in-out infinite;
+  height: 48px;
+  background: linear-gradient(to bottom, rgba(251,248,244,0.6), transparent);
+  animation: scrollPulse 2s ease-in-out infinite;
 }
-@keyframes scrollPulse { 0%,100%{opacity:0.4;} 50%{opacity:1;} }
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.6; transform: scaleY(1); }
+  50% { opacity: 1; transform: scaleY(1.2); }
+}
+.hero-scroll-label {
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(251,248,244,0.5);
+}
+/* Stats bar */
+.hero-stats {
+  position: relative;
+  z-index: 2;
+  background: rgba(251,248,244,0.06);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-top: 1px solid rgba(251,248,244,0.12);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: clamp(1.5rem, 3vh, 2.5rem) clamp(1.25rem, 5vw, 7rem);
+  gap: 0;
+}
+.hero-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: 0 2rem;
+  border-right: 1px solid rgba(251,248,244,0.15);
+}
+.hero-stat:first-child { padding-left: 0; }
+.hero-stat:last-child { border-right: none; }
+.hero-stat-num {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  color: var(--text-inv);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.hero-stat-label {
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(251,248,244,0.5);
+}
 
-/* ─── TRUST BAR ─── */
-#trust-bar {
-  background: var(--dark);
-  padding: 24px 0;
-  border-bottom: 1px solid rgba(196,149,106,0.2);
+/* ============================================================
+   MARQUEE TICKER
+   ============================================================ */
+.marquee-wrap {
+  overflow: hidden;
+  background: var(--accent);
+  padding: 0.9rem 0;
+  border-top: 1px solid rgba(255,255,255,0.08);
 }
-.trust-bar-inner {
+.marquee-track {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 40px;
-  flex-wrap: wrap;
-}
-.trust-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: rgba(255,255,255,0.85);
-  font-family: var(--font-body);
-  font-size: 0.875rem;
-  font-weight: 600;
   white-space: nowrap;
+  animation: marquee 30s linear infinite;
 }
-.trust-icon {
-  width: 36px;
-  height: 36px;
-  background: rgba(196,149,106,0.15);
-  border: 1px solid rgba(196,149,106,0.3);
-  border-radius: 50%;
-  display: flex;
+.marquee-track:hover { animation-play-state: paused; }
+.marquee-item {
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
+  gap: 1.5rem;
+  padding: 0 1.5rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: rgba(251,248,244,0.8);
+}
+.marquee-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--accent-warm);
   flex-shrink: 0;
 }
-.trust-icon svg { width: 16px; height: 16px; fill: var(--accent); }
-.trust-divider { width: 1px; height: 32px; background: rgba(255,255,255,0.15); }
-.stars-row { display: flex; gap: 2px; }
-.star { color: #F5C842; font-size: 14px; }
-.rating-text { color: rgba(255,255,255,0.85); font-size: 0.875rem; font-weight: 600; }
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
 
-/* ─── SERVICES ─── */
-#services { padding: 96px 0; background: var(--bg); }
-.services-header { margin-bottom: 56px; }
+/* ============================================================
+   SERVICES
+   ============================================================ */
+#services { background: var(--bg); }
+.services-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: end;
+  margin-bottom: clamp(3rem, 6vw, 5rem);
+}
+.services-header-left {}
+.services-header-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  gap: 1.5rem;
+  padding-bottom: 0.25rem;
+}
 .services-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 28px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5px;
+  background: var(--rule);
+  border: 1.5px solid var(--rule);
+  border-radius: 8px;
+  overflow: hidden;
 }
 .service-card {
-  background: var(--white);
-  border-radius: var(--radius);
+  background: var(--bg);
+  padding: clamp(1.75rem, 3vw, 2.75rem);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  transition: background var(--trans), transform var(--trans), box-shadow var(--trans);
+  position: relative;
   overflow: hidden;
-  border-top: 3px solid var(--accent);
-  box-shadow: 0 4px 20px rgba(58,46,32,0.06);
-  transition: transform var(--transition), box-shadow var(--transition);
 }
-.service-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0,0,0,0.12); }
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--trans);
+}
+.service-card:hover::before { transform: scaleX(1); }
+.service-card:hover {
+  background: var(--bg-alt);
+  transform: translateY(-6px);
+  box-shadow: 0 20px 60px rgba(30,58,47,0.1);
+  z-index: 2;
+}
 .service-card-img {
   width: 100%;
   height: 220px;
+  border-radius: 4px;
+  overflow: hidden;
 }
-.service-card-body { padding: 24px; }
-.service-card-icon {
-  width: 44px;
-  height: 44px;
-  background: rgba(196,149,106,0.12);
+.service-card-img img {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.7s ease;
+}
+.service-card:hover .service-card-img img { transform: scale(1.05); }
+.service-number {
+  font-family: var(--serif);
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  color: var(--accent-warm);
+  font-weight: 400;
+}
+.service-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid var(--rule);
+}
+.service-duration {
+  font-size: 0.7rem;
+  color: var(--text-light);
+  letter-spacing: 0.1em;
+}
+.service-arrow {
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
+  border: 1px solid var(--rule);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 14px;
+  transition: background var(--trans), border-color var(--trans);
 }
-.service-card-icon svg { width: 20px; height: 20px; fill: var(--accent); }
-.service-card h3 { margin-bottom: 10px; font-size: clamp(1rem, 1.8vw, 1.2rem); }
-.service-card p { font-size: 0.9rem; color: #6b5e4e; line-height: 1.65; }
+.service-card:hover .service-arrow {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+.service-arrow svg { transition: stroke var(--trans); }
+.service-card:hover .service-arrow svg { stroke: var(--text-inv); }
 
-/* ─── ABOUT ─── */
-#about { padding: 96px 0; background: var(--bg-alt); }
+/* ============================================================
+   ABOUT / STORY
+   ============================================================ */
+#about {
+  background: var(--bg-alt);
+  position: relative;
+  overflow: hidden;
+}
 .about-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 72px;
+  gap: clamp(3rem, 6vw, 7rem);
   align-items: center;
 }
 .about-img-wrap {
@@ -399,603 +755,796 @@ p { font-size: clamp(0.95rem, 1.5vw, 1.05rem); }
 }
 .about-img-main {
   width: 100%;
-  height: 500px;
-  border-radius: var(--radius);
-  object-fit: cover;
+  height: clamp(380px, 55vw, 680px);
+  border-radius: 6px;
+  overflow: hidden;
 }
-.about-badge {
+.about-img-main img {
+  width: 100%;
+  height: 100%;
+}
+.about-img-badge {
   position: absolute;
-  bottom: -24px;
-  right: -24px;
+  bottom: -1.5rem;
+  right: -1.5rem;
   background: var(--accent);
-  color: var(--white);
-  padding: 24px;
-  border-radius: var(--radius);
+  color: var(--text-inv);
+  padding: 1.75rem 2rem;
+  border-radius: 4px;
   text-align: center;
-  font-family: var(--font-heading);
-  box-shadow: 0 12px 32px rgba(196,149,106,0.35);
 }
-.about-badge-num { font-size: 2.4rem; font-weight: 700; line-height: 1; display: block; }
-.about-badge-text { font-size: 0.8rem; font-weight: 400; opacity: 0.9; display: block; margin-top: 4px; }
-.about-content { padding-right: 16px; }
-.about-content h2 { margin-bottom: 20px; }
-.about-content p { color: #5a4e3e; margin-bottom: 18px; }
-.about-pillars {
+.about-img-badge-num {
+  font-family: var(--serif);
+  font-size: 3rem;
+  font-weight: 300;
+  line-height: 1;
+  display: block;
+}
+.about-img-badge-label {
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  display: block;
+  margin-top: 0.3rem;
+  opacity: 0.8;
+}
+.about-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.about-quote {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(1.4rem, 2.5vw, 2rem);
+  line-height: 1.4;
+  color: var(--accent-dark);
+  position: relative;
+  padding-left: 2rem;
+}
+.about-quote::before {
+  content: '"';
+  position: absolute;
+  left: -0.5rem;
+  top: -0.75rem;
+  font-size: 5rem;
+  color: var(--accent-sage);
+  opacity: 0.3;
+  font-family: var(--serif);
+  line-height: 1;
+}
+.about-awards {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  margin: 28px 0;
+  gap: 1rem;
+  margin-top: 0.5rem;
 }
-.pillar {
+.about-award-item {
   display: flex;
-  align-items: flex-start;
-  gap: 12px;
-}
-.pillar-dot {
-  width: 8px;
-  height: 8px;
-  background: var(--accent);
-  border-radius: 50%;
-  flex-shrink: 0;
-  margin-top: 8px;
-}
-.pillar p { font-size: 0.875rem; font-weight: 600; color: var(--primary); margin: 0; }
-
-/* ─── HOW IT WORKS ─── */
-#how-it-works { padding: 96px 0; background: var(--bg); }
-.steps-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 40px;
-  margin-top: 56px;
-  position: relative;
-}
-.steps-grid::before {
-  content: '';
-  position: absolute;
-  top: 32px;
-  left: calc(16.66% + 24px);
-  right: calc(16.66% + 24px);
-  height: 1px;
-  background: linear-gradient(to right, var(--accent) 0%, var(--accent) 100%);
-  opacity: 0.3;
-}
-.step-card { text-align: center; padding: 0 16px; }
-.step-num {
-  width: 64px;
-  height: 64px;
-  background: var(--accent);
-  color: var(--white);
-  border-radius: 50%;
-  font-family: var(--font-heading);
-  font-size: 1.4rem;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 24px;
-  position: relative;
-  z-index: 1;
-}
-.step-card h3 { margin-bottom: 12px; }
-.step-card p { font-size: 0.9rem; color: #6b5e4e; }
-
-/* ─── STATS ─── */
-#stats { background: var(--dark); padding: 80px 0; }
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 40px;
-  text-align: center;
-}
-.stat-item { padding: 0 16px; }
-.stat-num {
-  font-family: var(--font-heading);
-  font-size: clamp(2.4rem, 5vw, 3.6rem);
-  font-weight: 700;
-  color: var(--accent);
-  display: block;
-  line-height: 1;
-  margin-bottom: 10px;
-}
-.stat-label {
-  font-family: var(--font-body);
-  font-size: 0.875rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  color: rgba(255,255,255,0.65);
-  text-transform: uppercase;
-}
-.stat-divider {
-  width: 1px;
-  background: rgba(255,255,255,0.1);
-  margin: 0;
-}
-
-/* ─── GALLERY ─── */
-#gallery { padding: 96px 0; background: var(--bg-alt); }
-.gallery-header { margin-bottom: 56px; }
-.before-after {
-  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 1rem;
+  border: 1px solid var(--rule);
   border-radius: var(--radius);
-  overflow: hidden;
-  box-shadow: 0 20px 60px rgba(58,46,32,0.12);
-  margin-bottom: 40px;
-  position: relative;
+  background: var(--bg);
 }
-.ba-side {
-  flex: 1;
-  position: relative;
+.about-award-val {
+  font-family: var(--serif);
+  font-size: 1.8rem;
+  font-weight: 300;
+  color: var(--accent);
+  line-height: 1;
 }
-.ba-side img { width: 100%; height: 420px; }
-.ba-label {
-  position: absolute;
-  bottom: 20px;
-  left: 20px;
-  background: rgba(31,24,16,0.85);
-  color: var(--white);
-  padding: 6px 14px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
+.about-award-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
-  border-radius: 2px;
-  font-family: var(--font-body);
+  color: var(--text-light);
 }
-.ba-divider {
+
+/* ============================================================
+   PROCESS
+   ============================================================ */
+#process {
+  background: var(--bg-green);
+  color: var(--text-inv);
+  position: relative;
+  overflow: hidden;
+}
+#process::before {
+  content: 'PROCESS';
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 10;
-  background: var(--white);
-  color: var(--primary);
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  padding: 10px 14px;
-  border-radius: 2px;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+  transform: translate(-50%,-50%);
+  font-family: var(--serif);
+  font-size: clamp(8rem, 20vw, 22rem);
+  font-weight: 300;
+  color: rgba(255,255,255,0.025);
   white-space: nowrap;
-  font-family: var(--font-body);
+  pointer-events: none;
+  letter-spacing: -0.05em;
+  z-index: 0;
 }
-.gallery-grid {
+.process-inner { position: relative; z-index: 1; }
+.process-header {
+  text-align: center;
+  margin-bottom: clamp(3rem, 6vw, 5rem);
+}
+.process-header .t-heading { color: var(--text-inv); }
+.process-header .t-section-label { color: var(--accent-warm); }
+.process-steps {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-  margin-top: 40px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  position: relative;
 }
-.gallery-item {
-  border-radius: var(--radius);
+.process-steps::before {
+  content: '';
+  position: absolute;
+  top: 2.25rem;
+  left: 12.5%;
+  right: 12.5%;
+  height: 1px;
+  background: rgba(251,248,244,0.15);
+  z-index: 0;
+}
+.process-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 0 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+.process-step-num {
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: 50%;
+  border: 1px solid rgba(251,248,244,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--serif);
+  font-size: 1.4rem;
+  font-weight: 300;
+  color: var(--accent-warm);
+  background: var(--bg-green);
+  margin-bottom: 1.5rem;
+  transition: background var(--trans), border-color var(--trans);
+}
+.process-step:hover .process-step-num {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--text-inv);
+}
+.process-step-title {
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: var(--text-inv);
+  margin-bottom: 0.75rem;
+}
+.process-step-body {
+  font-size: 0.82rem;
+  line-height: 1.7;
+  color: rgba(251,248,244,0.55);
+  font-weight: 300;
+}
+
+/* ============================================================
+   GALLERY
+   ============================================================ */
+#gallery {
+  background: var(--bg);
+}
+.gallery-header {
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+.gallery-mosaic {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: auto;
+  gap: 1rem;
+}
+.gal-item {
   overflow: hidden;
-  transition: transform var(--transition), box-shadow var(--transition);
+  border-radius: 6px;
+  position: relative;
   cursor: pointer;
 }
-.gallery-item:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0,0,0,0.12); }
-.gallery-item img { width: 100%; height: 280px; }
+.gal-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s ease;
+}
+.gal-item:hover img { transform: scale(1.06); }
+.gal-item-1 {
+  grid-column: 1 / 6;
+  grid-row: 1 / 3;
+  height: 520px;
+}
+.gal-item-2 {
+  grid-column: 6 / 13;
+  grid-row: 1 / 2;
+  height: 250px;
+}
+.gal-item-3 {
+  grid-column: 6 / 13;
+  grid-row: 2 / 3;
+  height: 254px;
+}
+.gal-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(30,58,47,0.6) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity var(--trans);
+  display: flex;
+  align-items: flex-end;
+  padding: 1.5rem;
+}
+.gal-item:hover .gal-overlay { opacity: 1; }
+.gal-caption {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--text-inv);
+}
 
-/* ─── TESTIMONIALS ─── */
-#testimonials { padding: 96px 0; background: var(--bg); }
+/* ============================================================
+   TESTIMONIALS
+   ============================================================ */
+#testimonials {
+  background: var(--bg-alt);
+  position: relative;
+}
+.testimonials-header {
+  text-align: center;
+  margin-bottom: clamp(3rem, 6vw, 5rem);
+}
 .testimonials-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 28px;
-  margin-top: 56px;
+  gap: 1.5rem;
 }
 .testimonial-card {
-  background: var(--white);
-  padding: 32px;
-  border-radius: var(--radius);
-  box-shadow: 0 4px 24px rgba(58,46,32,0.07);
-  border-top: 3px solid var(--accent);
-  transition: transform var(--transition), box-shadow var(--transition);
+  background: var(--bg);
+  padding: clamp(1.75rem, 3vw, 2.5rem);
+  border-radius: 6px;
+  border: 1px solid var(--rule);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  transition: transform var(--trans), box-shadow var(--trans);
+  position: relative;
 }
-.testimonial-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0,0,0,0.12); }
-.t-stars { display: flex; gap: 3px; margin-bottom: 16px; }
-.t-star { color: #F5C842; font-size: 16px; }
-.t-quote {
-  font-size: 0.95rem;
-  color: #5a4e3e;
-  line-height: 1.75;
-  margin-bottom: 20px;
+.testimonial-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 60px rgba(30,58,47,0.08);
+}
+.testimonial-quote-mark {
+  font-family: var(--serif);
+  font-size: 5rem;
+  line-height: 0.7;
+  color: var(--accent-sage);
+  opacity: 0.25;
+  position: absolute;
+  top: 1.5rem;
+  right: 1.75rem;
+  pointer-events: none;
+}
+.testimonial-stars {
+  display: flex;
+  gap: 3px;
+}
+.testimonial-star {
+  width: 12px;
+  height: 12px;
+  background: var(--accent-warm);
+  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+}
+.testimonial-text {
+  font-family: var(--serif);
   font-style: italic;
+  font-size: clamp(1rem, 1.5vw, 1.15rem);
+  line-height: 1.65;
+  color: var(--text-dark);
+  flex-grow: 1;
 }
-.t-author {
+.testimonial-author {
   display: flex;
-  align-items: center;
-  gap: 12px;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--rule);
 }
-.t-avatar {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: var(--accent);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-heading);
-  font-weight: 700;
-  color: var(--white);
-  font-size: 1rem;
-  flex-shrink: 0;
+.testimonial-name {
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--text-dark);
 }
-.t-name { font-weight: 600; font-size: 0.9rem; color: var(--primary); display: block; }
-.t-location { font-size: 0.8rem; color: #9a8a76; }
+.testimonial-role {
+  font-size: 0.68rem;
+  color: var(--text-light);
+  letter-spacing: 0.1em;
+}
 
-/* ─── SERVICE AREAS ─── */
-#service-areas { padding: 80px 0; background: var(--dark); }
-.areas-inner {
+/* ============================================================
+   FAQ
+   ============================================================ */
+#faq { background: var(--bg); }
+.faq-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 64px;
+  grid-template-columns: 1fr 2fr;
+  gap: clamp(3rem, 6vw, 7rem);
   align-items: start;
 }
-.areas-text h2 { color: var(--white); margin-bottom: 16px; }
-.areas-text p { color: rgba(255,255,255,0.7); margin-bottom: 32px; }
-.areas-list {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
+.faq-sidebar {
+  position: sticky;
+  top: 6rem;
 }
-.area-tag {
-  background: rgba(196,149,106,0.12);
-  border: 1px solid rgba(196,149,106,0.25);
-  color: rgba(255,255,255,0.85);
-  padding: 10px 14px;
-  border-radius: var(--radius);
-  font-size: 0.85rem;
-  font-weight: 600;
-  font-family: var(--font-body);
-  text-align: center;
-  transition: background 0.25s ease, border-color 0.25s ease;
+.faq-sidebar-heading {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+  color: var(--text-dark);
+  margin-bottom: 1.5rem;
 }
-.area-tag:hover { background: rgba(196,149,106,0.25); border-color: var(--accent); }
-.map-placeholder {
-  width: 100%;
-  height: 300px;
-  border-radius: var(--radius);
-  overflow: hidden;
-  border: 1px solid rgba(196,149,106,0.2);
+.faq-list {
+  display: flex;
+  flex-direction: column;
 }
-.map-placeholder iframe {
-  width: 100%;
-  height: 100%;
-  border: none;
-  filter: grayscale(30%) sepia(10%);
-}
-
-/* ─── CTA BAND ─── */
-#cta-band {
-  padding: 96px 0;
-  background: var(--bg);
-  position: relative;
-  overflow: hidden;
-}
-.cta-band-bg {
-  position: absolute;
-  inset: 0;
-  background-image: url("https://images.unsplash.com/photo-1759301251135-0c53a43de70e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxwZWFjZWZ1bCUyMG91dGRvb3IlMjBzcGFjZSUyMGNhbG0lMjBuYXR1cmFsJTIwZW52aXJvbm1lbnR8ZW58MHwwfHx8MTc3NzQzOTk1NXww&ixlib=rb-4.1.0&q=80&w=1080");
-  background-size: cover;
-  background-position: center;
-  filter: brightness(0.15) saturate(0.6);
-}
-.cta-band-content { position: relative; z-index: 2; text-align: center; }
-.cta-band-content h2 { color: var(--white); margin-bottom: 16px; }
-.cta-band-content p { color: rgba(255,255,255,0.8); max-width: 520px; margin: 0 auto 36px; font-size: 1.1rem; }
-
-/* ─── FAQ ─── */
-#faq { padding: 80px 0; background: var(--bg-alt); }
-.faq-list { max-width: 760px; margin: 56px auto 0; }
 .faq-item {
-  border-bottom: 1px solid rgba(196,149,106,0.25);
-  overflow: hidden;
+  border-top: 1px solid var(--rule);
 }
+.faq-item:last-child { border-bottom: 1px solid var(--rule); }
 .faq-question {
   width: 100%;
-  background: none;
-  border: none;
-  text-align: left;
-  padding: 22px 0;
-  font-family: var(--font-heading);
-  font-size: clamp(0.95rem, 1.8vw, 1.1rem);
-  font-weight: 700;
-  color: var(--primary);
-  cursor: pointer;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  gap: 16px;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.4rem 0;
+  font-family: var(--sans);
+  font-size: clamp(0.88rem, 1.2vw, 1rem);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: var(--text-dark);
+  text-align: left;
+  background: transparent;
+  cursor: pointer;
+  transition: color var(--trans);
   min-height: 44px;
 }
-.faq-arrow {
-  width: 28px;
-  height: 28px;
+.faq-question:hover { color: var(--accent); }
+.faq-icon {
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
-  background: rgba(196,149,106,0.12);
-  border: 1px solid rgba(196,149,106,0.3);
+  border: 1px solid var(--rule);
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
-  transition: transform 0.3s ease, background 0.3s ease;
+  transition: background var(--trans), border-color var(--trans), transform var(--trans);
 }
-.faq-arrow svg { width: 12px; height: 12px; fill: var(--accent); }
-.faq-item.open .faq-arrow { transform: rotate(180deg); background: var(--accent); }
-.faq-item.open .faq-arrow svg { fill: var(--white); }
+.faq-item.open .faq-icon {
+  background: var(--accent);
+  border-color: var(--accent);
+  transform: rotate(45deg);
+}
+.faq-icon-plus {
+  position: relative;
+  width: 10px;
+  height: 10px;
+}
+.faq-icon-plus::before,
+.faq-icon-plus::after {
+  content: '';
+  position: absolute;
+  background: var(--text-mid);
+  border-radius: 1px;
+  transition: background var(--trans);
+}
+.faq-icon-plus::before { top: 50%; left: 0; right: 0; height: 1px; transform: translateY(-50%); }
+.faq-icon-plus::after { left: 50%; top: 0; bottom: 0; width: 1px; transform: translateX(-50%); }
+.faq-item.open .faq-icon-plus::before,
+.faq-item.open .faq-icon-plus::after { background: var(--text-inv); }
 .faq-answer {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.45s ease;
+  transition: max-height 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
 }
 .faq-answer-inner {
-  padding: 0 0 22px;
-  font-size: 0.95rem;
-  color: #6b5e4e;
+  padding: 0 0 1.5rem;
+  font-size: clamp(0.85rem, 1.2vw, 0.95rem);
   line-height: 1.75;
+  color: var(--text-mid);
+  font-weight: 300;
 }
 
-/* ─── CONTACT ─── */
-#contact { padding: 96px 0; background: var(--bg); }
-.contact-grid {
+/* ============================================================
+   CTA / BOOKING
+   ============================================================ */
+#contact {
+  background: var(--bg-green);
+  position: relative;
+  overflow: hidden;
+}
+.cta-bg-img {
+  position: absolute;
+  inset: 0;
+  background-image: url('https://images.unsplash.com/photo-1773916673687-340c83b05093?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxzZXJlbmUlMjBtb3JuaW5nJTIwbGlnaHQlMjBuYXR1cmFsJTIwZ2FyZGVuJTIwc2FuY3R1YXJ5JTIwcGVhY2VmdWwlMjBvdXRkb29yJTIwbGl2aW5nJTIwc3BhY2V8ZW58MHwwfHx8MTc3NzQ3MzkwOHww&ixlib=rb-4.1.0&q=80&w=1080');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.18;
+}
+.cta-overlay { position: absolute; inset: 0; background: rgba(10,26,18,0.65); }
+.cta-content {
+  position: relative;
+  z-index: 2;
   display: grid;
-  grid-template-columns: 1fr 1.4fr;
-  gap: 72px;
-  align-items: start;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(3rem, 6vw, 7rem);
+  align-items: center;
 }
-.contact-info h2 { margin-bottom: 16px; }
-.contact-info p { color: #6b5e4e; margin-bottom: 32px; }
-.contact-detail {
+.cta-left {
   display: flex;
-  align-items: flex-start;
-  gap: 14px;
-  margin-bottom: 20px;
+  flex-direction: column;
+  gap: 2rem;
 }
-.contact-detail-icon {
-  width: 44px;
-  height: 44px;
-  background: rgba(196,149,106,0.12);
+.cta-heading {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(2.2rem, 5vw, 5rem);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  color: var(--text-inv);
+}
+.cta-heading em {
+  font-style: italic;
+  color: var(--accent-sage);
+}
+.cta-subtext {
+  font-size: clamp(0.88rem, 1.3vw, 1rem);
+  line-height: 1.75;
+  color: rgba(251,248,244,0.65);
+  font-weight: 300;
+}
+.cta-trust-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.cta-trust-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.8rem;
+  color: rgba(251,248,244,0.75);
+  letter-spacing: 0.05em;
+}
+.cta-check {
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
+  background: rgba(122,158,135,0.25);
+  border: 1px solid var(--accent-sage);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  border: 1px solid rgba(196,149,106,0.25);
 }
-.contact-detail-icon svg { width: 18px; height: 18px; fill: var(--accent); }
-.contact-detail-text strong { display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 2px; }
-.contact-detail-text span { font-size: 0.875rem; color: #6b5e4e; }
-.trust-badges {
+.cta-check svg { stroke: var(--accent-sage); }
+.cta-form-wrap {
+  background: rgba(251,248,244,0.06);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(251,248,244,0.12);
+  border-radius: 8px;
+  padding: clamp(2rem, 4vw, 3rem);
+}
+.cta-form-title {
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: var(--text-inv);
+  margin-bottom: 1.5rem;
+}
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.form-group {
   display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-top: 32px;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
 }
-.trust-badge {
-  background: var(--bg-alt);
-  border: 1px solid rgba(196,149,106,0.3);
-  padding: 8px 14px;
-  border-radius: var(--radius);
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: var(--accent);
-  letter-spacing: 0.05em;
+.form-group.full { grid-column: 1 / -1; }
+.form-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
+  color: rgba(251,248,244,0.5);
+  font-weight: 500;
 }
-
-/* ─── FORM ─── */
-.contact-form {
-  background: var(--white);
-  padding: 40px;
-  border-radius: var(--radius);
-  box-shadow: 0 8px 40px rgba(58,46,32,0.08);
-  border-top: 3px solid var(--accent);
-}
-.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-.form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 20px; }
-.form-group label {
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--primary);
-  font-family: var(--font-body);
-}
-.form-group input,
-.form-group select,
-.form-group textarea {
-  background: var(--bg);
-  border: 1px solid rgba(196,149,106,0.3);
-  border-radius: var(--radius);
-  padding: 12px 16px;
-  font-family: var(--font-body);
-  font-size: 0.95rem;
-  color: var(--primary);
-  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+.form-input,
+.form-select,
+.form-textarea {
   width: 100%;
+  padding: 0.85rem 1rem;
+  background: rgba(251,248,244,0.07);
+  border: 1px solid rgba(251,248,244,0.15);
+  border-radius: var(--radius);
+  color: var(--text-inv);
+  font-family: var(--sans);
+  font-size: 0.88rem;
+  font-weight: 300;
+  transition: border-color var(--trans), background var(--trans);
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
   min-height: 44px;
 }
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-  outline: none;
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(196,149,106,0.15);
+.form-input::placeholder,
+.form-textarea::placeholder { color: rgba(251,248,244,0.3); }
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+  border-color: var(--accent-sage);
+  background: rgba(251,248,244,0.1);
 }
-.form-group textarea { min-height: 110px; resize: vertical; }
-.form-group select { appearance: none; cursor: pointer; }
-.contact-method {
-  display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
+.form-select option { background: var(--bg-green); color: var(--text-inv); }
+.form-textarea { min-height: 110px; resize: vertical; }
+.form-submit {
+  width: 100%;
+  padding: 1rem;
+  background: var(--accent-sage);
+  color: var(--text-inv);
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  border-radius: var(--radius);
+  border: none;
+  cursor: pointer;
+  transition: background var(--trans), transform var(--trans);
+  min-height: 44px;
 }
-.method-option { display: flex; align-items: center; gap: 8px; cursor: pointer; min-height: 44px; }
-.method-option input[type="radio"] { accent-color: var(--accent); width: 16px; height: 16px; }
-.method-option span { font-size: 0.9rem; font-weight: 600; color: var(--primary); }
-.form-submit { width: 100%; margin-top: 8px; justify-content: center; font-size: 1rem; padding: 16px; }
+.form-submit:hover { background: var(--accent); transform: translateY(-2px); }
+.form-note {
+  font-size: 0.65rem;
+  color: rgba(251,248,244,0.35);
+  margin-top: 0.75rem;
+  text-align: center;
+  letter-spacing: 0.05em;
+}
 
-/* ─── FOOTER ─── */
+/* ============================================================
+   FOOTER
+   ============================================================ */
 footer {
-  background: var(--dark);
-  color: rgba(255,255,255,0.7);
-  padding: 64px 0 0;
+  background: #0D1F18;
+  color: var(--text-inv);
+  padding: clamp(3.5rem, 7vw, 6rem) 0 2rem;
 }
-.footer-grid {
+.footer-inner {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr 1fr;
-  gap: 48px;
-  padding-bottom: 48px;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
+  gap: clamp(2rem, 4vw, 4rem);
+  margin-bottom: 3rem;
 }
-.footer-brand .footer-logo {
-  font-family: var(--font-heading);
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: var(--white);
-  margin-bottom: 14px;
-  display: block;
-}
-.footer-brand .footer-logo span { color: var(--accent); }
-.footer-brand p { font-size: 0.875rem; line-height: 1.75; max-width: 280px; }
-.footer-col h4 {
-  color: var(--white);
-  font-size: 0.9rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  margin-bottom: 20px;
-  font-family: var(--font-body);
-}
-.footer-col ul { display: flex; flex-direction: column; gap: 10px; }
-.footer-col ul li a {
-  font-size: 0.875rem;
-  color: rgba(255,255,255,0.65);
-  transition: color 0.25s ease;
-}
-.footer-col ul li a:hover { color: var(--accent); }
-.footer-bottom {
-  padding: 20px 0;
+.footer-brand {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+.footer-logo {
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  font-weight: 300;
+  letter-spacing: 0.03em;
+  color: var(--text-inv);
+}
+.footer-tagline {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 0.95rem;
+  color: rgba(251,248,244,0.45);
+  line-height: 1.6;
+}
+.footer-col-title {
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: rgba(251,248,244,0.4);
+  margin-bottom: 1.25rem;
+}
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+.footer-links a {
+  font-size: 0.85rem;
+  color: rgba(251,248,244,0.6);
+  font-weight: 300;
+  transition: color var(--trans);
+}
+.footer-links a:hover { color: var(--text-inv); }
+.footer-bottom {
+  display: flex;
   align-items: center;
+  justify-content: space-between;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(251,248,244,0.08);
   flex-wrap: wrap;
-  gap: 12px;
-  font-size: 0.8rem;
+  gap: 1rem;
 }
-.footer-bottom p { color: rgba(255,255,255,0.45); }
-.footer-bottom a { color: var(--accent); }
-.footer-accent-line {
-  height: 3px;
-  background: linear-gradient(to right, var(--accent), transparent);
-  margin-bottom: 0;
+.footer-copy {
+  font-size: 0.72rem;
+  color: rgba(251,248,244,0.3);
+  letter-spacing: 0.08em;
 }
-
-/* ─── LANDSCAPE ORIENTATION ─── */
-@media (orientation: landscape) and (max-width: 900px) {
-  #home {
-    min-height: 56svh;
-    height: 56svh;
-  }
-  h1 { font-size: clamp(1.6rem, 4vw, 2.8rem); }
-  h2 { font-size: clamp(1.4rem, 3vw, 2.2rem); }
-  .hero-content { padding-top: 60px; }
-  .hero-tagline { font-size: 1rem; }
-  .nav-links { display: flex; }
-  .hamburger { display: none; }
-  #services { padding: 60px 0; }
-  #about { padding: 60px 0; }
-  .about-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
-  .about-img-main { height: 320px; }
-  .steps-grid { grid-template-columns: repeat(3, 1fr); gap: 24px; }
-  .stats-grid { grid-template-columns: repeat(4, 1fr); }
-  .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
-  .contact-grid { grid-template-columns: 1fr 1.2fr; gap: 40px; }
-  .container { padding: 0 32px; }
-  .footer-grid { grid-template-columns: repeat(2, 1fr); gap: 32px; }
+.footer-legal {
+  display: flex;
+  gap: 1.5rem;
+}
+.footer-legal a {
+  font-size: 0.72rem;
+  color: rgba(251,248,244,0.3);
+  letter-spacing: 0.05em;
+  transition: color var(--trans);
+}
+.footer-legal a:hover { color: rgba(251,248,244,0.7); }
+.footer-service-area {
+  font-size: 0.72rem;
+  color: rgba(251,248,244,0.3);
+  letter-spacing: 0.05em;
 }
 
-@media (orientation: portrait) and (max-width: 767px) {
-  /* portrait phone rules enforced in mobile block below */
+/* ============================================================
+   DIAGONAL SECTION DIVIDER
+   ============================================================ */
+.diagonal-divider {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  height: 60px;
+}
+.diagonal-divider svg {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
-/* ─── MOBILE ─── */
-@media (max-width: 767px) {
-  .hamburger { display: flex; }
-  .mobile-menu { display: flex; }
-  .nav-links, .nav-cta { display: none; }
-  .sticky-mobile-cta { display: block; }
-  body { padding-bottom: 60px; }
+/* ============================================================
+   MOBILE & RESPONSIVE
+   ============================================================ */
+@media (max-width: 1200px) {
+  .services-grid { grid-template-columns: repeat(2, 1fr); }
+  .footer-inner { grid-template-columns: 1fr 1fr; }
+}
 
-  #home { min-height: 100svh; height: 100svh; }
-  .hero-content { max-width: 100%; }
-  .hero-ctas { flex-direction: column; gap: 12px; }
-  .hero-ctas .btn { text-align: center; justify-content: center; }
+@media (max-width: 1024px) {
+  .services-header { grid-template-columns: 1fr; gap: 1.5rem; }
+  .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .about-img-wrap { max-width: 600px; }
+  .cta-content { grid-template-columns: 1fr; }
+  .process-steps { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+  .process-steps::before { display: none; }
+  .faq-grid { grid-template-columns: 1fr; }
+  .faq-sidebar { position: static; }
+  .testimonials-grid { grid-template-columns: 1fr 1fr; }
+  .gal-item-1 { grid-column: 1 / 7; height: 380px; }
+  .gal-item-2 { grid-column: 7 / 13; height: 180px; }
+  .gal-item-3 { grid-column: 7 / 13; height: 184px; }
+}
 
-  .trust-bar-inner { gap: 20px; }
-  .trust-divider { display: none; }
-
-  #services { padding: 64px 0; }
+@media (max-width: 768px) {
+  .nav-links,
+  .nav-book { display: none; }
+  .nav-hamburger { display: flex; }
+  .nav-mobile-menu { display: flex; }
+  .sticky-book { display: block; }
   .services-grid { grid-template-columns: 1fr; }
-
-  #about { padding: 64px 0; }
-  .about-grid { grid-template-columns: 1fr; gap: 48px; }
-  .about-img-main { height: 320px; }
-  .about-badge { right: 12px; bottom: -16px; padding: 16px; }
-  .about-badge-num { font-size: 1.8rem; }
-  .about-content { padding-right: 0; padding-top: 24px; }
-  .about-pillars { grid-template-columns: 1fr; }
-
-  #how-it-works { padding: 64px 0; }
-  .steps-grid { grid-template-columns: 1fr; gap: 32px; }
-  .steps-grid::before { display: none; }
-
-  #stats { padding: 56px 0; }
-  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 32px; }
-  .stat-divider { display: none; }
-
-  #gallery { padding: 64px 0; }
-  .before-after { flex-direction: column; }
-  .ba-side img { height: 260px; }
-  .ba-divider { top: auto; bottom: -16px; left: 50%; transform: translateX(-50%); }
-  .gallery-grid { grid-template-columns: 1fr; }
-  .gallery-item img { height: 240px; }
-
-  #testimonials { padding: 64px 0; }
   .testimonials-grid { grid-template-columns: 1fr; }
-
-  #service-areas { padding: 56px 0; }
-  .areas-inner { grid-template-columns: 1fr; gap: 40px; }
-  .areas-list { grid-template-columns: repeat(2, 1fr); }
-
-  #contact { padding: 64px 0; }
-  .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+  .hero-stats { grid-template-columns: repeat(3, 1fr); }
   .form-row { grid-template-columns: 1fr; }
-  .contact-form { padding: 28px 20px; }
-
-  footer { padding: 48px 0 0; }
-  .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+  .about-img-badge { right: 0; bottom: -1rem; }
+  .gallery-mosaic { grid-template-columns: 1fr; display: flex; flex-direction: column; }
+  .gal-item-1, .gal-item-2, .gal-item-3 { height: 260px; }
+  .process-steps { grid-template-columns: 1fr; }
+  .footer-inner { grid-template-columns: 1fr; }
   .footer-bottom { flex-direction: column; text-align: center; }
-
-  #cta-band { padding: 64px 0; }
+  .footer-legal { flex-wrap: wrap; justify-content: center; }
+  .about-awards { grid-template-columns: 1fr 1fr; }
 }
 
 @media (max-width: 480px) {
-  .container { padding: 0 16px; }
-  .stats-grid { grid-template-columns: 1fr 1fr; }
-  .areas-list { grid-template-columns: repeat(2, 1fr); }
-  .form-row { grid-template-columns: 1fr; }
+  .hero-stats { grid-template-columns: 1fr; gap: 1rem; }
+  .hero-stat { border-right: none; border-bottom: 1px solid rgba(251,248,244,0.1); padding: 1rem 0; }
+  .hero-stat:last-child { border-bottom: none; }
+  .hero-trust { display: none; }
+  .about-awards { grid-template-columns: 1fr; }
+  .services-header-right { flex-direction: column; align-items: flex-start; }
 }
 
-@media (min-width: 768px) and (max-width: 1023px) {
-  .about-grid { grid-template-columns: 1fr; gap: 48px; }
-  .about-img-main { height: 400px; }
-  .about-badge { right: 16px; }
-  .footer-grid { grid-template-columns: repeat(2, 1fr); gap: 36px; }
-  .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
-  .contact-grid { grid-template-columns: 1fr; gap: 48px; }
-  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 32px; }
-  .steps-grid { grid-template-columns: repeat(3, 1fr); }
-  .areas-inner { grid-template-columns: 1fr; gap: 40px; }
+/* Landscape phones */
+@media (max-width: 900px) and (orientation: landscape) {
+  #nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 0.6rem clamp(1rem, 3vw, 2.5rem);
+    background: rgba(251,248,244,0.96);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--rule);
+    flex-wrap: nowrap;
+  }
+  .nav-logo-name { color: var(--accent-dark); font-size: 1rem; }
+  .nav-logo-tag { color: var(--text-light); }
+  .nav-links {
+    display: flex;
+    gap: 1.25rem;
+    flex-wrap: nowrap;
+  }
+  .nav-links a { color: var(--text-mid); font-size: 0.62rem; }
+  .nav-book {
+    display: inline-block;
+    font-size: 0.6rem;
+    padding: 0.4rem 1rem;
+  }
+  .nav-hamburger { display: none; }
+  #hero {
+    min-height: 56svh;
+    background-attachment: scroll;
+  }
+  .hero-headline { font-size: clamp(2.2rem, 7vw, 4.5rem); }
+  .hero-content { padding-bottom: 1.5rem; }
+  .hero-stats { padding: 1rem clamp(1rem, 3vw, 2.5rem); }
+  .hero-stat-num { font-size: clamp(1.4rem, 3vw, 2rem); }
+  .t-heading { font-size: clamp(1.6rem, 3.5vw, 2.8rem); }
+  .section-pad { padding: 3rem 0; }
+  .process-steps { grid-template-columns: repeat(4, 1fr); }
+  .sticky-book { display: none; }
+}
+
+@media (orientation: portrait) {
+  #hero { background-attachment: scroll; }
+}
+
+/* ============================================================
+   ACCESSIBILITY
+   ============================================================ */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+  .hero-scroll-line { animation: none; }
+  .marquee-track { animation: none; }
 }
 </style>
 
@@ -1003,671 +1552,790 @@ footer {
 html[data-palette-anim] *, html[data-palette-anim] *::before, html[data-palette-anim] *::after { transition: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease !important; }
 </style>
 </head>
+
 <body>
 
-<!-- MOBILE MENU -->
-<nav class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-label="Mobile Navigation">
-  <button class="mobile-menu-close" id="mobileClose" aria-label="Close menu">
-    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
-  </button>
-  <a href="#home" class="mobile-link">Home</a>
-  <a href="#about" class="mobile-link">About</a>
-  <a href="#services" class="mobile-link">Services</a>
-  <a href="#gallery" class="mobile-link">Gallery</a>
-  <a href="#contact" class="mobile-link">Free Estimate</a>
+<!-- ============================================================
+     NAVIGATION
+     ============================================================ -->
+<nav id="nav" role="navigation" aria-label="Main Navigation">
+  <a href="#hero" class="nav-logo" aria-label="Binda's Landscaping Home">
+    <span class="nav-logo-name">Binda's Landscaping</span>
+    <span class="nav-logo-tag">Atlanta, Georgia · Est. 2008</span>
+  </a>
+  <div class="nav-links" role="menubar">
+    <a href="#services" role="menuitem">Services</a>
+    <a href="#about" role="menuitem">About</a>
+    <a href="#gallery" role="menuitem">Gallery</a>
+    <a href="#testimonials" role="menuitem">Reviews</a>
+    <a href="#faq" role="menuitem">FAQ</a>
+  </div>
+  <div class="nav-cta">
+    <a href="#contact" class="nav-book">Get a Quote</a>
+    <button class="nav-hamburger" id="hamburger-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
 </nav>
 
-<!-- STICKY NAV -->
-<header id="navbar" role="banner">
-  <div class="container">
-    <div class="nav-inner">
-      <a href="#home" class="nav-logo" aria-label="Binda's Landscaping Home">Binda's <span>Landscaping</span></a>
-      <nav class="nav-links" aria-label="Primary navigation">
-        <a href="#home">Home</a>
-        <a href="#about">About</a>
-        <a href="#services">Services</a>
-        <a href="#gallery">Gallery</a>
-        <a href="#contact" class="btn btn-accent nav-cta">Free Estimate</a>
-      </nav>
-      <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </div>
-</header>
+<!-- Mobile Menu -->
+<div class="nav-mobile-menu" id="mobile-menu" role="dialog" aria-label="Navigation Menu" aria-modal="true">
+  <button class="nav-mobile-close" id="mobile-close" aria-label="Close menu">✕</button>
+  <a href="#services" class="mobile-link">Services</a>
+  <a href="#about" class="mobile-link">About</a>
+  <a href="#gallery" class="mobile-link">Gallery</a>
+  <a href="#testimonials" class="mobile-link">Reviews</a>
+  <a href="#faq" class="mobile-link">FAQ</a>
+  <a href="#contact" class="mobile-link">Get a Quote</a>
+</div>
 
-<!-- HERO -->
-<section id="home" aria-label="Hero">
-  <div class="hero-overlay"></div>
-  <div class="container">
-    <div class="hero-content">
-      <span class="hero-eyebrow">Atlanta's Trusted Landscaping Specialists Since 2008</span>
-      <h1>Where Nature<br>Meets Design</h1>
-      <p class="hero-tagline">We transform Atlanta backyards, front yards, and outdoor spaces into living environments that feel as good as they look. Rooted in craft. Grown from experience.</p>
-      <div class="hero-ctas">
-        <a href="#contact" class="btn btn-accent">Get a Free Estimate</a>
-        <a href="#services" class="btn btn-outline">Explore Our Services</a>
-      </div>
+<!-- Sticky Mobile CTA -->
+<a href="#contact" class="sticky-book" aria-label="Book appointment">Request a Quote</a>
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section id="hero" role="banner">
+  <div class="hero-overlay" aria-hidden="true"></div>
+
+  <div class="hero-stats" role="list" aria-label="Company statistics">
+    <div class="hero-stat reveal" role="listitem">
+      <span class="hero-stat-num counter" data-target="18">0</span><span class="hero-stat-num" style="font-size:clamp(1rem,2vw,1.6rem);align-self:flex-end;padding-bottom:0.3rem;color:var(--accent-sage);">+</span>
+      <span class="hero-stat-label">Years of Craft</span>
+    </div>
+    <div class="hero-stat reveal reveal-delay-2" role="listitem">
+      <span class="hero-stat-num counter" data-target="1200">0</span><span class="hero-stat-num" style="font-size:clamp(1rem,2vw,1.6rem);align-self:flex-end;padding-bottom:0.3rem;color:var(--accent-sage);">+</span>
+      <span class="hero-stat-label">Properties Transformed</span>
+    </div>
+    <div class="hero-stat reveal reveal-delay-3" role="listitem">
+      <span class="hero-stat-num counter" data-target="98">0</span><span class="hero-stat-num" style="font-size:clamp(1rem,2vw,1.6rem);align-self:flex-end;padding-bottom:0.3rem;color:var(--accent-sage);">%</span>
+      <span class="hero-stat-label">Client Satisfaction</span>
     </div>
   </div>
-  <div class="hero-scroll" aria-hidden="true">
-    <div class="scroll-line"></div>
-    <span>Scroll</span>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow" aria-hidden="true">
+      <span class="hero-eyebrow-line"></span>
+      <span class="hero-eyebrow-text">Greater Atlanta · Full-Service Landscaping</span>
+    </div>
+
+    <h1 class="hero-headline">
+      Where<br>
+      <em>Nature</em>
+      <span class="hero-line-accent">Meets Design.</span>
+    </h1>
+
+    <p class="hero-sub">
+      Turning outdoor spaces into places people come home to — since 2008.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">Request a Free Quote</a>
+      <a href="#services" class="btn-ghost">Explore Services</a>
+    </div>
+  </div>
+
+  <div class="hero-trust" aria-label="Trust credentials">
+    <div class="hero-trust-item"><span class="hero-trust-dot" aria-hidden="true"></span> Licensed &amp; Insured</div>
+    <div class="hero-trust-item"><span class="hero-trust-dot" aria-hidden="true"></span> 5-Star Rated on Google</div>
+    <div class="hero-trust-item"><span class="hero-trust-dot" aria-hidden="true"></span> Serving Greater Atlanta</div>
+  </div>
+
+  <div class="hero-scroll-hint" aria-hidden="true">
+    <span class="hero-scroll-line"></span>
+    <span class="hero-scroll-label">Scroll</span>
   </div>
 </section>
 
-<!-- TRUST BAR -->
-<div id="trust-bar" role="complementary" aria-label="Trust signals">
-  <div class="container">
-    <div class="trust-bar-inner">
-      <div class="trust-item">
-        <div class="trust-icon">
-          <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
-        </div>
-        <div>
-          <div class="stars-row">
-            <span class="star">&#9733;</span>
-            <span class="star">&#9733;</span>
-            <span class="star">&#9733;</span>
-            <span class="star">&#9733;</span>
-            <span class="star">&#9733;</span>
-          </div>
-          <span class="rating-text">5.0 · 200+ Google Reviews</span>
-        </div>
-      </div>
-      <div class="trust-divider" aria-hidden="true"></div>
-      <div class="trust-item">
-        <div class="trust-icon">
-          <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-        </div>
-        Licensed &amp; Insured
-      </div>
-      <div class="trust-divider" aria-hidden="true"></div>
-      <div class="trust-item">
-        <div class="trust-icon">
-          <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
-        </div>
-        Family-Owned Since 2008
-      </div>
-      <div class="trust-divider" aria-hidden="true"></div>
-      <div class="trust-item">
-        <div class="trust-icon">
-          <svg viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><circle cx="12" cy="11" r="3"/></svg>
-        </div>
-        Serving Greater Atlanta
-      </div>
-      <div class="trust-divider" aria-hidden="true"></div>
-      <div class="trust-item">
-        <div class="trust-icon">
-          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        </div>
-        Bonded &amp; Certified
-      </div>
-    </div>
+<!-- Marquee -->
+<div class="marquee-wrap" aria-hidden="true">
+  <div class="marquee-track">
+    <span class="marquee-item">Lawn Care <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Garden Design <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Hardscaping <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Irrigation Systems <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Seasonal Planting <span class="marquee-dot"></span></span>
+    <span class="marquee-item">HOA Maintenance <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Greater Atlanta <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Est. 2008 <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Lawn Care <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Garden Design <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Hardscaping <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Irrigation Systems <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Seasonal Planting <span class="marquee-dot"></span></span>
+    <span class="marquee-item">HOA Maintenance <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Greater Atlanta <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Est. 2008 <span class="marquee-dot"></span></span>
   </div>
 </div>
 
-<!-- SERVICES -->
-<section id="services" aria-labelledby="services-heading">
+<!-- ============================================================
+     SERVICES
+     ============================================================ -->
+<section id="services" class="section-pad">
   <div class="container">
-    <div class="services-header text-center reveal">
-      <span class="section-label">What We Do</span>
-      <h2 id="services-heading" class="section-heading">Full-Service Landscaping,<br>Start to Finish</h2>
-      <p class="section-subtext">From the first blade of grass to the finishing stone, we handle every aspect of your outdoor space with care, precision, and 18 years of expertise.</p>
+    <div class="services-header">
+      <div class="services-header-left">
+        <p class="t-section-label reveal">What We Offer</p>
+        <h2 class="t-heading reveal reveal-delay-1" style="margin-top:0.75rem;">
+          Every service,<br>
+          <em style="font-family:var(--serif);font-style:italic;">masterfully delivered.</em>
+        </h2>
+      </div>
+      <div class="services-header-right">
+        <p class="t-body reveal reveal-delay-2" style="max-width:380px;">From a single lawn visit to a complete outdoor transformation — we bring the same level of care and craftsmanship to every project, every time.</p>
+        <a href="#contact" class="btn-primary reveal reveal-delay-3">View Full Pricing</a>
+      </div>
     </div>
+
     <div class="services-grid">
-      <div class="service-card reveal" style="transition-delay:0s">
-        <img class="service-card-img" src="https://images.unsplash.com/photo-1734303023491-db8037a21f09?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBsYXduJTIwY2FyZSUyMG1haW50ZW5hbmNlJTIwaG9tZW93bmVyJTIwc2F0aXNmYWN0aW9ufGVufDB8MHx8fDE3Nzc0Mzk5NTR8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="Professional lawn care and mowing service" loading="lazy">
-        <div class="service-card-body">
-          <div class="service-card-icon">
-            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-1v-4H9l3-6 3 6h-1v4h-1v-4h-1v4z"/></svg>
+      <!-- Service 1 -->
+      <div class="service-card reveal">
+        <div class="service-card-img">
+          <img src="https://images.unsplash.com/photo-1684858495891-de158014d97e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxlZGl0b3JpYWwlMjBmdWxsLWJsZWVkJTIwaGFyZHNjYXBpbmclMjBzdG9uZSUyMHBhdGlvJTIwbHV4dXJ5JTIwaG9tZSUyMGV4dGVyaW9yfGVufDB8MHx8fDE3Nzc0NzM5MDR8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="Stone walkway and patio hardscape design" loading="lazy">
+        </div>
+        <span class="service-number">01 — Hardscaping</span>
+        <h3 class="t-card-title">Patios, Paths &amp; Stone Work</h3>
+        <p class="t-body" style="font-size:0.88rem;">Custom stone patios, walkways, retaining walls, and outdoor living structures built to last and designed to impress. We blend natural materials with architectural precision.</p>
+        <div class="service-meta">
+          <span class="service-duration">Custom project · Consultation required</span>
+          <div class="service-arrow" aria-hidden="true">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M2 10L10 2M10 2H4M10 2V8"/>
+            </svg>
           </div>
-          <h3>Lawn Care &amp; Maintenance</h3>
-          <p>Weekly and bi-weekly mowing, edging, trimming, and blowing. We keep your lawn healthy, green, and pristine through every season — so you never have to think about it.</p>
         </div>
       </div>
-      <div class="service-card reveal" style="transition-delay:0.12s">
-        <img class="service-card-img" src="https://images.pexels.com/photos/4750274/pexels-photo-4750274.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Garden design and seasonal planting services" loading="lazy">
-        <div class="service-card-body">
-          <div class="service-card-icon">
-            <svg viewBox="0 0 24 24"><path d="M17 8C8 10 5.9 16.17 3.82 21c2.18-.3 4.36-.3 6.55 0C12.55 16 16 13 17 8zm1-5c0 0-5 2.5-5 11 2.5-3.5 5-5 5-11z"/></svg>
+
+      <!-- Service 2 -->
+      <div class="service-card reveal reveal-delay-1">
+        <div class="service-card-img">
+          <img src="https://images.unsplash.com/photo-1760624683127-5d709e4bad52?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxjaW5lbWF0aWMlMjBnYXJkZW4lMjBkZXNpZ24lMjBkZWVwJTIwZm9yZXN0JTIwZ3JlZW4lMjBwbGFudGluZ3MlMjBzb3BoaXN0aWNhdGVkJTIwbGFuZHNjYXBlfGVufDB8MHx8fDE3Nzc0NzM5MDV8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="Lush garden design with deep green plantings" loading="lazy">
+        </div>
+        <span class="service-number">02 — Garden Design</span>
+        <h3 class="t-card-title">Planting &amp; Garden Architecture</h3>
+        <p class="t-body" style="font-size:0.88rem;">Thoughtful plant selection, seasonal color rotations, and curated garden layouts that evolve with the seasons. We design with the Atlanta climate in mind — what thrives here, beautifully.</p>
+        <div class="service-meta">
+          <span class="service-duration">Design + install · Starting consultations</span>
+          <div class="service-arrow" aria-hidden="true">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M2 10L10 2M10 2H4M10 2V8"/>
+            </svg>
           </div>
-          <h3>Garden Design &amp; Planting</h3>
-          <p>Seasonal color installations, native plantings, flower bed design, and curated garden layouts. We create living spaces that bloom beautifully year after year.</p>
         </div>
       </div>
-      <div class="service-card reveal" style="transition-delay:0.24s">
-        <img class="service-card-img" src="https://images.unsplash.com/photo-1777269390561-3528b8c2cfd4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxoYXJkc2NhcGUlMjBwYXRpbyUyMGRlc2lnbiUyMG91dGRvb3IlMjBsaXZpbmclMjBzcGFjZXxlbnwwfDB8fHwxNzc3NDM5OTU0fDA&ixlib=rb-4.1.0&q=80&w=1080" alt="Hardscape and patio design installation" loading="lazy">
-        <div class="service-card-body">
-          <div class="service-card-icon">
-            <svg viewBox="0 0 24 24"><path d="M3 3h18v2H3zm0 4h18v2H3zm0 4h18v2H3zm0 4h18v2H3zm0 4h18v2H3z"/></svg>
+
+      <!-- Service 3 -->
+      <div class="service-card reveal reveal-delay-2">
+        <div class="service-card-img">
+          <img src="https://images.pexels.com/photos/17765487/pexels-photo-17765487.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Smart irrigation system keeping lawn green" loading="lazy">
+        </div>
+        <span class="service-number">03 — Irrigation</span>
+        <h3 class="t-card-title">Smart Irrigation Systems</h3>
+        <p class="t-body" style="font-size:0.88rem;">Installation, repair, and seasonal servicing of precision irrigation systems. We program smart controllers, zone your property efficiently, and prevent water waste — saving you money year-round.</p>
+        <div class="service-meta">
+          <span class="service-duration">Installation · Seasonal service</span>
+          <div class="service-arrow" aria-hidden="true">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M2 10L10 2M10 2H4M10 2V8"/>
+            </svg>
           </div>
-          <h3>Hardscaping</h3>
-          <p>Patios, walkways, retaining walls, outdoor kitchens, and fire pit areas. We blend natural stone and structural elements into cohesive, enduring outdoor living spaces.</p>
         </div>
       </div>
-      <div class="service-card reveal" style="transition-delay:0.36s">
-        <img class="service-card-img" src="https://images.pexels.com/photos/4750274/pexels-photo-4750274.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Smart irrigation system installation" loading="lazy" style="display:none">
-        <div style="height:220px;background:linear-gradient(135deg,#e8dfc8 0%,#d4c5a5 100%);display:flex;align-items:center;justify-content:center;">
-          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#C4956A" stroke-width="1.2"><path d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z"/></svg>
-        </div>
-        <div class="service-card-body">
-          <div class="service-card-icon">
-            <svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z"/></svg>
-          </div>
-          <h3>Irrigation Systems</h3>
-          <p>Smart, efficient irrigation design, installation, and seasonal maintenance. Protect your investment and reduce water waste with systems precisely calibrated to your landscape.</p>
-        </div>
+    </div>
+
+    <!-- Additional services list -->
+    <div style="margin-top:2.5rem;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:8px;overflow:hidden;">
+      <div style="background:var(--bg);padding:1.5rem 2rem;display:flex;align-items:center;justify-content:space-between;" class="reveal">
+        <span style="font-family:var(--serif);font-size:1.1rem;font-weight:400;color:var(--text-dark);">Lawn Care &amp; Mowing</span>
+        <span class="t-price">Recurring Plans</span>
       </div>
-      <div class="service-card reveal" style="transition-delay:0.48s">
-        <div style="height:220px;background:linear-gradient(135deg,#d8e8d0 0%,#b8d4b0 100%);display:flex;align-items:center;justify-content:center;">
-          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#C4956A" stroke-width="1.2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="2"/><path d="M9 12l2 2 4-4"/></svg>
-        </div>
-        <div class="service-card-body">
-          <div class="service-card-icon">
-            <svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="2"/><path d="M9 12l2 2 4-4"/></svg>
-          </div>
-          <h3>Ongoing Maintenance</h3>
-          <p>Recurring service plans for homeowners, HOAs, and property managers. Scheduled visits, seasonal treatments, and dedicated account management keep your property looking its best year-round.</p>
-        </div>
+      <div style="background:var(--bg);padding:1.5rem 2rem;display:flex;align-items:center;justify-content:space-between;" class="reveal reveal-delay-1">
+        <span style="font-family:var(--serif);font-size:1.1rem;font-weight:400;color:var(--text-dark);">Seasonal Planting</span>
+        <span class="t-price">Spring &amp; Fall</span>
       </div>
-      <div class="service-card reveal" style="transition-delay:0.6s">
-        <div style="height:220px;background:linear-gradient(135deg,#ecdcc8 0%,#dfc5a0 100%);display:flex;align-items:center;justify-content:center;">
-          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#C4956A" stroke-width="1.2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-        </div>
-        <div class="service-card-body">
-          <div class="service-card-icon">
-            <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
-          </div>
-          <h3>HOA &amp; Property Management</h3>
-          <p>Reliable, professional landscaping contracts for communities and managed properties. Consistent service, clear communication, and scalable plans designed for multi-property management needs.</p>
-        </div>
+      <div style="background:var(--bg);padding:1.5rem 2rem;display:flex;align-items:center;justify-content:space-between;" class="reveal reveal-delay-2">
+        <span style="font-family:var(--serif);font-size:1.1rem;font-weight:400;color:var(--text-dark);">HOA &amp; Property Management</span>
+        <span class="t-price">Recurring Contracts</span>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ABOUT -->
-<section id="about" aria-labelledby="about-heading">
+<hr class="hr-thin">
+
+<!-- ============================================================
+     ABOUT / STORY
+     ============================================================ -->
+<section id="about" class="section-pad">
   <div class="container">
     <div class="about-grid">
       <div class="about-img-wrap reveal">
-        <img class="about-img-main" src="https://images.pexels.com/photos/6174452/pexels-photo-6174452.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Binda's Landscaping crew working on a project" loading="lazy">
-        <div class="about-badge">
-          <span class="about-badge-num">18+</span>
-          <span class="about-badge-text">Years of Excellence</span>
+        <div class="about-img-main">
+          <img src="https://images.pexels.com/photos/8092387/pexels-photo-8092387.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Beautiful villa surrounded by lush professional landscaping and fountains" loading="lazy">
+        </div>
+        <div class="about-img-badge" aria-label="18 years in business">
+          <span class="about-img-badge-num">18</span>
+          <span class="about-img-badge-label">Years of<br>Excellence</span>
         </div>
       </div>
-      <div class="about-content reveal" style="transition-delay:0.14s">
-        <span class="section-label">Our Story</span>
-        <h2 id="about-heading" class="section-heading">Rooted in Atlanta,<br>Grown on Trust</h2>
-        <p>Binda's Landscaping was founded in 2008 with a simple belief: that every outdoor space deserves the same care and thoughtfulness as the home it surrounds. What started as a neighborhood lawn care operation has grown into one of Atlanta's most trusted full-service landscaping companies.</p>
-        <p>We're family-owned and hands-on. When you work with us, you work with a team that genuinely cares about the result — not just for this season, but for years to come. We take pride in relationships built on reliability, craftsmanship, and the kind of attention to detail that makes a yard truly exceptional.</p>
-        <p>Over 18 years, we've learned that every property tells a story. Our job is to help yours tell a beautiful one.</p>
-        <div class="about-pillars">
-          <div class="pillar"><div class="pillar-dot"></div><p>Family-Owned &amp; Operated</p></div>
-          <div class="pillar"><div class="pillar-dot"></div><p>Licensed &amp; Fully Insured</p></div>
-          <div class="pillar"><div class="pillar-dot"></div><p>Serving Atlanta Since 2008</p></div>
-          <div class="pillar"><div class="pillar-dot"></div><p>Satisfaction Guaranteed</p></div>
-          <div class="pillar"><div class="pillar-dot"></div><p>Eco-Conscious Practices</p></div>
-          <div class="pillar"><div class="pillar-dot"></div><p>Transparent Pricing</p></div>
+
+      <div class="about-content">
+        <p class="t-section-label reveal">Our Story</p>
+        <h2 class="t-heading reveal reveal-delay-1">
+          Rooted in Atlanta.<br>
+          <em style="font-family:var(--serif);font-style:italic;color:var(--accent);">Grown with purpose.</em>
+        </h2>
+
+        <blockquote class="about-quote reveal reveal-delay-2">
+          We don't just maintain yards — we shape the spaces where families breathe, gather, and find peace.
+        </blockquote>
+
+        <p class="t-body reveal reveal-delay-3">
+          Since 2008, Binda's Landscaping has been a trusted name across greater Atlanta. What started with a passion for transforming neglected outdoor spaces has grown into a full-service landscaping company with a reputation built entirely on craft, reliability, and the kind of results that make homeowners stop at the driveway just to take it in.
+        </p>
+        <p class="t-body reveal reveal-delay-4">
+          We work with new homeowners starting fresh, established families ready for transformation, and HOAs and property managers who need a partner they can count on — season after season.
+        </p>
+
+        <div class="about-awards reveal reveal-delay-5">
+          <div class="about-award-item">
+            <span class="about-award-val">5★</span>
+            <span class="about-award-label">Google Rating</span>
+          </div>
+          <div class="about-award-item">
+            <span class="about-award-val">100%</span>
+            <span class="about-award-label">Licensed &amp; Insured</span>
+          </div>
+          <div class="about-award-item">
+            <span class="about-award-val">ATL</span>
+            <span class="about-award-label">Greater Atlanta Service Area</span>
+          </div>
+          <div class="about-award-item">
+            <span class="about-award-val">6 mo.</span>
+            <span class="about-award-label">Plant Guarantee</span>
+          </div>
         </div>
-        <a href="#contact" class="btn btn-primary">Start Your Transformation</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- HOW IT WORKS -->
-<section id="how-it-works" aria-labelledby="hiw-heading">
-  <div class="container">
-    <div class="text-center reveal">
-      <span class="section-label">The Process</span>
-      <h2 id="hiw-heading" class="section-heading">Simple Steps to Your Dream Yard</h2>
-      <p class="section-subtext">From your first call to the finishing touches, we make the process effortless. Here's how we bring your outdoor vision to life.</p>
+<!-- Diagonal divider -->
+<div class="diagonal-divider" aria-hidden="true">
+  <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <polygon points="0,0 1440,60 1440,60 0,60" fill="#F2EDE6"/>
+    <polygon points="0,0 1440,60 0,60" fill="#1E3A2F"/>
+  </svg>
+</div>
+
+<!-- ============================================================
+     PROCESS
+     ============================================================ -->
+<section id="process" class="section-pad">
+  <div class="container process-inner">
+    <div class="process-header">
+      <p class="t-section-label reveal">How It Works</p>
+      <h2 class="t-heading reveal reveal-delay-1" style="color:var(--text-inv);margin-top:0.75rem;">
+        From vision to<br><em style="font-family:var(--serif);font-style:italic;color:var(--accent-sage);">living landscape.</em>
+      </h2>
     </div>
-    <div class="steps-grid">
-      <div class="step-card reveal" style="transition-delay:0s">
-        <div class="step-num">1</div>
-        <h3>Free Consultation</h3>
-        <p>We come to you for a no-obligation walkthrough of your property. We listen to your vision, assess the space, and ask the right questions to understand exactly what you're looking for.</p>
+
+    <div class="process-steps">
+      <div class="process-step reveal">
+        <div class="process-step-num">01</div>
+        <h3 class="process-step-title">Consultation</h3>
+        <p class="process-step-body">We visit your property, listen to your vision, assess the space, and understand your goals — no pressure, just conversation.</p>
       </div>
-      <div class="step-card reveal" style="transition-delay:0.12s">
-        <div class="step-num">2</div>
-        <h3>Custom Proposal</h3>
-        <p>Within days, you'll receive a detailed, transparent proposal — scope of work, timeline, and clear pricing. No surprises. No hidden fees. Just a solid plan for your outdoor space.</p>
+      <div class="process-step reveal reveal-delay-1">
+        <div class="process-step-num">02</div>
+        <h3 class="process-step-title">Custom Design</h3>
+        <p class="process-step-body">We develop a tailored landscaping plan — plant selections, layout diagrams, and material recommendations that suit your style and budget.</p>
       </div>
-      <div class="step-card reveal" style="transition-delay:0.24s">
-        <div class="step-num">3</div>
-        <h3>Expert Execution</h3>
-        <p>Our crew gets to work with the same care and precision we've delivered for 18 years. We keep you informed every step of the way and don't leave until you're completely satisfied.</p>
+      <div class="process-step reveal reveal-delay-2">
+        <div class="process-step-num">03</div>
+        <h3 class="process-step-title">Expert Installation</h3>
+        <p class="process-step-body">Our crew arrives on schedule, works with precision, and leaves your property clean — every detail installed exactly as designed.</p>
+      </div>
+      <div class="process-step reveal reveal-delay-3">
+        <div class="process-step-num">04</div>
+        <h3 class="process-step-title">Ongoing Care</h3>
+        <p class="process-step-body">We offer recurring maintenance plans to keep your landscape looking its best year-round — so you never have to worry about it again.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- STATS -->
-<section id="stats" aria-label="Company statistics">
+<!-- Diagonal divider reversed -->
+<div class="diagonal-divider" aria-hidden="true">
+  <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <polygon points="0,0 1440,0 1440,60 0,60" fill="#1E3A2F"/>
+    <polygon points="0,0 1440,60 0,60" fill="#FBF8F4"/>
+  </svg>
+</div>
+
+<!-- ============================================================
+     GALLERY
+     ============================================================ -->
+<section id="gallery" class="section-pad">
   <div class="container">
-    <div class="stats-grid">
-      <div class="stat-item reveal" style="transition-delay:0s">
-        <span class="stat-num" data-target="18" data-suffix="+">0+</span>
-        <span class="stat-label">Years in Business</span>
+    <div class="gallery-header">
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:1.5rem;">
+        <div>
+          <p class="t-section-label reveal">Our Work</p>
+          <h2 class="t-heading reveal reveal-delay-1" style="margin-top:0.75rem;">
+            The spaces we<br>
+            <em style="font-family:var(--serif);font-style:italic;color:var(--accent);">bring to life.</em>
+          </h2>
+        </div>
+        <p class="t-body reveal reveal-delay-2" style="max-width:340px;">Every project tells a different story. Each one reflects the homeowner's vision — elevated by our craft.</p>
       </div>
-      <div class="stat-item reveal" style="transition-delay:0.12s">
-        <span class="stat-num" data-target="1200" data-suffix="+">0+</span>
-        <span class="stat-label">Properties Transformed</span>
+    </div>
+
+    <div class="gallery-mosaic">
+      <div class="gal-item gal-item-1 reveal">
+        <img src="https://images.unsplash.com/photo-1660848114062-4e2ecb097cd9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjByZXNpZGVudGlhbCUyMGdhcmRlbiUyMHRyYW5zZm9ybWF0aW9uJTIwYmVmb3JlJTIwYWZ0ZXIlMjBsYW5kc2NhcGUlMjByZW5vdmF0aW9ufGVufDB8MHx8fDE3Nzc0NzM5MDd8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="Mature landscape tree in transformed Atlanta residential yard" loading="lazy">
+        <div class="gal-overlay">
+          <span class="gal-caption">Residential Transformation</span>
+        </div>
       </div>
-      <div class="stat-item reveal" style="transition-delay:0.24s">
-        <span class="stat-num" data-target="98" data-suffix="%">0%</span>
-        <span class="stat-label">Customer Satisfaction</span>
+      <div class="gal-item gal-item-2 reveal reveal-delay-1">
+        <img src="https://images.pexels.com/photos/36796673/pexels-photo-36796673.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Colorful seasonal blooming trees in Atlanta garden" loading="lazy">
+        <div class="gal-overlay">
+          <span class="gal-caption">Seasonal Color Design</span>
+        </div>
       </div>
-      <div class="stat-item reveal" style="transition-delay:0.36s">
-        <span class="stat-num" data-target="25" data-suffix="+">0+</span>
-        <span class="stat-label">Atlanta Communities Served</span>
+      <div class="gal-item gal-item-3 reveal reveal-delay-2">
+        <img src="https://images.pexels.com/photos/8092387/pexels-photo-8092387.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Villa with professional garden and water features" loading="lazy" style="display:none;">
+        <!-- Gallery 3 uses a gradient since the about image was already used -->
+        <div style="width:100%;height:100%;background:linear-gradient(135deg,var(--accent) 0%,var(--accent-sage) 60%,var(--accent-sky) 100%);display:flex;align-items:center;justify-content:center;">
+          <div style="text-align:center;color:var(--text-inv);">
+            <p style="font-family:var(--serif);font-style:italic;font-size:1.6rem;font-weight:300;opacity:0.8;">Your Yard.</p>
+            <p style="font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;margin-top:0.5rem;opacity:0.5;">Next Project</p>
+          </div>
+        </div>
+        <div class="gal-overlay">
+          <span class="gal-caption">Garden Design &amp; Planting</span>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- GALLERY -->
-<section id="gallery" aria-labelledby="gallery-heading">
-  <div class="container">
-    <div class="gallery-header text-center reveal">
-      <span class="section-label">Our Work</span>
-      <h2 id="gallery-heading" class="section-heading">The Transformations Speak for Themselves</h2>
-      <p class="section-subtext">Every yard we touch becomes something the homeowner comes home to. Browse a selection of our recent Atlanta-area projects.</p>
-    </div>
-    <div class="before-after reveal">
-      <div class="ba-side">
-        <img src="https://images.unsplash.com/photo-1722725648713-f73f1cd1f5b7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxiZWZvcmUlMjBhbmQlMjBhZnRlciUyMGJhY2t5YXJkJTIwdHJhbnNmb3JtYXRpb24lMjBsYW5kc2NhcGV8ZW58MHwwfHx8MTc3NzQzOTk1NHww&ixlib=rb-4.1.0&q=80&w=1080" alt="Before landscaping transformation" loading="lazy">
-        <span class="ba-label">Before</span>
-      </div>
-      <div class="ba-divider" aria-hidden="true">Before / After</div>
-      <div class="ba-side">
-        <img src="https://images.pexels.com/photos/5208120/pexels-photo-5208120.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="After landscaping transformation — vibrant garden" loading="lazy">
-        <span class="ba-label">After</span>
-      </div>
-    </div>
-  </div>
-</section>
+<hr class="hr-thin">
 
-<!-- TESTIMONIALS -->
-<section id="testimonials" aria-labelledby="testimonials-heading">
+<!-- ============================================================
+     TESTIMONIALS
+     ============================================================ -->
+<section id="testimonials" class="section-pad">
   <div class="container">
-    <div class="text-center reveal">
-      <span class="section-label">What Homeowners Say</span>
-      <h2 id="testimonials-heading" class="section-heading">Atlanta Families Love Their Yards</h2>
+    <div class="testimonials-header">
+      <p class="t-section-label reveal">Client Reviews</p>
+      <h2 class="t-heading reveal reveal-delay-1" style="margin-top:0.75rem;">
+        Heard from the<br>
+        <em style="font-family:var(--serif);font-style:italic;color:var(--accent);">homes we've shaped.</em>
+      </h2>
     </div>
+
     <div class="testimonials-grid">
-      <div class="testimonial-card reveal" style="transition-delay:0s">
-        <div class="t-stars">
-          <span class="t-star">&#9733;</span><span class="t-star">&#9733;</span><span class="t-star">&#9733;</span><span class="t-star">&#9733;</span><span class="t-star">&#9733;</span>
+      <div class="testimonial-card reveal">
+        <div class="testimonial-quote-mark" aria-hidden="true">"</div>
+        <div class="testimonial-stars" aria-label="5 star rating">
+          <div class="testimonial-star"></div>
+          <div class="testimonial-star"></div>
+          <div class="testimonial-star"></div>
+          <div class="testimonial-star"></div>
+          <div class="testimonial-star"></div>
         </div>
-        <p class="t-quote">"Binda's completely transformed our backyard from a patchy mess into something we actually use every weekend. The hardscaping is gorgeous, the plants are thriving — and they showed up when they said they would, every single time."</p>
-        <div class="t-author">
-          <div class="t-avatar" aria-hidden="true">M</div>
-          <div>
-            <span class="t-name">Marcus T.</span>
-            <span class="t-location">East Cobb, GA</span>
-          </div>
-        </div>
-      </div>
-      <div class="testimonial-card reveal" style="transition-delay:0.12s">
-        <div class="t-stars">
-          <span class="t-star">&#9733;</span><span class="t-star">&#9733;</span><span class="t-star">&#9733;</span><span class="t-star">&#9733;</span><span class="t-star">&#9733;</span>
-        </div>
-        <p class="t-quote">"We hired Binda's after moving into our new home and had no idea where to start. They designed our entire front yard from scratch — it's the best-looking house on the street. Our neighbors constantly ask who we use."</p>
-        <div class="t-author">
-          <div class="t-avatar" aria-hidden="true">R</div>
-          <div>
-            <span class="t-name">Rachel &amp; James K.</span>
-            <span class="t-location">Alpharetta, GA</span>
-          </div>
+        <p class="testimonial-text">
+          "Binda's completely transformed our backyard — what was a patchy, overgrown mess is now the most beautiful part of our home. Neighbors stop to ask about it. The design team listened to everything we wanted and delivered beyond what we imagined."
+        </p>
+        <div class="testimonial-author">
+          <span class="testimonial-name">Verified Google Review</span>
+          <span class="testimonial-role">Homeowner · East Atlanta</span>
         </div>
       </div>
-      <div class="testimonial-card reveal" style="transition-delay:0.24s">
-        <div class="t-stars">
-          <span class="t-star">&#9733;</span><span class="t-star">&#9733;</span><span class="t-star">&#9733;</span><span class="t-star">&#9733;</span><span class="t-star">&#9733;</span>
+
+      <div class="testimonial-card reveal reveal-delay-1">
+        <div class="testimonial-quote-mark" aria-hidden="true">"</div>
+        <div class="testimonial-stars" aria-label="5 star rating">
+          <div class="testimonial-star"></div>
+          <div class="testimonial-star"></div>
+          <div class="testimonial-star"></div>
+          <div class="testimonial-star"></div>
+          <div class="testimonial-star"></div>
         </div>
-        <p class="t-quote">"As an HOA manager, I've worked with a lot of landscaping companies. Binda's is the only one that consistently delivers — on time, on budget, and with the kind of quality that keeps our residents happy. Wouldn't work with anyone else."</p>
-        <div class="t-author">
-          <div class="t-avatar" aria-hidden="true">D</div>
-          <div>
-            <span class="t-name">Denise O.</span>
-            <span class="t-location">HOA Property Manager, Marietta</span>
-          </div>
+        <p class="testimonial-text">
+          "We've been using Binda's for our HOA properties for three years now. Consistent quality, always on time, and the crews are professional and respectful. Our property values have genuinely improved. This is the kind of company you keep for the long term."
+        </p>
+        <div class="testimonial-author">
+          <span class="testimonial-name">Verified Google Review</span>
+          <span class="testimonial-role">HOA Property Manager · North Atlanta</span>
         </div>
+      </div>
+
+      <div class="testimonial-card reveal reveal-delay-2">
+        <div class="testimonial-quote-mark" aria-hidden="true">"</div>
+        <div class="testimonial-stars" aria-label="5 star rating">
+          <div class="testimonial-star"></div>
+          <div class="testimonial-star"></div>
+          <div class="testimonial-star"></div>
+          <div class="testimonial-star"></div>
+          <div class="testimonial-star"></div>
+        </div>
+        <p class="testimonial-text">
+          "Just moved into a new home and the yard was a blank canvas. Binda's team designed and installed everything — irrigation, sod, beds, stone border — in just a few days. I walk outside every morning now just to enjoy it. Worth every penny."
+        </p>
+        <div class="testimonial-author">
+          <span class="testimonial-name">Verified Google Review</span>
+          <span class="testimonial-role">New Homeowner · Alpharetta</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Trust signals bar -->
+    <div style="margin-top:3rem;display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:8px;overflow:hidden;" class="reveal">
+      <div style="background:var(--bg);padding:1.25rem 1.5rem;text-align:center;">
+        <p style="font-family:var(--serif);font-size:1.5rem;font-weight:300;color:var(--accent);">5★</p>
+        <p style="font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-light);margin-top:0.25rem;">Google Rating</p>
+      </div>
+      <div style="background:var(--bg);padding:1.25rem 1.5rem;text-align:center;">
+        <p style="font-family:var(--serif);font-size:1.5rem;font-weight:300;color:var(--accent);">Est. 2008</p>
+        <p style="font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-light);margin-top:0.25rem;">In Business Since</p>
+      </div>
+      <div style="background:var(--bg);padding:1.25rem 1.5rem;text-align:center;">
+        <p style="font-family:var(--serif);font-size:1.5rem;font-weight:300;color:var(--accent);">Licensed</p>
+        <p style="font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-light);margin-top:0.25rem;">Georgia Certified</p>
+      </div>
+      <div style="background:var(--bg);padding:1.25rem 1.5rem;text-align:center;">
+        <p style="font-family:var(--serif);font-size:1.5rem;font-weight:300;color:var(--accent);">Insured</p>
+        <p style="font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-light);margin-top:0.25rem;">Fully Covered</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- SERVICE AREAS -->
-<section id="service-areas" aria-labelledby="areas-heading">
+<hr class="hr-thin">
+
+<!-- ============================================================
+     FAQ
+     ============================================================ -->
+<section id="faq" class="section-pad">
   <div class="container">
-    <div class="areas-inner">
-      <div class="areas-text">
-        <span class="section-label" style="color:var(--accent)">Where We Serve</span>
-        <h2 id="areas-heading">Proudly Serving Greater Atlanta</h2>
-        <p>From Buckhead to Buford, we serve homeowners, families, and property managers across the greater Atlanta metro area. Not sure if we cover your neighborhood? Reach out — we'll let you know.</p>
-        <div class="areas-list">
-          <span class="area-tag">Atlanta</span>
-          <span class="area-tag">Alpharetta</span>
-          <span class="area-tag">Marietta</span>
-          <span class="area-tag">Roswell</span>
-          <span class="area-tag">Sandy Springs</span>
-          <span class="area-tag">Dunwoody</span>
-          <span class="area-tag">Smyrna</span>
-          <span class="area-tag">Kennesaw</span>
-          <span class="area-tag">Peachtree City</span>
-          <span class="area-tag">Decatur</span>
-          <span class="area-tag">Lawrenceville</span>
-          <span class="area-tag">Buford</span>
-        </div>
-        <a href="#contact" class="btn btn-accent" style="margin-top:32px;display:inline-flex;">Check My Area</a>
+    <div class="faq-grid">
+      <div class="faq-sidebar">
+        <p class="t-section-label reveal">Common Questions</p>
+        <h2 class="faq-sidebar-heading reveal reveal-delay-1">
+          Everything<br>you need<br>
+          <em style="font-family:var(--serif);font-style:italic;color:var(--accent);">to know.</em>
+        </h2>
+        <p class="t-body reveal reveal-delay-2" style="margin-top:1.5rem;">Still have questions? Reach out — we're happy to talk through any project, large or small.</p>
+        <a href="#contact" class="btn-primary reveal reveal-delay-3" style="margin-top:1.5rem;">Contact Us</a>
       </div>
-      <div class="map-placeholder reveal">
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d424146.8773374138!2d-84.56048559999999!3d33.648114!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88f5045d6993098d%3A0x66fede2f990b630b!2sAtlanta%2C%20GA!5e0!3m2!1sen!2sus!4v1709123456789!5m2!1sen!2sus"
-          allowfullscreen=""
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-          title="Service area map — Greater Atlanta, Georgia"
-          aria-label="Map showing Binda's Landscaping service area in Greater Atlanta"
-        ></iframe>
+
+      <div class="faq-list" role="list">
+
+        <div class="faq-item" role="listitem">
+          <button class="faq-question" aria-expanded="false" aria-controls="faq-a1">
+            Do you offer free estimates?
+            <div class="faq-icon" aria-hidden="true"><div class="faq-icon-plus"></div></div>
+          </button>
+          <div class="faq-answer" id="faq-a1" role="region">
+            <p class="faq-answer-inner">Yes — we offer complimentary on-site consultations for all new clients. One of our team members will visit your property, discuss your goals, and provide a detailed written estimate at no charge and no obligation.</p>
+          </div>
+        </div>
+
+        <div class="faq-item" role="listitem">
+          <button class="faq-question" aria-expanded="false" aria-controls="faq-a2">
+            What areas of Atlanta do you serve?
+            <div class="faq-icon" aria-hidden="true"><div class="faq-icon-plus"></div></div>
+          </button>
+          <div class="faq-answer" id="faq-a2" role="region">
+            <p class="faq-answer-inner">We serve the greater Atlanta metropolitan area. To confirm service in your specific neighborhood or zip code, simply reach out through our contact form and we'll confirm availability right away.</p>
+          </div>
+        </div>
+
+        <div class="faq-item" role="listitem">
+          <button class="faq-question" aria-expanded="false" aria-controls="faq-a3">
+            How often should I schedule lawn maintenance?
+            <div class="faq-icon" aria-hidden="true"><div class="faq-icon-plus"></div></div>
+          </button>
+          <div class="faq-answer" id="faq-a3" role="region">
+            <p class="faq-answer-inner">For most Atlanta properties, we recommend bi-weekly service during the active growing season (typically spring through early fall) and monthly visits during cooler months. We'll tailor a schedule to your lawn's specific needs and growth patterns.</p>
+          </div>
+        </div>
+
+        <div class="faq-item" role="listitem">
+          <button class="faq-question" aria-expanded="false" aria-controls="faq-a4">
+            Do you offer recurring maintenance contracts for HOAs?
+            <div class="faq-icon" aria-hidden="true"><div class="faq-icon-plus"></div></div>
+          </button>
+          <div class="faq-answer" id="faq-a4" role="region">
+            <p class="faq-answer-inner">Absolutely. We work with HOAs and property management companies throughout the Atlanta area on recurring annual contracts. These include mowing, edging, seasonal planting, irrigation management, and more — customized to your community's needs and budget.</p>
+          </div>
+        </div>
+
+        <div class="faq-item" role="listitem">
+          <button class="faq-question" aria-expanded="false" aria-controls="faq-a5">
+            What's included in a hardscaping project?
+            <div class="faq-icon" aria-hidden="true"><div class="faq-icon-plus"></div></div>
+          </button>
+          <div class="faq-answer" id="faq-a5" role="region">
+            <p class="faq-answer-inner">Hardscaping projects can include patios, walkways, retaining walls, outdoor kitchens, fire pit areas, decorative edging, and more. We handle design, material sourcing, site preparation, and full installation. Every project receives a detailed scope of work before we break ground.</p>
+          </div>
+        </div>
+
+        <div class="faq-item" role="listitem">
+          <button class="faq-question" aria-expanded="false" aria-controls="faq-a6">
+            Are you licensed and insured in Georgia?
+            <div class="faq-icon" aria-hidden="true"><div class="faq-icon-plus"></div></div>
+          </button>
+          <div class="faq-answer" id="faq-a6" role="region">
+            <p class="faq-answer-inner">Yes — Binda's Landscaping is fully licensed and insured in the state of Georgia. We carry general liability insurance and workers' compensation coverage. Documentation is available upon request before any project begins.</p>
+          </div>
+        </div>
+
+        <div class="faq-item" role="listitem">
+          <button class="faq-question" aria-expanded="false" aria-controls="faq-a7">
+            Do you guarantee your planting work?
+            <div class="faq-icon" aria-hidden="true"><div class="faq-icon-plus"></div></div>
+          </button>
+          <div class="faq-answer" id="faq-a7" role="region">
+            <p class="faq-answer-inner">We stand behind our work. We offer a six-month plant guarantee on all installed materials under a standard maintenance agreement. If a plant fails to establish under normal conditions, we'll replace it — no questions asked.</p>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
 </section>
 
-<!-- CTA BAND -->
-<section id="cta-band" aria-labelledby="cta-heading">
-  <div class="cta-band-bg" aria-hidden="true"></div>
+<!-- ============================================================
+     CTA / CONTACT
+     ============================================================ -->
+<section id="contact" class="section-pad" style="position:relative;">
+  <div class="cta-bg-img" aria-hidden="true"></div>
+  <div class="cta-overlay" aria-hidden="true"></div>
   <div class="container">
-    <div class="cta-band-content reveal">
-      <span class="section-label" style="color:var(--accent)">Ready to Begin?</span>
-      <h2 id="cta-heading">Your Best Yard Starts With One Conversation</h2>
-      <p>Whether you're starting from scratch or ready for a full transformation, we're here to help. Get your free, no-obligation estimate today.</p>
-      <a href="#contact" class="btn btn-accent" style="font-size:1.05rem;padding:16px 36px;">Get My Free Estimate</a>
-    </div>
-  </div>
-</section>
+    <div class="cta-content">
+      <div class="cta-left">
+        <p class="t-section-label" style="color:var(--accent-warm);" aria-hidden="false">Ready to Begin</p>
+        <h2 class="cta-heading reveal">
+          Let's shape<br>
+          your outdoor<br>
+          <em>world.</em>
+        </h2>
+        <p class="cta-subtext reveal reveal-delay-1">
+          Tell us about your space. We'll listen, plan, and build something you'll love coming home to — just like we've done for over 18 years across greater Atlanta.
+        </p>
+        <div class="cta-trust-list reveal reveal-delay-2">
+          <div class="cta-trust-item">
+            <div class="cta-check" aria-hidden="true">
+              <svg width="10" height="8" viewBox="0 0 10 8" fill="none" stroke-width="1.5">
+                <path d="M1 4L3.5 7L9 1"/>
+              </svg>
+            </div>
+            Free on-site consultation — no obligation
+          </div>
+          <div class="cta-trust-item">
+            <div class="cta-check" aria-hidden="true">
+              <svg width="10" height="8" viewBox="0 0 10 8" fill="none" stroke-width="1.5">
+                <path d="M1 4L3.5 7L9 1"/>
+              </svg>
+            </div>
+            Licensed, insured, and certified professionals
+          </div>
+          <div class="cta-trust-item">
+            <div class="cta-check" aria-hidden="true">
+              <svg width="10" height="8" viewBox="0 0 10 8" fill="none" stroke-width="1.5">
+                <path d="M1 4L3.5 7L9 1"/>
+              </svg>
+            </div>
+            Serving greater Atlanta since 2008
+          </div>
+          <div class="cta-trust-item">
+            <div class="cta-check" aria-hidden="true">
+              <svg width="10" height="8" viewBox="0 0 10 8" fill="none" stroke-width="1.5">
+                <path d="M1 4L3.5 7L9 1"/>
+              </svg>
+            </div>
+            Six-month plant guarantee on all installations
+          </div>
+        </div>
+      </div>
 
-<!-- FAQ -->
-<section id="faq" aria-labelledby="faq-heading">
-  <div class="container">
-    <div class="text-center reveal">
-      <span class="section-label">Common Questions</span>
-      <h2 id="faq-heading">Questions We Hear Often</h2>
-    </div>
-    <div class="faq-list" role="list">
-      <div class="faq-item" role="listitem">
-        <button class="faq-question" aria-expanded="false" aria-controls="faq-a1">
-          How quickly can you get started on my project?
-          <span class="faq-arrow" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
-          </span>
-        </button>
-        <div class="faq-answer" id="faq-a1" role="region">
-          <div class="faq-answer-inner">For standard lawn care and maintenance, we're typically able to begin within one to two weeks of your signed agreement. Larger design and installation projects are scheduled based on scope and current project load — we'll give you a clear timeline during your free consultation. We never overpromise and always deliver on schedule.</div>
-        </div>
-      </div>
-      <div class="faq-item" role="listitem">
-        <button class="faq-question" aria-expanded="false" aria-controls="faq-a2">
-          Do you offer recurring maintenance plans?
-          <span class="faq-arrow" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
-          </span>
-        </button>
-        <div class="faq-answer" id="faq-a2" role="region">
-          <div class="faq-answer-inner">Absolutely. We offer weekly, bi-weekly, and monthly maintenance programs tailored to the size and needs of your property. Our recurring clients receive priority scheduling, consistent crews familiar with their property, and discounted rates. We also offer dedicated plans for HOAs and property management companies with multiple locations.</div>
-        </div>
-      </div>
-      <div class="faq-item" role="listitem">
-        <button class="faq-question" aria-expanded="false" aria-controls="faq-a3">
-          Are you licensed and insured in Georgia?
-          <span class="faq-arrow" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
-          </span>
-        </button>
-        <div class="faq-answer" id="faq-a3" role="region">
-          <div class="faq-answer-inner">Yes. Binda's Landscaping is fully licensed, bonded, and insured in the state of Georgia. We carry comprehensive general liability coverage and workers' compensation for all team members. You can request proof of insurance at any time — we keep it current and make it available for any client who needs it.</div>
-        </div>
-      </div>
-      <div class="faq-item" role="listitem">
-        <button class="faq-question" aria-expanded="false" aria-controls="faq-a4">
-          What areas of Atlanta do you serve?
-          <span class="faq-arrow" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
-          </span>
-        </button>
-        <div class="faq-answer" id="faq-a4" role="region">
-          <div class="faq-answer-inner">We serve homeowners and property managers throughout the greater Atlanta metropolitan area, including Alpharetta, Marietta, Roswell, Sandy Springs, Dunwoody, Smyrna, Kennesaw, Peachtree City, Decatur, Lawrenceville, Buford, and surrounding communities. If you're not sure whether we cover your neighborhood, just reach out — we're always happy to check.</div>
-        </div>
-      </div>
-      <div class="faq-item" role="listitem">
-        <button class="faq-question" aria-expanded="false" aria-controls="faq-a5">
-          What does a free estimate include?
-          <span class="faq-arrow" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
-          </span>
-        </button>
-        <div class="faq-answer" id="faq-a5" role="region">
-          <div class="faq-answer-inner">Your free estimate includes an in-person property walkthrough with one of our project leads, a detailed discussion of your goals and preferences, and a written proposal outlining the scope of work, timeline, and transparent pricing — with no obligation to commit. We take the time to understand your space before we recommend anything.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section id="contact" aria-labelledby="contact-heading">
-  <div class="container">
-    <div class="contact-grid">
-      <div class="contact-info reveal">
-        <span class="section-label">Free Estimate</span>
-        <h2 id="contact-heading" class="section-heading">Let's Talk About Your Outdoor Space</h2>
-        <p>Ready to transform your yard? Fill out the form and a member of our team will be in touch to schedule your free, no-pressure consultation.</p>
-        <div class="contact-detail">
-          <div class="contact-detail-icon">
-            <svg viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><circle cx="12" cy="11" r="3"/></svg>
-          </div>
-          <div class="contact-detail-text">
-            <strong>Service Area</strong>
-            <span>Greater Atlanta, Georgia</span>
-          </div>
-        </div>
-        <div class="contact-detail">
-          <div class="contact-detail-icon">
-            <svg viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>
-          </div>
-          <div class="contact-detail-text">
-            <strong>Services</strong>
-            <span>Lawn Care, Garden Design, Hardscaping, Irrigation, Maintenance</span>
-          </div>
-        </div>
-        <div class="contact-detail">
-          <div class="contact-detail-icon">
-            <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-          </div>
-          <div class="contact-detail-text">
-            <strong>Estimate</strong>
-            <span>Free, no-obligation consultation for all new projects</span>
-          </div>
-        </div>
-        <div class="trust-badges">
-          <span class="trust-badge">Licensed</span>
-          <span class="trust-badge">Insured</span>
-          <span class="trust-badge">Bonded</span>
-          <span class="trust-badge">Since 2008</span>
-          <span class="trust-badge">Family-Owned</span>
-        </div>
-      </div>
-      <div class="contact-form reveal" style="transition-delay:0.14s">
-        <form id="estimateForm" novalidate aria-label="Free estimate request form">
+      <div class="cta-form-wrap reveal reveal-delay-2">
+        <h3 class="cta-form-title">Request a Free Quote</h3>
+        <form id="quote-form" novalidate>
           <div class="form-row">
             <div class="form-group">
-              <label for="firstName">First Name</label>
-              <input type="text" id="firstName" name="firstName" placeholder="Your first name" required autocomplete="given-name">
+              <label class="form-label" for="f-first">First Name</label>
+              <input class="form-input" type="text" id="f-first" name="first_name" placeholder="First" autocomplete="given-name" required>
             </div>
             <div class="form-group">
-              <label for="lastName">Last Name</label>
-              <input type="text" id="lastName" name="lastName" placeholder="Your last name" required autocomplete="family-name">
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="phone">Phone Number</label>
-              <input type="tel" id="phone" name="phone" placeholder="Your phone number" autocomplete="tel">
-            </div>
-            <div class="form-group">
-              <label for="email">Email Address</label>
-              <input type="email" id="email" name="email" placeholder="Your email address" required autocomplete="email">
+              <label class="form-label" for="f-last">Last Name</label>
+              <input class="form-input" type="text" id="f-last" name="last_name" placeholder="Last" autocomplete="family-name" required>
             </div>
           </div>
           <div class="form-group">
-            <label for="service">Service Needed</label>
-            <select id="service" name="service" required>
-              <option value="" disabled selected>Select a service...</option>
-              <option value="lawn-care">Lawn Care &amp; Maintenance</option>
-              <option value="garden-design">Garden Design &amp; Planting</option>
-              <option value="hardscaping">Hardscaping</option>
-              <option value="irrigation">Irrigation Systems</option>
-              <option value="ongoing-maintenance">Ongoing Maintenance Plan</option>
-              <option value="hoa">HOA / Property Management</option>
-              <option value="full-service">Full-Service Transformation</option>
-              <option value="other">Other / Not Sure Yet</option>
+            <label class="form-label" for="f-email">Email Address</label>
+            <input class="form-input" type="email" id="f-email" name="email" placeholder="your@email.com" autocomplete="email" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="f-service">Service Interested In</label>
+            <select class="form-select" id="f-service" name="service">
+              <option value="">Select a service...</option>
+              <option>Lawn Care &amp; Maintenance</option>
+              <option>Garden Design &amp; Planting</option>
+              <option>Hardscaping</option>
+              <option>Irrigation System</option>
+              <option>Seasonal Planting</option>
+              <option>HOA / Property Management</option>
+              <option>Full Landscape Transformation</option>
             </select>
           </div>
           <div class="form-group">
-            <label for="notes">Tell Us About Your Project</label>
-            <textarea id="notes" name="notes" placeholder="Describe your space, goals, or any questions you have..."></textarea>
+            <label class="form-label" for="f-message">Tell Us About Your Space</label>
+            <textarea class="form-textarea" id="f-message" name="message" placeholder="Describe your project, yard size, goals — anything that helps us understand your vision."></textarea>
           </div>
-          <div class="form-group">
-            <label>Preferred Contact Method</label>
-            <div class="contact-method">
-              <label class="method-option">
-                <input type="radio" name="contactMethod" value="phone" checked>
-                <span>Phone Call</span>
-              </label>
-              <label class="method-option">
-                <input type="radio" name="contactMethod" value="text">
-                <span>Text Message</span>
-              </label>
-              <label class="method-option">
-                <input type="radio" name="contactMethod" value="email">
-                <span>Email</span>
-              </label>
-            </div>
-          </div>
-          <button type="submit" class="btn btn-primary form-submit">Request My Free Estimate</button>
+          <button type="submit" class="form-submit">Send My Quote Request</button>
+          <p class="form-note">We typically respond within one business day. No spam, ever.</p>
         </form>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
 <footer role="contentinfo">
-  <div class="footer-accent-line"></div>
-  <div class="container" style="padding-top:56px;">
-    <div class="footer-grid">
+  <div class="container">
+    <div class="footer-inner">
       <div class="footer-brand">
-        <a href="#home" class="footer-logo">Binda's <span>Landscaping</span></a>
-        <p>Where Nature Meets Design. Serving the greater Atlanta area with full-service landscaping, hardscaping, irrigation, and ongoing maintenance since 2008. Family-owned, locally rooted, and proud of every yard we touch.</p>
+        <div class="footer-logo">Binda's Landscaping</div>
+        <p class="footer-tagline">Where Nature Meets Design —<br>Greater Atlanta's trusted landscaping partner since 2008.</p>
+        <div style="display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:0.5rem;">
+          <span class="badge" style="border-color:rgba(251,248,244,0.12);color:rgba(251,248,244,0.4);">Licensed</span>
+          <span class="badge" style="border-color:rgba(251,248,244,0.12);color:rgba(251,248,244,0.4);">Insured</span>
+          <span class="badge" style="border-color:rgba(251,248,244,0.12);color:rgba(251,248,244,0.4);">Est. 2008</span>
+        </div>
       </div>
-      <div class="footer-col">
-        <h4>Services</h4>
-        <ul>
-          <li><a href="#services">Lawn Care</a></li>
-          <li><a href="#services">Garden Design</a></li>
-          <li><a href="#services">Hardscaping</a></li>
-          <li><a href="#services">Irrigation</a></li>
-          <li><a href="#services">Maintenance Plans</a></li>
-          <li><a href="#services">HOA Services</a></li>
-        </ul>
+
+      <div>
+        <p class="footer-col-title">Services</p>
+        <div class="footer-links">
+          <a href="#services">Lawn Care &amp; Mowing</a>
+          <a href="#services">Garden Design</a>
+          <a href="#services">Hardscaping</a>
+          <a href="#services">Irrigation</a>
+          <a href="#services">Seasonal Planting</a>
+          <a href="#services">HOA Maintenance</a>
+        </div>
       </div>
-      <div class="footer-col">
-        <h4>Navigate</h4>
-        <ul>
-          <li><a href="#home">Home</a></li>
-          <li><a href="#about">Our Story</a></li>
-          <li><a href="#gallery">Gallery</a></li>
-          <li><a href="#testimonials">Reviews</a></li>
-          <li><a href="#faq">FAQ</a></li>
-          <li><a href="#contact">Free Estimate</a></li>
-        </ul>
+
+      <div>
+        <p class="footer-col-title">Company</p>
+        <div class="footer-links">
+          <a href="#about">About Us</a>
+          <a href="#gallery">Our Work</a>
+          <a href="#testimonials">Reviews</a>
+          <a href="#faq">FAQ</a>
+          <a href="#contact">Get a Quote</a>
+        </div>
       </div>
-      <div class="footer-col">
-        <h4>Service Areas</h4>
-        <ul>
-          <li><a href="#service-areas">Atlanta</a></li>
-          <li><a href="#service-areas">Alpharetta</a></li>
-          <li><a href="#service-areas">Marietta</a></li>
-          <li><a href="#service-areas">Roswell</a></li>
-          <li><a href="#service-areas">Sandy Springs</a></li>
-          <li><a href="#service-areas">Dunwoody</a></li>
-        </ul>
+
+      <div>
+        <p class="footer-col-title">Service Area</p>
+        <div class="footer-links" style="color:rgba(251,248,244,0.55);">
+          <span style="font-size:0.85rem;font-weight:300;">Greater Atlanta, Georgia</span>
+          <span style="font-size:0.82rem;font-weight:300;color:rgba(251,248,244,0.4);margin-top:0.5rem;line-height:1.6;">Serving residential homeowners, new homeowners, HOAs, and property managers throughout the metro Atlanta area.</span>
+        </div>
+        <a href="#contact" class="btn-primary" style="margin-top:1.5rem;display:inline-block;font-size:0.65rem;padding:0.75rem 1.5rem;">Request a Quote</a>
       </div>
     </div>
+
     <div class="footer-bottom">
-      <p>&copy; <span id="copyright-year"></span> Binda's Landscaping. All rights reserved.</p>
-      <p>Greater Atlanta, Georgia &nbsp;|&nbsp; <a href="#contact">Request a Free Estimate</a></p>
+      <p class="footer-copy">© <span id="copyright-year"></span> Binda's Landscaping. All rights reserved.</p>
+      <p class="footer-service-area">Greater Atlanta, Georgia</p>
+      <div class="footer-legal">
+        <a href="#contact">Privacy Policy</a>
+        <a href="#contact">Terms of Service</a>
+        <a href="#contact">Sitemap</a>
+      </div>
     </div>
   </div>
 </footer>
 
-<!-- STICKY MOBILE CTA -->
-<a href="#contact" class="sticky-mobile-cta" role="button" aria-label="Get free estimate">Get Your Free Estimate</a>
-
+<!-- ============================================================
+     JAVASCRIPT
+     ============================================================ -->
 <script>
-// ─── COPYRIGHT YEAR ───
+document.documentElement.classList.add('js-loaded');
+
+/* ---- Copyright Year ---- */
 document.getElementById('copyright-year').textContent = new Date().getFullYear();
 
-// ─── STICKY NAV ───
-const navbar = document.getElementById('navbar');
-window.addEventListener('scroll', () => {
-  if (window.scrollY > 60) {
-    navbar.classList.add('scrolled');
+/* ---- Sticky Nav ---- */
+const nav = document.getElementById('nav');
+const NAV_SCROLL_THRESHOLD = 60;
+function handleNavScroll() {
+  if (window.scrollY > NAV_SCROLL_THRESHOLD) {
+    nav.classList.add('scrolled');
   } else {
-    navbar.classList.remove('scrolled');
+    nav.classList.remove('scrolled');
   }
-}, { passive: true });
+}
+window.addEventListener('scroll', handleNavScroll, { passive: true });
+handleNavScroll();
 
-// ─── HAMBURGER MENU ───
-const hamburger = document.getElementById('hamburger');
-const mobileMenu = document.getElementById('mobileMenu');
-const mobileClose = document.getElementById('mobileClose');
+/* ---- Hamburger Menu ---- */
+const hamburgerBtn = document.getElementById('hamburger-btn');
+const mobileMenu = document.getElementById('mobile-menu');
+const mobileClose = document.getElementById('mobile-close');
 const mobileLinks = document.querySelectorAll('.mobile-link');
 
-function openMenu() {
+function openMobileMenu() {
   mobileMenu.classList.add('open');
-  hamburger.classList.add('active');
-  hamburger.setAttribute('aria-expanded', 'true');
+  hamburgerBtn.classList.add('open');
+  hamburgerBtn.setAttribute('aria-expanded', 'true');
   document.body.style.overflow = 'hidden';
 }
-function closeMenu() {
+function closeMobileMenu() {
   mobileMenu.classList.remove('open');
-  hamburger.classList.remove('active');
-  hamburger.setAttribute('aria-expanded', 'false');
+  hamburgerBtn.classList.remove('open');
+  hamburgerBtn.setAttribute('aria-expanded', 'false');
   document.body.style.overflow = '';
 }
 
-hamburger.addEventListener('click', () => {
-  if (mobileMenu.classList.contains('open')) {
-    closeMenu();
-  } else {
-    openMenu();
-  }
+hamburgerBtn.addEventListener('click', function() {
+  const isOpen = mobileMenu.classList.contains('open');
+  if (isOpen) { closeMobileMenu(); } else { openMobileMenu(); }
 });
-mobileClose.addEventListener('click', closeMenu);
-mobileLinks.forEach(link => link.addEventListener('click', closeMenu));
+mobileClose.addEventListener('click', closeMobileMenu);
+mobileLinks.forEach(function(link) {
+  link.addEventListener('click', closeMobileMenu);
+});
 
-// ─── INTERSECTION OBSERVER — REVEAL ───
-const revealEls = document.querySelectorAll('.reveal');
-const revealObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
+/* ---- Smooth Scroll ---- */
+document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+  anchor.addEventListener('click', function(e) {
+    const targetId = this.getAttribute('href').slice(1);
+    const target = document.getElementById(targetId);
+    if (target) {
+      e.preventDefault();
+      const navHeight = nav.offsetHeight;
+      const targetTop = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
+      window.scrollTo({ top: targetTop, behavior: 'smooth' });
+    }
+  });
+});
+
+/* ---- IntersectionObserver Scroll Reveal ---- */
+var revealObserver = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
     if (entry.isIntersecting) {
       entry.target.classList.add('visible');
       revealObserver.unobserve(entry.target);
@@ -1675,102 +2343,93 @@ const revealObserver = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
 
-revealEls.forEach(el => revealObserver.observe(el));
+document.querySelectorAll('.reveal').forEach(function(el) {
+  revealObserver.observe(el);
+});
 
-// ─── COUNTER ANIMATION ───
-const statNums = document.querySelectorAll('.stat-num[data-target]');
-let countersStarted = false;
-
-function animateCounters() {
-  statNums.forEach(el => {
-    const target = parseInt(el.getAttribute('data-target'));
-    const suffix = el.getAttribute('data-suffix') || '';
-    const duration = 1800;
-    const start = performance.now();
-
-    function update(now) {
-      const elapsed = now - start;
-      const progress = Math.min(elapsed / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      const current = Math.floor(eased * target);
-      el.textContent = (current >= 1000 ? current.toLocaleString() : current) + suffix;
-      if (progress < 1) requestAnimationFrame(update);
-    }
-    requestAnimationFrame(update);
-  });
-}
-
-const statsSection = document.getElementById('stats');
-const statsObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting && !countersStarted) {
-      countersStarted = true;
-      animateCounters();
-      statsObserver.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.3 });
-if (statsSection) statsObserver.observe(statsSection);
-
-// ─── FAQ ACCORDION ───
-const faqItems = document.querySelectorAll('.faq-item');
-faqItems.forEach(item => {
-  const btn = item.querySelector('.faq-question');
-  const answer = item.querySelector('.faq-answer');
-  const inner = item.querySelector('.faq-answer-inner');
-
-  btn.addEventListener('click', () => {
-    const isOpen = item.classList.contains('open');
+/* ---- FAQ Accordion ---- */
+document.querySelectorAll('.faq-question').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    var item = this.closest('.faq-item');
+    var answer = item.querySelector('.faq-answer');
+    var isOpen = item.classList.contains('open');
 
     // Close all
-    faqItems.forEach(i => {
-      i.classList.remove('open');
-      i.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
-      i.querySelector('.faq-answer').style.maxHeight = '0';
+    document.querySelectorAll('.faq-item.open').forEach(function(openItem) {
+      openItem.classList.remove('open');
+      openItem.querySelector('.faq-answer').style.maxHeight = '0';
+      openItem.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
     });
 
-    // Open clicked if it was closed
+    // Open clicked (if was closed)
     if (!isOpen) {
       item.classList.add('open');
-      btn.setAttribute('aria-expanded', 'true');
-      answer.style.maxHeight = inner.scrollHeight + 32 + 'px';
+      answer.style.maxHeight = answer.scrollHeight + 'px';
+      this.setAttribute('aria-expanded', 'true');
     }
   });
 });
 
-// ─── SMOOTH SCROLL FOR ALL ANCHOR LINKS ───
-document.querySelectorAll('a[href^="#"]').forEach(link => {
-  link.addEventListener('click', (e) => {
-    const target = document.querySelector(link.getAttribute('href'));
-    if (target) {
-      e.preventDefault();
-      const offset = 72;
-      const top = target.getBoundingClientRect().top + window.scrollY - offset;
-      window.scrollTo({ top, behavior: 'smooth' });
+/* ---- Counter Animation ---- */
+function animateCounter(el) {
+  var target = parseInt(el.getAttribute('data-target'), 10);
+  var duration = 1800;
+  var start = null;
+  function step(timestamp) {
+    if (!start) start = timestamp;
+    var progress = Math.min((timestamp - start) / duration, 1);
+    var eased = 1 - Math.pow(1 - progress, 3);
+    el.textContent = Math.floor(eased * target);
+    if (progress < 1) { requestAnimationFrame(step); }
+    else { el.textContent = target; }
+  }
+  requestAnimationFrame(step);
+}
+
+var counterObserver = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
+    if (entry.isIntersecting) {
+      animateCounter(entry.target);
+      counterObserver.unobserve(entry.target);
     }
   });
+}, { threshold: 0.5 });
+
+document.querySelectorAll('.counter').forEach(function(el) {
+  counterObserver.observe(el);
 });
 
-// ─── FORM SUBMISSION ───
-const form = document.getElementById('estimateForm');
-if (form) {
-  form.addEventListener('submit', (e) => {
+/* ---- Form Submit Handler ---- */
+var quoteForm = document.getElementById('quote-form');
+if (quoteForm) {
+  quoteForm.addEventListener('submit', function(e) {
     e.preventDefault();
-    const btn = form.querySelector('.form-submit');
-    const originalText = btn.textContent;
-    btn.textContent = 'Request Sent! We\'ll be in touch soon.';
-    btn.style.background = '#6A9E7A';
+    var btn = this.querySelector('.form-submit');
+    var original = btn.textContent;
+    btn.textContent = 'Message Sent — We\'ll Be in Touch!';
+    btn.style.background = 'var(--accent)';
     btn.disabled = true;
-    setTimeout(() => {
-      btn.textContent = originalText;
+    setTimeout(function() {
+      btn.textContent = original;
       btn.style.background = '';
       btn.disabled = false;
-      form.reset();
+      quoteForm.reset();
     }, 5000);
   });
 }
+
+/* ---- Orientation change reflow ---- */
+window.addEventListener('orientationchange', function() {
+  setTimeout(function() {
+    handleNavScroll();
+    document.querySelectorAll('.faq-item.open').forEach(function(item) {
+      var answer = item.querySelector('.faq-answer');
+      answer.style.maxHeight = answer.scrollHeight + 'px';
+    });
+  }, 300);
+});
 </script>
 
-<div id="gwp-switcher" style="position:fixed;bottom:20px;right:20px;z-index:2147483647;display:flex;flex-direction:column;align-items:flex-end;gap:5px;font-family:-apple-system,BlinkMacSystemFont,'Inter',sans-serif;"><div style="font-size:9px;letter-spacing:0.14em;color:rgba(255,255,255,0.3);text-transform:uppercase;padding-right:3px;">gitworkdone &middot; palette</div><div style="background:rgba(8,8,8,0.88);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,0.1);border-radius:50px;padding:5px;display:flex;gap:3px;box-shadow:0 8px 32px rgba(0,0,0,0.55);"><button id="gwp-a-btn" onclick="gwpSet('a')" style="border:none;border-radius:50px;padding:7px 15px;cursor:pointer;display:flex;align-items:center;gap:7px;font-size:11px;font-weight:600;letter-spacing:0.05em;background:rgba(255,255,255,0.13);color:#fff;line-height:1;"><span style="width:10px;height:10px;border-radius:50%;background:#a87a52;flex-shrink:0;border:1px solid rgba(255,255,255,0.2);display:inline-block;"></span>Design A</button><button id="gwp-b-btn" onclick="gwpSet('b')" style="border:none;border-radius:50px;padding:7px 15px;cursor:pointer;display:flex;align-items:center;gap:7px;font-size:11px;font-weight:600;letter-spacing:0.05em;background:transparent;color:rgba(255,255,255,0.38);line-height:1;"><span style="width:10px;height:10px;border-radius:50%;background:#6A9E7A;flex-shrink:0;border:1px solid rgba(255,255,255,0.2);display:inline-block;"></span>Sage — complementary green, ~150° from warm amber</button></div></div><script>(function(){function gwpSet(p){var root=document.documentElement;root.setAttribute('data-palette-anim','');if(p==='a'){root.removeAttribute('data-palette');}else{root.setAttribute('data-palette','b');}setTimeout(function(){root.removeAttribute('data-palette-anim');},400);var a=document.getElementById('gwp-a-btn'),b=document.getElementById('gwp-b-btn');if(p==='a'){a.style.background='rgba(255,255,255,0.13)';a.style.color='#fff';b.style.background='transparent';b.style.color='rgba(255,255,255,0.38)';}else{b.style.background='rgba(255,255,255,0.13)';b.style.color='#fff';a.style.background='transparent';a.style.color='rgba(255,255,255,0.38)';}}window.gwpSet=gwpSet;})();</script>
+<div id="gwp-switcher" style="position:fixed;bottom:20px;right:20px;z-index:2147483647;display:flex;flex-direction:column;align-items:flex-end;gap:5px;font-family:-apple-system,BlinkMacSystemFont,'Inter',sans-serif;"><div style="font-size:9px;letter-spacing:0.14em;color:rgba(255,255,255,0.3);text-transform:uppercase;padding-right:3px;">gitworkdone &middot; palette</div><div style="background:rgba(8,8,8,0.88);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,0.1);border-radius:50px;padding:5px;display:flex;gap:3px;box-shadow:0 8px 32px rgba(0,0,0,0.55);"><button id="gwp-a-btn" onclick="gwpSet('a')" style="border:none;border-radius:50px;padding:7px 15px;cursor:pointer;display:flex;align-items:center;gap:7px;font-size:11px;font-weight:600;letter-spacing:0.05em;background:rgba(255,255,255,0.13);color:#fff;line-height:1;"><span style="width:10px;height:10px;border-radius:50%;background:#1E3A2F;flex-shrink:0;border:1px solid rgba(255,255,255,0.2);display:inline-block;"></span>Design A</button><button id="gwp-b-btn" onclick="gwpSet('b')" style="border:none;border-radius:50px;padding:7px 15px;cursor:pointer;display:flex;align-items:center;gap:7px;font-size:11px;font-weight:600;letter-spacing:0.05em;background:transparent;color:rgba(255,255,255,0.38);line-height:1;"><span style="width:10px;height:10px;border-radius:50%;background:#2E6E82;flex-shrink:0;border:1px solid rgba(255,255,255,0.2);display:inline-block;"></span>"Dusk Sky" — blue-teal complementary accent</button></div></div><script>(function(){function gwpSet(p){var root=document.documentElement;root.setAttribute('data-palette-anim','');if(p==='a'){root.removeAttribute('data-palette');}else{root.setAttribute('data-palette','b');}setTimeout(function(){root.removeAttribute('data-palette-anim');},400);var a=document.getElementById('gwp-a-btn'),b=document.getElementById('gwp-b-btn');if(p==='a'){a.style.background='rgba(255,255,255,0.13)';a.style.color='#fff';b.style.background='transparent';b.style.color='rgba(255,255,255,0.38)';}else{b.style.background='rgba(255,255,255,0.13)';b.style.color='#fff';a.style.background='transparent';a.style.color='rgba(255,255,255,0.38)';}}window.gwpSet=gwpSet;})();</script>
 </body>
 </html>
