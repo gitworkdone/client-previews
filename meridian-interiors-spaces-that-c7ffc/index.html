@@ -1,654 +1,624 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-palette="a">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MERIDIAN Interiors — Spaces That Define You</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Nunito+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Nunito+Sans:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
+/* ============================================================
+   CSS CUSTOM PROPERTIES
+============================================================ */
 :root {
-  --linen: #F5F0E8;
-  --walnut: #3D2B1F;
-  --gold: #C4A35A;
-  --sage: #9CAF88;
-  --walnut-dark: #2A1D15;
-  --linen-warm: #EDE6D8;
-  --gold-light: #D4B87A;
-  --text-body: #5C4A3A;
-  --text-light: #8B7355;
-  --font-serif: 'Cormorant Garamond', Georgia, serif;
-  --font-sans: 'Nunito Sans', sans-serif;
-  --ease-premium: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  --section-pad: 120px 0;
-  --container: 1280px;
+  --linen:       #F5F0E8;
+  --walnut:      #3D2B1F;
+  --walnut-mid:  #5C4033;
+  --gold:        #C4A35A;
+  --gold-dark:   #A8863E;
+  --sage:        #9CAF88;
+  --sage-dark:   #7A9068;
+  --cream:       #FBF6EE;
+  --cream-deep:  #EDE6D8;
+  --text-main:   #2A1E14;
+  --text-mid:    #6B5240;
+  --text-light:  #9C8370;
+  --rule:        rgba(196,163,90,0.25);
+  --accent:      #C4A35A;
+  --accent-dark: #A8863E;
+  --transition:  0.8s cubic-bezier(0.22,1,0.36,1);
+  --font-serif:  'Cormorant Garamond', Georgia, serif;
+  --font-sans:   'Nunito Sans', sans-serif;
 }
 
+html[data-palette="b"] {
+  /* Palette B: "Verdigris" — hue ~160° from gold (~45°), cool sage-teal */
+  --accent:           #5A9C8F;
+  --accent-dark:      #3E8076;
+  --gold:             #5A9C8F;
+  --gold-dark:        #3E8076;
+  --rule:             rgba(90,156,143,0.25);
+}
+
+/* ============================================================
+   RESET & BASE
+============================================================ */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-html { scroll-behavior: smooth; font-size: 16px; }
-
+html { scroll-behavior: smooth; overflow-x: hidden; font-size: 16px; }
 body {
-  background-color: var(--linen);
-  color: var(--walnut);
+  overflow-x: hidden;
+  background: var(--cream);
+  color: var(--text-main);
   font-family: var(--font-sans);
   font-weight: 300;
   line-height: 1.7;
-  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
 }
-
-img { display: block; width: 100%; object-fit: cover; }
-
+img { max-width: 100%; display: block; object-fit: cover; }
 a { text-decoration: none; color: inherit; }
+button { border: none; background: none; font: inherit; cursor: pointer; }
+ul { list-style: none; }
 
-/* ── PROGRESSIVE ENHANCEMENT ── */
-html.js-loaded .reveal {
+/* ============================================================
+   CURSOR
+============================================================ */
+@media (min-width: 1024px) {
+  html, html * { cursor: none !important; }
+}
+.custom-cursor {
+  position: fixed;
+  width: 10px; height: 10px;
+  background: var(--walnut);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-50%,-50%);
+  transition: width 0.25s ease, height 0.25s ease, background 0.25s ease, border-radius 0.25s ease, opacity 0.25s ease;
+  mix-blend-mode: multiply;
   opacity: 0;
-  transform: translateY(32px);
-  transition: opacity 0.85s var(--ease-premium), transform 0.85s var(--ease-premium);
 }
-html.js-loaded .reveal.visible { opacity: 1; transform: none; }
-html.js-loaded .reveal-delay-1 { transition-delay: 0.12s; }
-html.js-loaded .reveal-delay-2 { transition-delay: 0.24s; }
-html.js-loaded .reveal-delay-3 { transition-delay: 0.36s; }
-html.js-loaded .reveal-delay-4 { transition-delay: 0.48s; }
-
-/* ── UTILITY ── */
-.container {
-  max-width: var(--container);
-  margin: 0 auto;
-  padding: 0 40px;
+.custom-cursor.active { opacity: 1; }
+.custom-cursor.hovering {
+  width: 44px; height: 44px;
+  background: transparent;
+  border: 1.5px solid var(--gold);
 }
-
-.gold-rule {
-  width: 56px;
-  height: 1px;
+.custom-cursor.on-dark {
   background: var(--gold);
-  margin-bottom: 28px;
+  border-color: var(--gold);
 }
 
-.label-tag {
+/* ============================================================
+   TYPOGRAPHY
+============================================================ */
+h1,h2,h3,h4,h5 {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+}
+.eyebrow {
   font-family: var(--font-sans);
-  font-size: 11px;
+  font-size: clamp(0.6rem, 1.2vw, 0.72rem);
   font-weight: 600;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--gold);
   display: block;
-  margin-bottom: 14px;
+  margin-bottom: 1.1rem;
+}
+.rule-line {
+  width: 48px; height: 1px;
+  background: var(--gold);
+  display: block;
+  margin-bottom: 1.2rem;
 }
 
-.section-divider {
-  width: 100%;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--gold), transparent);
-  opacity: 0.35;
+/* ============================================================
+   UTILITY
+============================================================ */
+.container {
+  width: 90%;
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.sr-only {
+  position: absolute; width:1px; height:1px;
+  padding:0; margin:-1px; overflow:hidden;
+  clip:rect(0,0,0,0); white-space:nowrap; border:0;
 }
 
-/* ── NAVIGATION ── */
-#site-nav {
+/* ============================================================
+   SCROLL REVEAL
+============================================================ */
+html.js-loaded .reveal {
+  opacity: 0;
+  transform: translateY(36px);
+  transition: opacity 0.85s cubic-bezier(0.22,1,0.36,1), transform 0.85s cubic-bezier(0.22,1,0.36,1);
+}
+html.js-loaded .reveal.visible { opacity: 1; transform: none; }
+html.js-loaded .reveal.delay-1 { transition-delay: 0.1s; }
+html.js-loaded .reveal.delay-2 { transition-delay: 0.22s; }
+html.js-loaded .reveal.delay-3 { transition-delay: 0.34s; }
+html.js-loaded .reveal.delay-4 { transition-delay: 0.46s; }
+
+/* ============================================================
+   NAVIGATION
+============================================================ */
+.nav {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
+  top: 0; left: 0; right: 0;
   z-index: 1000;
-  padding: 28px 0;
-  transition: background 0.5s var(--ease-premium), padding 0.4s var(--ease-premium), backdrop-filter 0.4s;
-}
-
-#site-nav.scrolled {
-  background: rgba(61, 43, 31, 0.94);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  padding: 16px 0;
-  box-shadow: 0 2px 40px rgba(61, 43, 31, 0.3);
-}
-
-.nav-inner {
+  padding: 28px 5%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  max-width: var(--container);
-  margin: 0 auto;
-  padding: 0 40px;
+  transition: background 0.5s ease, padding 0.5s ease, backdrop-filter 0.5s ease;
 }
-
+.nav.scrolled {
+  background: rgba(251,246,238,0.92);
+  backdrop-filter: blur(18px) saturate(1.4);
+  padding: 16px 5%;
+  border-bottom: 1px solid var(--rule);
+}
 .nav-logo {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.nav-logo-main {
   font-family: var(--font-serif);
-  font-size: 22px;
+  font-size: clamp(1.1rem, 2vw, 1.35rem);
   font-weight: 400;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.12em;
   color: var(--linen);
-  line-height: 1;
+  transition: color 0.4s;
 }
-
-.nav-logo-sub {
-  font-family: var(--font-sans);
-  font-size: 9px;
-  font-weight: 300;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: var(--gold);
-  line-height: 1;
-}
-
+.nav.scrolled .nav-logo { color: var(--walnut); }
 .nav-links {
   display: flex;
+  gap: 40px;
   align-items: center;
-  gap: 44px;
-  list-style: none;
 }
-
 .nav-links a {
   font-family: var(--font-sans);
-  font-size: 11px;
-  font-weight: 400;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: rgba(245, 240, 232, 0.82);
-  transition: color 0.3s;
-  position: relative;
-}
-
-.nav-links a::after {
-  content: '';
-  position: absolute;
-  bottom: -3px;
-  left: 0;
-  width: 0;
-  height: 1px;
-  background: var(--gold);
-  transition: width 0.35s var(--ease-premium);
-}
-
-.nav-links a:hover { color: var(--linen); }
-.nav-links a:hover::after { width: 100%; }
-
-.nav-cta {
-  font-family: var(--font-sans);
-  font-size: 11px;
+  font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--walnut);
-  background: var(--gold);
-  padding: 11px 26px;
-  transition: background 0.3s, transform 0.3s;
+  color: rgba(245,240,232,0.85);
+  transition: color 0.3s;
 }
-
-.nav-cta:hover { background: var(--gold-light); transform: translateY(-2px); }
-.nav-cta::after { display: none; }
-
+.nav.scrolled .nav-links a { color: var(--text-mid); }
+.nav-links a:hover,
+.nav.scrolled .nav-links a:hover { color: var(--gold); }
+.nav-cta {
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 10px 22px;
+  border: 1px solid rgba(245,240,232,0.5);
+  color: var(--linen);
+  transition: all 0.35s;
+}
+.nav.scrolled .nav-cta {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+.nav-cta:hover {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--walnut) !important;
+}
 .hamburger {
   display: none;
   flex-direction: column;
   gap: 5px;
-  cursor: pointer;
-  padding: 4px;
+  width: 28px;
+  padding: 4px 0;
   background: none;
   border: none;
 }
-
 .hamburger span {
   display: block;
-  width: 26px;
   height: 1px;
   background: var(--linen);
-  transition: transform 0.35s var(--ease-premium), opacity 0.3s;
+  transition: transform 0.4s ease, opacity 0.3s ease, background 0.4s;
+  transform-origin: center;
 }
-
+.nav.scrolled .hamburger span { background: var(--walnut); }
 .hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
 .hamburger.open span:nth-child(2) { opacity: 0; }
 .hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
-
 .mobile-menu {
   display: none;
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  background: var(--walnut-dark);
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: var(--walnut);
   z-index: 999;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 40px;
+  gap: 36px;
   opacity: 0;
+  transition: opacity 0.45s ease;
   pointer-events: none;
-  transition: opacity 0.4s var(--ease-premium);
 }
-
-.mobile-menu.open { opacity: 1; pointer-events: all; }
-
+.mobile-menu.open {
+  display: flex;
+  opacity: 1;
+  pointer-events: all;
+}
 .mobile-menu a {
   font-family: var(--font-serif);
-  font-size: 36px;
+  font-size: clamp(2rem, 8vw, 3.2rem);
   font-weight: 300;
-  letter-spacing: 0.06em;
   color: var(--linen);
+  letter-spacing: 0.05em;
   transition: color 0.3s;
 }
-
 .mobile-menu a:hover { color: var(--gold); }
+.mobile-menu-rule {
+  width: 40px; height: 1px;
+  background: var(--gold);
+  opacity: 0.5;
+}
 
-/* ── HERO ── */
+/* ============================================================
+   HERO
+============================================================ */
 #hero {
-  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
   width: 100%;
-  height: 100vh;
-  min-height: 700px;
-  background-image: url('https://images.unsplash.com/photo-1696413542101-2479dd479982?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjByZXNpZGVudGlhbCUyMGludGVyaW9yJTIwZGVzaWduJTIwc3R1ZGlvJTIwd2FybSUyMGxheWVyZWQlMjBlbGVnYW50fGVufDB8MHx8fDE3NzczMzM2MjV8MA&ixlib=rb-4.1.0&q=80&w=1080');
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  background-image: url('https://images.pexels.com/photos/35203561/pexels-photo-35203561.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
-  display: flex;
-  align-items: flex-end;
   overflow: hidden;
 }
-
 .hero-overlay {
   position: absolute;
   inset: 0;
   background: linear-gradient(
-    160deg,
-    rgba(42, 29, 21, 0.18) 0%,
-    rgba(42, 29, 21, 0.42) 50%,
-    rgba(42, 29, 21, 0.82) 100%
+    165deg,
+    rgba(30,18,10,0.18) 0%,
+    rgba(30,18,10,0.52) 55%,
+    rgba(30,18,10,0.82) 100%
   );
 }
-
 .hero-content {
   position: relative;
   z-index: 2;
-  padding: 0 40px 100px;
+  padding: 0 5% 80px;
   max-width: 900px;
 }
-
 .hero-eyebrow {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  margin-bottom: 32px;
-}
-
-.hero-eyebrow-line {
-  width: 48px;
-  height: 1px;
-  background: var(--gold);
-}
-
-.hero-eyebrow span {
   font-family: var(--font-sans);
-  font-size: 10px;
+  font-size: clamp(0.58rem, 1.3vw, 0.7rem);
   font-weight: 600;
-  letter-spacing: 0.32em;
+  letter-spacing: 0.3em;
   text-transform: uppercase;
   color: var(--gold);
-}
-
-.hero-headline {
-  font-family: var(--font-serif);
-  font-size: clamp(56px, 9vw, 118px);
-  font-weight: 300;
-  line-height: 0.95;
-  color: var(--linen);
-  letter-spacing: -0.01em;
-  margin-bottom: 36px;
-}
-
-.hero-headline em {
-  font-style: italic;
-  color: var(--gold-light);
-}
-
-.hero-sub {
-  font-family: var(--font-sans);
-  font-size: 14px;
-  font-weight: 300;
-  letter-spacing: 0.08em;
-  color: rgba(245, 240, 232, 0.75);
-  max-width: 480px;
-  margin-bottom: 52px;
-  line-height: 1.9;
-}
-
-.hero-actions {
   display: flex;
   align-items: center;
-  gap: 40px;
-  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 1.6rem;
+  opacity: 0;
+  animation: heroFadeUp 1.2s cubic-bezier(0.22,1,0.36,1) 0.3s forwards;
 }
-
-.btn-primary {
-  font-family: var(--font-sans);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--walnut);
+.hero-eyebrow::before {
+  content: '';
+  display: block;
+  width: 36px; height: 1px;
   background: var(--gold);
-  padding: 17px 44px;
-  display: inline-block;
-  transition: background 0.35s, transform 0.35s var(--ease-premium);
+  flex-shrink: 0;
 }
-
-.btn-primary:hover { background: var(--gold-light); transform: translateY(-3px); }
-
-.btn-ghost {
-  font-family: var(--font-sans);
-  font-size: 11px;
-  font-weight: 400;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
+.hero-headline {
+  font-family: var(--font-serif);
+  font-size: clamp(3rem, 8.5vw, 7.8rem);
+  font-weight: 300;
   color: var(--linen);
+  line-height: 0.96;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.8rem;
+  opacity: 0;
+  animation: heroFadeUp 1.2s cubic-bezier(0.22,1,0.36,1) 0.5s forwards;
+}
+.hero-headline em {
+  font-style: italic;
+  color: var(--gold);
+}
+.hero-sub {
+  font-family: var(--font-sans);
+  font-size: clamp(0.85rem, 1.6vw, 1rem);
+  font-weight: 300;
+  color: rgba(245,240,232,0.78);
+  max-width: 480px;
+  line-height: 1.8;
+  margin-bottom: 2.6rem;
+  opacity: 0;
+  animation: heroFadeUp 1.2s cubic-bezier(0.22,1,0.36,1) 0.75s forwards;
+}
+.hero-actions {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  opacity: 0;
+  animation: heroFadeUp 1.2s cubic-bezier(0.22,1,0.36,1) 0.95s forwards;
+}
+.btn-primary {
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  padding: 16px 34px;
+  background: var(--gold);
+  color: var(--walnut);
+  transition: background 0.35s, transform 0.35s cubic-bezier(0.22,1,0.36,1);
+}
+.btn-primary:hover { background: var(--gold-dark); transform: translateY(-4px); }
+.btn-ghost {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
-  transition: gap 0.35s var(--ease-premium), color 0.3s;
+  gap: 10px;
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--linen);
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(245,240,232,0.3);
+  transition: color 0.3s, border-color 0.3s;
 }
-
+.btn-ghost:hover { color: var(--gold); border-color: var(--gold); }
 .btn-ghost-arrow {
-  width: 32px;
-  height: 1px;
-  background: var(--gold);
-  transition: width 0.35s var(--ease-premium);
+  width: 18px; height: 1px;
+  background: currentColor;
+  position: relative;
+  transition: width 0.3s;
 }
-
-.btn-ghost:hover { color: var(--gold); gap: 18px; }
-.btn-ghost:hover .btn-ghost-arrow { width: 48px; }
-
+.btn-ghost-arrow::after {
+  content: '';
+  position: absolute;
+  right: 0; top: -3px;
+  width: 6px; height: 6px;
+  border-right: 1px solid currentColor;
+  border-top: 1px solid currentColor;
+  transform: rotate(45deg);
+}
+.btn-ghost:hover .btn-ghost-arrow { width: 28px; }
 .hero-scroll-hint {
   position: absolute;
-  bottom: 40px;
-  right: 48px;
-  z-index: 2;
+  bottom: 36px; right: 5%;
+  z-index: 3;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 8px;
+  opacity: 0;
+  animation: heroFadeUp 1s ease 1.6s forwards;
 }
-
-.hero-scroll-hint span {
+.scroll-line {
+  width: 1px; height: 50px;
+  background: linear-gradient(to bottom, transparent, var(--gold));
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+.scroll-label {
   font-family: var(--font-sans);
-  font-size: 9px;
-  font-weight: 600;
-  letter-spacing: 0.26em;
+  font-size: 0.58rem;
+  letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: rgba(245, 240, 232, 0.5);
+  color: rgba(245,240,232,0.5);
   writing-mode: vertical-rl;
 }
-
-.hero-scroll-line {
-  width: 1px;
-  height: 56px;
-  background: linear-gradient(to bottom, var(--gold), transparent);
-  animation: scrollPulse 2.2s ease-in-out infinite;
+@keyframes heroFadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
-
 @keyframes scrollPulse {
-  0%, 100% { opacity: 0.4; transform: scaleY(1); }
-  50% { opacity: 1; transform: scaleY(1.15); }
+  0%,100% { opacity: 0.4; }
+  50%      { opacity: 1; }
 }
 
-/* ── MARQUEE / PRESS STRIP ── */
-#press-strip {
+/* ============================================================
+   PRESS BAR
+============================================================ */
+#press {
   background: var(--walnut);
-  padding: 22px 0;
+  padding: 28px 5%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  border-bottom: 1px solid rgba(196,163,90,0.15);
+}
+.press-label {
+  font-family: var(--font-sans);
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(245,240,232,0.4);
+  white-space: nowrap;
+  margin-right: 8px;
+}
+.press-item {
+  font-family: var(--font-serif);
+  font-size: clamp(0.85rem, 1.8vw, 1.1rem);
+  font-weight: 400;
+  font-style: italic;
+  color: rgba(245,240,232,0.55);
+  letter-spacing: 0.06em;
+  padding: 0 20px;
+  border-right: 1px solid rgba(196,163,90,0.18);
+  transition: color 0.3s;
+}
+.press-item:last-child { border-right: none; }
+.press-item:hover { color: var(--gold); }
+
+/* ============================================================
+   STATS SECTION
+============================================================ */
+#stats {
+  background: var(--cream);
+  padding: 90px 5%;
+  border-bottom: 1px solid var(--rule);
+  position: relative;
   overflow: hidden;
 }
-
-.marquee-track {
+.stats-inner {
   display: flex;
-  gap: 72px;
-  animation: marquee 22s linear infinite;
-  white-space: nowrap;
+  gap: 0;
+  justify-content: center;
+  flex-wrap: wrap;
 }
-
-.marquee-item {
+.stat-item {
+  text-align: center;
+  padding: 40px 56px;
+  border-right: 1px solid var(--rule);
+  flex: 1;
+  min-width: 160px;
+}
+.stat-item:last-child { border-right: none; }
+.stat-num-wrap { display: inline-block; overflow: hidden; }
+.stat-num {
+  display: block;
   font-family: var(--font-serif);
-  font-size: 14px;
-  font-weight: 400;
-  letter-spacing: 0.16em;
-  color: rgba(196, 163, 90, 0.65);
-  display: flex;
-  align-items: center;
-  gap: 72px;
-  flex-shrink: 0;
-}
-
-.marquee-item::before {
-  content: '';
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: var(--gold);
-  opacity: 0.5;
-  flex-shrink: 0;
-}
-
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-
-/* ── INTRO / PHILOSOPHY ── */
-#philosophy {
-  padding: var(--section-pad);
-  background: var(--linen);
-}
-
-.philosophy-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 100px;
-  align-items: center;
-}
-
-.philosophy-left { }
-
-.philosophy-heading {
-  font-family: var(--font-serif);
-  font-size: clamp(38px, 4.5vw, 62px);
+  font-size: clamp(2.4rem, 5vw, 4rem);
   font-weight: 300;
-  line-height: 1.15;
-  color: var(--walnut);
-  margin-bottom: 32px;
-  letter-spacing: -0.01em;
-}
-
-.philosophy-heading em {
-  font-style: italic;
-  color: var(--text-light);
-}
-
-.philosophy-body {
-  font-size: 15px;
-  font-weight: 300;
-  line-height: 1.9;
-  color: var(--text-body);
-  margin-bottom: 24px;
-}
-
-.philosophy-stats {
-  display: flex;
-  gap: 52px;
-  margin-top: 52px;
-  padding-top: 48px;
-  border-top: 1px solid rgba(196, 163, 90, 0.25);
-}
-
-.stat-item { }
-
-.stat-number {
-  font-family: var(--font-serif);
-  font-size: 52px;
-  font-weight: 300;
-  color: var(--walnut);
   line-height: 1;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
+  color: var(--walnut);
+  transform-origin: bottom center;
+  will-change: transform;
 }
-
-.stat-number sup {
-  font-size: 22px;
-  vertical-align: super;
+.stat-num.popping {
+  animation: stat-pop 0.5s cubic-bezier(0.16,1,0.3,1) forwards;
 }
-
+@keyframes stat-pop {
+  0%   { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
 .stat-label {
+  display: block;
   font-family: var(--font-sans);
-  font-size: 10px;
+  font-size: 0.62rem;
   font-weight: 600;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--text-light);
   margin-top: 8px;
 }
-
-.philosophy-right {
-  position: relative;
+html.js-loaded .stat-item {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.16,1,0.3,1);
 }
+html.js-loaded .stat-item.visible { opacity: 1; transform: none; }
 
-.philosophy-img-wrap {
-  position: relative;
-  aspect-ratio: 3 / 4;
-  overflow: hidden;
-}
-
-.philosophy-img-wrap img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.8s var(--ease-premium);
-}
-
-.philosophy-img-wrap:hover img { transform: scale(1.04); }
-
-.philosophy-img-accent {
-  position: absolute;
-  bottom: -28px;
-  left: -28px;
-  width: 180px;
-  height: 180px;
-  border: 1px solid rgba(196, 163, 90, 0.4);
-  z-index: -1;
-}
-
-.philosophy-img-tag {
-  position: absolute;
-  bottom: 28px;
-  right: -1px;
-  background: var(--walnut);
-  padding: 18px 24px;
-}
-
-.philosophy-img-tag span {
-  font-family: var(--font-serif);
-  font-size: 13px;
-  font-weight: 400;
-  font-style: italic;
-  color: var(--gold);
-  letter-spacing: 0.04em;
-}
-
-/* ── SERVICES ── */
+/* ============================================================
+   SERVICES
+============================================================ */
 #services {
-  padding: var(--section-pad);
-  background: var(--linen-warm);
+  background: var(--cream);
+  padding: 120px 5%;
+  position: relative;
 }
-
 .section-header {
   max-width: 640px;
   margin-bottom: 72px;
 }
-
+.section-title {
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  color: var(--walnut);
+  margin-top: 0.4rem;
+  margin-bottom: 1.2rem;
+}
+.section-desc {
+  font-family: var(--font-sans);
+  font-size: clamp(0.88rem, 1.5vw, 1rem);
+  color: var(--text-mid);
+  line-height: 1.85;
+  max-width: 480px;
+}
 .services-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2px;
 }
-
 .service-card {
   position: relative;
   overflow: hidden;
-  cursor: default;
-  aspect-ratio: 3 / 4;
+  aspect-ratio: 3/4;
 }
-
-.service-card img {
-  width: 100%;
-  height: 100%;
+.service-card-img {
+  width: 100%; height: 100%;
   object-fit: cover;
-  transition: transform 0.8s var(--ease-premium);
+  transform: scale(1.06);
+  transition: transform 0.9s cubic-bezier(0.22,1,0.36,1);
 }
-
-.service-card:hover img { transform: scale(1.06); }
-
-.service-overlay {
+.service-card:hover .service-card-img { transform: scale(1); }
+.service-card-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(42, 29, 21, 0.92) 0%, rgba(42, 29, 21, 0.18) 60%, transparent 100%);
-  transition: background 0.4s;
+  background: linear-gradient(to top, rgba(30,18,10,0.88) 0%, rgba(30,18,10,0.2) 55%, transparent 100%);
+  transition: background 0.5s ease;
 }
-
-.service-card:hover .service-overlay {
-  background: linear-gradient(to top, rgba(42, 29, 21, 0.95) 0%, rgba(42, 29, 21, 0.4) 60%, rgba(42,29,21,0.1) 100%);
+.service-card:hover .service-card-overlay {
+  background: linear-gradient(to top, rgba(30,18,10,0.94) 0%, rgba(30,18,10,0.35) 65%, transparent 100%);
 }
-
-.service-content {
+.service-card-body {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  bottom: 0; left: 0; right: 0;
   padding: 36px 32px;
 }
-
-.service-number {
+.service-num {
   font-family: var(--font-serif);
-  font-size: 11px;
-  font-weight: 300;
-  letter-spacing: 0.28em;
+  font-size: 0.78rem;
+  font-weight: 400;
+  letter-spacing: 0.18em;
   color: var(--gold);
   display: block;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
-
-.service-title {
+.service-name {
   font-family: var(--font-serif);
-  font-size: 28px;
+  font-size: clamp(1.3rem, 2.5vw, 1.8rem);
   font-weight: 300;
-  line-height: 1.2;
   color: var(--linen);
-  margin-bottom: 12px;
-  letter-spacing: 0.01em;
+  line-height: 1.15;
+  margin-bottom: 14px;
 }
-
 .service-desc {
   font-family: var(--font-sans);
-  font-size: 13px;
+  font-size: 0.8rem;
   font-weight: 300;
-  color: rgba(245, 240, 232, 0.72);
+  color: rgba(245,240,232,0.68);
   line-height: 1.75;
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.5s var(--ease-premium), opacity 0.4s;
   opacity: 0;
+  transform: translateY(10px);
+  transition: max-height 0.55s cubic-bezier(0.22,1,0.36,1), opacity 0.45s ease 0.05s, transform 0.45s ease 0.05s;
 }
-
-.service-card:hover .service-desc { max-height: 120px; opacity: 1; }
-
+.service-card:hover .service-desc {
+  max-height: 120px;
+  opacity: 1;
+  transform: translateY(0);
+}
 .service-link {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   font-family: var(--font-sans);
-  font-size: 10px;
+  font-size: 0.65rem;
   font-weight: 600;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -656,757 +626,810 @@ html.js-loaded .reveal-delay-4 { transition-delay: 0.48s; }
   margin-top: 16px;
   opacity: 0;
   transform: translateY(8px);
-  transition: opacity 0.4s 0.1s, transform 0.4s 0.1s var(--ease-premium);
+  transition: opacity 0.4s ease 0.1s, transform 0.4s ease 0.1s;
+}
+.service-card:hover .service-link {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-.service-link-line {
-  width: 20px;
-  height: 1px;
-  background: var(--gold);
-  transition: width 0.3s;
-}
-
-.service-link:hover .service-link-line { width: 32px; }
-.service-card:hover .service-link { opacity: 1; transform: none; }
-
-/* ── ABOUT ── */
+/* ============================================================
+   ABOUT / STORY
+============================================================ */
 #about {
-  padding: var(--section-pad);
   background: var(--walnut);
+  padding: 130px 5%;
   position: relative;
   overflow: hidden;
 }
-
-#about::before {
-  content: 'MERIDIAN';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-family: var(--font-serif);
-  font-size: clamp(100px, 18vw, 240px);
-  font-weight: 300;
-  letter-spacing: 0.12em;
-  color: rgba(245, 240, 232, 0.03);
-  white-space: nowrap;
-  pointer-events: none;
-}
-
 .about-grid {
   display: grid;
-  grid-template-columns: 5fr 7fr;
-  gap: 100px;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
   align-items: center;
-  position: relative;
-  z-index: 1;
 }
-
 .about-img-wrap {
   position: relative;
-  aspect-ratio: 2 / 3;
-  overflow: hidden;
 }
-
-.about-img-wrap img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.8s var(--ease-premium);
-}
-
-.about-img-wrap:hover img { transform: scale(1.04); }
-
-.about-img-border {
-  position: absolute;
-  top: 24px;
-  left: 24px;
-  right: -24px;
-  bottom: -24px;
-  border: 1px solid rgba(196, 163, 90, 0.3);
-  z-index: -1;
-}
-
-.about-content { }
-
-.about-label {
-  font-family: var(--font-sans);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--gold);
-  display: block;
-  margin-bottom: 20px;
-}
-
-.about-heading {
-  font-family: var(--font-serif);
-  font-size: clamp(36px, 4vw, 56px);
-  font-weight: 300;
-  line-height: 1.18;
-  color: var(--linen);
-  margin-bottom: 36px;
-  letter-spacing: -0.01em;
-}
-
-.about-heading em { font-style: italic; }
-
-.about-body {
-  font-size: 15px;
-  font-weight: 300;
-  line-height: 1.95;
-  color: rgba(245, 240, 232, 0.72);
-  margin-bottom: 20px;
-}
-
-.about-pull-quote {
-  border-left: 2px solid var(--gold);
-  padding: 20px 0 20px 28px;
-  margin: 44px 0;
-}
-
-.about-pull-quote p {
-  font-family: var(--font-serif);
-  font-size: 22px;
-  font-weight: 300;
-  font-style: italic;
-  line-height: 1.55;
-  color: var(--linen);
-  letter-spacing: 0.01em;
-}
-
-.about-credentials {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 40px;
-}
-
-.credential-tag {
-  font-family: var(--font-sans);
-  font-size: 10px;
-  font-weight: 400;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--gold);
-  border: 1px solid rgba(196, 163, 90, 0.4);
-  padding: 8px 18px;
-}
-
-/* ── GALLERY / PROCESS ── */
-#gallery {
-  padding: var(--section-pad);
-  background: var(--linen);
-}
-
-.gallery-intro {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: end;
-  gap: 80px;
-  margin-bottom: 72px;
-}
-
-.gallery-heading {
-  font-family: var(--font-serif);
-  font-size: clamp(40px, 5vw, 68px);
-  font-weight: 300;
-  line-height: 1.1;
-  color: var(--walnut);
-  letter-spacing: -0.01em;
-}
-
-.gallery-heading em { font-style: italic; }
-
-.gallery-body {
-  font-size: 14px;
-  font-weight: 300;
-  line-height: 1.9;
-  color: var(--text-body);
-}
-
-.gallery-asymmetric {
-  display: grid;
-  grid-template-columns: 7fr 5fr;
-  grid-template-rows: auto auto;
-  gap: 4px;
-}
-
-.gallery-cell {
-  overflow: hidden;
-  position: relative;
-}
-
-.gallery-cell img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.8s var(--ease-premium);
-}
-
-.gallery-cell:hover img { transform: scale(1.05); }
-
-.gallery-cell-large {
-  grid-row: 1 / 3;
-  aspect-ratio: unset;
-  min-height: 640px;
-}
-
-.gallery-cell-sm { min-height: 310px; }
-
-.gallery-caption {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: linear-gradient(to top, rgba(42, 29, 21, 0.7), transparent);
-  padding: 28px 24px 20px;
-  opacity: 0;
-  transition: opacity 0.4s;
-}
-
-.gallery-cell:hover .gallery-caption { opacity: 1; }
-
-.gallery-caption span {
-  font-family: var(--font-serif);
-  font-size: 13px;
-  font-style: italic;
-  color: var(--linen);
-  letter-spacing: 0.04em;
-}
-
-/* ── PROCESS / APPROACH STRIP ── */
-#process {
-  padding: var(--section-pad);
-  background: var(--walnut-dark);
-}
-
-.process-label {
-  font-family: var(--font-sans);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--gold);
-  display: block;
-  margin-bottom: 20px;
-}
-
-.process-heading {
-  font-family: var(--font-serif);
-  font-size: clamp(36px, 4vw, 56px);
-  font-weight: 300;
-  line-height: 1.15;
-  color: var(--linen);
-  margin-bottom: 80px;
-  max-width: 600px;
-  letter-spacing: -0.01em;
-}
-
-.process-heading em { font-style: italic; }
-
-.process-steps {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0;
-  border-top: 1px solid rgba(196, 163, 90, 0.2);
-}
-
-.process-step {
-  padding: 48px 40px 48px 0;
-  border-right: 1px solid rgba(196, 163, 90, 0.15);
-  padding-left: 40px;
-  transition: background 0.4s;
-}
-
-.process-step:hover { background: rgba(196, 163, 90, 0.04); }
-.process-step:last-child { border-right: none; }
-
-.step-num {
-  font-family: var(--font-serif);
-  font-size: 56px;
-  font-weight: 300;
-  color: rgba(196, 163, 90, 0.2);
-  line-height: 1;
-  margin-bottom: 24px;
-  letter-spacing: -0.02em;
-}
-
-.step-title {
-  font-family: var(--font-serif);
-  font-size: 22px;
-  font-weight: 400;
-  color: var(--linen);
-  margin-bottom: 16px;
-  letter-spacing: 0.01em;
-}
-
-.step-desc {
-  font-family: var(--font-sans);
-  font-size: 13px;
-  font-weight: 300;
-  color: rgba(245, 240, 232, 0.55);
-  line-height: 1.85;
-}
-
-/* ── TESTIMONIALS ── */
-#testimonials {
-  padding: var(--section-pad);
-  background: var(--linen-warm);
-  position: relative;
-}
-
-.testimonials-header {
-  text-align: center;
-  margin-bottom: 80px;
-}
-
-.testimonials-heading {
-  font-family: var(--font-serif);
-  font-size: clamp(36px, 4.5vw, 58px);
-  font-weight: 300;
-  line-height: 1.15;
-  color: var(--walnut);
-  letter-spacing: -0.01em;
-}
-
-.testimonials-heading em { font-style: italic; }
-
-.testimonials-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2px;
-}
-
-.testimonial-card {
-  background: var(--linen);
-  padding: 52px 44px;
+.about-img-frame {
   position: relative;
   overflow: hidden;
-  transition: transform 0.4s var(--ease-premium), box-shadow 0.4s;
 }
-
-.testimonial-card::before {
+.about-img-frame::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
+  top: -20px; left: -20px;
+  right: 20px; bottom: 20px;
+  border: 1px solid rgba(196,163,90,0.3);
+  z-index: 0;
+  pointer-events: none;
+}
+.about-img {
   width: 100%;
-  height: 2px;
+  aspect-ratio: 4/5;
+  object-fit: cover;
+  position: relative;
+  z-index: 1;
+  transform: scale(1.04);
+  transition: transform 1.2s cubic-bezier(0.22,1,0.36,1);
+}
+.about-img-wrap:hover .about-img { transform: scale(1); }
+.about-badge {
+  position: absolute;
+  bottom: -28px; right: -28px;
+  z-index: 3;
+  width: 120px; height: 120px;
   background: var(--gold);
-  transform: scaleX(0);
-  transition: transform 0.4s var(--ease-premium);
-  transform-origin: left;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
 }
-
-.testimonial-card:hover { transform: translateY(-6px); box-shadow: 0 24px 60px rgba(61, 43, 31, 0.12); }
-.testimonial-card:hover::before { transform: scaleX(1); }
-
-.testimonial-quote-mark {
+.about-badge-num {
   font-family: var(--font-serif);
-  font-size: 80px;
-  line-height: 0.6;
-  color: rgba(196, 163, 90, 0.3);
-  margin-bottom: 28px;
-  display: block;
-}
-
-.testimonial-text {
-  font-family: var(--font-serif);
-  font-size: 18px;
+  font-size: 2rem;
   font-weight: 300;
-  font-style: italic;
-  line-height: 1.75;
   color: var(--walnut);
-  margin-bottom: 36px;
-  letter-spacing: 0.01em;
+  line-height: 1;
 }
-
-.testimonial-meta {
-  border-top: 1px solid rgba(196, 163, 90, 0.25);
-  padding-top: 24px;
-}
-
-.testimonial-role {
+.about-badge-label {
   font-family: var(--font-sans);
-  font-size: 10px;
+  font-size: 0.52rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--walnut);
+  text-align: center;
+  line-height: 1.3;
+}
+.about-content {}
+.about-content .eyebrow { color: var(--gold); }
+.about-title {
+  font-size: clamp(2rem, 4.5vw, 3.4rem);
+  color: var(--linen);
+  margin-bottom: 1.6rem;
+  line-height: 1.08;
+}
+.about-lead {
+  font-family: var(--font-serif);
+  font-size: clamp(1.05rem, 2vw, 1.3rem);
+  font-style: italic;
+  font-weight: 300;
+  color: var(--gold);
+  line-height: 1.65;
+  margin-bottom: 1.4rem;
+}
+.about-body {
+  font-family: var(--font-sans);
+  font-size: clamp(0.85rem, 1.4vw, 0.95rem);
+  font-weight: 300;
+  color: rgba(245,240,232,0.68);
+  line-height: 1.9;
+  margin-bottom: 2.4rem;
+}
+.about-features {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 2.8rem;
+}
+.about-feature {
+  padding: 18px 20px;
+  border: 1px solid rgba(196,163,90,0.18);
+  transition: border-color 0.3s;
+}
+.about-feature:hover { border-color: rgba(196,163,90,0.5); }
+.about-feature-title {
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: var(--linen);
+  margin-bottom: 4px;
+}
+.about-feature-desc {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 300;
+  color: rgba(245,240,232,0.48);
+  line-height: 1.6;
+}
+.btn-outline-gold {
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  padding: 14px 30px;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  transition: background 0.35s, color 0.35s, transform 0.35s cubic-bezier(0.22,1,0.36,1);
+}
+.btn-outline-gold:hover {
+  background: var(--gold);
+  color: var(--walnut);
+  transform: translateY(-4px);
+}
+
+/* ============================================================
+   HORIZONTAL SCROLL PORTFOLIO
+============================================================ */
+#portfolio {
+  background: var(--cream-deep);
+  padding: 120px 0 0;
+  overflow: hidden;
+}
+.portfolio-header {
+  padding: 0 5% 60px;
+}
+.portfolio-scroll-track {
+  display: flex;
+  gap: 24px;
+  padding: 0 5% 80px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: var(--gold) transparent;
+  cursor: grab;
+}
+.portfolio-scroll-track:active { cursor: grabbing; }
+.portfolio-scroll-track::-webkit-scrollbar { height: 2px; }
+.portfolio-scroll-track::-webkit-scrollbar-thumb { background: var(--gold); }
+.portfolio-scroll-track::-webkit-scrollbar-track { background: transparent; }
+.portfolio-card {
+  flex: 0 0 auto;
+  width: clamp(280px, 38vw, 540px);
+  position: relative;
+  overflow: hidden;
+}
+.portfolio-card-img {
+  width: 100%;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  display: block;
+  transform: scale(1.05);
+  transition: transform 0.9s cubic-bezier(0.22,1,0.36,1);
+}
+.portfolio-card:hover .portfolio-card-img { transform: scale(1); }
+.portfolio-card-caption {
+  padding: 22px 0 0;
+}
+.portfolio-card-num {
+  font-family: var(--font-sans);
+  font-size: 0.6rem;
   font-weight: 600;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--gold);
-  margin-bottom: 4px;
+}
+.portfolio-card-name {
+  font-family: var(--font-serif);
+  font-size: clamp(1.1rem, 2.2vw, 1.4rem);
+  font-weight: 300;
+  color: var(--walnut);
+  margin-top: 6px;
+}
+.portfolio-card-type {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  color: var(--text-light);
+  margin-top: 4px;
+}
+.portfolio-hint {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-sans);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-light);
+  padding: 0 5% 48px;
+  margin-top: -36px;
+}
+.portfolio-hint-line {
+  flex: 1;
+  height: 1px;
+  background: var(--rule);
 }
 
-.testimonial-project {
+/* ============================================================
+   BEFORE / AFTER REVEAL
+============================================================ */
+#before-after {
+  background: var(--walnut);
+  padding: 130px 5%;
+  position: relative;
+  overflow: hidden;
+}
+.ba-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+.ba-content .eyebrow { color: var(--gold); }
+.ba-title {
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  color: var(--linen);
+  margin-bottom: 1.2rem;
+  line-height: 1.1;
+}
+.ba-desc {
   font-family: var(--font-sans);
-  font-size: 12px;
+  font-size: clamp(0.85rem, 1.4vw, 0.95rem);
+  font-weight: 300;
+  color: rgba(245,240,232,0.65);
+  line-height: 1.9;
+  margin-bottom: 2rem;
+}
+.ba-widget {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4/5;
+  overflow: hidden;
+  user-select: none;
+  touch-action: none;
+}
+.ba-after-img, .ba-before-img {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+.ba-before-img {
+  clip-path: inset(0 50% 0 0);
+  transition: clip-path 0s;
+}
+.ba-divider {
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 50%;
+  width: 2px;
+  background: var(--gold);
+  transform: translateX(-50%);
+  z-index: 3;
+  cursor: ew-resize;
+}
+.ba-handle {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: ew-resize;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.35);
+}
+.ba-handle-arrows {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+.ba-arrow {
+  width: 0; height: 0;
+  border-style: solid;
+}
+.ba-arrow-left {
+  border-width: 5px 7px 5px 0;
+  border-color: transparent var(--walnut) transparent transparent;
+}
+.ba-arrow-right {
+  border-width: 5px 0 5px 7px;
+  border-color: transparent transparent transparent var(--walnut);
+}
+.ba-label {
+  position: absolute;
+  bottom: 18px;
+  font-family: var(--font-sans);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--linen);
+  background: rgba(30,18,10,0.65);
+  padding: 6px 12px;
+  z-index: 4;
+  pointer-events: none;
+}
+.ba-label-before { left: 16px; }
+.ba-label-after  { right: 16px; }
+
+/* ============================================================
+   PROCESS / HOW IT WORKS
+============================================================ */
+#process {
+  background: var(--cream);
+  padding: 130px 5%;
+  position: relative;
+  overflow: hidden;
+}
+.process-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
+  margin-top: 72px;
+  position: relative;
+}
+.process-grid::before {
+  content: '';
+  position: absolute;
+  top: 32px; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--gold) 20%, var(--gold) 80%, transparent);
+  z-index: 0;
+}
+.process-step {
+  position: relative;
+  z-index: 1;
+}
+.process-num {
+  font-family: var(--font-serif);
+  font-size: 3.2rem;
+  font-weight: 300;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+.process-num-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 0 4px var(--cream), 0 0 0 5px var(--gold);
+  flex-shrink: 0;
+  margin-right: 16px;
+  margin-top: -2px;
+}
+.process-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.1rem, 2vw, 1.35rem);
+  font-weight: 400;
+  color: var(--walnut);
+  margin-bottom: 12px;
+}
+.process-desc {
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  font-weight: 300;
+  color: var(--text-mid);
+  line-height: 1.85;
+}
+
+/* ============================================================
+   TESTIMONIALS
+============================================================ */
+#testimonials {
+  background: var(--cream-deep);
+  padding: 130px 5%;
+  position: relative;
+  overflow: hidden;
+}
+#testimonials .blob-bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.testimonials-inner {
+  position: relative;
+  z-index: 2;
+}
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  margin-top: 72px;
+}
+.testimonial-card {
+  background: var(--cream);
+  padding: 48px 40px;
+  position: relative;
+  border-top: 2px solid var(--gold);
+  transition: transform 0.5s cubic-bezier(0.22,1,0.36,1);
+}
+.testimonial-card:hover { transform: translateY(-8px); }
+.testimonial-quote-mark {
+  font-family: var(--font-serif);
+  font-size: 5rem;
+  font-weight: 300;
+  color: var(--gold);
+  line-height: 0.5;
+  margin-bottom: 24px;
+  opacity: 0.5;
+}
+.testimonial-text {
+  font-family: var(--font-serif);
+  font-size: clamp(1rem, 1.8vw, 1.15rem);
+  font-style: italic;
+  font-weight: 300;
+  color: var(--walnut);
+  line-height: 1.75;
+  margin-bottom: 28px;
+}
+.testimonial-stars {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 20px;
+}
+.star {
+  width: 14px; height: 14px;
+  display: inline-block;
+  position: relative;
+}
+.star::before {
+  content: '★';
+  color: var(--gold);
+  font-size: 14px;
+  line-height: 1;
+}
+.testimonial-author {
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-mid);
+}
+.testimonial-location {
+  font-family: var(--font-sans);
+  font-size: 0.65rem;
   font-weight: 300;
   color: var(--text-light);
-  letter-spacing: 0.06em;
+  margin-top: 4px;
+}
+.testimonial-source {
+  position: absolute;
+  top: 20px; right: 20px;
+  font-family: var(--font-sans);
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-light);
+  opacity: 0.5;
 }
 
-/* ── FAQ ── */
+/* ============================================================
+   FAQ
+============================================================ */
 #faq {
-  padding: var(--section-pad);
-  background: var(--walnut);
+  background: var(--cream);
+  padding: 130px 5%;
 }
-
 .faq-grid {
   display: grid;
-  grid-template-columns: 4fr 8fr;
-  gap: 100px;
+  grid-template-columns: 1fr 1.6fr;
+  gap: 80px;
   align-items: start;
+  margin-top: 0;
 }
-
-.faq-left { position: sticky; top: 120px; }
-
-.faq-heading {
-  font-family: var(--font-serif);
-  font-size: clamp(36px, 4vw, 52px);
-  font-weight: 300;
-  line-height: 1.2;
-  color: var(--linen);
-  letter-spacing: -0.01em;
-  margin-bottom: 24px;
+.faq-list {
+  margin-top: 0;
 }
-
-.faq-heading em { font-style: italic; }
-
-.faq-subtext {
-  font-family: var(--font-sans);
-  font-size: 14px;
-  font-weight: 300;
-  color: rgba(245, 240, 232, 0.55);
-  line-height: 1.8;
-}
-
-.faq-items { }
-
 .faq-item {
-  border-bottom: 1px solid rgba(196, 163, 90, 0.18);
+  border-bottom: 1px solid var(--rule);
 }
-
-.faq-question {
+.faq-trigger {
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 24px;
-  padding: 28px 0;
+  padding: 24px 0;
+  background: none;
+  border: none;
+  text-align: left;
   cursor: pointer;
-  list-style: none;
-  transition: color 0.3s;
 }
-
-.faq-question::-webkit-details-marker { display: none; }
-
-.faq-q-text {
+.faq-question {
   font-family: var(--font-serif);
-  font-size: 20px;
+  font-size: clamp(0.95rem, 1.6vw, 1.1rem);
   font-weight: 400;
-  color: var(--linen);
-  line-height: 1.35;
-  letter-spacing: 0.01em;
+  color: var(--walnut);
+  padding-right: 20px;
   transition: color 0.3s;
 }
-
-.faq-item.open .faq-q-text { color: var(--gold); }
-
+.faq-trigger:hover .faq-question { color: var(--gold-dark); }
 .faq-icon {
-  width: 28px;
-  height: 28px;
-  border: 1px solid rgba(196, 163, 90, 0.35);
+  width: 22px; height: 22px;
+  border: 1px solid var(--rule);
   border-radius: 50%;
   flex-shrink: 0;
   position: relative;
-  transition: border-color 0.3s, background 0.3s;
+  transition: border-color 0.3s, transform 0.4s cubic-bezier(0.22,1,0.36,1);
 }
-
-.faq-item.open .faq-icon { border-color: var(--gold); background: rgba(196, 163, 90, 0.08); }
-
-.faq-icon::before, .faq-icon::after {
+.faq-icon::before,
+.faq-icon::after {
   content: '';
   position: absolute;
-  top: 50%;
-  left: 50%;
   background: var(--gold);
-  transition: transform 0.35s var(--ease-premium);
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  transition: transform 0.4s cubic-bezier(0.22,1,0.36,1);
 }
-
-.faq-icon::before {
-  width: 10px;
-  height: 1px;
-  transform: translate(-50%, -50%);
-}
-
-.faq-icon::after {
-  width: 1px;
-  height: 10px;
-  transform: translate(-50%, -50%);
-}
-
-.faq-item.open .faq-icon::after { transform: translate(-50%, -50%) rotate(90deg); opacity: 0; }
-
+.faq-icon::before { width: 8px; height: 1px; }
+.faq-icon::after  { width: 1px; height: 8px; }
+.faq-item.open .faq-icon { border-color: var(--gold); transform: rotate(45deg); }
 .faq-answer {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.5s var(--ease-premium);
+  transition: max-height 0.55s cubic-bezier(0.22,1,0.36,1);
 }
-
 .faq-answer-inner {
-  padding: 0 0 28px 0;
-}
-
-.faq-answer-inner p {
   font-family: var(--font-sans);
-  font-size: 14px;
+  font-size: 0.88rem;
   font-weight: 300;
-  color: rgba(245, 240, 232, 0.62);
+  color: var(--text-mid);
   line-height: 1.9;
+  padding: 0 0 24px;
 }
 
-/* ── CTA / CONTACT ── */
+/* ============================================================
+   CTA / CONTACT
+============================================================ */
 #contact {
   position: relative;
-  background-image: url('https://images.unsplash.com/photo-1755540735819-107733f0be49?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxhZ2VkJTIwcGFwZXIlMjB0ZXh0dXJlJTIwY2FuZGxlbGlnaHQlMjB3YXJtJTIwbmV1dHJhbCUyMGRlc2lnbmVyJTIwd29ya3NwYWNlJTIwYWVzdGhldGljfGVufDB8MHx8fDE3NzczMzM2Mjd8MA&ixlib=rb-4.1.0&q=80&w=1080');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
+  overflow: hidden;
+  background: var(--walnut);
 }
-
-.contact-overlay {
+.contact-bg-img {
   position: absolute;
   inset: 0;
-  background: rgba(42, 29, 21, 0.88);
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: 0.12;
+  filter: grayscale(60%);
 }
-
 .contact-inner {
   position: relative;
   z-index: 2;
-  padding: 140px 0;
-}
-
-.contact-grid {
   display: grid;
-  grid-template-columns: 5fr 7fr;
-  gap: 100px;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 80px;
+  padding: 130px 5%;
   align-items: start;
 }
-
-.contact-left { }
-
-.contact-heading {
-  font-family: var(--font-serif);
-  font-size: clamp(42px, 5vw, 72px);
-  font-weight: 300;
-  line-height: 1.1;
+.contact-left .eyebrow { color: var(--gold); }
+.contact-title {
+  font-size: clamp(2rem, 4.5vw, 3.6rem);
   color: var(--linen);
-  letter-spacing: -0.01em;
-  margin-bottom: 28px;
+  margin-bottom: 1.4rem;
+  line-height: 1.06;
 }
-
-.contact-heading em { font-style: italic; }
-
-.contact-body {
+.contact-desc {
   font-family: var(--font-sans);
-  font-size: 14px;
+  font-size: clamp(0.85rem, 1.4vw, 0.95rem);
   font-weight: 300;
-  color: rgba(245, 240, 232, 0.65);
+  color: rgba(245,240,232,0.62);
   line-height: 1.9;
-  margin-bottom: 48px;
+  margin-bottom: 2.8rem;
 }
-
-.contact-details { }
-
-.contact-detail-item {
+.contact-meta {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  padding: 22px 0;
-  border-top: 1px solid rgba(196, 163, 90, 0.18);
+  gap: 16px;
 }
-
-.contact-detail-item:last-child { border-bottom: 1px solid rgba(196, 163, 90, 0.18); }
-
-.contact-detail-label {
+.contact-meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.contact-meta-label {
   font-family: var(--font-sans);
-  font-size: 10px;
-  font-weight: 600;
+  font-size: 0.58rem;
+  font-weight: 700;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--gold);
 }
-
-.contact-detail-value {
+.contact-meta-value {
   font-family: var(--font-serif);
-  font-size: 16px;
-  font-weight: 400;
+  font-size: 1rem;
+  font-weight: 300;
   color: var(--linen);
-  letter-spacing: 0.02em;
 }
-
-.contact-form { }
-
+.contact-form {}
 .form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
   margin-bottom: 20px;
 }
-
-.form-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
-.form-group:last-of-type { margin-bottom: 0; }
-
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+.form-group.full { grid-column: 1 / -1; }
 .form-label {
   font-family: var(--font-sans);
-  font-size: 10px;
+  font-size: 0.62rem;
   font-weight: 600;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: rgba(196, 163, 90, 0.8);
+  color: rgba(245,240,232,0.5);
 }
-
-.form-input, .form-select, .form-textarea {
-  background: rgba(245, 240, 232, 0.06);
-  border: 1px solid rgba(196, 163, 90, 0.2);
-  padding: 16px 20px;
-  font-family: var(--font-sans);
-  font-size: 14px;
-  font-weight: 300;
+.form-control {
+  background: rgba(245,240,232,0.06);
+  border: 1px solid rgba(196,163,90,0.2);
   color: var(--linen);
+  font-family: var(--font-sans);
+  font-size: 0.88rem;
+  font-weight: 300;
+  padding: 14px 18px;
   width: 100%;
   outline: none;
   transition: border-color 0.3s, background 0.3s;
   -webkit-appearance: none;
+  border-radius: 0;
 }
-
-.form-input::placeholder, .form-textarea::placeholder {
-  color: rgba(245, 240, 232, 0.3);
-  font-style: italic;
-}
-
-.form-input:focus, .form-select:focus, .form-textarea:focus {
+.form-control::placeholder { color: rgba(245,240,232,0.28); }
+.form-control:focus {
   border-color: var(--gold);
-  background: rgba(245, 240, 232, 0.09);
+  background: rgba(196,163,90,0.06);
 }
-
-.form-select option { background: var(--walnut); color: var(--linen); }
-
-.form-textarea { resize: vertical; min-height: 130px; }
-
+select.form-control { cursor: pointer; }
+textarea.form-control {
+  min-height: 120px;
+  resize: vertical;
+}
 .form-submit {
-  width: 100%;
-  padding: 20px;
-  background: var(--gold);
-  border: none;
+  display: inline-block;
   font-family: var(--font-sans);
-  font-size: 11px;
+  font-size: 0.7rem;
   font-weight: 600;
   letter-spacing: 0.22em;
   text-transform: uppercase;
+  padding: 18px 44px;
+  background: var(--gold);
   color: var(--walnut);
+  border: none;
   cursor: pointer;
-  transition: background 0.35s, transform 0.35s var(--ease-premium);
-  margin-top: 28px;
+  width: 100%;
+  transition: background 0.35s, transform 0.35s cubic-bezier(0.22,1,0.36,1);
+}
+.form-submit:hover { background: var(--gold-dark); transform: translateY(-4px); }
+
+/* ============================================================
+   BLOB BACKGROUND
+============================================================ */
+.blob-bg { position: relative; overflow: hidden; isolation: isolate; }
+.blob-bg .blob-content { position: relative; z-index: 1; }
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(70px);
+  opacity: 0.3;
+  pointer-events: none;
+  will-change: transform;
+}
+.blob-1 {
+  width: 500px; height: 500px;
+  top: -100px; left: -100px;
+  background: var(--blob-1, #d4a373);
+  animation: blob-drift-1 9s ease-in-out infinite;
+}
+.blob-2 {
+  width: 400px; height: 400px;
+  top: 30%; right: -80px;
+  background: var(--blob-2, #ccd5ae);
+  animation: blob-drift-2 11s ease-in-out infinite;
+}
+.blob-3 {
+  width: 350px; height: 350px;
+  bottom: -60px; left: 40%;
+  background: var(--blob-3, #e9edc9);
+  animation: blob-drift-3 8s ease-in-out infinite;
+}
+@keyframes blob-drift-1 {
+  0%,100% { transform: translate(0,0) scale(1); }
+  33%      { transform: translate(40px,30px) scale(1.08); }
+  66%      { transform: translate(-20px,50px) scale(0.95); }
+}
+@keyframes blob-drift-2 {
+  0%,100% { transform: translate(0,0) scale(1); }
+  33%      { transform: translate(-50px,-20px) scale(1.06); }
+  66%      { transform: translate(30px,40px) scale(0.97); }
+}
+@keyframes blob-drift-3 {
+  0%,100% { transform: translate(0,0) scale(1); }
+  33%      { transform: translate(20px,-40px) scale(1.1); }
+  66%      { transform: translate(-40px,-10px) scale(0.93); }
 }
 
-.form-submit:hover { background: var(--gold-light); transform: translateY(-2px); }
-
-/* ── FOOTER ── */
+/* ============================================================
+   FOOTER
+============================================================ */
 #footer {
-  background: var(--walnut-dark);
-  padding: 80px 0 40px;
+  background: #2A1E14;
+  padding: 80px 5% 40px;
+  border-top: 1px solid rgba(196,163,90,0.15);
 }
-
 .footer-top {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 2fr;
+  grid-template-columns: 1.6fr 1fr 1fr;
   gap: 60px;
-  padding-bottom: 64px;
-  border-bottom: 1px solid rgba(196, 163, 90, 0.12);
+  padding-bottom: 60px;
+  border-bottom: 1px solid rgba(196,163,90,0.12);
   margin-bottom: 40px;
 }
-
-.footer-brand { }
-
-.footer-logo {
+.footer-brand-name {
   font-family: var(--font-serif);
-  font-size: 26px;
+  font-size: clamp(1.4rem, 2.5vw, 1.8rem);
   font-weight: 300;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.14em;
   color: var(--linen);
-  display: block;
-  margin-bottom: 6px;
+  margin-bottom: 12px;
 }
-
-.footer-tagline {
+.footer-brand-tag {
   font-family: var(--font-sans);
-  font-size: 9px;
+  font-size: 0.68rem;
   font-weight: 300;
-  letter-spacing: 0.28em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--gold);
-  display: block;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
-
-.footer-brand-text {
+.footer-brand-desc {
   font-family: var(--font-sans);
-  font-size: 13px;
+  font-size: 0.8rem;
   font-weight: 300;
-  color: rgba(245, 240, 232, 0.45);
+  color: rgba(245,240,232,0.42);
   line-height: 1.85;
-  max-width: 280px;
+  max-width: 300px;
 }
-
 .footer-col-title {
   font-family: var(--font-sans);
-  font-size: 10px;
-  font-weight: 600;
+  font-size: 0.6rem;
+  font-weight: 700;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--gold);
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
-
 .footer-links {
-  list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 12px;
 }
-
 .footer-links a {
   font-family: var(--font-sans);
-  font-size: 13px;
+  font-size: 0.8rem;
   font-weight: 300;
-  color: rgba(245, 240, 232, 0.5);
+  color: rgba(245,240,232,0.5);
   transition: color 0.3s;
-  letter-spacing: 0.04em;
 }
-
 .footer-links a:hover { color: var(--gold); }
-
-.footer-press { }
-
-.press-logos {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.press-logo-item {
-  display: block;
-  font-family: var(--font-serif);
-  font-size: 15px;
-  font-weight: 400;
-  font-style: italic;
-  color: rgba(245, 240, 232, 0.35);
-  letter-spacing: 0.06em;
-  transition: color 0.3s;
-}
-
-.press-logo-item:hover { color: var(--gold); }
-
 .footer-bottom {
   display: flex;
   align-items: center;
@@ -1414,510 +1437,600 @@ html.js-loaded .reveal-delay-4 { transition-delay: 0.48s; }
   flex-wrap: wrap;
   gap: 16px;
 }
-
 .footer-copy {
   font-family: var(--font-sans);
-  font-size: 12px;
+  font-size: 0.68rem;
   font-weight: 300;
-  color: rgba(245, 240, 232, 0.28);
-  letter-spacing: 0.06em;
+  color: rgba(245,240,232,0.3);
+  letter-spacing: 0.08em;
 }
-
-.footer-legal {
+.footer-socials {
   display: flex;
-  gap: 28px;
+  gap: 4px;
+  align-items: center;
 }
-
-.footer-legal a {
+.social-morph {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px; height: 36px;
+}
+.social-morph-text {
   font-family: var(--font-sans);
   font-size: 11px;
-  font-weight: 300;
-  color: rgba(245, 240, 232, 0.28);
-  letter-spacing: 0.1em;
-  transition: color 0.3s;
+  font-weight: 600;
+  color: rgba(245,240,232,0.38);
+  display: inline-block;
+  opacity: 1; filter: blur(0px); transform: scale(1);
+  transition: opacity 0.4s cubic-bezier(0.4,0,0.2,1), filter 0.4s cubic-bezier(0.4,0,0.2,1), transform 0.4s cubic-bezier(0.4,0,0.2,1);
 }
-
-.footer-legal a:hover { color: var(--gold); }
-
-.footer-location {
-  font-family: var(--font-sans);
-  font-size: 11px;
-  font-weight: 300;
-  letter-spacing: 0.16em;
-  color: rgba(245, 240, 232, 0.28);
-  text-transform: uppercase;
+.social-morph-icon {
+  position: absolute; inset: 0; margin: auto;
+  width: 16px; height: 16px;
+  pointer-events: none;
+  opacity: 0; filter: blur(8px); transform: scale(0.6);
+  color: var(--gold);
+  transition: opacity 0.4s cubic-bezier(0.4,0,0.2,1) 0.1s, filter 0.4s cubic-bezier(0.4,0,0.2,1) 0.1s, transform 0.4s cubic-bezier(0.4,0,0.2,1) 0.1s;
 }
+.social-morph:hover .social-morph-text { opacity: 0; filter: blur(8px); transform: scale(0.6); }
+.social-morph:hover .social-morph-icon { opacity: 1; filter: blur(0px); transform: scale(1); }
 
-/* ── RESPONSIVE ── */
-@media (max-width: 1024px) {
-  :root { --section-pad: 90px 0; }
-
-  .philosophy-grid { grid-template-columns: 1fr 1fr; gap: 60px; }
-  .services-grid { grid-template-columns: 1fr 1fr; }
-  .services-grid .service-card:last-child { grid-column: 1 / -1; aspect-ratio: 16 / 7; }
-  .gallery-asymmetric { grid-template-columns: 1fr 1fr; }
-  .gallery-cell-large { grid-row: auto; min-height: 360px; }
-  .process-steps { grid-template-columns: repeat(2, 1fr); }
-  .process-step:nth-child(2) { border-right: none; }
-  .process-step:nth-child(3) { border-top: 1px solid rgba(196,163,90,0.15); }
-  .testimonials-grid { grid-template-columns: 1fr 1fr; }
-  .testimonials-grid .testimonial-card:last-child { grid-column: 1 / -1; }
-  .footer-top { grid-template-columns: 1fr 1fr; }
-  .faq-grid { grid-template-columns: 1fr; gap: 52px; }
-  .faq-left { position: static; }
-  .contact-grid { grid-template-columns: 1fr; gap: 60px; }
-  .about-grid { grid-template-columns: 1fr 1fr; gap: 60px; }
-}
-
+/* ============================================================
+   MOBILE-FIRST RESPONSIVE — PORTRAIT
+============================================================ */
 @media (max-width: 768px) {
-  :root { --section-pad: 72px 0; }
-
-  .container { padding: 0 24px; }
-  .nav-inner { padding: 0 24px; }
-  .hero-content { padding: 0 24px 80px; }
-
   .nav-links, .nav-cta { display: none; }
   .hamburger { display: flex; }
-  .mobile-menu { display: flex; }
 
-  .philosophy-grid { grid-template-columns: 1fr; gap: 52px; }
-  .philosophy-stats { gap: 32px; }
-  .philosophy-right { order: -1; }
-  .philosophy-img-accent { display: none; }
+  .hero-content { padding: 0 6% 64px; }
+  .hero-headline { font-size: clamp(2.6rem, 11vw, 4.2rem); }
 
-  .services-grid { grid-template-columns: 1fr; gap: 2px; }
-  .services-grid .service-card:last-child { grid-column: 1; aspect-ratio: 3 / 4; }
-  .service-desc { max-height: 100px; opacity: 1; }
+  .about-grid { grid-template-columns: 1fr; gap: 50px; }
+  .about-badge { bottom: -20px; right: -10px; width: 96px; height: 96px; }
+  .about-features { grid-template-columns: 1fr; }
+  .about-img-frame::before { top: -12px; left: -12px; right: 12px; bottom: 12px; }
+
+  .services-grid { grid-template-columns: 1fr; }
+  .service-card { aspect-ratio: 4/3; }
+  .service-desc { max-height: 120px; opacity: 1; transform: none; }
   .service-link { opacity: 1; transform: none; }
 
-  .about-grid { grid-template-columns: 1fr; gap: 52px; }
-  .about-img-wrap { aspect-ratio: 4 / 3; }
-  .about-img-border { display: none; }
+  .ba-grid { grid-template-columns: 1fr; gap: 40px; }
 
-  .gallery-intro { grid-template-columns: 1fr; gap: 28px; }
-  .gallery-asymmetric { grid-template-columns: 1fr; }
-  .gallery-cell-large, .gallery-cell-sm { min-height: 300px; aspect-ratio: 4 / 3; }
-
-  .process-steps { grid-template-columns: 1fr; }
-  .process-step { border-right: none; border-top: 1px solid rgba(196,163,90,0.15); padding-left: 0; }
-  .process-step:first-child { border-top: none; }
+  .process-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .process-grid::before { display: none; }
 
   .testimonials-grid { grid-template-columns: 1fr; }
-  .testimonials-grid .testimonial-card:last-child { grid-column: 1; }
+  .testimonial-card { border-top-width: 2px; }
 
-  .faq-grid { grid-template-columns: 1fr; }
+  .faq-grid { grid-template-columns: 1fr; gap: 40px; }
 
-  .contact-grid { grid-template-columns: 1fr; }
+  .contact-inner { grid-template-columns: 1fr; gap: 48px; padding: 80px 6%; }
   .form-row { grid-template-columns: 1fr; }
 
-  .footer-top { grid-template-columns: 1fr; gap: 40px; }
-  .footer-bottom { flex-direction: column; align-items: flex-start; gap: 12px; }
-  .footer-legal { flex-direction: column; gap: 8px; }
+  .footer-top { grid-template-columns: 1fr; gap: 36px; }
+  .footer-bottom { flex-direction: column; align-items: flex-start; }
 
-  .hero-scroll-hint { display: none; }
+  .stats-inner { flex-direction: column; }
+  .stat-item { border-right: none; border-bottom: 1px solid var(--rule); padding: 28px 20px; }
+  .stat-item:last-child { border-bottom: none; }
 }
+
+@media (min-width: 480px) and (max-width: 768px) {
+  .services-grid { grid-template-columns: 1fr 1fr; }
+  .process-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .services-grid { grid-template-columns: repeat(3, 1fr); }
+  .about-grid { gap: 48px; }
+  .process-grid { grid-template-columns: repeat(2, 1fr); }
+  .process-grid::before { display: none; }
+  .testimonials-grid { grid-template-columns: 1fr 1fr; }
+  .footer-top { grid-template-columns: 1fr 1fr; }
+  .contact-inner { grid-template-columns: 1fr; gap: 48px; }
+  .ba-grid { gap: 48px; }
+}
+
+/* ============================================================
+   ORIENTATION RULES
+============================================================ */
+@media (orientation: portrait) {
+  #hero { min-height: 100vh; min-height: 100svh; background-attachment: scroll; }
+}
+
+@media (orientation: landscape) and (max-width: 900px) {
+  #hero {
+    min-height: 56svh;
+    background-attachment: scroll;
+  }
+  .hero-headline { font-size: clamp(1.8rem, 6vw, 3rem); }
+  .nav { padding: 10px 4%; }
+  .hero-content { padding: 0 4% 40px; }
+  .mobile-menu { flex-direction: row; flex-wrap: wrap; gap: 20px; padding: 60px 5%; align-content: center; }
+  .mobile-menu a { font-size: clamp(1.2rem, 4vw, 1.8rem); }
+  .services-grid { grid-template-columns: repeat(3, 1fr); }
+  .about-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .ba-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .process-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  .testimonials-grid { grid-template-columns: 1fr 1fr; }
+  .contact-inner { padding: 60px 4%; }
+  .faq-grid { grid-template-columns: 1fr; gap: 24px; }
+  section { padding-top: 72px; padding-bottom: 72px; }
+}
+
+/* ============================================================
+   HORIZONTAL SCROLL DRAG FIX
+============================================================ */
+.portfolio-scroll-track.dragging { scroll-behavior: auto; }
+</style>
+
+<style id="gwp-palette">
+html[data-palette-anim] *, html[data-palette-anim] *::before, html[data-palette-anim] *::after { transition: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease !important; }
 </style>
 </head>
 <body>
 
-<!-- ── NAVIGATION ── -->
-<nav id="site-nav" role="navigation" aria-label="Main navigation">
-  <div class="nav-inner">
-    <a href="#hero" class="nav-logo" aria-label="MERIDIAN Interiors Home">
-      <span class="nav-logo-main">MERIDIAN</span>
-      <span class="nav-logo-sub">Interiors — Charleston, SC</span>
-    </a>
-    <ul class="nav-links" role="list">
-      <li><a href="#services">Services</a></li>
-      <li><a href="#about">Studio</a></li>
-      <li><a href="#gallery">Portfolio</a></li>
-      <li><a href="#testimonials">Journal</a></li>
-      <li><a href="#faq">Process</a></li>
-      <li><a href="#contact" class="nav-cta">Begin a Project</a></li>
-    </ul>
-    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
+<!-- CUSTOM CURSOR -->
+<div class="custom-cursor" id="cursor"></div>
+
+<!-- NAVIGATION -->
+<nav class="nav" id="nav" role="navigation" aria-label="Main navigation">
+  <a href="#hero" class="nav-logo" aria-label="MERIDIAN Interiors home">MERIDIAN</a>
+  <ul class="nav-links" role="list">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">Studio</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#testimonials">Journal</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta" role="button">Begin a Project</a>
+  <button class="hamburger" id="hamburger" aria-label="Toggle mobile menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
-<!-- ── MOBILE MENU ── -->
-<div class="mobile-menu" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Mobile navigation">
-  <a href="#services" class="mobile-nav-link">Services</a>
-  <a href="#about" class="mobile-nav-link">Studio</a>
-  <a href="#gallery" class="mobile-nav-link">Portfolio</a>
-  <a href="#testimonials" class="mobile-nav-link">Journal</a>
-  <a href="#faq" class="mobile-nav-link">Process</a>
-  <a href="#contact" class="mobile-nav-link">Begin a Project</a>
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-label="Mobile navigation">
+  <a href="#services" class="mobile-link">Services</a>
+  <div class="mobile-menu-rule"></div>
+  <a href="#about" class="mobile-link">Studio</a>
+  <div class="mobile-menu-rule"></div>
+  <a href="#portfolio" class="mobile-link">Portfolio</a>
+  <div class="mobile-menu-rule"></div>
+  <a href="#process" class="mobile-link">Process</a>
+  <div class="mobile-menu-rule"></div>
+  <a href="#contact" class="mobile-link">Begin a Project</a>
 </div>
 
-<!-- ── HERO ── -->
-<section id="hero" aria-label="Hero">
+<!-- HERO -->
+<section id="hero" role="banner">
   <div class="hero-overlay"></div>
   <div class="hero-content">
-    <div class="hero-eyebrow reveal">
-      <span class="hero-eyebrow-line"></span>
-      <span>Bespoke Residential &amp; Hospitality Design · Charleston, SC</span>
-    </div>
-    <h1 class="hero-headline reveal reveal-delay-1">
-      Spaces That<br><em>Define You.</em>
-    </h1>
-    <p class="hero-sub reveal reveal-delay-2">
-      We craft soulful, layered interiors that balance architectural precision with warm, lived-in luxury — designed exclusively for those who understand the difference.
-    </p>
-    <div class="hero-actions reveal reveal-delay-3">
+    <span class="hero-eyebrow">Charleston, SC — Est. Celeste Varro</span>
+    <h1 class="hero-headline">Spaces That<br><em>Define</em> You</h1>
+    <p class="hero-sub">Bespoke interiors at the intersection of architectural precision and warm, lived-in luxury. Featured in Architectural Digest and Elle Decor.</p>
+    <div class="hero-actions">
       <a href="#contact" class="btn-primary">Begin a Conversation</a>
-      <a href="#gallery" class="btn-ghost">
-        View Portfolio
-        <span class="btn-ghost-arrow"></span>
+      <a href="#portfolio" class="btn-ghost">
+        View Portfolio <span class="btn-ghost-arrow"></span>
       </a>
     </div>
   </div>
   <div class="hero-scroll-hint" aria-hidden="true">
-    <span>Scroll</span>
-    <span class="hero-scroll-line"></span>
+    <span class="scroll-label">Scroll</span>
+    <span class="scroll-line"></span>
   </div>
 </section>
 
-<!-- ── PRESS STRIP ── -->
-<div id="press-strip" aria-label="As featured in">
-  <div class="marquee-track" aria-hidden="true">
-    <span class="marquee-item">Architectural Digest</span>
-    <span class="marquee-item">Elle Decor</span>
-    <span class="marquee-item">House Beautiful</span>
-    <span class="marquee-item">Veranda</span>
-    <span class="marquee-item">Town &amp; Country</span>
-    <span class="marquee-item">Architectural Digest</span>
-    <span class="marquee-item">Elle Decor</span>
-    <span class="marquee-item">House Beautiful</span>
-    <span class="marquee-item">Veranda</span>
-    <span class="marquee-item">Town &amp; Country</span>
-    <span class="marquee-item">Architectural Digest</span>
-    <span class="marquee-item">Elle Decor</span>
-    <span class="marquee-item">House Beautiful</span>
-    <span class="marquee-item">Veranda</span>
-    <span class="marquee-item">Town &amp; Country</span>
-  </div>
+<!-- PRESS BAR -->
+<div id="press" role="complementary" aria-label="Press features">
+  <span class="press-label">As featured in</span>
+  <a href="#" class="press-item" rel="noopener noreferrer" aria-label="As featured in Architectural Digest">Architectural Digest</a>
+  <a href="#" class="press-item" rel="noopener noreferrer" aria-label="As featured in Elle Decor">Elle Decor</a>
+  <a href="#" class="press-item" rel="noopener noreferrer" aria-label="As featured in House Beautiful">House Beautiful</a>
+  <a href="#" class="press-item" rel="noopener noreferrer" aria-label="As featured in Veranda">Veranda</a>
 </div>
 
-<!-- ── PHILOSOPHY ── -->
-<section id="philosophy" aria-labelledby="philosophy-heading">
+<!-- STATS -->
+<section id="stats" aria-label="Studio highlights">
   <div class="container">
-    <div class="philosophy-grid">
-      <div class="philosophy-left">
-        <div class="gold-rule reveal"></div>
-        <span class="label-tag reveal reveal-delay-1">Our Philosophy</span>
-        <h2 class="philosophy-heading reveal reveal-delay-2" id="philosophy-heading">
-          Design that<br>earns its<br><em>quiet authority.</em>
-        </h2>
-        <p class="philosophy-body reveal reveal-delay-3">
-          At MERIDIAN, we believe a truly great interior is felt before it is fully understood — a room that seems to know you, that anticipates ease, warmth, and beauty in every detail. We don't follow trends. We listen to the architecture, to our clients, and to the story a space is waiting to tell.
-        </p>
-        <p class="philosophy-body reveal reveal-delay-4">
-          Founded by principal designer Celeste Varro, our studio takes on a carefully limited number of projects each year. This is intentional. Every client receives the full weight of our creative attention — from the first site visit to the final styling touch.
-        </p>
-        <div class="philosophy-stats reveal">
-          <div class="stat-item">
-            <div class="stat-number" data-count="14"><sup></sup>14</div>
-            <div class="stat-label">Years of Practice</div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-number" data-count="8">8</div>
-            <div class="stat-label">Projects Per Year</div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-number">2</div>
-            <div class="stat-label">Publication Features</div>
-          </div>
+    <div class="stats-inner">
+      <div class="stat-item">
+        <div class="stat-num-wrap">
+          <span class="stat-num" data-target="14" data-suffix=" yrs">0</span>
         </div>
+        <span class="stat-label">Years of Practice</span>
       </div>
-      <div class="philosophy-right reveal reveal-delay-2">
-        <div class="philosophy-img-wrap">
-          <img src="https://images.pexels.com/photos/6568687/pexels-photo-6568687.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Principal designer Celeste Varro reviewing material samples in the studio" loading="lazy">
-          <div class="philosophy-img-tag">
-            <span>Celeste Varro, Principal Designer</span>
-          </div>
+      <div class="stat-item">
+        <div class="stat-num-wrap">
+          <span class="stat-num" data-target="87" data-suffix="+">0</span>
         </div>
-        <div class="philosophy-img-accent" aria-hidden="true"></div>
+        <span class="stat-label">Completed Projects</span>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num-wrap">
+          <span class="stat-num" data-target="12" data-suffix="">0</span>
+        </div>
+        <span class="stat-label">Projects Per Year</span>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num-wrap">
+          <span class="stat-num" data-target="100" data-suffix="%">0</span>
+        </div>
+        <span class="stat-label">Client Referral Rate</span>
       </div>
     </div>
   </div>
 </section>
 
-<div class="section-divider"></div>
-
-<!-- ── SERVICES ── -->
-<section id="services" aria-labelledby="services-heading">
+<!-- SERVICES -->
+<section id="services" aria-labelledby="services-title">
   <div class="container">
-    <div class="section-header">
-      <div class="gold-rule reveal"></div>
-      <span class="label-tag reveal reveal-delay-1">Our Specializations</span>
-      <h2 class="philosophy-heading reveal reveal-delay-2" id="services-heading" style="font-size: clamp(36px, 4vw, 58px);">
-        What we<br><em>do best.</em>
-      </h2>
+    <div class="section-header reveal">
+      <span class="eyebrow">Our Disciplines</span>
+      <h2 class="section-title" id="services-title">Crafted for the<br>Discerning Few</h2>
+      <p class="section-desc">MERIDIAN takes on a limited portfolio of commissions each year — ensuring every project receives our complete creative and intellectual focus.</p>
     </div>
-  </div>
-  <div class="container" style="padding: 0 40px;">
     <div class="services-grid">
-      <article class="service-card reveal">
-        <img src="https://images.unsplash.com/photo-1581369655672-c3295dfe7776?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxsYXllcmVkJTIwc29waGlzdGljYXRlZCUyMGxpdmluZyUyMHJvb20lMjBpbnRlcmlvciUyMGRlc2lnbiUyMHdhcm0lMjBhcmNoaXRlY3R1cmFsJTIwZGV0YWlsc3xlbnwwfDB8fHwxNzc3MzMzNjI1fDA&ixlib=rb-4.1.0&q=80&w=1080" alt="Layered, sophisticated living room with warm architectural details" loading="lazy">
-        <div class="service-overlay"></div>
-        <div class="service-content">
-          <span class="service-number">01</span>
-          <h3 class="service-title">High-End Residential</h3>
-          <p class="service-desc">Complete interior design for primary residences and vacation homes — from architectural planning through final installation. We handle everything, so you experience only the reveal.</p>
-          <a href="#contact" class="service-link">Inquire <span class="service-link-line"></span></a>
+      <!-- Service 1 -->
+      <div class="service-card reveal">
+        <img
+          src="https://images.unsplash.com/photo-1741105820072-93a40ee4904c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxiZXNwb2tlJTIwcmVzaWRlbnRpYWwlMjByZW5vdmF0aW9uJTIwYmVmb3JlJTIwYWZ0ZXIlMjBsdXh1cnklMjBob21lJTIwaW50ZXJpb3J8ZW58MHwwfHx8MTc3NzQ5ODk4Nnww&ixlib=rb-4.1.0&q=80&w=1080"
+          alt="Bespoke residential renovation — refined living space"
+          class="service-card-img"
+          loading="lazy"
+        >
+        <div class="service-card-overlay"></div>
+        <div class="service-card-body">
+          <span class="service-num">01</span>
+          <h3 class="service-name">Residential<br>Renovation</h3>
+          <p class="service-desc">Full-scope transformations of primary residences, vacation estates, and historic properties — from concept through final installation.</p>
+          <a href="#contact" class="service-link">Enquire <span class="btn-ghost-arrow" style="width:14px"></span></a>
         </div>
-      </article>
-      <article class="service-card reveal reveal-delay-1">
-        <img src="https://images.unsplash.com/photo-1734615641374-c8ee52429d8f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBib3V0aXF1ZSUyMGhvdGVsJTIwaG9zcGl0YWxpdHklMjBpbnRlcmlvciUyMGRlc2lnbiUyMHdlbGNvbWluZyUyMGVsZWdhbnQlMjBhZXN0aGV0aWN8ZW58MHwwfHx8MTc3NzMzMzYyNnww&ixlib=rb-4.1.0&q=80&w=1080" alt="Boutique hotel and hospitality interior design" loading="lazy">
-        <div class="service-overlay"></div>
-        <div class="service-content">
-          <span class="service-number">02</span>
-          <h3 class="service-title">Boutique Hospitality</h3>
-          <p class="service-desc">Interior fit-outs for hotels, inns, and restaurants that command a guest experience — spaces with a distinct identity, a sense of place, and the warmth that brings people back.</p>
-          <a href="#contact" class="service-link">Inquire <span class="service-link-line"></span></a>
+      </div>
+      <!-- Service 2 -->
+      <div class="service-card reveal delay-1">
+        <img
+          src="https://images.unsplash.com/photo-1559599242-651c4e085efb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxib3V0aXF1ZSUyMGhvc3BpdGFsaXR5JTIwaG90ZWwlMjBzdWl0ZSUyMGludGVyaW9yJTIwZGVzaWduJTIwd2FybSUyMHNvcGhpc3RpY2F0ZWR8ZW58MHwwfHx8MTc3NzQ5ODk4Nnww&ixlib=rb-4.1.0&q=80&w=1080"
+          alt="Boutique hospitality interior — warm and sophisticated suite design"
+          class="service-card-img"
+          loading="lazy"
+        >
+        <div class="service-card-overlay"></div>
+        <div class="service-card-body">
+          <span class="service-num">02</span>
+          <h3 class="service-name">Boutique<br>Hospitality</h3>
+          <p class="service-desc">Elevated guest experiences for boutique hotels, private members clubs, and curated dining environments that become destinations in themselves.</p>
+          <a href="#contact" class="service-link">Enquire <span class="btn-ghost-arrow" style="width:14px"></span></a>
         </div>
-      </article>
-      <article class="service-card reveal reveal-delay-2">
-        <img src="https://images.pexels.com/photos/36353407/pexels-photo-36353407.png?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Modern bedroom with soft lighting and wooden accents" loading="lazy">
-        <div class="service-overlay"></div>
-        <div class="service-content">
-          <span class="service-number">03</span>
-          <h3 class="service-title">Developer & Architect Fit-Outs</h3>
-          <p class="service-desc">Collaborative interior commissions for luxury residential buildings. We work fluently alongside architects and developers to deliver market-defining interiors from concept through completion.</p>
-          <a href="#contact" class="service-link">Inquire <span class="service-link-line"></span></a>
+      </div>
+      <!-- Service 3 -->
+      <div class="service-card reveal delay-2">
+        <img
+          src="https://images.pexels.com/photos/6580566/pexels-photo-6580566.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+          alt="Interior design material and colour curation"
+          class="service-card-img"
+          loading="lazy"
+        >
+        <div class="service-card-overlay"></div>
+        <div class="service-card-body">
+          <span class="service-num">03</span>
+          <h3 class="service-name">Architectural<br>Fit-Out</h3>
+          <p class="service-desc">Collaborative commissions with architects and luxury developers, providing full interior fit-out services for high-end residential buildings and model residences.</p>
+          <a href="#contact" class="service-link">Enquire <span class="btn-ghost-arrow" style="width:14px"></span></a>
         </div>
-      </article>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ── ABOUT ── -->
-<section id="about" aria-labelledby="about-heading">
+<!-- ABOUT -->
+<section id="about" aria-labelledby="about-title">
   <div class="container">
     <div class="about-grid">
       <div class="about-img-wrap reveal">
-        <img src="https://images.unsplash.com/photo-1758072328635-586f3c121af2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxlZGl0b3JpYWwlMjBsdXh1cnklMjBob21lJTIwaW50ZXJpb3JzJTIwd2FybSUyMGxpbmVuJTIwd2FsbnV0JTIwc2FnZSUyMHBhbGV0dGV8ZW58MHwwfHx8MTc3NzMzMzYyN3ww&ixlib=rb-4.1.0&q=80&w=1080" alt="Warm editorial bedroom interior with walnut and linen palette" loading="lazy">
-        <div class="about-img-border" aria-hidden="true"></div>
+        <div class="about-img-frame">
+          <img
+            src="https://images.pexels.com/photos/6583373/pexels-photo-6583373.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+            alt="MERIDIAN design studio — material and colour palette curation by Celeste Varro"
+            class="about-img"
+            loading="lazy"
+          >
+        </div>
+        <div class="about-badge" aria-label="14 years of practice">
+          <span class="about-badge-num">14</span>
+          <span class="about-badge-label">Years of<br>Practice</span>
+        </div>
       </div>
-      <div class="about-content">
-        <span class="about-label reveal">The Studio</span>
-        <h2 class="about-heading reveal reveal-delay-1" id="about-heading">
-          Rooted in Charleston.<br>Recognized<br><em>Nationally.</em>
-        </h2>
-        <p class="about-body reveal reveal-delay-2">
-          MERIDIAN was founded on a conviction that interior design at its highest level is an act of deep listening. Before any sketch is drawn, we invest weeks in understanding how our clients actually live — the morning light they reach for, the textures they gravitate toward, the atmosphere they carry in their minds but haven't yet found words for.
-        </p>
-        <p class="about-body reveal reveal-delay-3">
-          Principal designer Celeste Varro brings over fourteen years of practice to each commission, drawing from formal training in architectural theory and a decade of sourcing materials across Europe and Asia. Her work is characterized by a layered restraint — never sparse, never excessive — and a fearlessness with color and material that has earned MERIDIAN features in Architectural Digest and Elle Decor.
-        </p>
-        <div class="about-pull-quote reveal reveal-delay-4">
-          <p>"We design for the life you want to live in a space — not the one you think you're supposed to have."</p>
+      <div class="about-content reveal delay-2">
+        <span class="eyebrow">The Studio</span>
+        <h2 class="about-title" id="about-title">Where Precision<br>Meets Soul</h2>
+        <p class="about-lead">"Good design doesn't announce itself. It draws you in, holds you, and makes you feel entirely at home — even for the first time."</p>
+        <p class="about-body">Founded by principal designer Celeste Varro, MERIDIAN Interiors is a Charleston-based studio with a singular philosophy: that the most extraordinary spaces are built on restraint, not excess. We source rare materials, commission artisan craftspeople, and approach every project as a long-term creative partnership — not a transaction.</p>
+        <p class="about-body">Our work has been recognised by the leading voices in design publishing because we do not follow trends. We follow the light in a room, the history of a building, and the lived rituals of the people within it.</p>
+        <div class="about-features">
+          <div class="about-feature">
+            <div class="about-feature-title">Bespoke Process</div>
+            <div class="about-feature-desc">Every commission begins with deep listening — no templates, no shortcuts.</div>
+          </div>
+          <div class="about-feature">
+            <div class="about-feature-title">Artisan Sourcing</div>
+            <div class="about-feature-desc">We travel to source materials with provenance, texture, and meaning.</div>
+          </div>
+          <div class="about-feature">
+            <div class="about-feature-title">Full Service</div>
+            <div class="about-feature-desc">Concept through installation — a single creative vision, end to end.</div>
+          </div>
+          <div class="about-feature">
+            <div class="about-feature-title">Limited Roster</div>
+            <div class="about-feature-desc">We accept just 12 commissions per year. Your project will never be rushed.</div>
+          </div>
         </div>
-        <div class="about-credentials reveal">
-          <span class="credential-tag">As Featured in Architectural Digest</span>
-          <span class="credential-tag">As Featured in Elle Decor</span>
-          <span class="credential-tag">Charleston, South Carolina</span>
-          <span class="credential-tag">By Referral &amp; Application</span>
-        </div>
+        <a href="#contact" class="btn-outline-gold">Begin a Conversation</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── GALLERY ── -->
-<section id="gallery" aria-labelledby="gallery-heading">
-  <div class="container">
-    <div class="gallery-intro">
-      <div>
-        <div class="gold-rule reveal"></div>
-        <span class="label-tag reveal reveal-delay-1">Selected Work</span>
-        <h2 class="gallery-heading reveal reveal-delay-2" id="gallery-heading">
-          A portfolio<br>built on<br><em>quiet mastery.</em>
-        </h2>
-      </div>
-      <div>
-        <p class="gallery-body reveal reveal-delay-3">
-          Each MERIDIAN project is singular — born from a specific place, a specific client, and a specific conversation. What connects them is a consistent commitment to layered warmth, architectural rigor, and the kind of beauty that deepens over time.
-        </p>
+<!-- PORTFOLIO HORIZONTAL SCROLL -->
+<section id="portfolio" aria-labelledby="portfolio-title">
+  <div class="portfolio-header container">
+    <span class="eyebrow reveal">Selected Works</span>
+    <h2 class="section-title reveal delay-1" id="portfolio-title">A Portfolio of<br><em>Considered</em> Spaces</h2>
+  </div>
+  <div class="portfolio-scroll-track" id="portfolioTrack" role="list" aria-label="Portfolio gallery — scroll horizontally">
+    <div class="portfolio-card" role="listitem">
+      <img
+        src="https://images.unsplash.com/photo-1704040686428-7534b262d0d8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBob21lJTIwcmVub3ZhdGlvbiUyMGxpdmluZyUyMHJvb20lMjB3YXJtJTIwbGluZW4lMjB3YWxudXQlMjB3b29kfGVufDB8MHx8fDE3Nzc0OTg5ODd8MA&ixlib=rb-4.1.0&q=80&w=1080"
+        alt="Luxury living room renovation — warm linen and walnut wood palette"
+        class="portfolio-card-img"
+        loading="lazy"
+      >
+      <div class="portfolio-card-caption">
+        <span class="portfolio-card-num">Project 01</span>
+        <div class="portfolio-card-name">The Harbour Residence</div>
+        <div class="portfolio-card-type">Primary Residence · Charleston, SC</div>
       </div>
     </div>
-    <div class="gallery-asymmetric">
-      <div class="gallery-cell gallery-cell-large reveal">
-        <img src="https://images.pexels.com/photos/35215418/pexels-photo-35215418.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Spacious interior with architectural art wall and warm wood flooring" loading="lazy">
-        <div class="gallery-caption">
-          <span>Private Residence — Charleston, SC</span>
-        </div>
+    <div class="portfolio-card" role="listitem">
+      <img
+        src="https://images.pexels.com/photos/16113326/pexels-photo-16113326.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+        alt="Elegant bathroom — marble sink, bathtub and ambient lighting"
+        class="portfolio-card-img"
+        loading="lazy"
+      >
+      <div class="portfolio-card-caption">
+        <span class="portfolio-card-num">Project 02</span>
+        <div class="portfolio-card-name">The Marble Suite</div>
+        <div class="portfolio-card-type">Boutique Hotel · Savannah, GA</div>
       </div>
-      <div style="display: flex; flex-direction: column; gap: 4px;">
-        <div class="gallery-cell gallery-cell-sm reveal reveal-delay-1">
-          <img src="https://images.unsplash.com/photo-1696413542101-2479dd479982?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjByZXNpZGVudGlhbCUyMGludGVyaW9yJTIwZGVzaWduJTIwc3R1ZGlvJTIwd2FybSUyMGxheWVyZWQlMjBlbGVnYW50fGVufDB8MHx8fDE3NzczMzM2MjV8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="Warm layered residential living room with elegant furnishings" loading="lazy">
-          <div class="gallery-caption">
-            <span>Layered Living — Kiawah Island</span>
+    </div>
+    <div class="portfolio-card" role="listitem">
+      <img
+        src="https://images.pexels.com/photos/35203561/pexels-photo-35203561.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+        alt="Opulent bedroom with grand columns and elegant furnishings"
+        class="portfolio-card-img"
+        loading="lazy"
+      >
+      <div class="portfolio-card-caption">
+        <span class="portfolio-card-num">Project 03</span>
+        <div class="portfolio-card-name">The Column House</div>
+        <div class="portfolio-card-type">Historic Renovation · Charleston, SC</div>
+      </div>
+    </div>
+    <div class="portfolio-card" role="listitem">
+      <img
+        src="https://images.unsplash.com/photo-1559599242-651c4e085efb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxib3V0aXF1ZSUyMGhvc3BpdGFsaXR5JTIwaG90ZWwlMjBzdWl0ZSUyMGludGVyaW9yJTIwZGVzaWduJTIwd2FybSUyMHNvcGhpc3RpY2F0ZWR8ZW58MHwwfHx8MTc3NzQ5ODk4Nnww&ixlib=rb-4.1.0&q=80&w=1080"
+        alt="Boutique hotel suite interior — warm sophisticated design"
+        class="portfolio-card-img"
+        loading="lazy"
+      >
+      <div class="portfolio-card-caption">
+        <span class="portfolio-card-num">Project 04</span>
+        <div class="portfolio-card-name">The Reading Room</div>
+        <div class="portfolio-card-type">Private Members Club · Atlanta, GA</div>
+      </div>
+    </div>
+  </div>
+  <p class="portfolio-hint" aria-label="Drag to scroll gallery">
+    <span>Drag to explore</span>
+    <span class="portfolio-hint-line"></span>
+    <span>04 projects</span>
+  </p>
+</section>
+
+<!-- BEFORE / AFTER -->
+<section id="before-after" aria-labelledby="ba-title">
+  <div class="container">
+    <div class="ba-grid">
+      <div class="ba-content reveal">
+        <span class="eyebrow">The Transformation</span>
+        <h2 class="ba-title" id="ba-title">Before &amp; After:<br><em>The Proof</em><br>of Our Work</h2>
+        <p class="ba-desc">Drag the divider to reveal the transformation. Every project begins with honest assessment and ends with something far better than the client imagined possible.</p>
+        <p class="ba-desc" style="opacity:0.5; font-size:0.8rem;">The kitchen shown underwent a complete architectural reconfiguration — structural walls removed, bespoke cabinetry commissioned, and natural stone sourced from a family-owned quarry in Tuscany.</p>
+        <a href="#contact" class="btn-outline-gold" style="margin-top:8px;">Commission a Transformation</a>
+      </div>
+      <div class="ba-widget reveal delay-2" id="baWidget" role="img" aria-label="Before and after interior comparison slider">
+        <img
+          src="https://images.pexels.com/photos/16113326/pexels-photo-16113326.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+          alt="After: elegant marble bathroom renovation"
+          class="ba-after-img"
+          loading="lazy"
+        >
+        <img
+          src="https://images.unsplash.com/photo-1741105820072-93a40ee4904c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxiZXNwb2tlJTIwcmVzaWRlbnRpYWwlMjByZW5vdmF0aW9uJTIwYmVmb3JlJTIwYWZ0ZXIlMjBsdXh1cnklMjBob21lJTIwaW50ZXJpb3J8ZW58MHwwfHx8MTc3NzQ5ODk4Nnww&ixlib=rb-4.1.0&q=80&w=1080"
+          alt="Before: unfinished space prior to MERIDIAN renovation"
+          class="ba-before-img"
+          id="baBeforeImg"
+          loading="lazy"
+        >
+        <div class="ba-divider" id="baDivider">
+          <div class="ba-handle" aria-hidden="true">
+            <div class="ba-handle-arrows">
+              <div class="ba-arrow ba-arrow-left"></div>
+              <div class="ba-arrow ba-arrow-right"></div>
+            </div>
           </div>
         </div>
-        <div class="gallery-cell gallery-cell-sm reveal reveal-delay-2">
-          <img src="https://images.unsplash.com/photo-1581369655672-c3295dfe7776?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxsYXllcmVkJTIwc29waGlzdGljYXRlZCUyMGxpdmluZyUyMHJvb20lMjBpbnRlcmlvciUyMGRlc2lnbiUyMHdhcm0lMjBhcmNoaXRlY3R1cmFsJTIwZGV0YWlsc3xlbnwwfDB8fHwxNzc3MzMzNjI1fDA&ixlib=rb-4.1.0&q=80&w=1080" alt="Sophisticated living room interior with warm architectural details" loading="lazy">
-          <div class="gallery-caption">
-            <span>The Sullivan Suite — Boutique Inn</span>
-          </div>
-        </div>
+        <span class="ba-label ba-label-before" aria-hidden="true">Before</span>
+        <span class="ba-label ba-label-after" aria-hidden="true">After</span>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── PROCESS ── -->
-<section id="process" aria-labelledby="process-heading">
+<!-- PROCESS -->
+<section id="process" aria-labelledby="process-title">
   <div class="container">
-    <span class="process-label reveal">How We Work</span>
-    <h2 class="process-heading reveal reveal-delay-1" id="process-heading">
-      A process as<br>considered as the<br><em>result.</em>
-    </h2>
-    <div class="process-steps">
+    <div class="section-header reveal">
+      <span class="eyebrow">How We Work</span>
+      <h2 class="section-title" id="process-title">Our Creative<br>Methodology</h2>
+      <p class="section-desc">A four-stage process refined over fourteen years — designed to honour both the integrity of the space and the lives lived within it.</p>
+    </div>
+    <div class="process-grid">
       <div class="process-step reveal">
-        <div class="step-num">01</div>
-        <h3 class="step-title">Discovery</h3>
-        <p class="step-desc">An in-depth conversation about how you live, what you love, and what you're ready to leave behind. We visit the space, study the light, and listen — deeply — before proposing anything.</p>
+        <div class="process-num">
+          <span class="process-num-dot" aria-hidden="true"></span>01
+        </div>
+        <h3 class="process-title">Discovery &amp; Vision</h3>
+        <p class="process-desc">We begin with extended conversations — not questionnaires. We visit the space, study the light, and listen for what the architecture is asking to become.</p>
       </div>
-      <div class="process-step reveal reveal-delay-1">
-        <div class="step-num">02</div>
-        <h3 class="step-title">Concept &amp; Curation</h3>
-        <p class="step-desc">We develop a layered design concept — spatial strategy, material palette, furniture direction — presented in a bespoke editorial document that tells the story of your future space.</p>
+      <div class="process-step reveal delay-1">
+        <div class="process-num">
+          <span class="process-num-dot" aria-hidden="true"></span>02
+        </div>
+        <h3 class="process-title">Concept &amp; Curation</h3>
+        <p class="process-desc">A bespoke design concept is developed — materials sampled, artisans selected, architectural modifications proposed. Nothing generic, nothing off-the-shelf.</p>
       </div>
-      <div class="process-step reveal reveal-delay-2">
-        <div class="step-num">03</div>
-        <h3 class="step-title">Design &amp; Procurement</h3>
-        <p class="step-desc">From architectural detailing to custom millwork, fabric sourcing, and artisan commissions — we manage every element with precision, accessing makers and resources unavailable to the broader market.</p>
+      <div class="process-step reveal delay-2">
+        <div class="process-num">
+          <span class="process-num-dot" aria-hidden="true"></span>03
+        </div>
+        <h3 class="process-title">Procurement &amp; Build</h3>
+        <p class="process-desc">We manage every trade, every delivery, every detail. Our trusted network of craftspeople and contractors has been curated over a decade of exacting work.</p>
       </div>
-      <div class="process-step reveal reveal-delay-3">
-        <div class="step-num">04</div>
-        <h3 class="step-title">Installation &amp; The Reveal</h3>
-        <p class="step-desc">We orchestrate the complete installation so you arrive to a finished space — not a construction site. Every object placed, every detail dressed. The only appropriate reaction is wonder.</p>
+      <div class="process-step reveal delay-3">
+        <div class="process-num">
+          <span class="process-num-dot" aria-hidden="true"></span>04
+        </div>
+        <h3 class="process-title">Installation &amp; Reveal</h3>
+        <p class="process-desc">The final installation is a considered composition — every object placed, every light adjusted. We don't hand over a room. We reveal a world.</p>
       </div>
     </div>
   </div>
 </section>
 
-<div class="section-divider"></div>
-
-<!-- ── TESTIMONIALS ── -->
-<section id="testimonials" aria-labelledby="testimonials-heading">
-  <div class="container">
-    <div class="testimonials-header">
-      <div class="gold-rule reveal" style="margin: 0 auto 28px;"></div>
-      <span class="label-tag reveal reveal-delay-1" style="text-align:center; display:block;">What Clients Say</span>
-      <h2 class="testimonials-heading reveal reveal-delay-2" id="testimonials-heading">
-        Rooms that<br><em>outlast the moment.</em>
-      </h2>
-    </div>
-    <div class="testimonials-grid">
-      <article class="testimonial-card reveal">
-        <span class="testimonial-quote-mark" aria-hidden="true">"</span>
-        <p class="testimonial-text">Working with MERIDIAN was unlike anything we expected. Celeste didn't just design our home — she understood us. The result is a space that somehow feels like it has always existed, like it grew here organically. Our guests walk in and go silent for a moment. That silence is the highest compliment.</p>
-        <div class="testimonial-meta">
-          <div class="testimonial-role">Primary Residence Client</div>
-          <div class="testimonial-project">Charleston Historic District — Full Renovation</div>
+<!-- TESTIMONIALS -->
+<section id="testimonials" aria-labelledby="testimonials-title" class="blob-bg" style="--blob-1:#d4a373; --blob-2:#c8b89a; --blob-3:#e9e0d0;">
+  <div class="blob blob-1" aria-hidden="true"></div>
+  <div class="blob blob-2" aria-hidden="true"></div>
+  <div class="blob blob-3" aria-hidden="true"></div>
+  <div class="blob-content" style="padding: 130px 5%; position:relative; z-index:2;">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="eyebrow">Client Voices</span>
+        <h2 class="section-title" id="testimonials-title">What Our Clients<br><em>Experience</em></h2>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card reveal">
+          <span class="testimonial-source" aria-hidden="true">Google Review</span>
+          <div class="testimonial-quote-mark" aria-hidden="true">&ldquo;</div>
+          <p class="testimonial-text">Working with MERIDIAN was unlike any design experience I've had before. Celeste understood not just what I wanted, but what I needed — a home that felt layered, warm, and entirely mine. The result stopped my guests mid-step.</p>
+          <div class="testimonial-stars" aria-label="5 out of 5 stars" role="img">
+            <span class="star" aria-hidden="true"></span><span class="star" aria-hidden="true"></span><span class="star" aria-hidden="true"></span><span class="star" aria-hidden="true"></span><span class="star" aria-hidden="true"></span>
+          </div>
+          <div class="testimonial-author">Primary Residence Client</div>
+          <div class="testimonial-location">Mount Pleasant, SC</div>
         </div>
-      </article>
-      <article class="testimonial-card reveal reveal-delay-1">
-        <span class="testimonial-quote-mark" aria-hidden="true">"</span>
-        <p class="testimonial-text">We hired MERIDIAN to redesign our boutique inn and the results exceeded every benchmark we set. Occupancy increased, our press coverage improved dramatically, and guests now specifically mention the interiors in their reviews. The investment paid for itself within the first season. I cannot recommend the studio highly enough.</p>
-        <div class="testimonial-meta">
-          <div class="testimonial-role">Boutique Inn Owner</div>
-          <div class="testimonial-project">Lowcountry Boutique Inn — Full Hospitality Fit-Out</div>
+        <div class="testimonial-card reveal delay-1">
+          <span class="testimonial-source" aria-hidden="true">Direct Review</span>
+          <div class="testimonial-quote-mark" aria-hidden="true">&ldquo;</div>
+          <p class="testimonial-text">We commissioned MERIDIAN for our boutique hotel's renovation and the guest response has been extraordinary. Occupancy rates climbed measurably. The spaces they created are photographed by guests every single day. That is the return on investment.</p>
+          <div class="testimonial-stars" aria-label="5 out of 5 stars" role="img">
+            <span class="star" aria-hidden="true"></span><span class="star" aria-hidden="true"></span><span class="star" aria-hidden="true"></span><span class="star" aria-hidden="true"></span><span class="star" aria-hidden="true"></span>
+          </div>
+          <div class="testimonial-author">Boutique Hotel Owner</div>
+          <div class="testimonial-location">Savannah, GA</div>
         </div>
-      </article>
-      <article class="testimonial-card reveal reveal-delay-2">
-        <span class="testimonial-quote-mark" aria-hidden="true">"</span>
-        <p class="testimonial-text">As an architect, I have high standards for who I collaborate with on interiors. Celeste operates with the same rigor and intention we bring to structure — but layered with a warmth and material fluency I haven't encountered elsewhere. MERIDIAN is the only interior studio I refer my residential clients to, without hesitation.</p>
-        <div class="testimonial-meta">
-          <div class="testimonial-role">Referring Architect</div>
-          <div class="testimonial-project">Luxury Coastal Residence — New Construction</div>
+        <div class="testimonial-card reveal delay-2">
+          <span class="testimonial-source" aria-hidden="true">Houzz Review</span>
+          <div class="testimonial-quote-mark" aria-hidden="true">&ldquo;</div>
+          <p class="testimonial-text">I've worked with a dozen interior studios over twenty years of development. MERIDIAN operates at a different level entirely — the rigour, the sourcing, the detail management. The model residence they created sold the building before groundbreaking.</p>
+          <div class="testimonial-stars" aria-label="5 out of 5 stars" role="img">
+            <span class="star" aria-hidden="true"></span><span class="star" aria-hidden="true"></span><span class="star" aria-hidden="true"></span><span class="star" aria-hidden="true"></span><span class="star" aria-hidden="true"></span>
+          </div>
+          <div class="testimonial-author">Luxury Residential Developer</div>
+          <div class="testimonial-location">Charlotte, NC</div>
         </div>
-      </article>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ── FAQ ── -->
-<section id="faq" aria-labelledby="faq-heading">
+<!-- FAQ -->
+<section id="faq" aria-labelledby="faq-title">
   <div class="container">
     <div class="faq-grid">
-      <div class="faq-left">
-        <div class="gold-rule reveal"></div>
-        <span class="label-tag reveal reveal-delay-1">Common Questions</span>
-        <h2 class="faq-heading reveal reveal-delay-2" id="faq-heading">
-          Everything<br>you need to<br><em>know.</em>
-        </h2>
-        <p class="faq-subtext reveal reveal-delay-3">We believe the best client relationships begin with transparency. Here are the questions we hear most often from prospective clients.</p>
+      <div class="reveal">
+        <span class="eyebrow">Questions</span>
+        <h2 class="section-title" id="faq-title">What to<br>Expect from<br>MERIDIAN</h2>
+        <p class="section-desc" style="margin-top:1.2rem;">We are selective about the projects we accept — not to be exclusive, but to be exceptional. These are the questions we hear most.</p>
       </div>
-      <div class="faq-items" role="list">
+      <div class="faq-list reveal delay-2" role="list">
         <div class="faq-item" role="listitem">
-          <div class="faq-question" role="button" tabindex="0" aria-expanded="false" aria-controls="faq-answer-1">
-            <span class="faq-q-text">What types of projects does MERIDIAN take on?</span>
+          <button class="faq-trigger" aria-expanded="false" aria-controls="faq-answer-1">
+            <span class="faq-question">How many projects does MERIDIAN take on each year?</span>
             <span class="faq-icon" aria-hidden="true"></span>
-          </div>
-          <div class="faq-answer" id="faq-answer-1">
-            <div class="faq-answer-inner">
-              <p>We specialize in high-end residential renovations, boutique hospitality projects (hotels, inns, restaurants), and luxury developer fit-outs. Our work spans primary residences, vacation homes, and commercial spaces where the guest or resident experience is the defining metric of success.</p>
-            </div>
+          </button>
+          <div class="faq-answer" id="faq-answer-1" role="region">
+            <div class="faq-answer-inner">We accept a maximum of twelve commissions per year. This is a deliberate choice — not a limitation. Every client on our roster receives Celeste's personal creative direction and the full attention of the studio team throughout the project lifecycle.</div>
           </div>
         </div>
         <div class="faq-item" role="listitem">
-          <div class="faq-question" role="button" tabindex="0" aria-expanded="false" aria-controls="faq-answer-2">
-            <span class="faq-q-text">How do you select your projects?</span>
+          <button class="faq-trigger" aria-expanded="false" aria-controls="faq-answer-2">
+            <span class="faq-question">What types of projects does the studio undertake?</span>
             <span class="faq-icon" aria-hidden="true"></span>
-          </div>
-          <div class="faq-answer" id="faq-answer-2">
-            <div class="faq-answer-inner">
-              <p>MERIDIAN accepts a strictly limited number of projects each year — typically no more than eight — to ensure every client receives our undivided creative attention. We select projects based on mutual creative alignment, project scope, and our genuine enthusiasm for the space. Every new project begins with a discovery conversation to ensure we're the right studio for your vision.</p>
-            </div>
+          </button>
+          <div class="faq-answer" id="faq-answer-2" role="region">
+            <div class="faq-answer-inner">MERIDIAN works across three primary categories: high-end residential renovation (primary residences, vacation estates, and historic properties), boutique hospitality (hotels, members clubs, restaurants), and architectural fit-out in partnership with luxury developers and architects. We do not undertake partial or consultancy-only engagements — we are a full-service studio.</div>
           </div>
         </div>
         <div class="faq-item" role="listitem">
-          <div class="faq-question" role="button" tabindex="0" aria-expanded="false" aria-controls="faq-answer-3">
-            <span class="faq-q-text">Do you work with clients outside of Charleston?</span>
+          <button class="faq-trigger" aria-expanded="false" aria-controls="faq-answer-3">
+            <span class="faq-question">What is your geographic reach?</span>
             <span class="faq-icon" aria-hidden="true"></span>
-          </div>
-          <div class="faq-answer" id="faq-answer-3">
-            <div class="faq-answer-inner">
-              <p>Yes — while we are based in Charleston, SC, we work with clients nationally. We have completed residential projects across the Southeast, the Northeast corridor, and select vacation destinations. Travel and site visits are factored into our project agreements, and we are experienced in managing projects remotely with precision through our established vendor and contractor network.</p>
-            </div>
+          </button>
+          <div class="faq-answer" id="faq-answer-3" role="region">
+            <div class="faq-answer-inner">Our studio is rooted in Charleston, SC, and we work extensively throughout the Southeast — Georgia, North Carolina, Tennessee, and Florida. For exceptional commissions, we travel nationally and, on occasion, internationally. If your project is right, geography is never an obstacle.</div>
           </div>
         </div>
         <div class="faq-item" role="listitem">
-          <div class="faq-question" role="button" tabindex="0" aria-expanded="false" aria-controls="faq-answer-4">
-            <span class="faq-q-text">What is your typical project timeline?</span>
+          <button class="faq-trigger" aria-expanded="false" aria-controls="faq-answer-4">
+            <span class="faq-question">How do I know if MERIDIAN is the right studio for my project?</span>
             <span class="faq-icon" aria-hidden="true"></span>
-          </div>
-          <div class="faq-answer" id="faq-answer-4">
-            <div class="faq-answer-inner">
-              <p>Timelines vary significantly depending on scope. A focused renovation of a single suite or primary entertaining space typically spans four to seven months from concept to installation. A full-home or hospitality fit-out often requires twelve to twenty-four months. We establish clear milestones at the project's outset and manage them meticulously. We never rush work — and we never deliver anything that isn't complete.</p>
-            </div>
+          </button>
+          <div class="faq-answer" id="faq-answer-4" role="region">
+            <div class="faq-answer-inner">We believe the best client relationships begin with shared values — a genuine appreciation for craft, a willingness to invest in quality over speed, and a spirit of creative trust. We invite prospective clients to begin with a conversation. If the project and partnership feel right, we will know.</div>
           </div>
         </div>
         <div class="faq-item" role="listitem">
-          <div class="faq-question" role="button" tabindex="0" aria-expanded="false" aria-controls="faq-answer-5">
-            <span class="faq-q-text">Can we commission MERIDIAN for a single room?</span>
+          <button class="faq-trigger" aria-expanded="false" aria-controls="faq-answer-5">
+            <span class="faq-question">What is a typical project timeline?</span>
             <span class="faq-icon" aria-hidden="true"></span>
-          </div>
-          <div class="faq-answer" id="faq-answer-5">
-            <div class="faq-answer-inner">
-              <p>On occasion, yes — though our preference is for whole-home or whole-property commissions, which allow the design to develop coherent narrative and spatial continuity. Single-room commissions are considered on a case-by-case basis, typically for clients with whom we have an existing relationship or for landmark spaces such as a primary living room or signature suite within a hospitality property.</p>
-            </div>
+          </button>
+          <div class="faq-answer" id="faq-answer-5" role="region">
+            <div class="faq-answer-inner">Timelines vary considerably by scope. A single room or suite may take four to six months. A full primary residence renovation typically requires twelve to twenty-four months from initial commission to final installation. We will not rush the work — and we believe you will be glad of that when you live in the result.</div>
           </div>
         </div>
         <div class="faq-item" role="listitem">
-          <div class="faq-question" role="button" tabindex="0" aria-expanded="false" aria-controls="faq-answer-6">
-            <span class="faq-q-text">How do we begin?</span>
+          <button class="faq-trigger" aria-expanded="false" aria-controls="faq-answer-6">
+            <span class="faq-question">Do you collaborate with our existing architect?</span>
             <span class="faq-icon" aria-hidden="true"></span>
-          </div>
-          <div class="faq-answer" id="faq-answer-6">
-            <div class="faq-answer-inner">
-              <p>Submit an inquiry through our contact form below. We review all submissions personally and respond within five business days. If we believe we could be the right studio for your project, we'll arrange a discovery call with Celeste — an unhurried conversation about your space, your vision, and how we might bring it to life.</p>
-            </div>
+          </button>
+          <div class="faq-answer" id="faq-answer-6" role="region">
+            <div class="faq-answer-inner">Absolutely. Some of our most rewarding work has been in deep collaboration with architects who share our commitment to precision and beauty. We are accustomed to working within existing design frameworks while contributing a distinct interior voice that elevates the overall project.</div>
           </div>
         </div>
       </div>
@@ -1925,266 +2038,433 @@ html.js-loaded .reveal-delay-4 { transition-delay: 0.48s; }
   </div>
 </section>
 
-<!-- ── CTA / CONTACT ── -->
-<section id="contact" aria-labelledby="contact-heading">
-  <div class="contact-overlay"></div>
+<!-- CONTACT / CTA -->
+<section id="contact" aria-labelledby="contact-title">
+  <img
+    src="https://images.unsplash.com/photo-1574110537361-ff1948fc4a57?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxhZ2VkJTIwcGFwZXIlMjB0ZXh0dXJlJTIwYnJ1c2hlZCUyMGJyb256ZSUyMHdlYXRoZXJlZCUyMGx1eHVyeSUyMGRlc2lnbiUyMGVkaXRvcmlhbHxlbnwwfDB8fHwxNzc3NDk4OTg4fDA&ixlib=rb-4.1.0&q=80&w=1080"
+    alt=""
+    class="contact-bg-img"
+    role="presentation"
+    loading="lazy"
+  >
   <div class="contact-inner">
-    <div class="container">
-      <div class="contact-grid">
-        <div class="contact-left">
-          <div class="gold-rule reveal"></div>
-          <span class="label-tag reveal reveal-delay-1">Begin a Project</span>
-          <h2 class="contact-heading reveal reveal-delay-2" id="contact-heading">
-            Let's build<br>something<br><em>enduring.</em>
-          </h2>
-          <p class="contact-body reveal reveal-delay-3">
-            We accept inquiries on a rolling basis and review each one personally. If your project aligns with our current capacity, Celeste will be in touch to arrange a discovery conversation.
-          </p>
-          <div class="contact-details reveal reveal-delay-4">
-            <div class="contact-detail-item">
-              <span class="contact-detail-label">Studio Location</span>
-              <span class="contact-detail-value">Charleston, South Carolina</span>
-            </div>
-            <div class="contact-detail-item">
-              <span class="contact-detail-label">Project Inquiries</span>
-              <span class="contact-detail-value">Via application form</span>
-            </div>
-            <div class="contact-detail-item">
-              <span class="contact-detail-label">Press &amp; Media</span>
-              <span class="contact-detail-value">Via application form</span>
-            </div>
-            <div class="contact-detail-item">
-              <span class="contact-detail-label">As Featured In</span>
-              <span class="contact-detail-value">Architectural Digest · Elle Decor</span>
-            </div>
-          </div>
+    <div class="contact-left reveal">
+      <span class="eyebrow">Begin a Project</span>
+      <h2 class="contact-title" id="contact-title">Every Great<br>Space Begins<br><em>with a Word</em></h2>
+      <p class="contact-desc">We are currently accepting enquiries for projects commencing in late 2025 and 2026. Tell us about your vision and we will respond within two business days.</p>
+      <div class="contact-meta">
+        <div class="contact-meta-item">
+          <span class="contact-meta-label">Studio Location</span>
+          <span class="contact-meta-value">Charleston, South Carolina</span>
         </div>
-        <div class="contact-form reveal reveal-delay-2">
-          <form action="#" method="POST" novalidate aria-label="Project inquiry form">
-            <div class="form-row">
-              <div class="form-group">
-                <label class="form-label" for="fname">First Name</label>
-                <input class="form-input" type="text" id="fname" name="fname" placeholder="Your first name" required autocomplete="given-name">
-              </div>
-              <div class="form-group">
-                <label class="form-label" for="lname">Last Name</label>
-                <input class="form-input" type="text" id="lname" name="lname" placeholder="Your last name" required autocomplete="family-name">
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="form-label" for="email">Email Address</label>
-              <input class="form-input" type="email" id="email" name="email" placeholder="your@email.com" required autocomplete="email">
-            </div>
-            <div class="form-group">
-              <label class="form-label" for="project-type">Project Type</label>
-              <select class="form-select form-input" id="project-type" name="project-type" required>
-                <option value="" disabled selected>Select a project type</option>
-                <option value="residential">High-End Residential</option>
-                <option value="hospitality">Boutique Hospitality</option>
-                <option value="developer">Developer / Architect Fit-Out</option>
-                <option value="press">Press &amp; Media Inquiry</option>
-                <option value="other">Other</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label class="form-label" for="location">Project Location</label>
-              <input class="form-input" type="text" id="location" name="location" placeholder="City, State" autocomplete="off">
-            </div>
-            <div class="form-group">
-              <label class="form-label" for="message">Tell Us About Your Vision</label>
-              <textarea class="form-textarea" id="message" name="message" placeholder="Describe your space, your aspirations, and what you're ready to create…" required></textarea>
-            </div>
-            <button type="submit" class="form-submit">Submit Your Inquiry</button>
-          </form>
+        <div class="contact-meta-item">
+          <span class="contact-meta-label">Availability</span>
+          <span class="contact-meta-value">Limited — by appointment only</span>
+        </div>
+        <div class="contact-meta-item">
+          <span class="contact-meta-label">Recognition</span>
+          <span class="contact-meta-value">Architectural Digest · Elle Decor</span>
         </div>
       </div>
+    </div>
+    <div class="contact-right reveal delay-2">
+      <form class="contact-form" id="contactForm" novalidate aria-label="Project enquiry form">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="fname">First Name</label>
+            <input class="form-control" type="text" id="fname" name="fname" placeholder="Your first name" required minlength="2" autocomplete="given-name">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="lname">Last Name</label>
+            <input class="form-control" type="text" id="lname" name="lname" placeholder="Your last name" required minlength="2" autocomplete="family-name">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="email">Email Address</label>
+            <input class="form-control" type="email" id="email" name="email" placeholder="your@email.com" required autocomplete="email">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="phone">Phone (Optional)</label>
+            <input class="form-control" type="tel" id="phone" name="phone" placeholder="Your phone number" autocomplete="tel">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="service">Project Type</label>
+          <select class="form-control" id="service" name="service" required>
+            <option value="" disabled selected>Select a service</option>
+            <option value="residential">Residential Renovation</option>
+            <option value="hospitality">Boutique Hospitality</option>
+            <option value="fitout">Architectural Fit-Out</option>
+            <option value="other">Other Enquiry</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="location">Project Location</label>
+          <input class="form-control" type="text" id="location" name="location" placeholder="City, State">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="notes">Tell Us About Your Vision</label>
+          <textarea class="form-control" id="notes" name="notes" placeholder="Share as much or as little as you like — what the space is, what you dream it could become, and any timeline considerations..."></textarea>
+        </div>
+        <button type="submit" class="form-submit">Send Enquiry</button>
+      </form>
     </div>
   </div>
 </section>
 
-<!-- ── FOOTER ── -->
+<!-- FOOTER -->
 <footer id="footer" role="contentinfo">
   <div class="container">
     <div class="footer-top">
       <div class="footer-brand">
-        <span class="footer-logo">MERIDIAN</span>
-        <span class="footer-tagline">Spaces That Define You</span>
-        <p class="footer-brand-text">A bespoke interior design studio founded by Celeste Varro. Based in Charleston, SC. Practicing nationally by referral and application.</p>
+        <div class="footer-brand-name">MERIDIAN Interiors</div>
+        <div class="footer-brand-tag">Spaces That Define You</div>
+        <p class="footer-brand-desc">A bespoke interior design studio founded by Celeste Varro, creating layered, soulful spaces at the intersection of architectural precision and warm, lived-in luxury.</p>
       </div>
-      <div>
-        <div class="footer-col-title">Navigation</div>
+      <div class="footer-col">
+        <div class="footer-col-title">Studio</div>
         <ul class="footer-links" role="list">
           <li><a href="#services">Services</a></li>
-          <li><a href="#about">The Studio</a></li>
-          <li><a href="#gallery">Portfolio</a></li>
-          <li><a href="#testimonials">Client Words</a></li>
+          <li><a href="#about">About Celeste Varro</a></li>
+          <li><a href="#portfolio">Portfolio</a></li>
           <li><a href="#process">Our Process</a></li>
-          <li><a href="#faq">FAQ</a></li>
           <li><a href="#contact">Begin a Project</a></li>
         </ul>
       </div>
-      <div>
-        <div class="footer-col-title">Specializations</div>
+      <div class="footer-col">
+        <div class="footer-col-title">Recognition</div>
         <ul class="footer-links" role="list">
-          <li><a href="#services">Residential Design</a></li>
-          <li><a href="#services">Boutique Hospitality</a></li>
-          <li><a href="#services">Developer Fit-Outs</a></li>
-          <li><a href="#services">Vacation Residences</a></li>
-          <li><a href="#services">Material Consultation</a></li>
+          <li><a href="#" rel="noopener noreferrer" aria-label="As featured in Architectural Digest">Architectural Digest</a></li>
+          <li><a href="#" rel="noopener noreferrer" aria-label="As featured in Elle Decor">Elle Decor</a></li>
+          <li><a href="#" rel="noopener noreferrer" aria-label="As featured in House Beautiful">House Beautiful</a></li>
+          <li><a href="#" rel="noopener noreferrer" aria-label="As featured in Veranda">Veranda</a></li>
         </ul>
-      </div>
-      <div class="footer-press">
-        <div class="footer-col-title">As Featured In</div>
-        <div class="press-logos">
-          <a href="#" class="press-logo-item" aria-label="As featured in Architectural Digest">Architectural Digest</a>
-          <a href="#" class="press-logo-item" aria-label="As featured in Elle Decor">Elle Decor</a>
-        </div>
       </div>
     </div>
     <div class="footer-bottom">
-      <span class="footer-copy">&copy; MERIDIAN Interiors. All rights reserved. Charleston, South Carolina.</span>
-      <div class="footer-legal">
-        <a href="#">Privacy Policy</a>
-        <a href="#">Terms of Use</a>
+      <p class="footer-copy">&copy; <span id="copyright-year"></span> MERIDIAN Interiors. Charleston, South Carolina. All rights reserved.</p>
+      <div class="footer-socials" aria-label="Social media links">
+        <a href="#" class="social-morph" aria-label="Instagram">
+          <span class="social-morph-text">IG</span>
+          <svg class="social-morph-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg>
+        </a>
+        <a href="#" class="social-morph" aria-label="Pinterest">
+          <span class="social-morph-text">PT</span>
+          <svg class="social-morph-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.24 2.65 7.86 6.39 9.29-.09-.78-.17-1.98.03-2.83.2-.78 1.31-5.56 1.31-5.56s-.34-.67-.34-1.66c0-1.56.91-2.73 2.04-2.73.96 0 1.43.72 1.43 1.59 0 .97-.62 2.42-.94 3.77-.27 1.12.56 2.04 1.66 2.04 1.99 0 3.53-2.1 3.53-5.13 0-2.68-1.93-4.56-4.68-4.56-3.19 0-5.06 2.39-5.06 4.87 0 .96.37 1.99.84 2.56.09.11.1.2.08.31-.09.35-.28 1.12-.32 1.28-.05.2-.17.25-.38.15-1.41-.66-2.29-2.72-2.29-4.38 0-3.56 2.59-6.84 7.47-6.84 3.92 0 6.97 2.79 6.97 6.52 0 3.89-2.45 7.02-5.85 7.02-1.14 0-2.22-.59-2.59-1.29l-.7 2.61c-.25.97-.94 2.19-1.4 2.93.06.02.12.03.18.04A10 10 0 0 0 22 12c0-5.52-4.48-10-10-10z"/></svg>
+        </a>
+        <a href="#" class="social-morph" aria-label="Houzz">
+          <span class="social-morph-text">HZ</span>
+          <svg class="social-morph-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L4 7v6h4v9h8v-9h4V7L12 2zm2 14h-4v-5h4v5zm0-7H8l4-2.4L16 9h-2z"/></svg>
+        </a>
+        <a href="#" class="social-morph" aria-label="LinkedIn">
+          <span class="social-morph-text">LI</span>
+          <svg class="social-morph-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </a>
       </div>
-      <span class="footer-location">By Referral &amp; Application Only</span>
     </div>
   </div>
 </footer>
 
 <script>
+/* ============================================================
+   INIT — js-loaded class for progressive enhancement
+============================================================ */
 document.documentElement.classList.add('js-loaded');
 
-// ── INTERSECTION OBSERVER — SCROLL REVEAL ──
+/* ============================================================
+   COPYRIGHT YEAR
+============================================================ */
+document.getElementById('copyright-year').textContent = new Date().getFullYear();
+
+/* ============================================================
+   CUSTOM CURSOR
+============================================================ */
 (function() {
-  var revealEls = document.querySelectorAll('.reveal');
-  if (!revealEls.length) return;
-  var observer = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
+  const cursor = document.getElementById('cursor');
+  if (!cursor) return;
+  let mx = -100, my = -100;
+  let cx = -100, cy = -100;
+  let raf;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.classList.add('active');
+    if (!raf) raf = requestAnimationFrame(moveCursor);
+  });
+
+  function moveCursor() {
+    cx += (mx - cx) * 0.14;
+    cy += (my - cy) * 0.14;
+    cursor.style.left = cx + 'px';
+    cursor.style.top  = cy + 'px';
+    raf = requestAnimationFrame(moveCursor);
+  }
+
+  document.querySelectorAll('a, button, [role="button"], select, textarea, input').forEach(el => {
+    el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
+    el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
+  });
+
+  const darkSections = document.querySelectorAll('#hero, #about, #before-after, #contact, #footer, #press');
+  darkSections.forEach(sec => {
+    sec.addEventListener('mouseenter', () => cursor.classList.add('on-dark'));
+    sec.addEventListener('mouseleave', () => cursor.classList.remove('on-dark'));
+  });
+
+  document.addEventListener('mouseleave', () => cursor.classList.remove('active'));
+})();
+
+/* ============================================================
+   STICKY NAV
+============================================================ */
+(function() {
+  const nav = document.getElementById('nav');
+  function handleScroll() {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  }
+  window.addEventListener('scroll', handleScroll, { passive: true });
+  handleScroll();
+})();
+
+/* ============================================================
+   HAMBURGER / MOBILE MENU
+============================================================ */
+(function() {
+  const btn    = document.getElementById('hamburger');
+  const menu   = document.getElementById('mobileMenu');
+  const links  = menu.querySelectorAll('.mobile-link');
+  let open = false;
+
+  function toggleMenu(state) {
+    open = typeof state === 'boolean' ? state : !open;
+    btn.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', String(open));
+    if (open) {
+      menu.style.display = 'flex';
+      requestAnimationFrame(() => menu.classList.add('open'));
+      document.body.style.overflow = 'hidden';
+    } else {
+      menu.classList.remove('open');
+      document.body.style.overflow = '';
+      setTimeout(() => { if (!open) menu.style.display = 'none'; }, 450);
+    }
+  }
+
+  menu.style.display = 'none';
+  btn.addEventListener('click', () => toggleMenu());
+  links.forEach(l => l.addEventListener('click', () => toggleMenu(false)));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && open) toggleMenu(false); });
+})();
+
+/* ============================================================
+   SMOOTH SCROLL
+============================================================ */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const id = a.getAttribute('href').slice(1);
+    const el = id ? document.getElementById(id) : null;
+    if (el) {
+      e.preventDefault();
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+
+/* ============================================================
+   SCROLL REVEAL — IntersectionObserver
+============================================================ */
+(function() {
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
+        io.unobserve(entry.target);
       }
     });
   }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-  revealEls.forEach(function(el) { observer.observe(el); });
+
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 })();
 
-// ── STICKY NAV ──
+/* ============================================================
+   STATS COUNTER
+============================================================ */
 (function() {
-  var nav = document.getElementById('site-nav');
-  var threshold = 60;
-  function onScroll() {
-    if (window.scrollY > threshold) {
-      nav.classList.add('scrolled');
-    } else {
-      nav.classList.remove('scrolled');
+  function easeOutExpo(t) { return t === 1 ? 1 : 1 - Math.pow(2, -10 * t); }
+
+  function animateCounter(el) {
+    const target   = parseInt(el.dataset.target, 10);
+    const suffix   = el.dataset.suffix || '';
+    const prefix   = el.dataset.prefix || '';
+    const duration = 1800;
+    const start    = performance.now();
+    function tick(now) {
+      const elapsed  = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased    = easeOutExpo(progress);
+      const current  = Math.round(eased * target);
+      el.textContent = prefix + current.toLocaleString() + suffix;
+      if (progress < 1) { requestAnimationFrame(tick); }
+      else {
+        el.textContent = prefix + target.toLocaleString() + suffix;
+        el.classList.add('popping');
+        el.addEventListener('animationend', () => el.classList.remove('popping'), { once: true });
+      }
     }
+    requestAnimationFrame(tick);
   }
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const item = entry.target;
+      item.classList.add('visible');
+      const num = item.querySelector('.stat-num[data-target]');
+      if (num && !num.dataset.counted) {
+        num.dataset.counted = '1';
+        setTimeout(() => animateCounter(num), 200);
+      }
+      io.unobserve(item);
+    });
+  }, { threshold: 0.3 });
+
+  document.querySelectorAll('.stat-item').forEach(el => io.observe(el));
 })();
 
-// ── HAMBURGER / MOBILE MENU ──
+/* ============================================================
+   FAQ ACCORDION
+============================================================ */
 (function() {
-  var hamburger = document.getElementById('hamburger');
-  var mobileMenu = document.getElementById('mobile-menu');
-  var mobileLinks = mobileMenu.querySelectorAll('a');
-  var isOpen = false;
+  document.querySelectorAll('.faq-trigger').forEach(trigger => {
+    trigger.addEventListener('click', function() {
+      const item    = this.closest('.faq-item');
+      const answer  = item.querySelector('.faq-answer');
+      const inner   = answer.querySelector('.faq-answer-inner');
+      const isOpen  = item.classList.contains('open');
 
-  function openMenu() {
-    isOpen = true;
-    hamburger.classList.add('open');
-    mobileMenu.classList.add('open');
-    hamburger.setAttribute('aria-expanded', 'true');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeMenu() {
-    isOpen = false;
-    hamburger.classList.remove('open');
-    mobileMenu.classList.remove('open');
-    hamburger.setAttribute('aria-expanded', 'false');
-    document.body.style.overflow = '';
-  }
-
-  hamburger.addEventListener('click', function() {
-    isOpen ? closeMenu() : openMenu();
-  });
-
-  mobileLinks.forEach(function(link) {
-    link.addEventListener('click', closeMenu);
-  });
-
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape' && isOpen) closeMenu();
-  });
-})();
-
-// ── FAQ ACCORDION ──
-(function() {
-  var faqItems = document.querySelectorAll('.faq-item');
-
-  faqItems.forEach(function(item) {
-    var question = item.querySelector('.faq-question');
-    var answer = item.querySelector('.faq-answer');
-    var answerInner = item.querySelector('.faq-answer-inner');
-
-    function toggle() {
-      var isOpen = item.classList.contains('open');
       // Close all
-      faqItems.forEach(function(i) {
-        i.classList.remove('open');
-        var a = i.querySelector('.faq-answer');
-        if (a) a.style.maxHeight = '0';
-        var q = i.querySelector('.faq-question');
-        if (q) q.setAttribute('aria-expanded', 'false');
+      document.querySelectorAll('.faq-item.open').forEach(openItem => {
+        const a = openItem.querySelector('.faq-answer');
+        a.style.maxHeight = '0';
+        openItem.classList.remove('open');
+        openItem.querySelector('.faq-trigger').setAttribute('aria-expanded', 'false');
       });
-      // Open clicked if it was closed
+
       if (!isOpen) {
         item.classList.add('open');
-        answer.style.maxHeight = answerInner.scrollHeight + 'px';
-        question.setAttribute('aria-expanded', 'true');
-      }
-    }
-
-    question.addEventListener('click', toggle);
-    question.addEventListener('keydown', function(e) {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        toggle();
+        answer.style.maxHeight = inner.scrollHeight + 32 + 'px';
+        this.setAttribute('aria-expanded', 'true');
       }
     });
   });
 })();
 
-// ── SMOOTH SCROLL ──
+/* ============================================================
+   BEFORE / AFTER SLIDER
+============================================================ */
 (function() {
-  document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
-    anchor.addEventListener('click', function(e) {
-      var target = document.querySelector(this.getAttribute('href'));
-      if (target) {
-        e.preventDefault();
-        var navHeight = document.getElementById('site-nav').offsetHeight;
-        var targetTop = target.getBoundingClientRect().top + window.scrollY - navHeight;
-        window.scrollTo({ top: targetTop, behavior: 'smooth' });
-      }
-    });
-  });
-})();
+  const widget    = document.getElementById('baWidget');
+  const beforeImg = document.getElementById('baBeforeImg');
+  const divider   = document.getElementById('baDivider');
+  if (!widget || !beforeImg || !divider) return;
 
-// ── HERO PARALLAX ──
-(function() {
-  var hero = document.getElementById('hero');
-  if (!hero) return;
-  function onScroll() {
-    var scrollY = window.scrollY;
-    if (scrollY < window.innerHeight) {
-      hero.style.backgroundPositionY = 'calc(center + ' + (scrollY * 0.3) + 'px)';
-    }
+  let isDragging = false;
+  let pct = 50;
+
+  function setPosition(x) {
+    const rect = widget.getBoundingClientRect();
+    let p = ((x - rect.left) / rect.width) * 100;
+    p = Math.max(2, Math.min(98, p));
+    pct = p;
+    beforeImg.style.clipPath = `inset(0 ${100 - p}% 0 0)`;
+    divider.style.left = p + '%';
   }
-  window.addEventListener('scroll', onScroll, { passive: true });
+
+  // Mouse
+  divider.addEventListener('mousedown', e => { isDragging = true; e.preventDefault(); });
+  window.addEventListener('mousemove', e => { if (isDragging) setPosition(e.clientX); });
+  window.addEventListener('mouseup',   () => { isDragging = false; });
+
+  // Touch
+  divider.addEventListener('touchstart', e => { isDragging = true; }, { passive: true });
+  window.addEventListener('touchmove',   e => {
+    if (isDragging && e.touches[0]) setPosition(e.touches[0].clientX);
+  }, { passive: true });
+  window.addEventListener('touchend',    () => { isDragging = false; });
+
+  // Init
+  setPosition(widget.getBoundingClientRect().left + widget.getBoundingClientRect().width * 0.5);
+
+  // Animate on scroll into view
+  const io = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting) {
+      let t = 50;
+      let dir = -1;
+      let steps = 0;
+      const animate = setInterval(() => {
+        t += dir * 1.2;
+        if (t <= 30) dir = 1;
+        if (t >= 50) { clearInterval(animate); t = 50; }
+        setPosition(widget.getBoundingClientRect().left + widget.getBoundingClientRect().width * (t / 100));
+        steps++;
+      }, 16);
+      io.unobserve(widget);
+    }
+  }, { threshold: 0.5 });
+  io.observe(widget);
+})();
+
+/* ============================================================
+   PORTFOLIO HORIZONTAL DRAG SCROLL
+============================================================ */
+(function() {
+  const track = document.getElementById('portfolioTrack');
+  if (!track) return;
+  let isDown = false, startX, scrollLeft;
+
+  track.addEventListener('mousedown', e => {
+    isDown = true;
+    track.classList.add('dragging');
+    startX = e.pageX - track.offsetLeft;
+    scrollLeft = track.scrollLeft;
+    e.preventDefault();
+  });
+  track.addEventListener('mouseleave', () => { isDown = false; track.classList.remove('dragging'); });
+  track.addEventListener('mouseup',    () => { isDown = false; track.classList.remove('dragging'); });
+  track.addEventListener('mousemove',  e => {
+    if (!isDown) return;
+    const x    = e.pageX - track.offsetLeft;
+    const walk = (x - startX) * 1.4;
+    track.scrollLeft = scrollLeft - walk;
+  });
+})();
+
+/* ============================================================
+   CONTACT FORM — basic UX
+============================================================ */
+(function() {
+  const form = document.getElementById('contactForm');
+  if (!form) return;
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const btn = form.querySelector('.form-submit');
+    const original = btn.textContent;
+    btn.textContent = 'Message Received — Thank You';
+    btn.style.background = 'var(--sage)';
+    btn.style.color = 'var(--walnut)';
+    btn.disabled = true;
+    setTimeout(() => {
+      btn.textContent = original;
+      btn.style.background = '';
+      btn.style.color = '';
+      btn.disabled = false;
+      form.reset();
+    }, 4500);
+  });
 })();
 </script>
+
+<div id="gwp-switcher" style="position:fixed;bottom:20px;right:20px;z-index:2147483647;display:flex;flex-direction:column;align-items:flex-end;gap:5px;font-family:-apple-system,BlinkMacSystemFont,'Inter',sans-serif;"><div style="font-size:9px;letter-spacing:0.14em;color:rgba(255,255,255,0.3);text-transform:uppercase;padding-right:3px;">gitworkdone &middot; palette</div><div style="background:rgba(8,8,8,0.88);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,0.1);border-radius:50px;padding:5px;display:flex;gap:3px;box-shadow:0 8px 32px rgba(0,0,0,0.55);"><button id="gwp-a-btn" onclick="gwpSet('a')" style="border:none;border-radius:50px;padding:7px 15px;cursor:pointer;display:flex;align-items:center;gap:7px;font-size:11px;font-weight:600;letter-spacing:0.05em;background:rgba(255,255,255,0.13);color:#fff;line-height:1;"><span style="width:10px;height:10px;border-radius:50%;background:#A8863E;flex-shrink:0;border:1px solid rgba(255,255,255,0.2);display:inline-block;"></span>Design A</button><button id="gwp-b-btn" onclick="gwpSet('b')" style="border:none;border-radius:50px;padding:7px 15px;cursor:pointer;display:flex;align-items:center;gap:7px;font-size:11px;font-weight:600;letter-spacing:0.05em;background:transparent;color:rgba(255,255,255,0.38);line-height:1;"><span style="width:10px;height:10px;border-radius:50%;background:#5A9C8F;flex-shrink:0;border:1px solid rgba(255,255,255,0.2);display:inline-block;"></span>"Verdigris" — hue ~160° from gold (~45°), cool sage-teal</button></div></div><script>(function(){function gwpSet(p){var root=document.documentElement;root.setAttribute('data-palette-anim','');if(p==='a'){root.removeAttribute('data-palette');}else{root.setAttribute('data-palette','b');}setTimeout(function(){root.removeAttribute('data-palette-anim');},400);var a=document.getElementById('gwp-a-btn'),b=document.getElementById('gwp-b-btn');if(p==='a'){a.style.background='rgba(255,255,255,0.13)';a.style.color='#fff';b.style.background='transparent';b.style.color='rgba(255,255,255,0.38)';}else{b.style.background='rgba(255,255,255,0.13)';b.style.color='#fff';a.style.background='transparent';a.style.color='rgba(255,255,255,0.38)';}}window.gwpSet=gwpSet;})();</script>
 </body>
 </html>
