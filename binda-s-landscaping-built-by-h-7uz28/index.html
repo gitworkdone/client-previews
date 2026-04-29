@@ -35,7 +35,6 @@
 }
 
 html[data-palette="b"] {
-  /* Palette B: "Slate" — Steel blue accent, 180° hue shift from forest green */
   --accent: #2a4d6e;
   --accent-mid: #356090;
   --accent-light: #4a80b8;
@@ -339,7 +338,7 @@ section {
   min-height: 100svh;
   display: flex;
   align-items: flex-end;
-  background-image: url('https://images.pexels.com/photos/36476885/pexels-photo-36476885.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
+  background-image: url('https://images.pexels.com/photos/36459/stones-wall-background-quarry-stone.jpg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
   background-size: cover;
   background-position: center;
   background-attachment: scroll;
@@ -350,10 +349,10 @@ section {
   inset: 0;
   background: linear-gradient(
     165deg,
-    rgba(10,10,10,0.75) 0%,
-    rgba(17,17,17,0.55) 35%,
-    rgba(17,17,17,0.85) 75%,
-    rgba(10,10,10,0.97) 100%
+    rgba(6,6,6,0.82) 0%,
+    rgba(10,10,10,0.60) 30%,
+    rgba(12,12,12,0.88) 70%,
+    rgba(6,6,6,0.98) 100%
   );
   z-index: 1;
 }
@@ -422,40 +421,28 @@ section {
   margin-bottom: 64px;
 }
 
-.hero-stats {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0;
+/* ─── HERO FOUNDING STRIP (replaces stats bar) ─── */
+.hero-founding {
+  display: inline-flex;
+  align-items: center;
+  gap: 20px;
   border-top: 1px solid var(--border);
-  padding-top: 36px;
+  padding-top: 32px;
 }
 
-.hero-stat {
-  padding: 0 36px 0 0;
-  margin-right: 36px;
-  border-right: 1px solid var(--border);
-}
-.hero-stat:last-child {
-  border-right: none;
-  margin-right: 0;
-  padding-right: 0;
+.hero-founding-line {
+  width: 24px;
+  height: 2px;
+  background: var(--accent);
+  flex-shrink: 0;
 }
 
-.stat-number {
-  font-size: clamp(1.8rem, 4vw, 2.8rem);
-  font-weight: 800;
-  letter-spacing: -0.04em;
-  color: var(--stone);
-  line-height: 1;
-}
-
-.stat-label {
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.15em;
+.hero-founding-text {
+  font-size: clamp(0.72rem, 1.8vw, 0.85rem);
+  font-weight: 700;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--text-muted);
-  margin-top: 4px;
+  color: var(--stone-dim);
 }
 
 /* ─── SECTION INTRO ─── */
@@ -685,33 +672,35 @@ section {
   position: absolute;
   bottom: -24px;
   right: -24px;
-  width: 160px;
-  height: 160px;
+  width: 180px;
+  height: 180px;
   background: var(--accent);
   border-radius: var(--radius-sm);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 4px;
+  gap: 6px;
   padding: 20px;
   text-align: center;
 }
 
-.about-img-accent-num {
-  font-size: 2.8rem;
+.about-img-accent-main {
+  font-size: 0.75rem;
   font-weight: 800;
-  letter-spacing: -0.04em;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
   color: var(--stone);
-  line-height: 1;
+  line-height: 1.2;
+  text-align: center;
 }
 
 .about-img-accent-label {
-  font-size: 0.6rem;
+  font-size: 0.58rem;
   font-weight: 700;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: rgba(232,220,200,0.7);
+  color: rgba(232,220,200,0.65);
   text-align: center;
 }
 
@@ -1070,41 +1059,61 @@ section {
   align-items: start;
 }
 
-.cta-img {
-  position: relative;
+.cta-panel {
   border-radius: var(--radius);
   overflow: hidden;
-  height: 400px;
+  min-height: 400px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 40px;
+  background: linear-gradient(135deg, var(--dark-3) 0%, var(--accent) 60%, var(--dark-2) 100%);
 }
 
-.cta-img img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: grayscale(20%) brightness(0.75);
+.cta-panel-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
-.cta-img-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(17,17,17,0.7) 0%, transparent 60%);
-}
-
-.cta-img-badge {
-  position: absolute;
-  bottom: 24px;
-  left: 24px;
-  background: var(--accent);
-  padding: 12px 20px;
-  border-radius: var(--radius-sm);
-}
-
-.cta-img-badge-text {
-  font-size: 0.7rem;
+.cta-panel-eyebrow {
+  font-size: 0.65rem;
   font-weight: 700;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
+  color: rgba(232,220,200,0.6);
+  margin-bottom: 8px;
+}
+
+.cta-panel-headline {
+  font-size: clamp(1.3rem, 3vw, 2rem);
+  font-weight: 800;
   color: var(--stone);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.cta-panel-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cta-panel-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.85rem;
+  color: rgba(232,220,200,0.8);
+}
+
+.cta-panel-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--accent-light);
+  border-radius: 50%;
+  flex-shrink: 0;
 }
 
 .cta-form-wrap {
@@ -1418,10 +1427,6 @@ section {
   .hero-content {
     padding-bottom: 64px;
   }
-  .hero-stat {
-    padding-right: 24px;
-    margin-right: 24px;
-  }
 }
 
 /* ─── LANDSCAPE PHONES ─── */
@@ -1454,7 +1459,7 @@ section {
 
   section { padding: 56px 0; }
 
-  .hero-stats {
+  .hero-founding {
     padding-top: 20px;
     margin-bottom: 0;
   }
@@ -1500,6 +1505,10 @@ section {
   white-space: nowrap;
   border: 0;
 }
+</style>
+
+<style id="gwp-palette">
+html[data-palette-anim] *, html[data-palette-anim] *::before, html[data-palette-anim] *::after { transition: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease !important; }
 </style>
 
 <style id="gwp-palette">
@@ -1561,19 +1570,9 @@ html[data-palette-anim] *, html[data-palette-anim] *::before, html[data-palette-
       <a href="#contact" class="btn btn-primary btn-arrow">Request a Free Quote</a>
       <a href="#services" class="btn btn-outline">View Our Work</a>
     </div>
-    <div class="hero-stats reveal reveal-delay-5">
-      <div class="hero-stat">
-        <div class="stat-number" data-count="16" data-suffix="+">16+</div>
-        <div class="stat-label">Years in Business</div>
-      </div>
-      <div class="hero-stat">
-        <div class="stat-number" data-count="500" data-suffix="+">500+</div>
-        <div class="stat-label">Projects Completed</div>
-      </div>
-      <div class="hero-stat">
-        <div class="stat-number" data-count="100" data-suffix="%">100%</div>
-        <div class="stat-label">Owner-Operated</div>
-      </div>
+    <div class="hero-founding reveal reveal-delay-5">
+      <span class="hero-founding-line" aria-hidden="true"></span>
+      <span class="hero-founding-text">Est. 2008 · Owner-Operated</span>
     </div>
   </div>
 </section>
@@ -1595,7 +1594,7 @@ html[data-palette-anim] *, html[data-palette-anim] *::before, html[data-palette-
       <div class="service-card service-card-featured reveal">
         <div class="service-card-inner">
           <div class="service-card-img">
-            <img src="https://images.unsplash.com/photo-1608330863148-b93e191d941f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxhcmNoaXRlY3R1cmFsJTIwcmV0YWluaW5nJTIwd2FsbCUyMGRlc2lnbiUyMGRhcmslMjBzdG9uZSUyMG1vZGVybiUyMHJlc2lkZW50aWFsfGVufDB8MHx8fDE3Nzc0MzYyMTZ8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="Architectural retaining wall with dark stone construction" loading="lazy">
+            <img src="https://images.pexels.com/photos/8143668/pexels-photo-8143668.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Luxury estate with manicured lawn and architectural hardscape design" loading="lazy">
             <div class="service-card-img-overlay" aria-hidden="true"></div>
           </div>
           <div class="service-card-body">
@@ -1617,7 +1616,7 @@ html[data-palette-anim] *, html[data-palette-anim] *::before, html[data-palette-
       <div class="service-card reveal reveal-delay-1">
         <div class="service-card-inner">
           <div class="service-card-img">
-            <img src="https://images.unsplash.com/photo-1663079404224-b01bda8efea8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxzb3BoaXN0aWNhdGVkJTIwZnJlbmNoJTIwZHJhaW4lMjBzeXN0ZW0lMjBpbnN0YWxsYXRpb24lMjB0ZWNobmljYWwlMjBsYW5kc2NhcGUlMjBncmFkaW5nfGVufDB8MHx8fDE3Nzc0MzYyMTZ8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="French drain installation and drainage grading system" loading="lazy">
+            <img src="https://images.unsplash.com/photo-1722169008852-012bec0885fc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBuYXR1cmFsJTIwc3RvbmUlMjBwYXRpbyUyMGhhcmRzY2FwaW5nJTIwZGFyayUyMGVsZWdhbnR8ZW58MHwwfHx8MTc3NzQzNzY2OXww&ixlib=rb-4.1.0&q=80&w=1080" alt="Natural stone garden with rocks and planting — hardscape detail" loading="lazy">
             <div class="service-card-img-overlay" aria-hidden="true"></div>
           </div>
           <div class="service-card-body">
@@ -1638,7 +1637,7 @@ html[data-palette-anim] *, html[data-palette-anim] *::before, html[data-palette-
       <div class="service-card reveal reveal-delay-2">
         <div class="service-card-inner">
           <div class="service-card-img">
-            <img src="https://images.pexels.com/photos/5785162/pexels-photo-5785162.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Contemporary home with stone hardscape patio and landscaping" loading="lazy">
+            <img src="https://images.pexels.com/photos/36459/stones-wall-background-quarry-stone.jpg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Textured quarry stone wall — natural stone construction detail" loading="lazy">
             <div class="service-card-img-overlay" aria-hidden="true"></div>
           </div>
           <div class="service-card-body">
@@ -1655,7 +1654,7 @@ html[data-palette-anim] *, html[data-palette-anim] *::before, html[data-palette-
         </div>
       </div>
 
-      <!-- Card 4 — Yard Regrading (no extra img, use gradient) -->
+      <!-- Card 4 — Yard Regrading -->
       <div class="service-card reveal reveal-delay-3">
         <div class="service-card-inner">
           <div class="service-card-img" style="background:linear-gradient(135deg, var(--dark-3) 0%, var(--accent) 100%);">
@@ -1726,11 +1725,11 @@ html[data-palette-anim] *, html[data-palette-anim] *::before, html[data-palette-
     <div class="about-grid">
       <div class="about-img-wrap reveal">
         <div class="about-img-main">
-          <img src="https://images.pexels.com/photos/29181414/pexels-photo-29181414.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Landscaping professional operating heavy machinery on a job site in Atlanta" loading="lazy">
+          <img src="https://images.pexels.com/photos/4509092/pexels-photo-4509092.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Craftsman laying bricks by hand on a landscaping job site" loading="lazy">
         </div>
         <div class="about-img-accent" aria-hidden="true">
-          <span class="about-img-accent-num">16</span>
-          <span class="about-img-accent-label">Years Serving Atlanta</span>
+          <span class="about-img-accent-main">Est. 2008</span>
+          <span class="about-img-accent-label">Owner-Operated · Atlanta, GA</span>
         </div>
       </div>
 
@@ -1739,7 +1738,7 @@ html[data-palette-anim] *, html[data-palette-anim] *::before, html[data-palette-
           <span class="label" style="display:block;margin-bottom:16px;">The Craftsman Behind the Work</span>
           <h2 style="color:var(--stone);margin-bottom:20px;">Owner-Operated.<br>Neighbor-Trusted.</h2>
         </div>
-        <p>Binda's Landscaping was built by Manoj Kumar — known throughout North Decatur and DeKalb simply as MK. Since 2008, he's been the guy neighbors recommend when someone on Nextdoor asks who fixed their drainage problem or built that beautiful retaining wall on Elmwood Drive.</p>
+        <p>Binda's Landscaping was built by Manoj Kumar — known throughout North Decatur and DeKalb simply as MK. Since 2008, he's been the guy neighbors recommend when someone on Nextdoor asks who fixed their drainage problem or built that beautiful retaining wall on the street.</p>
         <p>This isn't a franchise. MK isn't going to send a crew you've never met to do the work. He shows up, he assesses, he builds. That's been the model since day one, and it's why the work holds up and the referrals keep coming.</p>
 
         <div class="trust-badges reveal reveal-delay-3">
@@ -1784,15 +1783,15 @@ html[data-palette-anim] *, html[data-palette-anim] *::before, html[data-palette-
     </div>
     <div class="gallery-grid">
       <div class="gallery-item gallery-item-1 reveal">
-        <img src="https://images.unsplash.com/photo-1587837354461-e54af5adabbd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxmaW5pc2hlZCUyMGhhcmRzY2FwZSUyMHByb2plY3QlMjBkcmFtYXRpYyUyMGxpZ2h0aW5nJTIwY2hhcmNvYWwlMjBzdG9uZSUyMGRldGFpbHN8ZW58MHwwfHx8MTc3NzQzNjIxN3ww&ixlib=rb-4.1.0&q=80&w=1080" alt="Precision hardscape brickwork detail — finished project" loading="lazy">
-        <span class="gallery-item-label">Hardscape Detail</span>
+        <img src="https://images.unsplash.com/photo-1761637823293-f96835ec5038?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxmaW5pc2hlZCUyMHN0b25lJTIwcGF0aW8lMjB3aXRoJTIwd2FybSUyMGVhcnRoJTIwdG9uZXMlMjBoYXJkc2NhcGV8ZW58MHwwfHx8MTc3NzQzNzY3MHww&ixlib=rb-4.1.0&q=80&w=1080" alt="Curved stone wall surrounding a circular paved area — finished hardscape project" loading="lazy">
+        <span class="gallery-item-label">Stone Patio &amp; Wall</span>
       </div>
       <div class="gallery-item gallery-item-2 reveal reveal-delay-1">
-        <img src="https://images.pexels.com/photos/32257223/pexels-photo-32257223.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Drainage channel installation on residential property in Atlanta" loading="lazy">
-        <span class="gallery-item-label">Drainage System</span>
+        <img src="https://images.pexels.com/photos/32675702/pexels-photo-32675702.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Structural outdoor build in a natural landscape setting" loading="lazy">
+        <span class="gallery-item-label">Structural Build</span>
       </div>
       <div class="gallery-item gallery-item-3 reveal reveal-delay-2">
-        <img src="https://images.pexels.com/photos/3846042/pexels-photo-3846042.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Master craftsman working on landscaping project with heavy-duty tools" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1679108230151-77401eb692b6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxjcmFmdHNtYW4lMjBpbnN0YWxsaW5nJTIwc3RvbmUlMjBoYXJkc2NhcGUlMjBjbG9zZS11cCUyMGhhbmRzJTIwd29ya3xlbnwwfDB8fHwxNzc3NDM3NjcwfDA&ixlib=rb-4.1.0&q=80&w=1080" alt="Craftsman hands-on installing hardscape stonework" loading="lazy">
         <span class="gallery-item-label">Craftsman at Work</span>
       </div>
     </div>
@@ -1956,32 +1955,28 @@ html[data-palette-anim] *, html[data-palette-anim] *::before, html[data-palette-
   <div class="container">
     <div class="cta-grid">
 
-      <div class="cta-img reveal">
-        <img src="https://images.pexels.com/photos/36476885/pexels-photo-36476885.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Modern home with professionally designed patio and landscaping" loading="lazy" style="display:none;">
-        <!-- Use gradient fallback to preserve image count rule - image already used in hero -->
-        <div style="width:100%;height:100%;background:linear-gradient(135deg,var(--dark-3) 0%,var(--accent) 60%,var(--dark-2) 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:40px;border-radius:var(--radius);min-height:400px;">
-          <div style="display:flex;flex-direction:column;gap:24px;">
-            <div>
-              <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(232,220,200,0.6);margin-bottom:8px;">Why Homeowners Choose Us</div>
-              <div style="font-size:clamp(1.3rem,3vw,2rem);font-weight:800;color:var(--stone);letter-spacing:-0.02em;line-height:1.1;">No subcontractors.<br>No guesswork.<br>No shortcuts.</div>
+      <div class="cta-panel reveal">
+        <div class="cta-panel-content">
+          <div>
+            <div class="cta-panel-eyebrow">Why Homeowners Choose Us</div>
+            <div class="cta-panel-headline">No subcontractors.<br>No guesswork.<br>No shortcuts.</div>
+          </div>
+          <div class="cta-panel-list">
+            <div class="cta-panel-item">
+              <span class="cta-panel-dot" aria-hidden="true"></span>
+              MK on every single job
             </div>
-            <div style="display:flex;flex-direction:column;gap:12px;">
-              <div style="display:flex;align-items:center;gap:12px;font-size:0.85rem;color:rgba(232,220,200,0.8);">
-                <span style="width:6px;height:6px;background:var(--accent-light);border-radius:50%;flex-shrink:0;"></span>
-                MK on every single job
-              </div>
-              <div style="display:flex;align-items:center;gap:12px;font-size:0.85rem;color:rgba(232,220,200,0.8);">
-                <span style="width:6px;height:6px;background:var(--accent-light);border-radius:50%;flex-shrink:0;"></span>
-                Proper site diagnosis before any quote
-              </div>
-              <div style="display:flex;align-items:center;gap:12px;font-size:0.85rem;color:rgba(232,220,200,0.8);">
-                <span style="width:6px;height:6px;background:var(--accent-light);border-radius:50%;flex-shrink:0;"></span>
-                Fully insured, established 2008
-              </div>
-              <div style="display:flex;align-items:center;gap:12px;font-size:0.85rem;color:rgba(232,220,200,0.8);">
-                <span style="width:6px;height:6px;background:var(--accent-light);border-radius:50%;flex-shrink:0;"></span>
-                Trusted on Nextdoor across DeKalb
-              </div>
+            <div class="cta-panel-item">
+              <span class="cta-panel-dot" aria-hidden="true"></span>
+              Proper site diagnosis before any quote
+            </div>
+            <div class="cta-panel-item">
+              <span class="cta-panel-dot" aria-hidden="true"></span>
+              Fully insured, established 2008
+            </div>
+            <div class="cta-panel-item">
+              <span class="cta-panel-dot" aria-hidden="true"></span>
+              Trusted on Nextdoor across DeKalb
             </div>
           </div>
         </div>
@@ -2101,7 +2096,7 @@ html[data-palette-anim] *, html[data-palette-anim] *::before, html[data-palette-
     <div class="footer-bottom">
       <span class="footer-copy">&copy; <span id="copyright-year"></span> Binda's Landscaping. Atlanta, GA. All rights reserved.</span>
       <span class="footer-accent-line" aria-hidden="true"></span>
-      <span class="footer-copy">North Decatur · DeKalb County · Est. 2008</span>
+      <span class="footer-copy">North Decatur · DeKalb County · Est. 2008 · Owner-Operated</span>
     </div>
   </div>
 </footer>
@@ -2306,5 +2301,7 @@ document.getElementById('copyright-year').textContent = new Date().getFullYear()
 </script>
 
 <div id="gwp-switcher" style="position:fixed;bottom:20px;right:20px;z-index:2147483647;display:flex;flex-direction:column;align-items:flex-end;gap:5px;font-family:-apple-system,BlinkMacSystemFont,'Inter',sans-serif;"><div style="font-size:9px;letter-spacing:0.14em;color:rgba(255,255,255,0.3);text-transform:uppercase;padding-right:3px;">gitworkdone &middot; palette</div><div style="background:rgba(8,8,8,0.88);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,0.1);border-radius:50px;padding:5px;display:flex;gap:3px;box-shadow:0 8px 32px rgba(0,0,0,0.55);"><button id="gwp-a-btn" onclick="gwpSet('a')" style="border:none;border-radius:50px;padding:7px 15px;cursor:pointer;display:flex;align-items:center;gap:7px;font-size:11px;font-weight:600;letter-spacing:0.05em;background:rgba(255,255,255,0.13);color:#fff;line-height:1;"><span style="width:10px;height:10px;border-radius:50%;background:#3a7a52;flex-shrink:0;border:1px solid rgba(255,255,255,0.2);display:inline-block;"></span>Design A</button><button id="gwp-b-btn" onclick="gwpSet('b')" style="border:none;border-radius:50px;padding:7px 15px;cursor:pointer;display:flex;align-items:center;gap:7px;font-size:11px;font-weight:600;letter-spacing:0.05em;background:transparent;color:rgba(255,255,255,0.38);line-height:1;"><span style="width:10px;height:10px;border-radius:50%;background:#2a4d6e;flex-shrink:0;border:1px solid rgba(255,255,255,0.2);display:inline-block;"></span>"Slate" — Steel blue accent, 180° hue shift from forest green</button></div></div><script>(function(){function gwpSet(p){var root=document.documentElement;root.setAttribute('data-palette-anim','');if(p==='a'){root.removeAttribute('data-palette');}else{root.setAttribute('data-palette','b');}setTimeout(function(){root.removeAttribute('data-palette-anim');},400);var a=document.getElementById('gwp-a-btn'),b=document.getElementById('gwp-b-btn');if(p==='a'){a.style.background='rgba(255,255,255,0.13)';a.style.color='#fff';b.style.background='transparent';b.style.color='rgba(255,255,255,0.38)';}else{b.style.background='rgba(255,255,255,0.13)';b.style.color='#fff';a.style.background='transparent';a.style.color='rgba(255,255,255,0.38)';}}window.gwpSet=gwpSet;})();</script>
+
+<div id="gwp-switcher" style="position:fixed;bottom:20px;right:20px;z-index:2147483647;display:flex;flex-direction:column;align-items:flex-end;gap:5px;font-family:-apple-system,BlinkMacSystemFont,'Inter',sans-serif;"><div style="font-size:9px;letter-spacing:0.14em;color:rgba(255,255,255,0.3);text-transform:uppercase;padding-right:3px;">gitworkdone &middot; palette</div><div style="background:rgba(8,8,8,0.88);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,0.1);border-radius:50px;padding:5px;display:flex;gap:3px;box-shadow:0 8px 32px rgba(0,0,0,0.55);"><button id="gwp-a-btn" onclick="gwpSet('a')" style="border:none;border-radius:50px;padding:7px 15px;cursor:pointer;display:flex;align-items:center;gap:7px;font-size:11px;font-weight:600;letter-spacing:0.05em;background:rgba(255,255,255,0.13);color:#fff;line-height:1;"><span style="width:10px;height:10px;border-radius:50%;background:#3a7a52;flex-shrink:0;border:1px solid rgba(255,255,255,0.2);display:inline-block;"></span>Design A</button><button id="gwp-b-btn" onclick="gwpSet('b')" style="border:none;border-radius:50px;padding:7px 15px;cursor:pointer;display:flex;align-items:center;gap:7px;font-size:11px;font-weight:600;letter-spacing:0.05em;background:transparent;color:rgba(255,255,255,0.38);line-height:1;"><span style="width:10px;height:10px;border-radius:50%;background:#2a4d6e;flex-shrink:0;border:1px solid rgba(255,255,255,0.2);display:inline-block;"></span>Design B</button></div></div><script>(function(){function gwpSet(p){var root=document.documentElement;root.setAttribute('data-palette-anim','');if(p==='a'){root.removeAttribute('data-palette');}else{root.setAttribute('data-palette','b');}setTimeout(function(){root.removeAttribute('data-palette-anim');},400);var a=document.getElementById('gwp-a-btn'),b=document.getElementById('gwp-b-btn');if(p==='a'){a.style.background='rgba(255,255,255,0.13)';a.style.color='#fff';b.style.background='transparent';b.style.color='rgba(255,255,255,0.38)';}else{b.style.background='rgba(255,255,255,0.13)';b.style.color='#fff';a.style.background='transparent';a.style.color='rgba(255,255,255,0.38)';}}window.gwpSet=gwpSet;})();</script>
 </body>
 </html>
