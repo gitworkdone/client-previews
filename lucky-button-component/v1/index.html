@@ -98,6 +98,8 @@ btn.addEventListener('click', function() {
   const rect     = btn.getBoundingClientRect();
   const cx       = rect.left + rect.width  / 2;
   const cy       = rect.top  + rect.height / 2;
+  const hw       = rect.width  / 2;
+  const hh       = rect.height / 2;
   const RADIUS   = 160;
   const DURATION = 850;
 
@@ -106,12 +108,14 @@ btn.addEventListener('click', function() {
     const tx    = Math.cos(angle) * RADIUS;
     const ty    = Math.sin(angle) * RADIUS;
     const rot   = (angle * 180 / Math.PI) + 45;
+    const sx    = cx + Math.cos(angle) * hw;
+    const sy    = cy + Math.sin(angle) * hh;
 
     const el = document.createElement('div');
     el.className = 'burst-cursor';
     el.innerHTML = CURSOR_SVG;
-    el.style.left      = cx + 'px';
-    el.style.top       = cy + 'px';
+    el.style.left      = sx + 'px';
+    el.style.top       = sy + 'px';
     el.style.transform = `translate(-50%,-50%) rotate(${rot}deg) scale(0)`;
     el.style.opacity   = '0';
     burst.appendChild(el);
