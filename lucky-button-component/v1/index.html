@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Lucky Button &mdash; Component Demo</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  width:100vw; height:100vh; overflow:hidden;
+  background:#c8b4d8;
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Inter',system-ui,sans-serif;
+}
+.bg {
+  position:fixed; inset:0; z-index:0;
+  background-image: url('https://trill-merge-65357897.figma.site/_assets/v10/555c0dbdf8e4d07301d5ff5c75b2888e8dd02850.png');
+  background-size:cover; background-position:center; background-repeat:no-repeat;
+}
+.btn-wrap {
+  position:relative; z-index:10;
+  display:flex; align-items:center; justify-content:center;
+}
+.lucky-btn {
+  position:relative;
+  display:inline-flex; align-items:center; justify-content:center; gap:6px;
+  padding:12px 22px;
+  border-radius:38px;
+  border:1px solid rgba(255,255,255,0.3);
+  background:rgba(255,255,255,0.2);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  box-shadow:0 8px 32px rgba(0,0,0,0.2), 0 2px 8px rgba(0,0,0,0.1);
+  cursor:pointer;
+  outline:none;
+  user-select:none;
+  transition: background 0.3s, border-color 0.3s, box-shadow 0.3s,
+    transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+  will-change:transform;
+  overflow:visible;
+}
+.lucky-btn::before {
+  content:'';
+  position:absolute; inset:0;
+  border-radius:38px;
+  background:linear-gradient(to right, rgba(255,255,255,0.1), rgba(255,255,255,0.05), transparent);
+  pointer-events:none;
+}
+.lucky-btn:hover {
+  background:rgba(255,255,255,0.3);
+  border-color:rgba(255,255,255,0.5);
+  box-shadow:0 16px 48px rgba(0,0,0,0.3), 0 4px 12px rgba(0,0,0,0.15);
+  transform:scale(1.05);
+}
+.lucky-btn:active {
+  transform:scale(0.95);
+  transition-duration:0.1s;
+}
+.btn-label {
+  font-size:20px; font-weight:400; letter-spacing:-0.7px; color:#fff;
+  filter:drop-shadow(0 4px 4px rgba(0,0,0,0.15));
+  position:relative; z-index:1; white-space:nowrap;
+}
+#burst { position:fixed; pointer-events:none; z-index:9999; }
+.burst-cursor {
+  position:absolute; color:white; pointer-events:none;
+  will-change:transform,opacity;
+}
+.burst-cursor svg { filter:drop-shadow(0 2px 4px rgba(0,0,0,0.25)); }
+.page-label {
+  position:fixed; bottom:28px; left:50%; transform:translateX(-50%);
+  font-size:11px; font-weight:500; letter-spacing:0.2em; text-transform:uppercase;
+  color:rgba(255,255,255,0.5); z-index:10;
+}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div id="burst"></div>
+<div class="btn-wrap">
+  <button class="lucky-btn" id="luckyBtn" aria-label="I'm feeling lucky">
+    <span class="btn-label">I&rsquo;m feeling lucky</span>
+  </button>
+</div>
+<div class="page-label">Component Demo &mdash; Click the button</div>
+<script>
+const CURSOR_SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+  stroke-linecap="round" stroke-linejoin="round">
+  <path d="m4 4 7.07 17 2.51-7.39L21 11.07z"/>
+</svg>`;
+
+const btn   = document.getElementById('luckyBtn');
+const burst = document.getElementById('burst');
+
+btn.addEventListener('click', function() {
+  const N        = 24;
+  const rect     = btn.getBoundingClientRect();
+  const cx       = rect.left + rect.width  / 2;
+  const cy       = rect.top  + rect.height / 2;
+  const RADIUS   = 160;
+  const DURATION = 850;
+
+  for (let i = 0; i < N; i++) {
+    const angle = (i / N) * 2 * Math.PI;
+    const tx    = Math.cos(angle) * RADIUS;
+    const ty    = Math.sin(angle) * RADIUS;
+    const rot   = (angle * 180 / Math.PI) + 45;
+
+    const el = document.createElement('div');
+    el.className = 'burst-cursor';
+    el.innerHTML = CURSOR_SVG;
+    el.style.left      = cx + 'px';
+    el.style.top       = cy + 'px';
+    el.style.transform = `translate(-50%,-50%) rotate(${rot}deg) scale(0)`;
+    el.style.opacity   = '0';
+    burst.appendChild(el);
+
+    const delay = i * (30 / N);
+
+    el.animate([
+      {
+        transform: `translate(-50%,-50%) rotate(${rot}deg) scale(0.4)`,
+        opacity: 0,
+        offset: 0
+      },
+      {
+        transform: `translate(calc(-50% + ${tx * 0.35}px), calc(-50% + ${ty * 0.35}px)) rotate(${rot}deg) scale(1.1)`,
+        opacity: 1,
+        offset: 0.18
+      },
+      {
+        transform: `translate(calc(-50% + ${tx * 0.75}px), calc(-50% + ${ty * 0.75}px)) rotate(${rot}deg) scale(0.95)`,
+        opacity: 0.85,
+        offset: 0.55
+      },
+      {
+        transform: `translate(calc(-50% + ${tx}px), calc(-50% + ${ty}px)) rotate(${rot}deg) scale(0.7)`,
+        opacity: 0,
+        offset: 1
+      }
+    ], {
+      duration: DURATION,
+      delay: delay,
+      easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+      fill: 'forwards'
+    }).onfinish = () => el.remove();
+  }
+});
+</script>
+</body>
+</html>
