@@ -978,192 +978,6 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   flex-wrap: wrap;
 }
 
-.tier-btn {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  padding: 20px 32px;
-  border: 1px solid rgba(184,151,90,0
-<script>
-/**
- * JEF Theme Switcher
- * Injects a floating 3-way palette toggle into any preview page.
- * Swaps CSS custom properties on :root with a 0.35s transition.
- * Persists choice to localStorage under key "jef-theme".
- *
- * Inject at the end of <body> in any preview HTML.
- * Works inside srcdoc iframes (no cross-origin dependency).
- */
-
-(function () {
-  const THEMES = {
-    ivory: {
-      label: 'Warm Ivory',
-      swatch: '#f5f0e8',
-      border: '#b8975a',
-      vars: {
-        '--bg':         '#f5f0e8',
-        '--surface':    '#ede8df',
-        '--dark':       '#2a2420',
-        '--text':       '#2a2420',
-        '--gold':       '#b8975a',
-        '--gold-dim':   '#c4a882',
-        '--muted':      '#8a7d72',
-        '--warm-glow':  'rgba(184,151,90,0.15)',
-      },
-    },
-    dark: {
-      label: 'Dark Luxury',
-      swatch: '#09090b',
-      border: '#c9a96e',
-      vars: {
-        '--bg':         '#09090b',
-        '--surface':    '#111114',
-        '--dark':       '#f5f0e8',
-        '--text':       '#f5f0e8',
-        '--gold':       '#c9a96e',
-        '--gold-dim':   '#8a6b3f',
-        '--muted':      '#8a8580',
-        '--warm-glow':  'rgba(201,169,110,0.12)',
-      },
-    },
-    neutral: {
-      label: 'Warm Neutral',
-      swatch: '#ede8df',
-      border: '#c4a882',
-      vars: {
-        '--bg':         '#ede8df',
-        '--surface':    '#e0d9ce',
-        '--dark':       '#1e1a17',
-        '--text':       '#1e1a17',
-        '--gold':       '#c4a882',
-        '--gold-dim':   '#a89880',
-        '--muted':      '#a89880',
-        '--warm-glow':  'rgba(196,168,130,0.18)',
-      },
-    },
-  };
-
-  const ORDER = ['ivory', 'dark', 'neutral'];
-  const LABELS = { ivory: 'A', dark: 'B', neutral: 'C' };
-
-  let current = localStorage.getItem('jef-theme') || 'ivory';
-
-  function applyTheme(key) {
-    const theme = THEMES[key];
-    if (!theme) return;
-    const root = document.documentElement;
-
-    // Enable transition on all elements once for smooth swap
-    const style = document.getElementById('jef-theme-transition') || document.createElement('style');
-    style.id = 'jef-theme-transition';
-    style.textContent = '*, *::before, *::after { transition: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease !important; }';
-    document.head.appendChild(style);
-
-    Object.entries(theme.vars).forEach(([prop, val]) => {
-      root.style.setProperty(prop, val);
-    });
-
-    // Remove transition override after swap completes
-    setTimeout(() => style.remove(), 400);
-
-    current = key;
-    localStorage.setItem('jef-theme', key);
-    updateButtons();
-  }
-
-  function updateButtons() {
-    ORDER.forEach((key) => {
-      const btn = document.getElementById('jef-swatch-' + key);
-      if (!btn) return;
-      const isActive = key === current;
-      btn.style.outline = isActive ? '2px solid ' + THEMES[key].border : '2px solid transparent';
-      btn.style.transform = isActive ? 'scale(1.15)' : 'scale(1)';
-      btn.title = THEMES[key].label + (isActive ? ' (active)' : '');
-    });
-  }
-
-  function buildSwitcher() {
-    const wrap = document.createElement('div');
-    wrap.id = 'jef-theme-switcher';
-    wrap.style.cssText = [
-      'position: fixed',
-      'bottom: 24px',
-      'right: 24px',
-      'z-index: 9999',
-      'display: flex',
-      'flex-direction: column',
-      'align-items: center',
-      'gap: 8px',
-      'background: rgba(20,18,16,0.82)',
-      'backdrop-filter: blur(12px)',
-      '-webkit-backdrop-filter: blur(12px)',
-      'border: 1px solid rgba(196,168,130,0.25)',
-      'border-radius: 40px',
-      'padding: 12px 10px',
-      'box-shadow: 0 8px 32px rgba(0,0,0,0.4)',
-    ].join(';');
-
-    // Label
-    const lbl = document.createElement('span');
-    lbl.textContent = 'Palette';
-    lbl.style.cssText = 'font: 500 9px/1 "DM Mono", "Courier New", monospace; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(245,240,232,0.5);';
-    wrap.appendChild(lbl);
-
-    ORDER.forEach((key) => {
-      const theme = THEMES[key];
-
-      const btn = document.createElement('button');
-      btn.id = 'jef-swatch-' + key;
-      btn.style.cssText = [
-        'width: 28px',
-        'height: 28px',
-        'border-radius: 50%',
-        'border: none',
-        'cursor: pointer',
-        'background: ' + theme.swatch,
-        'transition: transform 0.2s ease, outline 0.2s ease',
-        'outline-offset: 3px',
-        'position: relative',
-      ].join(';');
-      btn.title = theme.label;
-      btn.setAttribute('aria-label', 'Switch to ' + theme.label);
-
-      // Letter badge
-      const badge = document.createElement('span');
-      badge.textContent = LABELS[key];
-      badge.style.cssText = [
-        'position: absolute',
-        'inset: 0',
-        'display: flex',
-        'align-items: center',
-        'justify-content: center',
-        'font: 700 9px/1 "DM Mono", "Courier New", monospace',
-        'color: ' + (key === 'dark' ? '#c9a96e' : '#2a2420'),
-        'pointer-events: none',
-      ].join(';');
-      btn.appendChild(badge);
-
-      btn.addEventListener('click', () => applyTheme(key));
-      wrap.appendChild(btn);
-    });
-
-    document.body.appendChild(wrap);
-    updateButtons();
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-      applyTheme(current);
-      buildSwitcher();
-    });
-  } else {
-    applyTheme(current);
-    buildSwitcher();
-  }
-}
-
 /* ── Section completions ── */
 
 /* ── Tier button completion ── */
@@ -1225,7 +1039,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 /* CSS perfume bottle illustration */
 .story-visual {
   display:flex; align-items:center; justify-content:center;
-  min-height:400px; position:relative;
+  min-height:400px; height:400px; position:relative;
 }
 .bottle-illustration {
   position:relative; width:180px; height:280px;
@@ -1304,7 +1118,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
 /* ── Mobile sticky CTA ── */
 .sticky-cta {
-  display:none; position:fixed; bottom:0; left:0; right:0; z-index:90;
+  display:none !important; position:fixed; bottom:0; left:0; right:0; z-index:90;
   background:var(--dark); color:var(--bg); padding:14px 24px;
   font-family:'DM Mono',monospace; font-size:11px; letter-spacing:0.2em;
   text-transform:uppercase; text-align:center; border-top:1px solid var(--gold);
@@ -1326,6 +1140,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   .products-section { padding:60px 20px 80px; }
   .product-grid { grid-template-columns:repeat(2,1fr); gap:12px; }
   .bundle-slots { gap:8px; }
+  .sticky-cta { display:block !important; }
   .bundle-slot { width:64px; height:64px; }
   .story-inner { grid-template-columns:1fr; gap:48px; }
   .story-visual { min-height:280px; }
