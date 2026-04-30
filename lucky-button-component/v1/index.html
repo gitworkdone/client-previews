@@ -84,7 +84,7 @@ body {
 </div>
 <div class="page-label">Component Demo &mdash; Hover the button</div>
 <script>
-const CURSOR_SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+const CURSOR_SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
   viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
   stroke-linecap="round" stroke-linejoin="round">
   <path d="m4 4 7.07 17 2.51-7.39L21 11.07z"/>
@@ -93,11 +93,11 @@ const CURSOR_SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="1
 const btn   = document.getElementById('luckyBtn');
 const burst = document.getElementById('burst');
 
-const N           = 28;      // arrow count
-const ORBIT_R     = 145;     // px from button center
-const DEG_PER_SEC = 45;      // CCW orbit speed
-const SPAWN_MS    = 700;     // expand duration
-const DEPART_MS   = 420;     // retract duration
+const N           = 34;
+const ORBIT_R     = 150;   // base radius
+const DEG_PER_SEC = 42;    // CCW orbit speed
+const SPAWN_MS    = 720;
+const DEPART_MS   = 420;
 
 let arrows   = [];
 let rafId    = null;
@@ -110,23 +110,29 @@ function getCenter() {
 
 function spawnArrows(now) {
   for (let i = 0; i < N; i++) {
-    const baseAngle = (i / N) * 360;
-    const jitter    = (Math.random() - 0.5) * (360 / N) * 0.5;
-    const rotJitter = (Math.random() - 0.5) * 22;
+    const baseAngle   = (i / N) * 360;
+    const angleJitter = (Math.random() - 0.5) * (360 / N) * 1.4;  // organic scatter
+    const rotJitter   = (Math.random() - 0.5) * 28;
+    const radiusDelta = (Math.random() - 0.5) * 70;                // ±35px radius spread
+    const baseScale   = 0.55 + Math.random() * 0.8;                // 0.55–1.35 size variation
+    const baseOpacity = 0.5  + Math.random() * 0.5;                // 0.5–1.0 opacity variation
     const el = document.createElement('div');
     el.className = 'burst-cursor';
     el.innerHTML = CURSOR_SVG;
     el.style.opacity = '0';
     burst.appendChild(el);
-    arrows.push({ el, angle: baseAngle + jitter, rotJitter, born: now, phase: 'spawn', departAt: null });
+    arrows.push({
+      el, rotJitter, radiusDelta, baseScale, baseOpacity,
+      angle: baseAngle + angleJitter,
+      born: now, phase: 'spawn', departAt: null,
+    });
   }
 }
 
 function killAll() {
   if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
   arrows.forEach(a => a.el.remove());
-  arrows   = [];
-  lastTime = null;
+  arrows = []; lastTime = null;
 }
 
 function loop(now) {
@@ -135,36 +141,35 @@ function loop(now) {
   const [bx, by] = getCenter();
 
   arrows = arrows.filter(a => {
-    let r, opacity;
+    let prog;
 
     if (a.phase === 'spawn') {
       const t = Math.min((now - a.born) / SPAWN_MS, 1);
-      const e = 1 - Math.pow(1 - t, 4);  // easeOutQuart
-      r       = ORBIT_R * e;
-      opacity = e;
+      prog = 1 - Math.pow(1 - t, 4);   // easeOutQuart
       if (t >= 1) a.phase = 'orbit';
     } else if (a.phase === 'orbit') {
-      r       = ORBIT_R;
-      opacity = 1;
+      prog = 1;
     } else {
       const t = Math.min((now - a.departAt) / DEPART_MS, 1);
-      const e = 1 - t * t;               // easeInQuad reversed
-      r       = ORBIT_R * e;
-      opacity = e;
+      prog = 1 - t * t;                 // easeInQuad out
       if (t >= 1) { a.el.remove(); return false; }
     }
 
-    a.angle -= DEG_PER_SEC * dt;  // CCW
+    a.angle -= DEG_PER_SEC * dt;
 
-    const rad  = a.angle * Math.PI / 180;
-    const x    = bx + Math.cos(rad) * r;
-    const y    = by + Math.sin(rad) * r;
-    const face = a.angle + 135 + a.rotJitter;  // cursor tip points radially outward
+    const r   = (ORBIT_R + a.radiusDelta) * prog;
+    const rad = a.angle * Math.PI / 180;
+    const x   = bx + Math.cos(rad) * r;
+    const y   = by + Math.sin(rad) * r;
+
+    // +45 = tangential (points in CCW direction of travel), matches original
+    const face = a.angle + 45 + a.rotJitter;
+    const sc   = a.baseScale * prog;
 
     a.el.style.left      = x + 'px';
     a.el.style.top       = y + 'px';
-    a.el.style.transform = `translate(-50%,-50%) rotate(${face}deg)`;
-    a.el.style.opacity   = opacity;
+    a.el.style.transform = `translate(-50%,-50%) rotate(${face}deg) scale(${sc})`;
+    a.el.style.opacity   = a.baseOpacity * prog;
 
     return true;
   });
@@ -172,8 +177,7 @@ function loop(now) {
   if (arrows.length > 0) {
     rafId = requestAnimationFrame(loop);
   } else {
-    rafId    = null;
-    lastTime = null;
+    rafId = null; lastTime = null;
   }
 }
 
