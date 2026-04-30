@@ -82,10 +82,10 @@ body {
     <span class="btn-label">I&rsquo;m feeling lucky</span>
   </button>
 </div>
-<div class="page-label">Component Demo &mdash; Click the button</div>
+<div class="page-label">Component Demo &mdash; Hover the button</div>
 <script>
-const CURSOR_SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+const CURSOR_SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
   stroke-linecap="round" stroke-linejoin="round">
   <path d="m4 4 7.07 17 2.51-7.39L21 11.07z"/>
 </svg>`;
@@ -93,63 +93,100 @@ const CURSOR_SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="2
 const btn   = document.getElementById('luckyBtn');
 const burst = document.getElementById('burst');
 
-btn.addEventListener('click', function() {
-  const N        = 24;
-  const rect     = btn.getBoundingClientRect();
-  const cx       = rect.left + rect.width  / 2;
-  const cy       = rect.top  + rect.height / 2;
-  const hw       = rect.width  / 2;
-  const hh       = rect.height / 2;
-  const RADIUS   = 160;
-  const DURATION = 850;
+const N           = 28;      // arrow count
+const ORBIT_R     = 145;     // px from button center
+const DEG_PER_SEC = 45;      // CCW orbit speed
+const SPAWN_MS    = 700;     // expand duration
+const DEPART_MS   = 420;     // retract duration
 
+let arrows   = [];
+let rafId    = null;
+let lastTime = null;
+
+function getCenter() {
+  const r = btn.getBoundingClientRect();
+  return [r.left + r.width / 2, r.top + r.height / 2];
+}
+
+function spawnArrows(now) {
   for (let i = 0; i < N; i++) {
-    const angle = (i / N) * 2 * Math.PI;
-    const tx    = Math.cos(angle) * RADIUS;
-    const ty    = Math.sin(angle) * RADIUS;
-    const rot   = (angle * 180 / Math.PI) + 45;
-    const sx    = cx + Math.cos(angle) * hw;
-    const sy    = cy + Math.sin(angle) * hh;
-
+    const baseAngle = (i / N) * 360;
+    const jitter    = (Math.random() - 0.5) * (360 / N) * 0.5;
+    const rotJitter = (Math.random() - 0.5) * 22;
     const el = document.createElement('div');
     el.className = 'burst-cursor';
     el.innerHTML = CURSOR_SVG;
-    el.style.left      = sx + 'px';
-    el.style.top       = sy + 'px';
-    el.style.transform = `translate(-50%,-50%) rotate(${rot}deg) scale(0)`;
-    el.style.opacity   = '0';
+    el.style.opacity = '0';
     burst.appendChild(el);
-
-    const delay = i * (30 / N);
-
-    el.animate([
-      {
-        transform: `translate(-50%,-50%) rotate(${rot}deg) scale(0.4)`,
-        opacity: 0,
-        offset: 0
-      },
-      {
-        transform: `translate(calc(-50% + ${tx * 0.35}px), calc(-50% + ${ty * 0.35}px)) rotate(${rot}deg) scale(1.1)`,
-        opacity: 1,
-        offset: 0.18
-      },
-      {
-        transform: `translate(calc(-50% + ${tx * 0.75}px), calc(-50% + ${ty * 0.75}px)) rotate(${rot}deg) scale(0.95)`,
-        opacity: 0.85,
-        offset: 0.55
-      },
-      {
-        transform: `translate(calc(-50% + ${tx}px), calc(-50% + ${ty}px)) rotate(${rot}deg) scale(0.7)`,
-        opacity: 0,
-        offset: 1
-      }
-    ], {
-      duration: DURATION,
-      delay: delay,
-      easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
-      fill: 'forwards'
-    }).onfinish = () => el.remove();
+    arrows.push({ el, angle: baseAngle + jitter, rotJitter, born: now, phase: 'spawn', departAt: null });
   }
+}
+
+function killAll() {
+  if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+  arrows.forEach(a => a.el.remove());
+  arrows   = [];
+  lastTime = null;
+}
+
+function loop(now) {
+  const dt = lastTime !== null ? (now - lastTime) / 1000 : 0;
+  lastTime = now;
+  const [bx, by] = getCenter();
+
+  arrows = arrows.filter(a => {
+    let r, opacity;
+
+    if (a.phase === 'spawn') {
+      const t = Math.min((now - a.born) / SPAWN_MS, 1);
+      const e = 1 - Math.pow(1 - t, 4);  // easeOutQuart
+      r       = ORBIT_R * e;
+      opacity = e;
+      if (t >= 1) a.phase = 'orbit';
+    } else if (a.phase === 'orbit') {
+      r       = ORBIT_R;
+      opacity = 1;
+    } else {
+      const t = Math.min((now - a.departAt) / DEPART_MS, 1);
+      const e = 1 - t * t;               // easeInQuad reversed
+      r       = ORBIT_R * e;
+      opacity = e;
+      if (t >= 1) { a.el.remove(); return false; }
+    }
+
+    a.angle -= DEG_PER_SEC * dt;  // CCW
+
+    const rad  = a.angle * Math.PI / 180;
+    const x    = bx + Math.cos(rad) * r;
+    const y    = by + Math.sin(rad) * r;
+    const face = a.angle + 135 + a.rotJitter;  // cursor tip points radially outward
+
+    a.el.style.left      = x + 'px';
+    a.el.style.top       = y + 'px';
+    a.el.style.transform = `translate(-50%,-50%) rotate(${face}deg)`;
+    a.el.style.opacity   = opacity;
+
+    return true;
+  });
+
+  if (arrows.length > 0) {
+    rafId = requestAnimationFrame(loop);
+  } else {
+    rafId    = null;
+    lastTime = null;
+  }
+}
+
+btn.addEventListener('mouseenter', () => {
+  killAll();
+  const now = performance.now();
+  spawnArrows(now);
+  rafId = requestAnimationFrame(loop);
+});
+
+btn.addEventListener('mouseleave', () => {
+  const now = performance.now();
+  arrows.forEach(a => { a.phase = 'depart'; a.departAt = now; });
 });
 </script>
 </body>
