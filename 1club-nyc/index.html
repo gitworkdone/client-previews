@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>1Club — Times Square, New York</title>
-<meta name="description" content="The most exclusive members-only club in New York City. 6 floors. Times Square. 1Club.">
+<meta name="description" content="The most exclusive members-only club in New York City. 6 floors above Times Square.">
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13/dist/ScrollTrigger.min.js"></script>
@@ -14,481 +14,434 @@
 <style>
 @import url('https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=satoshi@400,500,700&display=swap');
 
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-html{scroll-behavior:auto;cursor:none;}
-body{
-  background:#080604;
-  color:#f0ece4;
-  font-family:'Satoshi',system-ui,sans-serif;
-  font-size:16px;
-  line-height:1.6;
-  overflow-x:hidden;
+*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: auto; cursor: none; }
+body {
+  background: #080604;
+  color: #f0ece4;
+  font-family: 'Satoshi', system-ui, sans-serif;
+  overflow-x: hidden;
 }
 
-:root{
-  --black:#080604;
-  --surface:#0f0c09;
-  --surface2:#161210;
-  --gold:#c9a96e;
-  --gold-dim:rgba(201,169,110,0.3);
-  --gold-glow:rgba(201,169,110,0.08);
-  --cream:#f0ece4;
-  --cream-dim:rgba(240,236,228,0.65);
-  --steel:#8a8680;
+:root {
+  --black:    #080604;
+  --surface:  #0f0c09;
+  --s2:       #161210;
+  --gold:     #c9a96e;
+  --gold-d:   rgba(201,169,110,0.25);
+  --gold-g:   rgba(201,169,110,0.07);
+  --cream:    #f0ece4;
+  --cream-d:  rgba(240,236,228,0.62);
+  --steel:    #7a7672;
+  --neon:     #e8144a;   /* Times Square red — used only as single accent */
 }
-
-/* ── TYPOGRAPHY ── */
-.eyebrow{
-  font-family:'Satoshi',sans-serif;
-  font-size:11px;font-weight:500;
-  letter-spacing:0.25em;text-transform:uppercase;
-  color:var(--gold);
-}
-.gold{color:var(--gold);}
-.steel{color:var(--steel);}
 
 /* ── CURSOR ── */
-#c-dot,#c-ring{
-  position:fixed;pointer-events:none;border-radius:50%;
-  transform:translate(-50%,-50%);
+#c-dot, #c-ring {
+  position: fixed; pointer-events: none; border-radius: 50%;
+  transform: translate(-50%, -50%); z-index: 99999;
 }
-#c-dot{width:6px;height:6px;background:var(--gold);z-index:99999;}
-#c-ring{
-  width:32px;height:32px;
-  border:1.5px solid rgba(201,169,110,0.6);
-  z-index:99998;
-}
+#c-dot  { width: 6px;  height: 6px;  background: var(--gold); z-index: 100000; }
+#c-ring { width: 34px; height: 34px; border: 1.5px solid rgba(201,169,110,0.55); z-index: 99999; }
 
 /* ── NAV ── */
-nav{
-  position:fixed;top:0;left:0;right:0;z-index:1000;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:28px 56px;
-  background:linear-gradient(to bottom,rgba(8,6,4,0.7),transparent);
-  backdrop-filter:blur(0px);
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 900;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 28px 60px;
+  background: linear-gradient(to bottom, rgba(8,6,4,0.85) 0%, transparent 100%);
 }
-.nav-logo{
-  font-family:'Clash Display',sans-serif;
-  font-size:22px;font-weight:600;letter-spacing:-0.03em;
-  color:var(--cream);text-decoration:none;
+.nav-logo {
+  font-family: 'Clash Display', sans-serif;
+  font-size: 20px; font-weight: 700; letter-spacing: -0.03em;
+  color: var(--cream); text-decoration: none;
 }
-.nav-logo span{color:var(--gold);}
-.nav-links{display:flex;gap:40px;list-style:none;}
-.nav-links a{
-  font-size:11px;letter-spacing:0.18em;text-transform:uppercase;
-  color:var(--steel);text-decoration:none;
-  transition:color 0.2s ease;
+.nav-logo span { color: var(--gold); }
+.nav-links { display: flex; gap: 36px; list-style: none; }
+.nav-links a {
+  font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--steel); text-decoration: none; transition: color 0.2s;
 }
-.nav-links a:hover{color:var(--cream);}
-.nav-apply{
-  font-family:'Satoshi',sans-serif;
-  font-size:11px;letter-spacing:0.18em;text-transform:uppercase;
-  color:var(--black);background:var(--gold);
-  padding:11px 28px;text-decoration:none;
-  transition:opacity 0.2s;
+.nav-links a:hover { color: var(--cream); }
+.nav-apply {
+  font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+  background: var(--gold); color: var(--black);
+  padding: 11px 28px; text-decoration: none; transition: opacity 0.2s;
 }
-.nav-apply:hover{opacity:0.85;}
+.nav-apply:hover { opacity: 0.82; }
 
-/* ── HERO ── */
-#hero{
-  position:relative;height:100vh;min-height:700px;
-  display:flex;flex-direction:column;justify-content:flex-end;
-  overflow:hidden;
+/* ══════════════════════════════════════════════
+   HERO — Times Square at Night
+══════════════════════════════════════════════ */
+#hero {
+  position: relative; height: 100vh; min-height: 720px;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  overflow: hidden;
 }
-.hero-img{
-  position:absolute;inset:0;
-  background-size:cover;background-position:center 30%;
-  will-change:transform;
+.hero-img {
+  position: absolute; inset: 0;
+  background-size: cover; background-position: center 40%;
+  will-change: transform;
+  /* subtle warm vignette to blend Times Square neon into brand palette */
+  filter: brightness(0.75) saturate(0.9);
 }
-.hero-overlay{
-  position:absolute;inset:0;
-  background:linear-gradient(
-    to bottom,
-    rgba(8,6,4,0.25) 0%,
-    rgba(8,6,4,0.05) 35%,
-    rgba(8,6,4,0.65) 72%,
-    rgba(8,6,4,1.0) 100%
+/* layered gradient: keep neon visible top, fade to near-black at bottom */
+.hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(8,6,4,0.15)  0%,
+    rgba(8,6,4,0.0)   25%,
+    rgba(8,6,4,0.55)  68%,
+    rgba(8,6,4,1.0)   100%
   );
 }
-.hero-noise{
-  position:absolute;inset:0;width:100%;height:100%;
-  pointer-events:none;opacity:0.05;z-index:1;
+.hero-noise {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  pointer-events: none; opacity: 0.04; z-index: 1;
 }
-.hero-ghost{
-  position:absolute;
-  top:50%;left:50%;
-  transform:translate(-50%,-50%);
-  font-family:'Clash Display',sans-serif;
-  font-size:clamp(120px,26vw,420px);
-  font-weight:700;letter-spacing:-0.06em;
-  white-space:nowrap;
-  color:rgba(201,169,110,0.04);
-  pointer-events:none;z-index:0;
-  user-select:none;
+/* Huge ghost lettering behind content */
+.hero-ghost {
+  position: absolute; bottom: 20px; left: -0.02em;
+  font-family: 'Clash Display', sans-serif;
+  font-size: clamp(140px, 28vw, 480px);
+  font-weight: 700; letter-spacing: -0.06em; line-height: 1;
+  color: rgba(201,169,110,0.06);
+  pointer-events: none; user-select: none; z-index: 0;
+  white-space: nowrap;
 }
-.hero-content{
-  position:relative;z-index:2;
-  padding:0 56px 88px;
+.hero-content {
+  position: relative; z-index: 2;
+  padding: 0 60px 80px;
 }
-.hero-eyebrow{margin-bottom:20px;}
-.hero-name{
-  font-family:'Clash Display',sans-serif;
-  font-size:clamp(90px,16vw,240px);
-  font-weight:700;
-  letter-spacing:-0.055em;line-height:0.86;
-  color:var(--cream);
-  overflow:hidden;
-  margin-bottom:28px;
+.hero-address {
+  display: flex; align-items: center; gap: 14px;
+  margin-bottom: 18px;
 }
-.hero-tagline{
-  font-size:clamp(14px,1.8vw,20px);
-  font-weight:400;letter-spacing:0.12em;
-  color:var(--gold);text-transform:uppercase;
-  margin-bottom:56px;
+.hero-address-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--neon); flex-shrink: 0;
 }
-.hero-scroll{
-  display:flex;align-items:center;gap:14px;
-  color:var(--steel);
-  font-size:10px;letter-spacing:0.22em;text-transform:uppercase;
+.hero-address-text {
+  font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase;
+  color: rgba(240,236,228,0.7);
 }
-.hero-scroll-line{
-  width:56px;height:1px;background:var(--gold-dim);
+.hero-name {
+  font-family: 'Clash Display', sans-serif;
+  font-size: clamp(100px, 18vw, 280px);
+  font-weight: 700; letter-spacing: -0.055em; line-height: 0.86;
+  color: var(--cream); overflow: hidden;
+  margin-bottom: 22px;
+}
+.hero-tagline {
+  font-size: clamp(15px, 1.8vw, 20px);
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 52px;
+  font-weight: 400;
+}
+.hero-tagline em { font-style: normal; color: var(--neon); }
+.hero-scroll {
+  display: flex; align-items: center; gap: 14px;
+  font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase;
+  color: var(--steel);
+}
+.hero-scroll-line { width: 52px; height: 1px; background: var(--gold-d); }
+
+/* ══════════════════════════════════════════════
+   MANIFESTO
+══════════════════════════════════════════════ */
+#manifesto {
+  background: var(--black); padding: 140px 60px;
+  position: relative; overflow: hidden;
+}
+.mfst-inner {
+  max-width: 1240px; margin: 0 auto;
+  display: grid; grid-template-columns: 1.1fr 0.9fr;
+  gap: 100px; align-items: center;
+}
+.rule { width: 36px; height: 1px; background: var(--gold); margin-bottom: 18px; }
+.eyebrow {
+  font-size: 11px; font-weight: 500; letter-spacing: 0.26em;
+  text-transform: uppercase; color: var(--gold);
+}
+.mfst-heading {
+  font-family: 'Clash Display', sans-serif;
+  font-size: clamp(34px, 4vw, 58px);
+  font-weight: 500; letter-spacing: -0.03em; line-height: 1.12;
+  color: var(--cream); margin: 20px 0 30px;
+}
+.mfst-heading em { font-style: italic; color: var(--gold); }
+.mfst-body { font-size: 15px; line-height: 1.85; color: var(--steel); }
+.stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+.stat-block {
+  background: var(--surface); padding: 40px 32px;
+  border-bottom: 1px solid rgba(201,169,110,0.07);
+}
+.stat-num {
+  font-family: 'Clash Display', sans-serif;
+  font-size: clamp(54px, 6.5vw, 90px);
+  font-weight: 700; letter-spacing: -0.04em;
+  color: var(--gold); line-height: 1; margin-bottom: 8px;
+}
+.stat-label {
+  font-size: 10px; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--steel);
 }
 
-/* ── MANIFESTO ── */
-#manifesto{
-  background:var(--black);
-  padding:140px 56px;
-  position:relative;overflow:hidden;
+/* ══════════════════════════════════════════════
+   FLOORS — scroll-pinned, 700vh
+══════════════════════════════════════════════ */
+#floors-sticky { height: 700vh; }
+#floors-pin {
+  position: sticky; top: 0; height: 100vh; overflow: hidden;
 }
-.manifesto-inner{
-  max-width:1200px;margin:0 auto;
-  display:grid;grid-template-columns:1.1fr 0.9fr;
-  gap:96px;align-items:center;
+.floor-bg-track { position: absolute; inset: 0; }
+.floor-bg {
+  position: absolute; inset: 0;
+  background-size: cover; background-position: center;
+  opacity: 0; transition: opacity 0.9s cubic-bezier(0.4,0,0.2,1);
 }
-.rule{width:36px;height:1px;background:var(--gold);margin-bottom:20px;}
-.manifesto-text{
-  font-family:'Clash Display',sans-serif;
-  font-size:clamp(32px,3.8vw,56px);
-  font-weight:500;letter-spacing:-0.03em;
-  line-height:1.14;color:var(--cream);
-  margin:20px 0 28px;
+.floor-bg.active { opacity: 1; }
+/* overlay that makes left side legible over any background */
+.floor-bg-gradient {
+  position: absolute; inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(8,6,4,0.94) 0%,
+    rgba(8,6,4,0.6)  48%,
+    rgba(8,6,4,0.1)  100%
+  );
+  z-index: 1;
 }
-.manifesto-text em{font-style:italic;color:var(--gold);}
-.manifesto-sub{
-  font-size:15px;line-height:1.82;color:var(--steel);
+.floors-ui {
+  position: absolute; inset: 0; z-index: 2;
+  display: flex; align-items: center;
+  padding: 0 60px;
 }
-.stat-grid{
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:2px;
+.floors-left { max-width: 560px; }
+.floor-list { list-style: none; margin-top: 28px; }
+.floor-item {
+  display: flex; align-items: baseline; gap: 22px;
+  padding: 17px 0; border-bottom: 1px solid rgba(201,169,110,0.1);
+  cursor: none; color: var(--steel); transition: color 0.3s;
 }
-.stat-block{
-  background:var(--surface);
-  padding:40px 32px;
-  border-bottom:1px solid rgba(201,169,110,0.08);
+.floor-item:hover, .floor-item.active { color: var(--cream); }
+.floor-item-num {
+  font-family: 'Clash Display', sans-serif;
+  font-size: 11px; letter-spacing: 0.2em; color: var(--gold);
+  opacity: 0.4; min-width: 22px; transition: opacity 0.3s;
 }
-.stat-num{
-  font-family:'Clash Display',sans-serif;
-  font-size:clamp(52px,6vw,84px);
-  font-weight:700;letter-spacing:-0.04em;
-  color:var(--gold);line-height:1;
-  margin-bottom:8px;
+.floor-item.active .floor-item-num { opacity: 1; }
+.floor-item-name {
+  font-family: 'Clash Display', sans-serif;
+  font-size: clamp(18px, 2.3vw, 30px);
+  font-weight: 500; letter-spacing: -0.02em;
 }
-.stat-label{
-  font-size:10px;letter-spacing:0.2em;
-  text-transform:uppercase;color:var(--steel);
+.floor-desc-zone {
+  margin-top: 32px; padding-top: 26px;
+  border-top: 1px solid var(--gold-d); min-height: 68px;
+  position: relative;
+}
+.floor-desc {
+  font-size: 14px; line-height: 1.78; color: var(--cream-d);
+  opacity: 0; transition: opacity 0.45s; position: absolute;
+}
+.floor-desc.active { opacity: 1; position: relative; }
+/* Big ghost floor number on the right */
+.floor-num-bg {
+  position: absolute; right: 48px; top: 50%;
+  transform: translateY(-50%);
+  font-family: 'Clash Display', sans-serif;
+  font-size: clamp(140px, 22vw, 340px);
+  font-weight: 700; letter-spacing: -0.05em;
+  color: rgba(201,169,110,0.07);
+  pointer-events: none; user-select: none; z-index: 1; line-height: 1;
 }
 
-/* ── FLOORS (scroll-pinned) ── */
-#floors-sticky{height:700vh;}
-#floors-pin{
-  position:sticky;top:0;height:100vh;
-  overflow:hidden;
+/* ══════════════════════════════════════════════
+   GALLERY — Times Square + Club Interiors mixed
+══════════════════════════════════════════════ */
+#gallery { background: var(--black); padding: 140px 60px; }
+.gallery-head {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  max-width: 1240px; margin: 0 auto 64px;
 }
-.floors-bg-track{position:absolute;inset:0;}
-.floor-bg{
-  position:absolute;inset:0;
-  background-size:cover;background-position:center;
-  opacity:0;
-  transition:opacity 0.85s cubic-bezier(0.4,0,0.2,1);
+.gallery-title {
+  font-family: 'Clash Display', sans-serif;
+  font-size: clamp(38px, 5vw, 72px);
+  font-weight: 600; letter-spacing: -0.04em; line-height: 0.95;
 }
-.floor-bg.active{opacity:1;}
-.floor-bg-overlay{
-  position:absolute;inset:0;
-  background:linear-gradient(
+.gallery-title em { font-style: italic; color: var(--gold); }
+.btn-outline {
+  display: inline-block; border: 1px solid var(--gold); color: var(--gold);
+  padding: 13px 36px; text-decoration: none; white-space: nowrap;
+  font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+  transition: background 0.3s, color 0.3s;
+}
+.btn-outline:hover { background: var(--gold); color: var(--black); }
+
+/* 5-cell masonry-style grid */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  grid-template-rows: 340px 320px;
+  gap: 4px;
+  max-width: 1240px; margin: 0 auto;
+}
+.g-item { overflow: hidden; background: var(--surface); position: relative; }
+.g-item img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  transform: scale(1.05);
+  transition: transform 0.85s cubic-bezier(0.4,0,0.2,1);
+}
+.g-item:hover img { transform: scale(1); }
+/* Cell 1 spans both rows (tall) */
+.g-item:nth-child(1) { grid-row: 1 / 3; }
+/* label overlay on Times Square cells */
+.g-label {
+  position: absolute; bottom: 16px; left: 16px;
+  font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: rgba(240,236,228,0.6);
+  background: rgba(8,6,4,0.5);
+  padding: 5px 10px;
+  backdrop-filter: blur(6px);
+}
+
+/* ══════════════════════════════════════════════
+   MEMBERS
+══════════════════════════════════════════════ */
+#members {
+  background: var(--surface); padding: 160px 60px;
+  position: relative; overflow: hidden; text-align: center;
+}
+.members-ghost {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Clash Display', sans-serif;
+  font-size: clamp(70px, 16vw, 320px);
+  font-weight: 700; letter-spacing: -0.04em;
+  color: rgba(201,169,110,0.035);
+  pointer-events: none; user-select: none; white-space: nowrap;
+}
+.members-inner { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; }
+.members-title {
+  font-family: 'Clash Display', sans-serif;
+  font-size: clamp(40px, 5.5vw, 82px);
+  font-weight: 600; letter-spacing: -0.04em; line-height: 0.92;
+  margin: 20px 0 28px;
+}
+.members-title em { font-style: italic; color: var(--gold); }
+.members-body { font-size: 15px; line-height: 1.85; color: var(--steel); margin-bottom: 56px; }
+.mform { display: flex; flex-direction: column; gap: 14px; text-align: left; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.fld { display: flex; flex-direction: column; gap: 6px; }
+.fld label { font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold); }
+.fld input, .fld select, .fld textarea {
+  background: rgba(201,169,110,0.04);
+  border: 1px solid rgba(201,169,110,0.16);
+  color: var(--cream); padding: 14px 16px;
+  font-family: 'Satoshi', sans-serif; font-size: 14px;
+  outline: none; transition: border-color 0.2s; appearance: none;
+}
+.fld input::placeholder, .fld textarea::placeholder { color: var(--steel); }
+.fld input:focus, .fld select:focus, .fld textarea:focus { border-color: var(--gold); }
+.fld select option { background: var(--surface); }
+.fld textarea { resize: vertical; min-height: 110px; }
+.submit-btn {
+  background: var(--gold); color: var(--black); border: none;
+  padding: 16px 52px; font-family: 'Clash Display', sans-serif;
+  font-size: 13px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase;
+  cursor: none; align-self: flex-start; margin-top: 6px; transition: opacity 0.2s;
+}
+.submit-btn:hover { opacity: 0.82; }
+.form-note { font-size: 11px; color: var(--steel); letter-spacing: 0.06em; margin-top: 10px; }
+
+/* ══════════════════════════════════════════════
+   PENTHOUSE — NYC Skyline
+══════════════════════════════════════════════ */
+#penthouse {
+  position: relative; height: 100vh; min-height: 640px;
+  display: flex; align-items: center; overflow: hidden;
+}
+.pent-img {
+  position: absolute; inset: 0;
+  background-size: cover; background-position: center;
+  filter: brightness(0.7) saturate(0.85);
+}
+.pent-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(
     to right,
     rgba(8,6,4,0.92) 0%,
-    rgba(8,6,4,0.5) 55%,
+    rgba(8,6,4,0.5)  55%,
     rgba(8,6,4,0.15) 100%
   );
 }
-.floors-ui{
-  position:absolute;inset:0;
-  display:flex;align-items:center;
-  padding:0 56px;
-  z-index:2;
+.pent-content { position: relative; z-index: 2; padding: 0 60px; max-width: 680px; }
+.pent-title {
+  font-family: 'Clash Display', sans-serif;
+  font-size: clamp(50px, 7.5vw, 124px);
+  font-weight: 600; letter-spacing: -0.04em; line-height: 0.90;
+  margin: 20px 0 28px;
 }
-.floors-left{max-width:560px;}
-.floors-eyebrow{margin-bottom:32px;}
-.floor-list{list-style:none;}
-.floor-item{
-  display:flex;align-items:baseline;gap:20px;
-  padding:18px 0;
-  border-bottom:1px solid rgba(201,169,110,0.1);
-  cursor:none;
-  transition:color 0.3s;
-  color:var(--steel);
-}
-.floor-item:hover,.floor-item.active{color:var(--cream);}
-.floor-item-num{
-  font-family:'Clash Display',sans-serif;
-  font-size:11px;font-weight:500;
-  letter-spacing:0.2em;color:var(--gold);
-  opacity:0.45;min-width:22px;
-  transition:opacity 0.3s;
-}
-.floor-item.active .floor-item-num{opacity:1;}
-.floor-item-name{
-  font-family:'Clash Display',sans-serif;
-  font-size:clamp(18px,2.2vw,28px);
-  font-weight:500;letter-spacing:-0.02em;
-}
-.floor-desc-zone{
-  margin-top:36px;padding-top:28px;
-  border-top:1px solid var(--gold-dim);
-  min-height:72px;
-}
-.floor-desc{
-  font-size:14px;line-height:1.76;
-  color:var(--cream-dim);
-  opacity:0;
-  transition:opacity 0.45s;
-  position:absolute;
-}
-.floor-desc.active{opacity:1;position:relative;}
-.floor-num-bg{
-  position:absolute;right:56px;top:50%;
-  transform:translateY(-50%);
-  font-family:'Clash Display',sans-serif;
-  font-size:clamp(120px,20vw,300px);
-  font-weight:700;letter-spacing:-0.05em;
-  color:rgba(201,169,110,0.07);
-  pointer-events:none;user-select:none;
-  z-index:1;line-height:1;
-}
+.pent-title em { font-style: italic; color: var(--gold); }
+.pent-body { font-size: 15px; line-height: 1.82; color: var(--cream-d); max-width: 400px; margin-bottom: 44px; }
 
-/* ── GALLERY ── */
-#gallery{
-  background:var(--black);
-  padding:140px 56px;
+/* ══════════════════════════════════════════════
+   FOOTER
+══════════════════════════════════════════════ */
+footer {
+  background: var(--surface); padding: 96px 60px 52px;
+  border-top: 1px solid rgba(201,169,110,0.08);
 }
-.gallery-head{
-  display:flex;justify-content:space-between;align-items:flex-end;
-  max-width:1200px;margin:0 auto 64px;
+.footer-grid {
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 64px; max-width: 1240px; margin: 0 auto 64px;
 }
-.gallery-title{
-  font-family:'Clash Display',sans-serif;
-  font-size:clamp(40px,5vw,72px);
-  font-weight:600;letter-spacing:-0.04em;line-height:0.95;
+.f-brand {
+  font-family: 'Clash Display', sans-serif;
+  font-size: 30px; font-weight: 700; letter-spacing: -0.03em;
+  color: var(--cream); margin-bottom: 16px;
 }
-.gallery-title em{font-style:italic;color:var(--gold);}
-.btn-outline{
-  display:inline-block;
-  border:1px solid var(--gold);color:var(--gold);
-  padding:13px 36px;text-decoration:none;
-  font-size:11px;letter-spacing:0.18em;text-transform:uppercase;
-  transition:background 0.3s,color 0.3s;white-space:nowrap;
-}
-.btn-outline:hover{background:var(--gold);color:var(--black);}
-.gallery-grid{
-  display:grid;
-  grid-template-columns:2fr 1fr 1fr;
-  grid-template-rows:auto auto;
-  gap:4px;
-  max-width:1200px;margin:0 auto;
-}
-.g-item{
-  overflow:hidden;background:var(--surface);
-  position:relative;
-}
-.g-item img{
-  width:100%;height:100%;object-fit:cover;display:block;
-  transform:scale(1.05);
-  transition:transform 0.8s cubic-bezier(0.4,0,0.2,1);
-}
-.g-item:hover img{transform:scale(1);}
-.g-item:nth-child(1){grid-row:1/3;min-height:600px;}
-.g-item:nth-child(2){min-height:296px;}
-.g-item:nth-child(3){min-height:296px;}
-.g-item:nth-child(4){min-height:296px;}
-.g-item:nth-child(5){min-height:296px;}
-
-/* ── MEMBERS ── */
-#members{
-  background:var(--surface);
-  padding:160px 56px;
-  position:relative;overflow:hidden;
-  text-align:center;
-}
-.members-ghost{
-  position:absolute;inset:0;
-  display:flex;align-items:center;justify-content:center;
-  font-family:'Clash Display',sans-serif;
-  font-size:clamp(80px,16vw,300px);
-  font-weight:700;letter-spacing:-0.04em;
-  color:rgba(201,169,110,0.04);
-  pointer-events:none;user-select:none;white-space:nowrap;
-}
-.members-inner{
-  position:relative;z-index:1;
-  max-width:680px;margin:0 auto;
-}
-.members-title{
-  font-family:'Clash Display',sans-serif;
-  font-size:clamp(40px,5.5vw,80px);
-  font-weight:600;letter-spacing:-0.04em;line-height:0.94;
-  margin:20px 0 28px;
-}
-.members-title em{font-style:italic;color:var(--gold);}
-.members-body{
-  font-size:15px;line-height:1.82;color:var(--steel);
-  margin-bottom:56px;
-}
-.mform{
-  display:flex;flex-direction:column;gap:14px;
-  text-align:left;
-}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-.fld{display:flex;flex-direction:column;gap:6px;}
-.fld label{
-  font-size:10px;letter-spacing:0.22em;text-transform:uppercase;
-  color:var(--gold);
-}
-.fld input,.fld select,.fld textarea{
-  background:rgba(201,169,110,0.05);
-  border:1px solid rgba(201,169,110,0.18);
-  color:var(--cream);
-  padding:14px 16px;
-  font-family:'Satoshi',sans-serif;font-size:14px;
-  outline:none;
-  transition:border-color 0.2s;
-  appearance:none;
-}
-.fld input::placeholder,.fld textarea::placeholder{color:var(--steel);}
-.fld input:focus,.fld select:focus,.fld textarea:focus{
-  border-color:var(--gold);
-}
-.fld select option{background:var(--surface);}
-.fld textarea{resize:vertical;min-height:110px;}
-.submit-btn{
-  background:var(--gold);color:var(--black);border:none;
-  padding:16px 52px;
-  font-family:'Clash Display',sans-serif;
-  font-size:13px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;
-  cursor:none;align-self:flex-start;margin-top:6px;
-  transition:opacity 0.2s;
-}
-.submit-btn:hover{opacity:0.82;}
-.form-note{
-  font-size:11px;color:var(--steel);
-  letter-spacing:0.05em;margin-top:10px;
-}
-
-/* ── PENTHOUSE ── */
-#penthouse{
-  position:relative;height:100vh;min-height:640px;
-  display:flex;align-items:center;overflow:hidden;
-}
-.pent-img{
-  position:absolute;inset:0;
-  background-size:cover;background-position:center;
-}
-.pent-overlay{
-  position:absolute;inset:0;
-  background:linear-gradient(
-    to right,
-    rgba(8,6,4,0.88) 0%,
-    rgba(8,6,4,0.45) 55%,
-    rgba(8,6,4,0.15) 100%
-  );
-}
-.pent-content{
-  position:relative;z-index:2;
-  padding:0 56px;max-width:660px;
-}
-.pent-title{
-  font-family:'Clash Display',sans-serif;
-  font-size:clamp(48px,7vw,120px);
-  font-weight:600;letter-spacing:-0.04em;line-height:0.90;
-  margin:20px 0 28px;
-}
-.pent-title em{font-style:italic;color:var(--gold);}
-.pent-body{
-  font-size:15px;line-height:1.82;
-  color:var(--cream-dim);
-  max-width:400px;margin-bottom:44px;
-}
-
-/* ── FOOTER ── */
-footer{
-  background:var(--surface);
-  padding:96px 56px 52px;
-  border-top:1px solid rgba(201,169,110,0.1);
-}
-.footer-grid{
-  display:grid;grid-template-columns:2fr 1fr 1fr 1fr;
-  gap:64px;max-width:1200px;margin:0 auto 64px;
-}
-.f-brand{
-  font-family:'Clash Display',sans-serif;
-  font-size:30px;font-weight:600;letter-spacing:-0.03em;
-  color:var(--cream);margin-bottom:16px;
-}
-.f-brand span{color:var(--gold);}
-.f-desc{font-size:13px;line-height:1.82;color:var(--steel);max-width:240px;}
-.f-col h4{
-  font-size:10px;letter-spacing:0.22em;text-transform:uppercase;
-  color:var(--gold);margin-bottom:20px;
-}
-.f-links{list-style:none;display:flex;flex-direction:column;gap:12px;}
-.f-links a{
-  font-size:13px;color:var(--steel);text-decoration:none;
-  transition:color 0.2s;
-}
-.f-links a:hover{color:var(--cream);}
-.footer-btm{
-  max-width:1200px;margin:0 auto;
-  display:flex;justify-content:space-between;align-items:center;
-  padding-top:32px;border-top:1px solid rgba(201,169,110,0.08);
-  font-size:11px;letter-spacing:0.1em;color:var(--steel);
+.f-brand span { color: var(--gold); }
+.f-desc { font-size: 13px; line-height: 1.85; color: var(--steel); max-width: 240px; }
+.f-col h4 { font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
+.f-links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.f-links a { font-size: 13px; color: var(--steel); text-decoration: none; transition: color 0.2s; }
+.f-links a:hover { color: var(--cream); }
+.footer-btm {
+  max-width: 1240px; margin: 0 auto;
+  display: flex; justify-content: space-between; align-items: center;
+  padding-top: 32px; border-top: 1px solid rgba(201,169,110,0.07);
+  font-size: 11px; letter-spacing: 0.1em; color: var(--steel);
 }
 
 /* ── REVEAL ── */
-html.js-loaded .reveal{opacity:0;transform:translateY(50px);}
-html.js-loaded .reveal.in{
-  opacity:1;transform:translateY(0);
-  transition:opacity 0.9s cubic-bezier(0.16,1,0.3,1),transform 0.9s cubic-bezier(0.16,1,0.3,1);
+html.js-loaded .reveal { opacity: 0; transform: translateY(48px); }
+html.js-loaded .reveal.in {
+  opacity: 1; transform: translateY(0);
+  transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1);
 }
-html.js-loaded .rclip{clip-path:inset(100% 0 0 0);}
-html.js-loaded .rclip.in{
-  clip-path:inset(0% 0 0 0);
-  transition:clip-path 0.9s cubic-bezier(0.16,1,0.3,1);
+html.js-loaded .rclip { clip-path: inset(100% 0 0 0); }
+html.js-loaded .rclip.in {
+  clip-path: inset(0% 0 0 0);
+  transition: clip-path 0.9s cubic-bezier(0.16,1,0.3,1);
 }
 
 /* ── RESPONSIVE ── */
-@media(max-width:960px){
-  nav{padding:20px 24px;}
-  .nav-links{display:none;}
-  #hero .hero-content,#manifesto,#gallery,#members,#penthouse .pent-content,footer{
-    padding-left:24px;padding-right:24px;
-  }
-  .manifesto-inner{grid-template-columns:1fr;gap:56px;}
-  .gallery-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto;}
-  .g-item:nth-child(1){grid-row:auto;min-height:280px;}
-  .gallery-head{flex-direction:column;align-items:flex-start;gap:24px;}
-  .footer-grid{grid-template-columns:1fr 1fr;gap:40px;}
-  .form-row{grid-template-columns:1fr;}
-  .floors-ui{padding:24px;}
+@media (max-width: 960px) {
+  nav { padding: 20px 24px; }
+  .nav-links { display: none; }
+  .hero-content, #manifesto, #gallery, #members, footer { padding-left: 24px; padding-right: 24px; }
+  .pent-content { padding: 0 24px; }
+  .mfst-inner { grid-template-columns: 1fr; gap: 56px; }
+  .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+  .g-item:nth-child(1) { grid-row: auto; }
+  .gallery-head { flex-direction: column; align-items: flex-start; gap: 24px; }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+  .form-row { grid-template-columns: 1fr; }
+  .floors-ui { padding: 24px; }
+  .floor-num-bg { display: none; }
 }
 </style>
 </head>
@@ -503,16 +456,16 @@ html.js-loaded .rclip.in{
   <ul class="nav-links">
     <li><a href="#manifesto">About</a></li>
     <li><a href="#floors-sticky">Floors</a></li>
-    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#gallery">Inside</a></li>
     <li><a href="#members">Membership</a></li>
     <li><a href="#penthouse">Penthouse</a></li>
   </ul>
   <a href="#members" class="nav-apply">Apply</a>
 </nav>
 
-<!-- ═══ HERO ═══ -->
+<!-- ═══ HERO — Times Square at Night ═══ -->
 <section id="hero">
-  <div class="hero-img" style="background-image:url('https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1920&q=85')"></div>
+  <div class="hero-img" style="background-image:url('https://images.unsplash.com/photo-1508849789987-4e5333c12b78?auto=format&fit=crop&w=1920&q=85')"></div>
   <div class="hero-overlay"></div>
   <svg class="hero-noise" xmlns="http://www.w3.org/2000/svg">
     <filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3"/></filter>
@@ -520,32 +473,35 @@ html.js-loaded .rclip.in{
   </svg>
   <div class="hero-ghost">1CLUB</div>
   <div class="hero-content">
-    <div class="eyebrow hero-eyebrow">Times Square &ensp;&middot;&ensp; New York City &ensp;&middot;&ensp; Est. 2025</div>
+    <div class="hero-address">
+      <div class="hero-address-dot"></div>
+      <span class="hero-address-text">Times Square &nbsp;&middot;&nbsp; Midtown Manhattan &nbsp;&middot;&nbsp; New York City</span>
+    </div>
     <h1 class="hero-name" id="hero-name">1CLUB</h1>
-    <p class="hero-tagline">6 floors &ensp;&mdash;&ensp; 1Club</p>
+    <p class="hero-tagline">6 floors &ensp;&mdash;&ensp; <em>1</em>Club</p>
     <div class="hero-scroll">
       <div class="hero-scroll-line"></div>
-      <span>Scroll to discover</span>
+      <span>Discover the floors</span>
     </div>
   </div>
 </section>
 
 <!-- ═══ MANIFESTO ═══ -->
 <section id="manifesto">
-  <div class="manifesto-inner">
+  <div class="mfst-inner">
     <div>
       <div class="rule reveal"></div>
       <div class="eyebrow reveal">The Standard</div>
-      <p class="manifesto-text">
+      <h2 class="mfst-heading">
         This is not a club.<br>
         This is a <em>standard</em><br>
         New York has never<br>
         seen before.
-      </p>
-      <p class="manifesto-sub reveal">
-        Six floors. One address. One name on the list. We built 1Club
-        for the people who already have everything — and still believe
-        the best evening of their life hasn't happened yet.
+      </h2>
+      <p class="mfst-body reveal">
+        Six floors above Times Square. One address. One name on the list.
+        We built 1Club for the people who already have everything —
+        and still believe the best evening of their life hasn't happened yet.
       </p>
     </div>
     <div class="stat-grid">
@@ -569,21 +525,21 @@ html.js-loaded .rclip.in{
   </div>
 </section>
 
-<!-- ═══ FLOORS (scroll-pinned, 700vh) ═══ -->
+<!-- ═══ 6 FLOORS — Scroll-Pinned ═══ -->
 <div id="floors-sticky">
   <div id="floors-pin">
-    <div class="floors-bg-track">
-      <div class="floor-bg active" id="fbg-0" style="background-image:url('https://images.unsplash.com/photo-1618220179428-22790b461013?auto=format&fit=crop&w=1400&q=85')"></div>
-    <div class="floor-bg" id="fbg-1" style="background-image:url('https://images.unsplash.com/photo-1470337458703-46ad1756a187?auto=format&fit=crop&w=1400&q=85')"></div>
+    <div class="floor-bg-track">
+      <div class="floor-bg active" id="fbg-0" style="background-image:url('https://cdn.jsdelivr.net/gh/gitworkdone/client-previews@main/1club-nyc/assets/club2.png')"></div>
+    <div class="floor-bg" id="fbg-1" style="background-image:url('https://cdn.jsdelivr.net/gh/gitworkdone/client-previews@main/1club-nyc/assets/club1.png')"></div>
     <div class="floor-bg" id="fbg-2" style="background-image:url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1400&q=85')"></div>
-    <div class="floor-bg" id="fbg-3" style="background-image:url('https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=1400&q=85')"></div>
+    <div class="floor-bg" id="fbg-3" style="background-image:url('https://images.unsplash.com/photo-1760598742492-7ad941e658e5?auto=format&fit=crop&w=1400&q=85')"></div>
     <div class="floor-bg" id="fbg-4" style="background-image:url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=1400&q=85')"></div>
-    <div class="floor-bg" id="fbg-5" style="background-image:url('https://images.unsplash.com/photo-1490876941478-64240c07b12b?auto=format&fit=crop&w=1920&q=85')"></div>
-      <div class="floor-bg-overlay"></div>
+    <div class="floor-bg" id="fbg-5" style="background-image:url('https://images.unsplash.com/photo-1642266119404-3bcf85d2f8bb?auto=format&fit=crop&w=1920&q=85')"></div>
+      <div class="floor-bg-gradient"></div>
     </div>
     <div class="floors-ui">
       <div class="floors-left">
-        <div class="eyebrow floors-eyebrow">Six Floors</div>
+        <div class="eyebrow">Six Floors</div>
         <ul class="floor-list">
           <li class="floor-item active" data-floor="0"><span class="floor-item-num">01</span><span class="floor-item-name">The Grand Arrival</span></li>
         <li class="floor-item" data-floor="1"><span class="floor-item-num">02</span><span class="floor-item-name">The Bar & Salon</span></li>
@@ -593,12 +549,12 @@ html.js-loaded .rclip.in{
         <li class="floor-item" data-floor="5"><span class="floor-item-num">06</span><span class="floor-item-name">The Penthouse</span></li>
         </ul>
         <div class="floor-desc-zone">
-          <p class="floor-desc active" id="fdesc-0">Step off 42nd Street and into another world. Our concierge team receives you. Your name has been expected.</p>
-      <p class="floor-desc" id="fdesc-1">A hundred-label spirits program curated by our head sommelier. Handcrafted cocktails. Conversations that matter.</p>
-      <p class="floor-desc" id="fdesc-2">An intimate dining room for twelve. A rotating residency of Michelin-pedigreed chefs. No menus — just mastery.</p>
-      <p class="floor-desc" id="fdesc-3">First editions. Single malts. Hand-rolled Dominican cigars. The floor where time slows to a deliberate crawl.</p>
-      <p class="floor-desc" id="fdesc-4">Cold plunge. Infrared sauna. Bodywork by appointment. The body deserves what the mind has earned.</p>
-      <p class="floor-desc" id="fdesc-5">Times Square, fifty feet below. Open air. Fire pits. A sky bar beneath the lights of the world.</p>
+          <p class="floor-desc active" id="fdesc-0">Step off 42nd Street into absolute silence. Our concierge team receives you by name. The city disappears.</p>
+      <p class="floor-desc" id="fdesc-1">A hundred-label spirits program beneath a ring of amber light. Handcrafted cocktails. The room remembers your order.</p>
+      <p class="floor-desc" id="fdesc-2">Twelve seats. One chef. No menu. A rotating residency of Michelin-pedigreed talent with nowhere else to be.</p>
+      <p class="floor-desc" id="fdesc-3">First editions. Single malts. Dominican cigars. The one floor where time slows to a deliberate crawl.</p>
+      <p class="floor-desc" id="fdesc-4">Cold plunge. Infrared sauna. Bodywork by appointment only. The body deserves what the mind has earned.</p>
+      <p class="floor-desc" id="fdesc-5">Times Square — all of it — fifty feet below. Open air. Fire pits. A sky bar. This is why they built New York up.</p>
         </div>
       </div>
     </div>
@@ -606,21 +562,39 @@ html.js-loaded .rclip.in{
   </div>
 </div>
 
-<!-- ═══ GALLERY ═══ -->
+<!-- ═══ GALLERY — Times Square outside + Club inside ═══ -->
 <section id="gallery">
   <div class="gallery-head">
     <div>
-      <div class="eyebrow reveal">Inside 1Club</div>
-      <h2 class="gallery-title reveal">Where every<br>detail is <em>deliberate</em></h2>
+      <div class="eyebrow reveal">Times Square &nbsp;&middot;&nbsp; New York City</div>
+      <h2 class="gallery-title reveal">The street below.<br>The legend <em>inside</em>.</h2>
     </div>
     <a href="#members" class="btn-outline reveal">Become a Member</a>
   </div>
   <div class="gallery-grid">
-    <div class="g-item rclip"><img src="https://images.unsplash.com/photo-1559329007-40df8a9345d8?auto=format&fit=crop&w=900&q=80" alt="1Club Grand Interior" loading="lazy"></div>
-    <div class="g-item rclip"><img src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?auto=format&fit=crop&w=1400&q=85" alt="1Club Bar" loading="lazy"></div>
-    <div class="g-item rclip"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1400&q=85" alt="1Club Private Dining" loading="lazy"></div>
-    <div class="g-item rclip"><img src="https://images.unsplash.com/photo-1575444758702-4a6b9222336e?auto=format&fit=crop&w=900&q=80" alt="1Club Lounge" loading="lazy"></div>
-    <div class="g-item rclip"><img src="https://images.unsplash.com/photo-1527015175922-36a306cf0e20?auto=format&fit=crop&w=900&q=80" alt="1Club Library" loading="lazy"></div>
+    <!-- Col 1: Times Square tall — instantly recognizable NYC -->
+    <div class="g-item rclip">
+      <img src="https://images.unsplash.com/photo-1602940659805-770d1b3b9911?auto=format&fit=crop&w=1920&q=85?auto=format&fit=crop&w=900&q=85" alt="Times Square New York at night">
+      <div class="g-label">Times Square, NYC</div>
+    </div>
+    <!-- Col 2+3 row 1: user's real photos -->
+    <div class="g-item rclip">
+      <img src="https://cdn.jsdelivr.net/gh/gitworkdone/client-previews@main/1club-nyc/assets/club2.png" alt="1Club Grand Arrival — chandelier lobby">
+      <div class="g-label">Floor 01 — Grand Arrival</div>
+    </div>
+    <div class="g-item rclip">
+      <img src="https://cdn.jsdelivr.net/gh/gitworkdone/client-previews@main/1club-nyc/assets/club1.png" alt="1Club Bar &amp; Salon">
+      <div class="g-label">Floor 02 — Bar &amp; Salon</div>
+    </div>
+    <!-- Col 2+3 row 2: more Times Square -->
+    <div class="g-item rclip">
+      <img src="https://images.unsplash.com/photo-1503179008861-d1e2b41f8bec?auto=format&fit=crop&w=1920&q=85?auto=format&fit=crop&w=700&q=85" alt="Times Square street at night">
+      <div class="g-label">42nd Street, Below</div>
+    </div>
+    <div class="g-item rclip">
+      <img src="https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?auto=format&fit=crop&w=1920&q=85?auto=format&fit=crop&w=700&q=85" alt="Times Square aerial view">
+      <div class="g-label">Times Square, Above</div>
+    </div>
   </div>
 </section>
 
@@ -631,10 +605,9 @@ html.js-loaded .rclip.in{
     <div class="eyebrow reveal">Membership</div>
     <h2 class="members-title reveal">By invitation.<br>Or <em>application</em>.</h2>
     <p class="members-body reveal">
-      We accept 350 members. Applications are now open for our 2025
-      founding cohort. Founding members receive lifetime access, preferred
-      pricing on all experiences, and priority penthouse reservations —
-      before we open to the world.
+      We accept 350 members. Applications are open for our 2025 founding cohort.
+      Founding members receive lifetime access, preferred pricing on every experience,
+      and priority penthouse access before we open to the world.
     </p>
     <form class="mform reveal" onsubmit="return false;">
       <div class="form-row">
@@ -646,7 +619,7 @@ html.js-loaded .rclip.in{
         <div class="fld"><label>Phone</label><input type="tel" placeholder="+1 (212) 000-0000"></div>
       </div>
       <div class="fld">
-        <label>Profession / Industry</label>
+        <label>Industry</label>
         <select>
           <option value="">Select your industry</option>
           <option>Finance &amp; Investment</option>
@@ -663,26 +636,26 @@ html.js-loaded .rclip.in{
       </div>
       <div class="fld">
         <label>Why 1Club</label>
-        <textarea placeholder="Tell us why you belong at 1Club and who referred you (if anyone)..."></textarea>
+        <textarea placeholder="Tell us why you belong at 1Club and who referred you (if applicable)..."></textarea>
       </div>
       <button class="submit-btn" type="submit">Submit Application</button>
-      <p class="form-note">Applications reviewed within 72 hours. We reach out by email if your application advances.</p>
+      <p class="form-note">Applications reviewed within 72 hours. We contact you directly if your application advances.</p>
     </form>
   </div>
 </section>
 
-<!-- ═══ PENTHOUSE ═══ -->
+<!-- ═══ PENTHOUSE — Manhattan Skyline at Night ═══ -->
 <section id="penthouse">
-  <div class="pent-img" style="background-image:url('https://images.unsplash.com/photo-1490876941478-64240c07b12b?auto=format&fit=crop&w=1920&q=85')"></div>
+  <div class="pent-img" style="background-image:url('https://images.unsplash.com/photo-1642266119404-3bcf85d2f8bb?auto=format&fit=crop&w=1920&q=85')"></div>
   <div class="pent-overlay"></div>
   <div class="pent-content">
-    <div class="eyebrow reveal">Floor Six</div>
-    <h2 class="pent-title">Times Square<br>from <em>above</em></h2>
+    <div class="eyebrow reveal">Floor Six &nbsp;&middot;&nbsp; The Penthouse</div>
+    <h2 class="pent-title">Manhattan<br>from <em>above</em></h2>
     <p class="pent-body reveal">
-      An open-air penthouse. Fire pits. A sky bar. The lights of the world,
-      fifty feet below. This is why they built New York up.
+      Open air. Fire pits. A sky bar. Times Square below — all of it —
+      a living canvas beneath your feet. This is why they built New York up.
     </p>
-    <a href="#members" class="btn-outline reveal">Reserve Your Access</a>
+    <a href="#members" class="btn-outline reveal">Reserve Penthouse Access</a>
   </div>
 </section>
 
@@ -691,7 +664,7 @@ html.js-loaded .rclip.in{
   <div class="footer-grid">
     <div>
       <div class="f-brand"><span>1</span>CLUB</div>
-      <p class="f-desc">The most exclusive private members club in New York City. Six floors at the center of the world.</p>
+      <p class="f-desc">The most exclusive private members club in New York City. Six floors above Times Square.</p>
     </div>
     <div class="f-col">
       <h4>Experience</h4>
@@ -714,11 +687,11 @@ html.js-loaded .rclip.in{
       </ul>
     </div>
     <div class="f-col">
-      <h4>Contact</h4>
+      <h4>New York</h4>
       <ul class="f-links">
         <li><a href="#">hello@1club.nyc</a></li>
-        <li><a href="#">+1 (212) 1CLUB00</a></li>
-        <li><a href="#">Times Square, New York</a></li>
+        <li><a href="#">+1 (212) 1CLUB-00</a></li>
+        <li><a href="#">Times Square, Midtown Manhattan</a></li>
         <li><a href="#">Instagram</a></li>
         <li><a href="#">LinkedIn</a></li>
       </ul>
@@ -726,7 +699,7 @@ html.js-loaded .rclip.in{
   </div>
   <div class="footer-btm">
     <span>&copy; 2025 1Club New York. All rights reserved.</span>
-    <span style="color:var(--gold);letter-spacing:0.1em;">6 FLOORS &ensp;&middot;&ensp; 1 CLUB</span>
+    <span style="color:var(--gold);letter-spacing:0.1em;">6 FLOORS &ensp;&middot;&ensp; TIMES SQUARE &ensp;&middot;&ensp; NYC</span>
   </div>
 </footer>
 
@@ -742,23 +715,23 @@ document.documentElement.classList.add('js-loaded');
 /* ── SplitText Hero ── */
 const heroSplit = new SplitText('#hero-name', { type: 'chars' });
 gsap.from(heroSplit.chars, {
-  y: 130, opacity: 0,
-  stagger: 0.028, duration: 1.15, ease: 'expo.out', delay: 0.25,
+  y: 140, opacity: 0,
+  stagger: 0.025, duration: 1.2, ease: 'expo.out', delay: 0.2,
 });
-gsap.from('.hero-eyebrow', { y: 20, opacity: 0, duration: 0.8, ease: 'power3.out', delay: 0.1 });
-gsap.from('.hero-tagline',  { y: 30, opacity: 0, duration: 1.0, ease: 'expo.out', delay: 1.1 });
-gsap.from('.hero-scroll',   { y: 20, opacity: 0, duration: 0.8, ease: 'power3.out', delay: 1.35 });
+gsap.from('.hero-address',  { y: 16, opacity: 0, duration: 0.8, ease: 'power3.out', delay: 0.1 });
+gsap.from('.hero-tagline',  { y: 28, opacity: 0, duration: 1.0, ease: 'expo.out',   delay: 1.15 });
+gsap.from('.hero-scroll',   { y: 18, opacity: 0, duration: 0.8, ease: 'power3.out', delay: 1.4 });
 
 /* ── Hero parallax ── */
 gsap.to('.hero-img', {
-  y: 90, ease: 'none',
+  y: 100, ease: 'none',
   scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true },
 });
 
 /* ── Manifesto SplitText ── */
-const mSplit = new SplitText('.manifesto-text', { type: 'words' });
+const mSplit = new SplitText('.mfst-heading', { type: 'words' });
 gsap.from(mSplit.words, {
-  scrollTrigger: { trigger: '#manifesto', start: 'top 68%', toggleActions: 'play none none reverse' },
+  scrollTrigger: { trigger: '#manifesto', start: 'top 70%', toggleActions: 'play none none reverse' },
   y: 44, opacity: 0, stagger: 0.055, duration: 0.9, ease: 'power3.out',
 });
 
@@ -771,15 +744,17 @@ document.querySelectorAll('.stat-num[data-val]').forEach(el => {
     onEnter: () => {
       const obj = { val: 0 };
       gsap.to(obj, {
-        val: target, duration: 1.9, ease: 'power2.out',
+        val: target, duration: 2.0, ease: 'power2.out',
         onUpdate: () => { el.textContent = Math.round(obj.val) + suffix; },
       });
     },
   });
 });
 
-/* ── Floors: scroll-pinned progress ── */
+/* ── Floors: scroll-pinned ── */
 let activeFloor = 0;
+const floorNums = ['01','02','03','04','05','06'];
+
 function setFloor(n) {
   if (n === activeFloor) return;
   document.querySelector('.floor-item.active')?.classList.remove('active');
@@ -789,7 +764,7 @@ function setFloor(n) {
   document.querySelector(`.floor-item[data-floor="${n}"]`).classList.add('active');
   document.getElementById(`fbg-${n}`).classList.add('active');
   document.getElementById(`fdesc-${n}`).classList.add('active');
-  document.getElementById('floor-num-bg').textContent = ['01','02','03','04','05','06'][n];
+  document.getElementById('floor-num-bg').textContent = floorNums[n];
 }
 
 ScrollTrigger.create({
@@ -808,17 +783,17 @@ document.querySelectorAll('.floor-item').forEach(el => {
   el.addEventListener('click', () => setFloor(parseInt(el.dataset.floor)));
 });
 
-/* ── Section reveals ── */
-const io = new IntersectionObserver((entries) => {
+/* ── IntersectionObserver reveals ── */
+const io = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
-}, { threshold: 0.12 });
+}, { threshold: 0.1 });
 document.querySelectorAll('.reveal, .rclip').forEach(el => io.observe(el));
 
 /* ── Gallery entrance ── */
 gsap.utils.toArray('.g-item').forEach((el, i) => {
   gsap.from(el, {
-    scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none reverse' },
-    y: 48, opacity: 0, duration: 0.85, ease: 'power3.out', delay: i * 0.07,
+    scrollTrigger: { trigger: el, start: 'top 90%', toggleActions: 'play none none reverse' },
+    y: 50, opacity: 0, duration: 0.85, ease: 'power3.out', delay: i * 0.07,
   });
 });
 
@@ -826,17 +801,17 @@ gsap.utils.toArray('.g-item').forEach((el, i) => {
 const pSplit = new SplitText('.pent-title', { type: 'words' });
 gsap.from(pSplit.words, {
   scrollTrigger: { trigger: '#penthouse', start: 'top 65%', toggleActions: 'play none none reverse' },
-  y: 64, opacity: 0, stagger: 0.09, duration: 1.05, ease: 'expo.out',
+  y: 68, opacity: 0, stagger: 0.1, duration: 1.1, ease: 'expo.out',
 });
 
 /* ── Penthouse parallax ── */
 gsap.to('.pent-img', {
-  y: 60, ease: 'none',
+  y: 70, ease: 'none',
   scrollTrigger: { trigger: '#penthouse', start: 'top bottom', end: 'bottom top', scrub: true },
 });
 
 /* ── Custom Cursor ── */
-(function() {
+(function () {
   if ('ontouchstart' in window) return;
   const dot  = document.getElementById('c-dot');
   const ring = document.getElementById('c-ring');
@@ -844,9 +819,9 @@ gsap.to('.pent-img', {
     gsap.to(dot,  { x: e.clientX, y: e.clientY, duration: 0.08, overwrite: true });
     gsap.to(ring, { x: e.clientX, y: e.clientY, duration: 0.28, ease: 'power2.out', overwrite: true });
   });
-  document.querySelectorAll('a,button,.floor-item,.g-item,[data-cursor]').forEach(el => {
+  document.querySelectorAll('a, button, .floor-item, .g-item, [data-cursor]').forEach(el => {
     el.addEventListener('mouseenter', () => gsap.to(ring, { scale: 2.2, opacity: 0.4, duration: 0.3 }));
-    el.addEventListener('mouseleave', () => gsap.to(ring, { scale: 1, opacity: 1, duration: 0.3 }));
+    el.addEventListener('mouseleave', () => gsap.to(ring, { scale: 1,   opacity: 1,   duration: 0.3 }));
   });
 })();
 
