@@ -108,8 +108,6 @@ nav.scrolled {
 }
 .nav-links a:hover { color: var(--cream); }
 .nav-links a:hover::after { transform: scaleX(1); }
-.nav-links a.nav-active { color: var(--gold); }
-.nav-links a.nav-active::after { transform: scaleX(1); }
 /* subtle floor numbers */
 .nav-links a .nav-num {
   font-size: 8px; letter-spacing: 0.1em;
@@ -546,11 +544,11 @@ html.js-loaded .rclip.in {
 <nav id="main-nav">
   <a href="#hero" class="nav-logo"><span>1</span>CLUB</a>
   <ul class="nav-links">
-    <li><a href="#manifesto"    data-section="manifesto"><em class="nav-num">01</em>About</a></li>
-    <li><a href="#floors-sticky" data-section="floors-sticky"><em class="nav-num">02</em>Floors</a></li>
-    <li><a href="#gallery"      data-section="gallery"><em class="nav-num">03</em>Inside</a></li>
-    <li><a href="#members"      data-section="members"><em class="nav-num">04</em>Membership</a></li>
-    <li><a href="#penthouse"    data-section="penthouse"><em class="nav-num">05</em>Penthouse</a></li>
+    <li><a href="#manifesto"><em class="nav-num">01</em>About</a></li>
+    <li><a href="#floors-sticky"><em class="nav-num">02</em>Floors</a></li>
+    <li><a href="#gallery"><em class="nav-num">03</em>Inside</a></li>
+    <li><a href="#members"><em class="nav-num">04</em>Membership</a></li>
+    <li><a href="#penthouse"><em class="nav-num">05</em>Penthouse</a></li>
   </ul>
   <a href="#members" class="nav-apply"><span>Apply</span></a>
 </nav>
@@ -903,50 +901,10 @@ const io = new IntersectionObserver(entries => {
 }, { threshold: 0.1 });
 document.querySelectorAll('.reveal, .rclip').forEach(el => io.observe(el));
 
-/* ── Nav scroll state + active section ── */
-(function () {
-  const nav        = document.getElementById('main-nav');
-  const navLinks   = document.querySelectorAll('.nav-links a[data-section]');
-  const floorsLink = document.querySelector('.nav-links a[data-section="floors-sticky"]');
-  let isNavigating = false;
-
-  // Frosted glass on scroll
-  lenis.on('scroll', function() {
-    nav.classList.toggle('scrolled', window.scrollY > 60);
-  });
-
-  // ScrollTrigger fires only at the enter/leave boundary — not every frame
-  // isNavigating flag suppresses it while a nav click is animating
-  function activateFloors() {
-    if (isNavigating) return;
-    navLinks.forEach(a => a.classList.remove('nav-active'));
-    floorsLink.classList.add('nav-active');
-  }
-  function deactivateFloors() {
-    if (isNavigating) return;
-    floorsLink.classList.remove('nav-active');
-  }
-
-  ScrollTrigger.create({
-    trigger: '#floors-sticky',
-    start: 'top top',
-    end: 'bottom bottom',
-    onEnter:     activateFloors,
-    onLeave:     deactivateFloors,
-    onEnterBack: activateFloors,
-    onLeaveBack: deactivateFloors,
-  });
-
-  // Click sets active instantly; flag suppresses floors callbacks for Lenis duration
-  navLinks.forEach(link => {
-    link.addEventListener('click', () => {
-      isNavigating = true;
-      navLinks.forEach(a => a.classList.remove('nav-active'));
-      link.classList.add('nav-active');
-      setTimeout(() => { isNavigating = false; }, 1400);
-    });
-  });
-})();
+/* ── Nav scroll state ── */
+lenis.on('scroll', function() {
+  document.getElementById('main-nav').classList.toggle('scrolled', window.scrollY > 60);
+});
 
 /* ── Gallery entrance ── */
 gsap.utils.toArray('.g-item').forEach((el, i) => {
