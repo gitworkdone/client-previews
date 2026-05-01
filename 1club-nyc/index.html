@@ -204,6 +204,11 @@ nav {
 }
 .floor-bg.active { opacity: 1; }
 /* floor-specific position overrides */
+#fbg-0 { background-size: 85%; background-position: right 42%; background-repeat: no-repeat; }
+#fbg-0::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 2;
+  background: linear-gradient(to right, #080604 0%, rgba(8,6,4,0.9) 10%, rgba(8,6,4,0.5) 20%, transparent 32%);
+}
 #fbg-1 { background-size: 85%; background-position: right 42%; background-repeat: no-repeat; }
 #fbg-1::after {
   content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 2;
