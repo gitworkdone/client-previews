@@ -905,17 +905,31 @@ document.querySelectorAll('.reveal, .rclip').forEach(el => io.observe(el));
 
 /* ── Nav scroll state + active section ── */
 (function () {
-  const nav = document.getElementById('main-nav');
-  const navLinks = document.querySelectorAll('.nav-links a[data-section]');
+  const nav        = document.getElementById('main-nav');
+  const navLinks   = document.querySelectorAll('.nav-links a[data-section]');
+  const floorsLink = document.querySelector('.nav-links a[data-section="floors-sticky"]');
+  const floorsSec  = document.getElementById('floors-sticky');
 
-  // Frosted glass on scroll
   lenis.on('scroll', ({ scroll }) => {
     nav.classList.toggle('scrolled', scroll > 60);
+
+    // Floors section owns the underline while it occupies the screen
+    const rect = floorsSec.getBoundingClientRect();
+    const insideFloors = rect.top <= 0 && rect.bottom > 0;
+
+    if (insideFloors) {
+      navLinks.forEach(a => a.classList.remove('nav-active'));
+      floorsLink.classList.add('nav-active');
+    } else {
+      floorsLink.classList.remove('nav-active');
+    }
   });
 
-  // Click-only active state — one winner, no exceptions
+  // Click-based for all other sections (blocked while inside floors)
   navLinks.forEach(link => {
     link.addEventListener('click', () => {
+      const rect = floorsSec.getBoundingClientRect();
+      if (rect.top <= 0 && rect.bottom > 0) return; // floors owns it
       navLinks.forEach(a => a.classList.remove('nav-active'));
       link.classList.add('nav-active');
     });
