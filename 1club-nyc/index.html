@@ -907,22 +907,13 @@ document.querySelectorAll('.reveal, .rclip').forEach(el => io.observe(el));
 (function () {
   const nav = document.getElementById('main-nav');
   const navLinks = document.querySelectorAll('.nav-links a[data-section]');
-  const sections = ['manifesto','floors-sticky','gallery','members','penthouse'];
-  const sectionEls = sections.map(id => document.getElementById(id)).filter(Boolean);
 
-  function updateActive() {
-    nav.classList.toggle('scrolled', window.scrollY > 60);
-    let current = '';
-    sectionEls.forEach(el => {
-      if (el.getBoundingClientRect().top <= window.innerHeight * 0.4) current = el.id;
-    });
-    navLinks.forEach(a => a.classList.toggle('nav-active', a.dataset.section === current));
-  }
+  // Frosted glass on scroll
+  lenis.on('scroll', ({ scroll }) => {
+    nav.classList.toggle('scrolled', scroll > 60);
+  });
 
-  // lenis.on fires every Lenis animation frame — reliable with smooth scroll
-  lenis.on('scroll', updateActive);
-  updateActive();
-
+  // Click-only active state — one winner, no exceptions
   navLinks.forEach(link => {
     link.addEventListener('click', () => {
       navLinks.forEach(a => a.classList.remove('nav-active'));
