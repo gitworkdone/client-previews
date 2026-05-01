@@ -914,17 +914,21 @@ document.querySelectorAll('.reveal, .rclip').forEach(el => io.observe(el));
     nav.classList.toggle('scrolled', window.scrollY > 60);
   }, { passive: true });
 
-  // Active link via IntersectionObserver
+  // Active link via IntersectionObserver — rootMargin narrows the trigger zone
+  // so only one section can be "active" at a time
   const sectionEls = sections.map(id => document.getElementById(id)).filter(Boolean);
   const activeIO = new IntersectionObserver(entries => {
     entries.forEach(entry => {
+      const link = document.querySelector(`.nav-links a[data-section="${entry.target.id}"]`);
+      if (!link) return;
       if (entry.isIntersecting) {
-        navLinks.forEach(a => {
-          a.classList.toggle('nav-active', a.dataset.section === entry.target.id);
-        });
+        navLinks.forEach(a => a.classList.remove('nav-active'));
+        link.classList.add('nav-active');
+      } else {
+        link.classList.remove('nav-active');
       }
     });
-  }, { threshold: 0.25 });
+  }, { rootMargin: '-10% 0px -80% 0px', threshold: 0 });
   sectionEls.forEach(el => activeIO.observe(el));
 })();
 
