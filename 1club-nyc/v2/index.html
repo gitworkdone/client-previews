@@ -198,23 +198,27 @@ nav {
 .floor-bg-track { position: absolute; inset: 0; }
 .floor-bg {
   position: absolute; inset: 0;
-  /* contain = never crop the image — full room always visible */
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: right center;
+  background-size: cover; background-position: center;
   background-color: var(--black);
   opacity: 0; transition: opacity 0.9s cubic-bezier(0.4,0,0.2,1);
 }
 .floor-bg.active { opacity: 1; }
-/* gradient fades out by 44% so the right 56% shows the full room */
+/* portrait user photos: scale to full viewport height, anchor right.
+   Full room shows edge-to-edge vertically, no top/bottom clipping. */
+.floor-bg.portrait {
+  background-size: auto 100%;
+  background-position: right center;
+  background-repeat: no-repeat;
+}
+/* gradient: solid for the text column, transparent before the portrait images begin */
 .floor-bg-gradient {
   position: absolute; inset: 0;
   background: linear-gradient(
     to right,
     rgba(8,6,4,0.98) 0%,
-    rgba(8,6,4,0.92) 28%,
-    rgba(8,6,4,0.55) 44%,
-    rgba(8,6,4,0.0)  58%
+    rgba(8,6,4,0.90) 30%,
+    rgba(8,6,4,0.45) 50%,
+    rgba(8,6,4,0.0)  64%
   );
   z-index: 1;
 }
@@ -534,8 +538,8 @@ html.js-loaded .rclip.in {
 <div id="floors-sticky">
   <div id="floors-pin">
     <div class="floor-bg-track">
-      <div class="floor-bg active" id="fbg-0" style="background-image:url('https://cdn.jsdelivr.net/gh/gitworkdone/client-previews@main/1club-nyc/assets/club2.png')"></div>
-    <div class="floor-bg" id="fbg-1" style="background-image:url('https://cdn.jsdelivr.net/gh/gitworkdone/client-previews@main/1club-nyc/assets/club1.png')"></div>
+      <div class="floor-bg portrait active" id="fbg-0" style="background-image:url('https://cdn.jsdelivr.net/gh/gitworkdone/client-previews@main/1club-nyc/assets/club2.png')"></div>
+    <div class="floor-bg portrait" id="fbg-1" style="background-image:url('https://cdn.jsdelivr.net/gh/gitworkdone/client-previews@main/1club-nyc/assets/club1.png')"></div>
     <div class="floor-bg" id="fbg-2" style="background-image:url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1400&q=85')"></div>
     <div class="floor-bg" id="fbg-3" style="background-image:url('https://images.unsplash.com/photo-1760598742492-7ad941e658e5?auto=format&fit=crop&w=1400&q=85')"></div>
     <div class="floor-bg" id="fbg-4" style="background-image:url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=1400&q=85')"></div>
