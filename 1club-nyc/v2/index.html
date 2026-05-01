@@ -793,18 +793,21 @@ ScrollTrigger.create({
     const n    = Math.min(5, Math.floor(prog * 6));
     setFloor(n);
 
-    // img0: glides 0 → -280px across its entire floor range (0 → 1/6)
+    // img0: 0 → -280px across floor 0 range (prog 0 → 1/6)
+    // rate = 280 / (1/6) = 1680 px per progress unit
     if (glideImg0) {
       const p0 = Math.max(0, Math.min(1, prog * 6));
       gsap.set(glideImg0, { x: -p0 * 280 });
     }
 
-    // img1: animation starts at prog=0 (floor 0) so it's already moving
-    // when floor 1 cross-fades in. Travels from +120px → -240px over prog 0 → 2/6.
-    // At prog=1/6 (floor 1 first visible): x ≈ -60px — mid-glide, feels continuous.
+    // img1: identical rate (1680 px/unit) so movement feels continuous through the cut.
+    // Kick off 80px-worth of travel before floor 1 appears so img1 is already in motion
+    // (x ≈ 0) when floor 1 first cross-fades in, then carries on to -280px at prog=2/6.
     if (glideImg1) {
-      const p1 = Math.max(0, Math.min(1, prog / (2/6)));
-      gsap.set(glideImg1, { x: 120 - p1 * 360 });
+      const RATE    = 1680;
+      const P1_START = 1/6 - 80/RATE;        // starts moving just before floor 1 appears
+      const raw     = 80 - RATE * Math.max(0, prog - P1_START);
+      gsap.set(glideImg1, { x: Math.max(-280, raw) });
     }
   },
 });
