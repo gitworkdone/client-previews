@@ -198,18 +198,23 @@ nav {
 .floor-bg-track { position: absolute; inset: 0; }
 .floor-bg {
   position: absolute; inset: 0;
-  background-size: cover; background-position: center;
+  /* contain = never crop the image — full room always visible */
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-color: var(--black);
   opacity: 0; transition: opacity 0.9s cubic-bezier(0.4,0,0.2,1);
 }
 .floor-bg.active { opacity: 1; }
-/* overlay that makes left side legible over any background */
+/* gradient fades out by 44% so the right 56% shows the full room */
 .floor-bg-gradient {
   position: absolute; inset: 0;
   background: linear-gradient(
     to right,
-    rgba(8,6,4,0.94) 0%,
-    rgba(8,6,4,0.6)  48%,
-    rgba(8,6,4,0.1)  100%
+    rgba(8,6,4,0.98) 0%,
+    rgba(8,6,4,0.92) 28%,
+    rgba(8,6,4,0.55) 44%,
+    rgba(8,6,4,0.0)  58%
   );
   z-index: 1;
 }
