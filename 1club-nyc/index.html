@@ -737,6 +737,7 @@ document.documentElement.classList.add('js-loaded');
 
 /* ── SplitText Hero ── */
 const heroSplit = new SplitText('#hero-name', { type: 'chars' });
+heroSplit.chars[0].style.color = 'var(--gold)';
 gsap.from(heroSplit.chars, {
   y: 140, opacity: 0,
   stagger: 0.025, duration: 1.2, ease: 'expo.out', delay: 0.2,
