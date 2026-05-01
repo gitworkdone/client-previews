@@ -225,6 +225,33 @@ nav {
   );
   z-index: 1;
 }
+/* atmosphere bleeds — portrait floors only, renders above dark overlay */
+.floor-atmo {
+  position: absolute; inset: 0; z-index: 1;
+  pointer-events: none;
+  opacity: 0; transition: opacity 0.9s cubic-bezier(0.4,0,0.2,1);
+}
+.floor-atmo.active { opacity: 1; }
+/* floor 01: chandelier lobby — warm champagne / amber gold */
+.fatmo-0 {
+  background: linear-gradient(to left,
+    rgba(8,6,4,0)          0%,
+    rgba(195,158,75,0.0)   30%,
+    rgba(195,158,75,0.44)  48%,
+    rgba(185,148,65,0.20)  63%,
+    rgba(8,6,4,0)          78%
+  );
+}
+/* floor 02: bar & salon — deep bourbon / amber sienna */
+.fatmo-1 {
+  background: linear-gradient(to left,
+    rgba(8,6,4,0)          0%,
+    rgba(165,88,28,0.0)    30%,
+    rgba(165,88,28,0.52)   48%,
+    rgba(145,72,20,0.24)   63%,
+    rgba(8,6,4,0)          78%
+  );
+}
 .floors-ui {
   position: absolute; inset: 0; z-index: 2;
   display: flex; align-items: center;
@@ -549,6 +576,8 @@ html.js-loaded .rclip.in {
     <div class="floor-bg" id="fbg-5" style="background-image:url('https://images.unsplash.com/photo-1642266119404-3bcf85d2f8bb?auto=format&fit=crop&w=1920&q=85')"></div>
       <div class="floor-bg-gradient"></div>
     </div>
+    <div class="floor-atmo fatmo-0 active"></div>
+    <div class="floor-atmo fatmo-1"></div>
     <div class="floors-ui">
       <div class="floors-left">
         <div class="eyebrow">Six Floors</div>
@@ -772,11 +801,13 @@ function setFloor(n) {
   document.querySelector('.floor-item.active')?.classList.remove('active');
   document.querySelector('.floor-bg.active')?.classList.remove('active');
   document.querySelector('.floor-desc.active')?.classList.remove('active');
+  document.querySelector('.floor-atmo.active')?.classList.remove('active');
   activeFloor = n;
   document.querySelector(`.floor-item[data-floor="${n}"]`).classList.add('active');
   document.getElementById(`fbg-${n}`).classList.add('active');
   document.getElementById(`fdesc-${n}`).classList.add('active');
   document.getElementById('floor-num-bg').textContent = floorNums[n];
+  if (n < 2) document.getElementById(`fatmo-${n}`).classList.add('active');
 }
 
 const portraitImg0 = document.getElementById('fbg-img-0');
