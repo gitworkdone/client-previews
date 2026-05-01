@@ -98,7 +98,7 @@ nav.scrolled {
   transition: color 0.25s;
   position: relative;
 }
-/* sliding underline on hover */
+/* underline only on clicked link — hover just brightens color, no line */
 .nav-links a::after {
   content: '';
   position: absolute; bottom: -1px; left: 18px; right: 18px;
@@ -107,7 +107,8 @@ nav.scrolled {
   transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
 }
 .nav-links a:hover { color: var(--cream); }
-.nav-links a:hover::after { transform: scaleX(1); }
+.nav-links a.nav-active { color: var(--gold); }
+.nav-links a.nav-active::after { transform: scaleX(1); }
 /* subtle floor numbers */
 .nav-links a .nav-num {
   font-size: 8px; letter-spacing: 0.1em;
@@ -901,10 +902,19 @@ const io = new IntersectionObserver(entries => {
 }, { threshold: 0.1 });
 document.querySelectorAll('.reveal, .rclip').forEach(el => io.observe(el));
 
-/* ── Nav scroll state ── */
-lenis.on('scroll', function() {
-  document.getElementById('main-nav').classList.toggle('scrolled', window.scrollY > 60);
-});
+/* ── Nav scroll state + click-active ── */
+(function () {
+  lenis.on('scroll', function() {
+    document.getElementById('main-nav').classList.toggle('scrolled', window.scrollY > 60);
+  });
+  const navLinks = document.querySelectorAll('.nav-links a');
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks.forEach(a => a.classList.remove('nav-active'));
+      link.classList.add('nav-active');
+    });
+  });
+})();
 
 /* ── Gallery entrance ── */
 gsap.utils.toArray('.g-item').forEach((el, i) => {
