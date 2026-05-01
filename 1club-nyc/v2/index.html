@@ -203,6 +203,8 @@ nav {
   opacity: 0; transition: opacity 0.9s cubic-bezier(0.4,0,0.2,1);
 }
 .floor-bg.active { opacity: 1; }
+/* floor-specific position overrides */
+#fbg-1 { background-position: left center; }
 /* portrait: no bg on the outer div — image is inside .floor-bg-img child */
 .floor-bg.portrait { background-image: none !important; overflow: hidden; }
 /* inner div carries the image so we can translateX it without touching opacity */
