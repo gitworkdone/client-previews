@@ -782,17 +782,19 @@ function setFloor(n) {
 const glideImg0 = document.getElementById('fbg-img-0');
 const glideImg1 = document.getElementById('fbg-img-1');
 
-// img1 is static — pre-position it so its left image edge aligns with
-// where img0's left image edge lands after its full -280px glide.
-// Both images use background-size:auto 100%, so rendered width = ratio * vh.
+// img1 is static. Use background-position (not transform) so there's no
+// overflow/clipping ambiguity. Place img1's left edge exactly where img0's
+// left edge lands after its -280px glide, then stretch img1 rightward to
+// fill the viewport edge (no black gap on the right).
 if (glideImg1) {
-  const vh          = window.innerHeight;
-  const img0_w      = (736 / 1440) * vh;   // club1.png at 100vh
-  const img1_w      = (864 / 1216) * vh;   // club2.png at 100vh
-  // img0 left edge at end = viewport_w - 280 - img0_w
-  // img1 left edge natural = viewport_w - img1_w
-  // offset needed so they align: -280 + (img1_w - img0_w)
-  gsap.set(glideImg1, { x: -280 + (img1_w - img0_w) });
+  const vh   = window.innerHeight;
+  const vw   = window.innerWidth;
+  // img0: rendered width = (736/1440)*vh. Inner div ends at vw-280 after glide.
+  const img0_w     = (736 / 1440) * vh;
+  const targetLeft = (vw - 280) - img0_w;  // pixel x where img0's left edge lands
+  const reqWidth   = vw - targetLeft;       // stretch img1 to fill right to viewport edge
+  glideImg1.style.backgroundPosition = targetLeft + 'px center';
+  glideImg1.style.backgroundSize     = reqWidth   + 'px auto';
 }
 
 ScrollTrigger.create({
