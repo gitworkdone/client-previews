@@ -908,30 +908,42 @@ document.querySelectorAll('.reveal, .rclip').forEach(el => io.observe(el));
   const nav        = document.getElementById('main-nav');
   const navLinks   = document.querySelectorAll('.nav-links a[data-section]');
   const floorsLink = document.querySelector('.nav-links a[data-section="floors-sticky"]');
-  const floorsSec  = document.getElementById('floors-sticky');
+  let isNavigating = false;
 
-  lenis.on('scroll', ({ scroll }) => {
-    nav.classList.toggle('scrolled', scroll > 60);
-
-    // Floors section owns the underline while it occupies the screen
-    const rect = floorsSec.getBoundingClientRect();
-    const insideFloors = rect.top <= 0 && rect.bottom > 0;
-
-    if (insideFloors) {
-      navLinks.forEach(a => a.classList.remove('nav-active'));
-      floorsLink.classList.add('nav-active');
-    } else {
-      floorsLink.classList.remove('nav-active');
-    }
+  // Frosted glass on scroll
+  lenis.on('scroll', function() {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
   });
 
-  // Click-based for all other sections (blocked while inside floors)
+  // ScrollTrigger fires only at the enter/leave boundary — not every frame
+  // isNavigating flag suppresses it while a nav click is animating
+  function activateFloors() {
+    if (isNavigating) return;
+    navLinks.forEach(a => a.classList.remove('nav-active'));
+    floorsLink.classList.add('nav-active');
+  }
+  function deactivateFloors() {
+    if (isNavigating) return;
+    floorsLink.classList.remove('nav-active');
+  }
+
+  ScrollTrigger.create({
+    trigger: '#floors-sticky',
+    start: 'top top',
+    end: 'bottom bottom',
+    onEnter:     activateFloors,
+    onLeave:     deactivateFloors,
+    onEnterBack: activateFloors,
+    onLeaveBack: deactivateFloors,
+  });
+
+  // Click sets active instantly; flag suppresses floors callbacks for Lenis duration
   navLinks.forEach(link => {
     link.addEventListener('click', () => {
-      const rect = floorsSec.getBoundingClientRect();
-      if (rect.top <= 0 && rect.bottom > 0) return; // floors owns it
+      isNavigating = true;
       navLinks.forEach(a => a.classList.remove('nav-active'));
       link.classList.add('nav-active');
+      setTimeout(() => { isNavigating = false; }, 1400);
     });
   });
 })();
