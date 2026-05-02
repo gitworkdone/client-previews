@@ -1260,14 +1260,14 @@ document.getElementById('copyright-year').textContent = new Date().getFullYear()
   if(!headline) return;
   const split = new SplitText(headline, { type:'chars,words,lines' });
   gsap.from(split.chars, {
-    y:120, opacity:0, stagger:0.025, duration:1.1,
+    y:120, stagger:0.025, duration:1.1,
     ease:'expo.out', delay:0.3
   });
   // Eyebrow + sub
-  gsap.from('.hero-eyebrow', { y:30, opacity:0, duration:0.9, delay:0.6, ease:'expo.out' });
-  gsap.from('.hero-sub', { y:30, opacity:0, duration:0.9, delay:0.75, ease:'expo.out' });
-  gsap.from('.hero-cta-row', { y:30, opacity:0, duration:0.9, delay:0.9, ease:'expo.out' });
-  gsap.from('.hero-stats .hero-stat-item', { y:20, opacity:0, stagger:0.1, duration:0.8, delay:1.1, ease:'expo.out' });
+  gsap.from('.hero-eyebrow', { y:30, duration:0.9, delay:0.6, ease:'expo.out' });
+  gsap.from('.hero-sub', { y:30, duration:0.9, delay:0.75, ease:'expo.out' });
+  gsap.from('.hero-cta-row', { y:30, duration:0.9, delay:0.9, ease:'expo.out' });
+  gsap.from('.hero-stats .hero-stat-item', { y:20, stagger:0.1, duration:0.8, delay:1.1, ease:'expo.out' });
 })();
 
 // ── NAV SCROLL BEHAVIOR ──
@@ -1314,7 +1314,7 @@ document.getElementById('copyright-year').textContent = new Date().getFullYear()
 // Services cards
 gsap.from('.service-card', {
   scrollTrigger:{ trigger:'#services .services-grid', start:'top 80%', toggleActions:'play none none reverse' },
-  y:50, opacity:0, duration:0.8, ease:'power3.out', stagger:0.1
+  y:50, duration:0.8, ease:'power3.out', stagger:0.1
 });
 
 // About image clip reveal
@@ -1351,7 +1351,7 @@ gsap.to('.process-img', {
 // Testimonials scrub
 gsap.from('.testi-card', {
   scrollTrigger:{ trigger:'#testimonials .testimonials-grid', start:'top 82%', toggleActions:'play none none reverse' },
-  y:40, opacity:0, duration:0.8, ease:'power3.out', stagger:0.12
+  y:40, duration:0.8, ease:'power3.out', stagger:0.12
 });
 
 // CTA section pin-like parallax
@@ -1445,5 +1445,15 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
 </script>
 
 <div id="gwp-switcher" style="position:fixed;bottom:20px;right:20px;z-index:2147483647;display:flex;flex-direction:column;align-items:flex-end;gap:5px;font-family:-apple-system,BlinkMacSystemFont,'Inter',sans-serif;"><div style="font-size:9px;letter-spacing:0.14em;color:rgba(255,255,255,0.3);text-transform:uppercase;padding-right:3px;">gitworkdone &middot; palette</div><div style="background:rgba(8,8,8,0.88);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,0.1);border-radius:50px;padding:5px;display:flex;gap:3px;box-shadow:0 8px 32px rgba(0,0,0,0.55);"><button id="gwp-a-btn" onclick="gwpSet('a')" style="border:none;border-radius:50px;padding:7px 15px;cursor:pointer;display:flex;align-items:center;gap:7px;font-size:11px;font-weight:600;letter-spacing:0.05em;background:rgba(255,255,255,0.13);color:#fff;line-height:1;"><span style="width:10px;height:10px;border-radius:50%;background:#a87a52;flex-shrink:0;border:1px solid rgba(255,255,255,0.2);display:inline-block;"></span>Design A</button><button id="gwp-b-btn" onclick="gwpSet('b')" style="border:none;border-radius:50px;padding:7px 15px;cursor:pointer;display:flex;align-items:center;gap:7px;font-size:11px;font-weight:600;letter-spacing:0.05em;background:transparent;color:rgba(255,255,255,0.38);line-height:1;"><span style="width:10px;height:10px;border-radius:50%;background:#6A9EC4;flex-shrink:0;border:1px solid rgba(255,255,255,0.2);display:inline-block;"></span>Design B</button></div></div><script>(function(){function gwpSet(p){var root=document.documentElement;root.setAttribute('data-palette-anim','');if(p==='a'){root.removeAttribute('data-palette');}else{root.setAttribute('data-palette','b');}setTimeout(function(){root.removeAttribute('data-palette-anim');},400);var a=document.getElementById('gwp-a-btn'),b=document.getElementById('gwp-b-btn');if(p==='a'){a.style.background='rgba(255,255,255,0.13)';a.style.color='#fff';b.style.background='transparent';b.style.color='rgba(255,255,255,0.38)';}else{b.style.background='rgba(255,255,255,0.13)';b.style.color='#fff';a.style.background='transparent';a.style.color='rgba(255,255,255,0.38)';}}window.gwpSet=gwpSet;})();</script>
+
+<script>
+// Safety: if GSAP ScrollTrigger fails to fire, reveal all content after 2s
+setTimeout(function(){
+  document.querySelectorAll('.reveal, .service-card, .about-image, .gallery-item, .testimonial-card, .process-step, .area-card, .team-member').forEach(function(el){
+    el.style.opacity = '1';
+    el.style.transform = 'none';
+  });
+}, 2000);
+</script>
 </body>
 </html>
