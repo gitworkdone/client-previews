@@ -53,6 +53,7 @@ body {
 /* ── STICKY CALL BAR ── */
 #call-bar{
   position:fixed;top:0;left:0;right:0;
+  transition:transform 0.3s ease;
   background:var(--accent);
   color:#fff;
   font-family:var(--font-body);
@@ -692,8 +693,9 @@ html[data-palette-anim] *, html[data-palette-anim] *::before, html[data-palette-
 /* Nav contrast fix: white text over hero image, dark text when scrolled */
 #main-nav:not(.scrolled) .nav-logo,
 #main-nav:not(.scrolled) .nav-logo span { color: #fff; text-shadow: 0 1px 4px rgba(0,0,0,0.6); }
-#main-nav:not(.scrolled) .nav-link { color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,0.5); }
-#main-nav:not(.scrolled) .hamburger-line { background: #fff; }
+#main-nav:not(.scrolled) .nav-links a { color: #fff !important; text-shadow: 0 1px 3px rgba(0,0,0,0.5); }
+#main-nav:not(.scrolled) .hamburger-line,
+#main-nav:not(.scrolled) .hamburger span { background: #fff !important; }
 /* Add a subtle gradient behind nav for readability */
 #main-nav::before {
   content: '';
@@ -1297,9 +1299,11 @@ document.getElementById('copyright-year').textContent = new Date().getFullYear()
     if(window.scrollY > 60){
       nav.classList.add('scrolled');
       nav.style.top = '0';
+      document.getElementById('call-bar').style.transform = 'translateY(-100%)';
     } else {
       nav.classList.remove('scrolled');
       nav.style.top = callBarH + 'px';
+      document.getElementById('call-bar').style.transform = 'translateY(0)';
     }
   }, { passive:true });
   // set initial top
