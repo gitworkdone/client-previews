@@ -36,13 +36,13 @@ html[data-palette="b"]{
   --accent-dark:#4f84aa;
 }
 
-body{
+body {
   background:var(--bg);
   color:var(--text);
   font-family:var(--font-body);
   font-size:16px;
   line-height:1.6;
-  cursor:none;
+  
 }
 
 /* ── SCROLLBAR ── */
@@ -1391,22 +1391,7 @@ gsap.to('#estimate .ghost-text', {
 })();
 
 // ── MAGNETIC CTA BUTTON ──
-(function(){
-  if('ontouchstart' in window) return;
-  const btn = document.getElementById('main-cta');
-  if(!btn) return;
-  btn.addEventListener('mousemove', function(e){
-    const r = btn.getBoundingClientRect();
-    const cx = r.left + r.width/2;
-    const cy = r.top + r.height/2;
-    const dx = e.clientX - cx;
-    const dy = e.clientY - cy;
-    gsap.to(btn, { x:dx*0.35, y:dy*0.35, duration:0.4, ease:'power2.out', overwrite:true });
-  });
-  btn.addEventListener('mouseleave', function(){
-    gsap.to(btn, { x:0, y:0, duration:0.7, ease:'elastic.out(1,0.3)', overwrite:true });
-  });
-})();
+
 
 // ── FORM SUBMIT ──
 document.getElementById('estimate-form').addEventListener('submit', function(e){
@@ -1454,6 +1439,24 @@ setTimeout(function(){
     el.style.transform = 'none';
   });
 }, 2000);
+</script>
+
+<script>
+// Ensure all reveal/section elements are visible — kill GSAP opacity tweens after init
+window.addEventListener('load', function() {
+  setTimeout(function() {
+    var els = document.querySelectorAll('.reveal, .service-card, .about-image, .gallery-item, .testimonial-card, .process-step, .area-card, .team-member, .stat-item');
+    if (typeof gsap !== 'undefined') {
+      gsap.killTweensOf(els);
+      if (typeof ScrollTrigger !== 'undefined') {
+        ScrollTrigger.getAll().filter(function(st) {
+          return st.vars && (st.vars.opacity === 0 || (st.vars.from && st.vars.from.opacity === 0));
+        }).forEach(function(st) { st.kill(); });
+      }
+    }
+    els.forEach(function(el) { el.style.opacity = '1'; el.style.transform = 'none'; });
+  }, 100);
+});
 </script>
 </body>
 </html>
