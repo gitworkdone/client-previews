@@ -17,7 +17,7 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html,body{overflow-x:hidden;scroll-behavior:auto}
-html.js-loaded .reveal{opacity:0;transform:translateY(30px);transition:opacity 0.7s ease,transform 0.7s ease}
+/* .reveal visible by default — GSAP ScrollTrigger owns entrance animation */
 html.js-loaded .reveal.visible{opacity:1;transform:none}
 
 :root{
@@ -1308,14 +1308,7 @@ document.getElementById('copyright-year').textContent = new Date().getFullYear()
   });
 })();
 
-// ── REVEAL (IntersectionObserver fallback for non-GSAP elements) ──
-(function(){
-  const els = document.querySelectorAll('.reveal');
-  const obs = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
-  }, { threshold:0.12 });
-  els.forEach(el => obs.observe(el));
-})();
+// ── REVEAL (/* IO removed — GSAP+Lenis owns reveals */
 
 // ── SECTION SCROLL ANIMATIONS (GSAP) ──
 // Services cards
