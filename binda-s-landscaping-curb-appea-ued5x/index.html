@@ -6,7 +6,7 @@
 <title>Binda's Landscaping — Curb Appeal & Clean Lines for Atlanta Homes</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13/dist/ScrollTrigger.min.js"></script>
@@ -14,1522 +14,929 @@
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13/dist/MorphSVGPlugin.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13/dist/Flip.min.js"></script>
 <style>
-/* ============================================================
-   CSS CUSTOM PROPERTIES
-   ============================================================ */
 :root {
-  --bg:           #FFF8ED;
-  --bg-alt:       #F5EDD8;
-  --bg-dark:      #1F1510;
-  --text:         #3D2B1F;
-  --text-light:   #7A6152;
-  --text-muted:   #A8917E;
-  --accent:       #C47C3E;
-  --accent-dark:  #A3611F;
-  --accent-light: #E0A060;
-  --accent-glow:  rgba(196,124,62,0.25);
-  --forest:       #2C4A1E;
-  --forest-mid:   #3D6B2A;
-  --sage:         #7A9E5F;
-  --sage-light:   #A8C490;
-  --cream:        #FFF8ED;
-  --stone:        #8A8070;
-  --border:       rgba(196,124,62,0.2);
-  --border-light: rgba(61,43,31,0.08);
-  --radius-sm:    8px;
-  --radius-md:    16px;
-  --radius-lg:    24px;
-  --shadow-sm:    0 2px 12px rgba(61,43,31,0.08);
-  --shadow-md:    0 8px 32px rgba(61,43,31,0.12);
-  --shadow-lg:    0 20px 60px rgba(61,43,31,0.16);
-  --font-head:    'Playfair Display', Georgia, serif;
-  --font-body:    'Lato', system-ui, sans-serif;
-  --nav-h:        72px;
+  --bg: #F4F9F1;
+  --bg-alt: #EAF3E4;
+  --bg-dark: #0F2318;
+  --text: #1A3020;
+  --text-light: #4A6358;
+  --accent: #2D7A3A;
+  --accent-dark: #1F5A2A;
+  --accent-hover: #3A9A4A;
+  --gold: #B8972A;
+  --gold-light: #D4AF48;
+  --cream: #F7F4EE;
+  --stone: #8A9A85;
+  --border: rgba(45,122,58,0.15);
+  --shadow: 0 4px 32px rgba(15,35,24,0.10);
+  --shadow-lg: 0 12px 60px rgba(15,35,24,0.16);
+  --nav-h: 72px;
+  --font-head: 'Oswald', sans-serif;
+  --font-body: 'Open Sans', sans-serif;
+  --radius: 4px;
+  --transition: 0.28s cubic-bezier(0.4,0,0.2,1);
 }
 
 html[data-palette="b"] {
-  /* Palette B: "Moss & Slate" — complementary cool-green shift */
-  --accent:       #3E8C6E;
-  --accent-dark:  #2B6B52;
-  --accent-light: #5EB896;
-  --accent-glow:  rgba(62,140,110,0.25);
-  --border:       rgba(62,140,110,0.2);
+  /* Palette B: "Ember Dusk" — warm terracotta accent, 150° from forest green */
+  --accent: #A0522D;
+  --accent-dark: #7A3D20;
+  --accent-hover: #C06030;
+  --gold: #2D7A6A;
+  --gold-light: #3A9A88;
+  --border: rgba(160,82,45,0.15);
 }
 
-/* ============================================================
-   RESET & BASE
-   ============================================================ */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; overflow-x: hidden; }
-body {
-  font-family: var(--font-body);
-  background: var(--bg);
-  color: var(--text);
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-}
-img { max-width: 100%; display: block; }
-a { color: inherit; text-decoration: none; }
-button { font-family: var(--font-body); cursor: pointer; border: none; background: none; }
-
-/* ============================================================
-   REVEAL ANIMATION (progressive enhancement)
-   ============================================================ */
-html.js-loaded .reveal {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
-}
-html.js-loaded .reveal.visible {
-  opacity: 1;
-  transform: none;
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html,body{overflow-x:hidden;scroll-behavior:auto;}
+html{font-size:16px;}
+body{
+  font-family:var(--font-body);
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.65;
+  cursor: auto;
 }
 
-/* ============================================================
-   TYPOGRAPHY SCALE
-   ============================================================ */
-h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.05; }
-h1 { font-size: clamp(52px, 9vw, 120px); letter-spacing: -0.04em; font-weight: 900; line-height: 0.93; }
-h2 { font-size: clamp(36px, 5vw, 72px); letter-spacing: -0.03em; font-weight: 700; }
-h3 { font-size: clamp(22px, 2.8vw, 36px); font-weight: 700; }
-h4 { font-size: clamp(16px, 1.8vw, 22px); font-weight: 700; }
-p  { font-size: clamp(15px, 1.4vw, 17px); line-height: 1.72; color: var(--text-light); }
+/* ── TYPOGRAPHY ── */
+h1,h2,h3,h4,h5{font-family:var(--font-head);line-height:0.94;letter-spacing:-0.02em;font-weight:700;}
+h1{font-size:clamp(3.2rem,8vw,7.2rem);letter-spacing:-0.04em;line-height:0.92;}
+h2{font-size:clamp(2.2rem,5vw,4rem);}
+h3{font-size:clamp(1.4rem,2.5vw,2rem);}
+h4{font-size:clamp(1.1rem,1.8vw,1.4rem);}
+p{font-size:clamp(0.95rem,1.4vw,1.05rem);line-height:1.75;}
 
-.eyebrow {
-  font-family: var(--font-body);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--accent);
-  display: block;
-  margin-bottom: 16px;
-}
+/* ── LAYOUT ── */
+.container{width:100%;max-width:1280px;margin:0 auto;padding:0 clamp(20px,4vw,64px);}
+.section{padding:clamp(64px,8vw,120px) 0;}
+img{max-width:100%;display:block;}
 
-/* ============================================================
-   STICKY NAVIGATION
-   ============================================================ */
-#nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  height: var(--nav-h);
-  z-index: 9000;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 clamp(20px, 5vw, 60px);
-  transition: background 0.4s ease, box-shadow 0.4s ease, height 0.4s ease;
-}
-#nav.scrolled {
-  background: rgba(255,248,237,0.96);
-  backdrop-filter: blur(16px);
-  box-shadow: 0 1px 0 var(--border-light), 0 4px 24px rgba(61,43,31,0.08);
-  height: 60px;
-}
-.nav-logo {
-  font-family: var(--font-head);
-  font-size: clamp(18px, 2vw, 22px);
-  font-weight: 700;
-  color: var(--text);
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  z-index: 9001;
-}
-.nav-logo-mark {
-  width: 36px; height: 36px;
-  background: linear-gradient(135deg, var(--forest), var(--sage));
-  border-radius: 8px;
-  display: flex; align-items: center; justify-content: center;
-}
-.nav-logo-mark svg { width: 20px; height: 20px; fill: #fff; }
+/* ── PROGRESSIVE REVEAL ── */
+html.js-loaded .reveal{opacity:0;transform:translateY(30px);transition:opacity 0.7s ease,transform 0.7s ease;}
+html.js-loaded .reveal.visible{opacity:1;transform:none;}
 
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: clamp(24px, 3vw, 40px);
-  list-style: none;
-}
-.nav-links a {
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  color: var(--text);
-  opacity: 0.75;
-  transition: opacity 0.2s, color 0.2s;
-}
-.nav-links a:hover { opacity: 1; color: var(--accent); }
+/* ─────────────────────────────────────────
+   CUSTOM CURSOR
+───────────────────────────────────────── */
+#c-dot,#c-ring{position:fixed;border-radius:50%;pointer-events:none;z-index:99999;}
+#c-dot{width:6px;height:6px;background:var(--accent);transform:translate(-50%,-50%);mix-blend-mode:multiply;}
+#c-ring{width:30px;height:30px;border:1.5px solid rgba(45,122,58,0.55);transform:translate(-50%,-50%);transition:width 0.3s,height 0.3s;}
 
-.nav-cta {
-  background: linear-gradient(135deg, var(--accent), var(--accent-dark));
-  color: #fff !important;
-  opacity: 1 !important;
-  padding: 10px 22px;
-  border-radius: 100px;
-  font-size: 13px !important;
-  font-weight: 700 !important;
-  letter-spacing: 0.06em;
-  box-shadow: 0 4px 16px var(--accent-glow);
-  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+/* ─────────────────────────────────────────
+   NAVIGATION
+───────────────────────────────────────── */
+#nav{
+  position:fixed;top:0;left:0;right:0;z-index:9000;
+  height:var(--nav-h);
+  display:flex;align-items:center;
+  transition:background var(--transition),box-shadow var(--transition),height var(--transition);
 }
-.nav-cta:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px var(--accent-glow) !important;
+#nav.scrolled{
+  background:rgba(244,249,241,0.95);
+  backdrop-filter:blur(16px);
+  box-shadow:0 1px 0 var(--border), var(--shadow);
+  height:60px;
 }
-
-.hamburger {
-  display: none;
-  flex-direction: column;
-  gap: 5px;
-  width: 44px; height: 44px;
-  align-items: center;
-  justify-content: center;
-  z-index: 9002;
-  border-radius: 8px;
-  transition: background 0.2s;
+.nav-inner{
+  width:100%;max-width:1280px;margin:0 auto;
+  padding:0 clamp(20px,4vw,64px);
+  display:flex;align-items:center;justify-content:space-between;
 }
-.hamburger:hover { background: var(--bg-alt); }
-.hamburger span {
-  display: block;
-  width: 22px; height: 2px;
-  background: var(--text);
-  border-radius: 2px;
-  transition: transform 0.3s ease, opacity 0.3s ease;
+.nav-logo{
+  font-family:var(--font-head);font-weight:700;font-size:clamp(1.2rem,2vw,1.5rem);
+  color:var(--text);text-decoration:none;letter-spacing:-0.01em;
+  display:flex;align-items:center;gap:10px;
 }
-.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-.hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-.mobile-menu {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: var(--bg);
-  z-index: 8999;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 32px;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
+.nav-logo-mark{
+  width:34px;height:34px;background:var(--accent);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
 }
-.mobile-menu.open {
-  opacity: 1;
-  pointer-events: auto;
+.nav-logo-mark svg{width:18px;height:18px;fill:#fff;}
+.nav-logo span{color:var(--accent);}
+.nav-links{display:flex;align-items:center;gap:clamp(20px,3vw,36px);list-style:none;}
+.nav-links a{
+  font-family:var(--font-body);font-size:0.85rem;font-weight:600;
+  color:var(--text-light);text-decoration:none;letter-spacing:0.06em;text-transform:uppercase;
+  transition:color var(--transition);position:relative;
 }
-.mobile-menu a {
-  font-family: var(--font-head);
-  font-size: clamp(28px, 6vw, 44px);
-  font-weight: 700;
-  color: var(--text);
-  letter-spacing: -0.02em;
-  transition: color 0.2s;
+.nav-links a::after{
+  content:'';position:absolute;bottom:-3px;left:0;width:0;height:1.5px;
+  background:var(--accent);transition:width var(--transition);
 }
-.mobile-menu a:hover { color: var(--accent); }
-
-/* Click-to-call strip (mobile sticky top) */
-.mobile-call-bar {
-  display: none;
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  height: 40px;
-  background: var(--forest);
-  color: #fff;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  z-index: 9100;
-  text-decoration: none;
+.nav-links a:hover{color:var(--accent);}
+.nav-links a:hover::after{width:100%;}
+.nav-cta{
+  background:var(--gold);color:#fff!important;
+  padding:10px 22px;border-radius:2px;
+  font-family:var(--font-head)!important;font-weight:400!important;font-size:0.9rem!important;
+  letter-spacing:0.1em!important;text-transform:uppercase!important;
+  transition:background var(--transition),transform var(--transition),box-shadow var(--transition)!important;
+  box-shadow:0 2px 12px rgba(184,151,42,0.28);
 }
-.mobile-call-bar svg { width: 14px; height: 14px; fill: var(--accent-light); }
-
-/* Sticky bottom quote CTA (mobile) */
-.mobile-quote-bar {
-  display: none;
-  position: fixed;
-  bottom: 0; left: 0; right: 0;
-  padding: 12px 20px;
-  background: var(--bg);
-  border-top: 1px solid var(--border);
-  z-index: 9100;
-  box-shadow: 0 -4px 20px rgba(61,43,31,0.1);
+.nav-cta::after{display:none!important;}
+.nav-cta:hover{background:var(--gold-light)!important;transform:translateY(-1px);box-shadow:0 4px 20px rgba(184,151,42,0.42)!important;}
+.nav-hamburger{
+  display:none;flex-direction:column;gap:5px;cursor:pointer;
+  background:none;border:none;padding:8px;
 }
-.mobile-quote-bar a {
-  display: block;
-  background: linear-gradient(135deg, var(--accent), var(--accent-dark));
-  color: #fff;
-  text-align: center;
-  padding: 14px;
-  border-radius: 100px;
-  font-weight: 700;
-  font-size: 15px;
-  letter-spacing: 0.04em;
-  box-shadow: 0 4px 16px var(--accent-glow);
+.nav-hamburger span{
+  display:block;width:24px;height:2px;background:var(--text);
+  transition:transform var(--transition),opacity var(--transition);
+  transform-origin:center;
+}
+.nav-hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.nav-hamburger.open span:nth-child(2){opacity:0;}
+.nav-hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.nav-mobile{
+  display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:8999;
+  background:var(--bg);flex-direction:column;align-items:center;justify-content:center;gap:32px;
+}
+.nav-mobile.open{display:flex;}
+.nav-mobile a{
+  font-family:var(--font-head);font-size:clamp(2rem,8vw,3rem);font-weight:700;
+  color:var(--text);text-decoration:none;transition:color var(--transition);
+}
+.nav-mobile a:hover{color:var(--accent);}
+.nav-mobile-cta{
+  margin-top:16px;background:var(--gold)!important;color:#fff!important;
+  padding:14px 40px!important;font-size:1.1rem!important;
+  border-radius:2px;letter-spacing:0.1em;
+}
+/* Sticky call CTA mobile */
+.sticky-call{
+  display:none;position:fixed;top:0;left:0;right:0;z-index:9100;
+  background:var(--accent);color:#fff;
+  text-align:center;padding:10px;font-size:0.85rem;font-weight:600;
+  font-family:var(--font-body);letter-spacing:0.04em;
+}
+.sticky-call a{color:#fff;text-decoration:none;}
+.sticky-quote-btn{
+  display:none;position:fixed;bottom:0;left:0;right:0;z-index:9100;
+  background:var(--gold);color:#fff;
+  text-align:center;padding:16px;font-size:1rem;font-weight:700;
+  font-family:var(--font-head);letter-spacing:0.1em;text-transform:uppercase;
+  cursor:pointer;border:none;text-decoration:none;
 }
 
-/* ============================================================
+/* ─────────────────────────────────────────
    HERO
-   ============================================================ */
-#hero {
-  position: relative;
-  width: 100%;
-  min-height: 100vh;
-  min-height: 100svh;
-  background-image: url('https://images.pexels.com/photos/7174/summer-grass.jpg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
-  background-size: cover;
-  background-position: center;
-  display: flex;
-  align-items: flex-end;
-  overflow: hidden;
+───────────────────────────────────────── */
+#hero{
+  position:relative;width:100%;
+  min-height:100vh;min-height:100svh;
+  display:flex;align-items:flex-end;
+  overflow:hidden;
 }
-.hero-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    160deg,
-    rgba(31,21,16,0.72) 0%,
-    rgba(44,74,30,0.55) 45%,
-    rgba(31,21,16,0.4) 100%
+.hero-bg{
+  position:absolute;inset:0;
+  background-image:url('https://pixabay.com/get/g113a9979ca0e10bed7a4d3a1aacbdf6e965d7522c6a3b641f28b52dcb990a008315d6d0eeeacddf9d1743bc960af1a8ea39cb99c81fe50379e976b7be41829c7_1280.jpg');
+  background-size:cover;background-position:center;
+  z-index:0;
+  transform-origin:center;
+}
+.hero-overlay{
+  position:absolute;inset:0;z-index:1;
+  background:linear-gradient(
+    175deg,
+    rgba(10,25,14,0.18) 0%,
+    rgba(10,25,14,0.45) 40%,
+    rgba(10,25,14,0.82) 80%,
+    rgba(10,25,14,0.92) 100%
   );
-  z-index: 1;
 }
-.hero-noise {
-  position: absolute; inset: 0;
-  width: 100%; height: 100%;
-  pointer-events: none;
-  opacity: 0.04;
-  z-index: 2;
+/* SVG noise */
+.hero-noise{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:0.04;z-index:2;}
+.hero-content{
+  position:relative;z-index:3;
+  width:100%;max-width:1280px;margin:0 auto;
+  padding:0 clamp(20px,4vw,64px);
+  padding-bottom:clamp(60px,8vw,100px);
+  padding-top:var(--nav-h);
 }
-.hero-ghost {
-  position: absolute;
-  bottom: -0.12em;
-  right: -0.05em;
-  font-family: var(--font-head);
-  font-size: clamp(80px, 18vw, 220px);
-  font-weight: 900;
-  color: #fff;
-  opacity: 0.04;
-  line-height: 1;
-  z-index: 2;
-  pointer-events: none;
-  white-space: nowrap;
-  letter-spacing: -0.05em;
+.hero-eyebrow{
+  font-family:var(--font-body);font-size:0.78rem;font-weight:600;
+  letter-spacing:0.28em;text-transform:uppercase;
+  color:rgba(255,255,255,0.65);
+  margin-bottom:20px;
+  display:flex;align-items:center;gap:12px;
 }
-.hero-content {
-  position: relative;
-  z-index: 3;
-  padding: clamp(80px, 10vh, 140px) clamp(24px, 8vw, 100px) clamp(60px, 8vh, 100px);
-  max-width: 900px;
+.hero-eyebrow::before{
+  content:'';display:block;width:32px;height:1.5px;
+  background:var(--gold);flex-shrink:0;
 }
-.hero-eyebrow {
-  font-family: var(--font-body);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: var(--accent-light);
-  margin-bottom: 24px;
-  opacity: 0;
+.hero-title{
+  color:#fff;
+  font-size:clamp(3.2rem,9vw,8rem);
+  letter-spacing:-0.04em;line-height:0.9;
+  font-weight:700;
+  max-width:900px;
+  mix-blend-mode:normal;
 }
-.hero-title {
-  color: #fff;
-  margin-bottom: 28px;
-  overflow: hidden;
+.hero-title em{
+  font-style:normal;
+  color:transparent;
+  -webkit-text-stroke:1.5px rgba(255,255,255,0.55);
 }
-.hero-title em {
-  font-style: italic;
-  color: var(--accent-light);
+.hero-sub{
+  margin-top:28px;
+  color:rgba(255,255,255,0.75);
+  font-size:clamp(1rem,1.6vw,1.15rem);
+  max-width:520px;line-height:1.7;
+  font-weight:300;
 }
-.hero-sub {
-  font-size: clamp(16px, 1.8vw, 20px);
-  color: rgba(255,255,255,0.78);
-  font-weight: 300;
-  line-height: 1.65;
-  max-width: 520px;
-  margin-bottom: 48px;
-  opacity: 0;
+.hero-actions{
+  margin-top:40px;
+  display:flex;align-items:center;gap:20px;flex-wrap:wrap;
 }
-.hero-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  align-items: center;
-  opacity: 0;
+.btn-primary{
+  display:inline-flex;align-items:center;gap:10px;
+  background:var(--gold);color:#fff;
+  font-family:var(--font-head);font-weight:400;font-size:1rem;
+  letter-spacing:0.1em;text-transform:uppercase;
+  padding:16px 36px;border-radius:2px;border:none;cursor:pointer;
+  text-decoration:none;
+  box-shadow:0 4px 24px rgba(184,151,42,0.45);
+  transition:background var(--transition),transform var(--transition),box-shadow var(--transition);
+  position:relative;overflow:hidden;
 }
-.btn-primary {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: linear-gradient(135deg, var(--accent), var(--accent-dark));
-  color: #fff;
-  padding: 16px 36px;
-  border-radius: 100px;
-  font-size: 15px;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  box-shadow: 0 6px 24px var(--accent-glow);
-  transition: transform 0.25s cubic-bezier(0.16,1,0.3,1), box-shadow 0.25s cubic-bezier(0.16,1,0.3,1);
+.btn-primary::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,0.15),transparent);
+  pointer-events:none;
 }
-.btn-primary:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 36px var(--accent-glow);
+.btn-primary:hover{
+  background:var(--gold-light);transform:translateY(-2px);
+  box-shadow:0 8px 36px rgba(184,151,42,0.55);
 }
-.btn-secondary {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  border: 1.5px solid rgba(255,255,255,0.4);
-  color: #fff;
-  padding: 15px 32px;
-  border-radius: 100px;
-  font-size: 15px;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  backdrop-filter: blur(8px);
-  background: rgba(255,255,255,0.06);
-  transition: background 0.25s ease, border-color 0.25s ease;
+.btn-secondary{
+  display:inline-flex;align-items:center;gap:8px;
+  color:#fff;font-family:var(--font-body);font-weight:600;font-size:0.85rem;
+  letter-spacing:0.08em;text-transform:uppercase;text-decoration:none;
+  border-bottom:1.5px solid rgba(255,255,255,0.4);
+  padding-bottom:3px;transition:border-color var(--transition),color var(--transition);
 }
-.btn-secondary:hover {
-  background: rgba(255,255,255,0.14);
-  border-color: rgba(255,255,255,0.7);
+.btn-secondary:hover{border-color:#fff;color:#fff;}
+.hero-scroll-hint{
+  position:absolute;bottom:36px;right:clamp(20px,4vw,64px);z-index:3;
+  display:flex;align-items:center;gap:10px;
+  color:rgba(255,255,255,0.4);font-size:0.7rem;letter-spacing:0.18em;text-transform:uppercase;
+  font-family:var(--font-body);
 }
-.hero-scroll-indicator {
-  position: absolute;
-  bottom: 36px;
-  right: clamp(24px, 5vw, 60px);
-  z-index: 3;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  opacity: 0;
+.hero-scroll-line{
+  width:1px;height:48px;background:linear-gradient(to bottom,rgba(255,255,255,0.5),transparent);
 }
-.hero-scroll-indicator span {
-  font-size: 10px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.5);
-  writing-mode: vertical-lr;
-}
-.scroll-line {
-  width: 1px;
-  height: 48px;
-  background: linear-gradient(to bottom, rgba(255,255,255,0.5), transparent);
-  animation: scrollPulse 2s ease-in-out infinite;
-}
-@keyframes scrollPulse {
-  0%, 100% { opacity: 0.4; transform: scaleY(1); }
-  50% { opacity: 1; transform: scaleY(1.2); }
+/* Ghost text */
+.hero-ghost{
+  position:absolute;right:-2%;bottom:8%;z-index:2;
+  font-family:var(--font-head);font-weight:700;
+  font-size:clamp(80px,18vw,220px);
+  color:transparent;
+  -webkit-text-stroke:1px rgba(255,255,255,0.06);
+  pointer-events:none;line-height:1;white-space:nowrap;
+  letter-spacing:-0.05em;
 }
 
-/* ============================================================
+/* ─────────────────────────────────────────
    TRUST BAR
-   ============================================================ */
-#trust {
-  background: linear-gradient(180deg, var(--bg) 0%, var(--bg-alt) 100%);
-  padding: clamp(32px, 5vw, 56px) clamp(24px, 8vw, 80px);
-  position: relative;
-  z-index: 2;
-  border-bottom: 1px solid var(--border-light);
+───────────────────────────────────────── */
+#trust{
+  background:var(--text);
+  padding:clamp(28px,4vw,48px) 0;
+  position:relative;z-index:2;
 }
-.trust-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 32px;
-  max-width: 1100px;
-  margin: 0 auto;
+.trust-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:0;
 }
-.trust-item {
-  display: flex;
-  align-items: center;
-  gap: 16px;
+.trust-item{
+  display:flex;align-items:center;justify-content:center;
+  gap:14px;
+  padding:20px 24px;
+  border-right:1px solid rgba(255,255,255,0.07);
 }
-.trust-icon {
-  width: 48px; height: 48px;
-  background: linear-gradient(135deg, var(--forest), var(--forest-mid));
-  border-radius: 12px;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-  box-shadow: 0 4px 16px rgba(44,74,30,0.2);
+.trust-item:last-child{border-right:none;}
+.trust-icon{
+  width:40px;height:40px;flex-shrink:0;
+  background:rgba(45,122,58,0.2);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
 }
-.trust-icon svg { width: 24px; height: 24px; fill: #fff; }
-.trust-label {
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--text);
-  line-height: 1.3;
+.trust-icon svg{width:20px;height:20px;fill:var(--accent-hover);}
+.trust-text strong{
+  display:block;font-family:var(--font-head);font-size:1rem;font-weight:700;
+  color:#fff;letter-spacing:0.02em;line-height:1.2;
 }
-.trust-sub {
-  font-size: 12px;
-  color: var(--text-muted);
-  font-weight: 400;
+.trust-text span{
+  font-size:0.72rem;color:rgba(255,255,255,0.45);
+  letter-spacing:0.08em;text-transform:uppercase;font-weight:400;
 }
 
-/* ============================================================
-   SECTION SHARED
-   ============================================================ */
-.section-wrap {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 clamp(24px, 6vw, 80px);
+/* ─────────────────────────────────────────
+   MARQUEE RIBBON
+───────────────────────────────────────── */
+.marquee-section{
+  background:var(--accent);padding:14px 0;overflow:hidden;
+  position:relative;z-index:2;
 }
-.section-header {
-  text-align: center;
-  max-width: 640px;
-  margin: 0 auto 64px;
+.marquee-track{display:flex;align-items:center;white-space:nowrap;will-change:transform;}
+.marquee-item{
+  display:inline-flex;align-items:center;gap:24px;
+  font-family:var(--font-head);font-size:0.82rem;font-weight:400;
+  color:rgba(255,255,255,0.9);letter-spacing:0.18em;text-transform:uppercase;
+  padding:0 32px;flex-shrink:0;
 }
-.section-header p {
-  margin-top: 16px;
-}
+.marquee-dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,0.45);flex-shrink:0;}
 
-/* ============================================================
+/* ─────────────────────────────────────────
    SERVICES
-   ============================================================ */
-#services {
-  padding: clamp(80px, 10vw, 130px) 0;
-  background: linear-gradient(180deg, var(--bg-alt) 0%, var(--bg) 100%);
-  position: relative;
-  overflow: hidden;
+───────────────────────────────────────── */
+#services{background:var(--bg);}
+.section-label{
+  font-family:var(--font-body);font-size:0.72rem;font-weight:600;
+  letter-spacing:0.28em;text-transform:uppercase;color:var(--accent);
+  margin-bottom:16px;display:flex;align-items:center;gap:10px;
 }
-.services-ghost {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-family: var(--font-head);
-  font-size: clamp(100px, 20vw, 280px);
-  font-weight: 900;
-  color: var(--text);
-  opacity: 0.025;
-  pointer-events: none;
-  white-space: nowrap;
-  letter-spacing: -0.05em;
-  z-index: 0;
+.section-label::before{
+  content:'';display:block;width:24px;height:1.5px;background:var(--accent);flex-shrink:0;
 }
-.services-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 28px;
-  position: relative;
-  z-index: 1;
+.section-heading{color:var(--text);margin-bottom:clamp(40px,5vw,72px);}
+.services-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:clamp(16px,2.5vw,28px);
 }
-.service-card {
-  background: linear-gradient(160deg, var(--bg) 0%, var(--bg-alt) 100%);
-  border: 1px solid var(--border-light);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  box-shadow: var(--shadow-sm);
-  transition: transform 0.35s cubic-bezier(0.16,1,0.3,1), box-shadow 0.35s cubic-bezier(0.16,1,0.3,1), border-color 0.3s;
-  cursor: default;
+.service-card{
+  position:relative;overflow:hidden;border-radius:var(--radius);
+  background:var(--cream);
+  border:1px solid var(--border);
+  transition:transform var(--transition),box-shadow var(--transition),border-color var(--transition);
+  cursor:default;
 }
-.service-card:hover {
-  transform: translateY(-8px);
-  box-shadow: var(--shadow-lg);
-  border-color: var(--accent);
+.service-card:hover{
+  transform:translateY(-6px);
+  box-shadow:var(--shadow-lg);
+  border-color:rgba(45,122,58,0.28);
 }
-.service-card-img {
-  width: 100%;
-  height: 220px;
-  object-fit: cover;
-  transition: transform 0.6s cubic-bezier(0.16,1,0.3,1);
+.service-card-img{
+  width:100%;aspect-ratio:4/3;overflow:hidden;
 }
-.service-card:hover .service-card-img {
-  transform: scale(1.06);
+.service-card-img img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform 0.65s cubic-bezier(0.4,0,0.2,1);
 }
-.service-card-body {
-  padding: 28px 28px 32px;
+.service-card:hover .service-card-img img{transform:scale(1.06);}
+.service-card-body{padding:clamp(20px,2.5vw,28px);}
+.service-card-num{
+  font-family:var(--font-head);font-size:0.7rem;font-weight:400;
+  color:var(--stone);letter-spacing:0.18em;text-transform:uppercase;
+  margin-bottom:10px;
 }
-.service-card-tag {
-  display: inline-block;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--accent);
-  background: rgba(196,124,62,0.1);
-  padding: 4px 12px;
-  border-radius: 100px;
-  margin-bottom: 14px;
-  border: 1px solid var(--border);
+.service-card h3{
+  font-size:clamp(1.1rem,1.8vw,1.4rem);color:var(--text);margin-bottom:10px;
 }
-.service-card h4 {
-  font-size: clamp(18px, 1.8vw, 22px);
-  margin-bottom: 10px;
-  color: var(--text);
-}
-.service-card p {
-  font-size: 14px;
-  line-height: 1.65;
+.service-card p{font-size:0.88rem;color:var(--text-light);line-height:1.65;}
+.service-card-tag{
+  display:inline-block;margin-top:16px;
+  font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--accent);border-bottom:1px solid var(--accent);padding-bottom:2px;
 }
 
-/* ============================================================
+/* ─────────────────────────────────────────
    STATS BAND
-   ============================================================ */
-#stats {
-  padding: clamp(60px, 7vw, 100px) 0;
-  background: linear-gradient(135deg, var(--forest) 0%, var(--bg-dark) 100%);
-  position: relative;
-  overflow: hidden;
+───────────────────────────────────────── */
+#stats{
+  background:linear-gradient(135deg,var(--bg-dark) 0%,#162a1e 50%,#0a1a10 100%);
+  padding:clamp(56px,7vw,96px) 0;
+  position:relative;overflow:hidden;
 }
-.stats-bg-img {
-  position: absolute;
-  inset: 0;
-  width: 100%; height: 100%;
-  object-fit: cover;
-  opacity: 0.08;
+.stats-ghost{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  font-family:var(--font-head);font-size:clamp(80px,20vw,260px);font-weight:700;
+  color:transparent;-webkit-text-stroke:1px rgba(255,255,255,0.04);
+  pointer-events:none;white-space:nowrap;letter-spacing:-0.05em;z-index:0;
 }
-.stats-grid {
-  position: relative;
-  z-index: 1;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 40px;
-  text-align: center;
+.stats-grid{
+  position:relative;z-index:1;
+  display:grid;grid-template-columns:repeat(4,1fr);gap:0;
 }
-.stat-val {
-  font-family: var(--font-head);
-  font-size: clamp(40px, 5vw, 68px);
-  font-weight: 900;
-  color: #fff;
-  letter-spacing: -0.03em;
-  line-height: 1;
-  margin-bottom: 8px;
+.stat-item{
+  text-align:center;padding:clamp(24px,3vw,40px) 20px;
+  border-right:1px solid rgba(255,255,255,0.07);
 }
-.stat-val span { color: var(--accent-light); }
-.stat-label {
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.5);
+.stat-item:last-child{border-right:none;}
+.stat-num{
+  font-family:var(--font-head);font-size:clamp(2.4rem,5vw,4.2rem);font-weight:700;
+  color:#fff;letter-spacing:-0.03em;line-height:1;
+  display:block;margin-bottom:8px;
+}
+.stat-num span{color:var(--gold);}
+.stat-label{
+  font-size:0.78rem;color:rgba(255,255,255,0.45);
+  letter-spacing:0.14em;text-transform:uppercase;font-weight:400;
 }
 
-/* ============================================================
+/* ─────────────────────────────────────────
    ABOUT
-   ============================================================ */
-#about {
-  padding: clamp(80px, 10vw, 130px) 0;
-  background: linear-gradient(180deg, var(--bg) 0%, var(--bg-alt) 100%);
-  overflow: hidden;
+───────────────────────────────────────── */
+#about{background:var(--bg-alt);}
+.about-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:clamp(40px,6vw,80px);align-items:center;
 }
-.about-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: clamp(40px, 6vw, 100px);
-  align-items: center;
+.about-img-wrap{
+  position:relative;
+  border-radius:var(--radius);overflow:hidden;
 }
-.about-img-wrap {
-  position: relative;
+.about-img-wrap::before{
+  content:'';position:absolute;
+  top:-16px;left:-16px;
+  width:50%;height:50%;
+  border:2px solid var(--accent);border-radius:var(--radius);
+  z-index:0;opacity:0.35;
 }
-.about-img-main {
-  width: 100%;
-  aspect-ratio: 4/5;
-  object-fit: cover;
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-lg);
-  clip-path: inset(100% 0 0 0);
+.about-img-wrap img{
+  width:100%;aspect-ratio:3/4;object-fit:cover;
+  border-radius:var(--radius);position:relative;z-index:1;
 }
-.about-img-accent {
-  position: absolute;
-  bottom: -32px;
-  right: -28px;
-  width: 58%;
-  aspect-ratio: 4/3;
-  object-fit: cover;
-  border-radius: var(--radius-md);
-  border: 4px solid var(--bg);
-  box-shadow: var(--shadow-md);
+.about-badge{
+  position:absolute;bottom:24px;right:-20px;z-index:2;
+  background:var(--gold);color:#fff;
+  padding:16px 22px;border-radius:var(--radius);
+  font-family:var(--font-head);font-size:1.6rem;font-weight:700;
+  line-height:1;text-align:center;
+  box-shadow:var(--shadow-lg);
 }
-.about-badge {
-  position: absolute;
-  top: 28px;
-  left: -20px;
-  background: var(--accent);
-  color: #fff;
-  padding: 16px 22px;
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-md);
-  text-align: center;
-  line-height: 1.2;
+.about-badge small{display:block;font-family:var(--font-body);font-size:0.68rem;font-weight:400;letter-spacing:0.12em;text-transform:uppercase;margin-top:4px;opacity:0.85;}
+.about-content{}
+.about-content p{color:var(--text-light);margin-bottom:20px;}
+.about-list{list-style:none;margin:28px 0;}
+.about-list li{
+  display:flex;align-items:flex-start;gap:12px;
+  padding:12px 0;border-bottom:1px solid var(--border);
+  font-size:0.92rem;color:var(--text-light);
 }
-.about-badge strong {
-  display: block;
-  font-family: var(--font-head);
-  font-size: 28px;
-  font-weight: 900;
+.about-list li:first-child{border-top:1px solid var(--border);}
+.about-list-check{
+  width:20px;height:20px;flex-shrink:0;margin-top:1px;
+  background:var(--accent);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
 }
-.about-badge span {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  opacity: 0.85;
-}
-.about-content { padding-right: 20px; }
-.about-content h2 { margin-bottom: 24px; }
-.about-content p { margin-bottom: 20px; }
-.about-bullets {
-  list-style: none;
-  margin: 32px 0;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-.about-bullets li {
-  display: flex;
-  align-items: flex-start;
-  gap: 14px;
-  font-size: 15px;
-  color: var(--text-light);
-  font-weight: 400;
-  line-height: 1.5;
-}
-.bullet-dot {
-  width: 8px; height: 8px;
-  background: var(--accent);
-  border-radius: 50%;
-  flex-shrink: 0;
-  margin-top: 6px;
-}
+.about-list-check svg{width:10px;height:10px;fill:#fff;}
 
-/* ============================================================
+/* ─────────────────────────────────────────
    HOW IT WORKS
-   ============================================================ */
-#process {
-  padding: clamp(80px, 10vw, 130px) 0;
-  background: var(--bg-dark);
-  position: relative;
-  overflow: hidden;
+───────────────────────────────────────── */
+#process{
+  background:linear-gradient(180deg,var(--bg) 0%,var(--bg-alt) 100%);
+  position:relative;overflow:hidden;
 }
-.process-bg {
-  position: absolute;
-  inset: 0;
-  width: 100%; height: 100%;
-  object-fit: cover;
-  opacity: 0.07;
+.process-img-band{
+  position:relative;height:clamp(240px,35vw,420px);overflow:hidden;
+  border-radius:var(--radius);margin-bottom:clamp(48px,6vw,80px);
 }
-.process-ghost {
-  position: absolute;
-  bottom: -0.08em;
-  left: -0.05em;
-  font-family: var(--font-head);
-  font-size: clamp(100px, 18vw, 240px);
-  font-weight: 900;
-  color: #fff;
-  opacity: 0.03;
-  pointer-events: none;
-  line-height: 1;
-  z-index: 0;
-  letter-spacing: -0.06em;
+.process-img-band img{width:100%;height:100%;object-fit:cover;}
+.process-img-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(90deg,rgba(10,25,14,0.85) 0%,rgba(10,25,14,0.2) 100%);
+  display:flex;align-items:center;
+  padding:clamp(24px,4vw,60px);
 }
-.process-header { color: #fff; }
-.process-header .eyebrow { color: var(--accent-light); }
-.process-header p { color: rgba(255,255,255,0.55); }
-.process-steps {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 28px;
-  position: relative;
-  z-index: 1;
-  margin-top: 64px;
+.process-img-text{color:#fff;}
+.process-img-text p{color:rgba(255,255,255,0.72);margin-top:12px;max-width:420px;}
+.process-steps{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:clamp(20px,3vw,40px);
+  position:relative;
 }
-.process-step {
-  position: relative;
-  padding: 36px 28px 32px;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.07);
-  border-radius: var(--radius-lg);
-  backdrop-filter: blur(8px);
-  transition: background 0.3s, border-color 0.3s, transform 0.35s cubic-bezier(0.16,1,0.3,1);
+.process-steps::before{
+  content:'';position:absolute;top:28px;left:calc(16.67% + 12px);right:calc(16.67% + 12px);
+  height:1px;background:var(--border);z-index:0;
 }
-.process-step:hover {
-  background: rgba(255,255,255,0.07);
-  border-color: var(--accent);
-  transform: translateY(-6px);
+.process-step{position:relative;z-index:1;text-align:center;padding:clamp(20px,2.5vw,32px);}
+.process-num{
+  width:56px;height:56px;border-radius:50%;
+  background:var(--accent);color:#fff;
+  font-family:var(--font-head);font-size:1.3rem;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 20px;
+  box-shadow:0 4px 20px rgba(45,122,58,0.35);
 }
-.step-num {
-  font-family: var(--font-head);
-  font-size: 56px;
-  font-weight: 900;
-  color: var(--accent);
-  opacity: 0.25;
-  line-height: 1;
-  margin-bottom: 16px;
-  letter-spacing: -0.03em;
-  transition: opacity 0.3s;
-}
-.process-step:hover .step-num { opacity: 0.5; }
-.step-title {
-  font-family: var(--font-head);
-  font-size: clamp(18px, 1.8vw, 22px);
-  font-weight: 700;
-  color: #fff;
-  margin-bottom: 12px;
-}
-.step-desc {
-  font-size: 14px;
-  line-height: 1.65;
-  color: rgba(255,255,255,0.5);
-}
+.process-step h4{color:var(--text);margin-bottom:10px;}
+.process-step p{font-size:0.88rem;color:var(--text-light);}
 
-/* ============================================================
+/* ─────────────────────────────────────────
    GALLERY
-   ============================================================ */
-#gallery {
-  padding: clamp(80px, 10vw, 130px) 0;
-  background: linear-gradient(180deg, var(--bg-alt) 0%, var(--bg) 100%);
-  overflow: hidden;
+───────────────────────────────────────── */
+#gallery{background:var(--bg-dark);padding:clamp(64px,8vw,120px) 0;}
+.gallery-header{margin-bottom:clamp(40px,5vw,64px);}
+.gallery-header .section-label{color:rgba(255,255,255,0.45);}
+.gallery-header .section-label::before{background:var(--gold);}
+.gallery-header h2{color:#fff;}
+.gallery-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  grid-template-rows:auto;
+  gap:clamp(10px,1.5vw,16px);
 }
-.gallery-marquee-wrap {
-  margin-top: 56px;
-  overflow: hidden;
-  position: relative;
+.gallery-item{overflow:hidden;border-radius:var(--radius);position:relative;}
+.gallery-item.span2{grid-column:span 2;}
+.gallery-item img{
+  width:100%;height:100%;min-height:240px;object-fit:cover;
+  transition:transform 0.7s cubic-bezier(0.4,0,0.2,1);
+  display:block;
 }
-.gallery-marquee-wrap::before,
-.gallery-marquee-wrap::after {
-  content: '';
-  position: absolute;
-  top: 0; bottom: 0;
-  width: 120px;
-  z-index: 2;
-  pointer-events: none;
+.gallery-item:hover img{transform:scale(1.05);}
+.gallery-item-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(10,25,14,0.7) 0%,transparent 50%);
+  opacity:0;transition:opacity var(--transition);
+  display:flex;align-items:flex-end;padding:20px;
 }
-.gallery-marquee-wrap::before {
-  left: 0;
-  background: linear-gradient(to right, var(--bg-alt), transparent);
-}
-.gallery-marquee-wrap::after {
-  right: 0;
-  background: linear-gradient(to left, var(--bg-alt), transparent);
-}
-.gallery-track {
-  display: flex;
-  gap: 20px;
-  will-change: transform;
-}
-.gallery-item {
-  flex-shrink: 0;
-  width: clamp(260px, 28vw, 400px);
-  aspect-ratio: 4/3;
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  position: relative;
-  box-shadow: var(--shadow-md);
-}
-.gallery-item img {
-  width: 100%; height: 100%;
-  object-fit: cover;
-  transition: transform 0.6s cubic-bezier(0.16,1,0.3,1);
-}
-.gallery-item:hover img { transform: scale(1.07); }
-.gallery-item-label {
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  padding: 20px 20px 18px;
-  background: linear-gradient(to top, rgba(31,21,16,0.85), transparent);
-  color: #fff;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  opacity: 0;
-  transform: translateY(8px);
-  transition: opacity 0.3s, transform 0.3s;
-}
-.gallery-item:hover .gallery-item-label {
-  opacity: 1;
-  transform: translateY(0);
+.gallery-item:hover .gallery-item-overlay{opacity:1;}
+.gallery-item-label{
+  font-family:var(--font-head);font-size:0.9rem;font-weight:400;
+  color:#fff;letter-spacing:0.1em;text-transform:uppercase;
 }
 
-/* ============================================================
+/* ─────────────────────────────────────────
    TESTIMONIALS
-   ============================================================ */
-#testimonials {
-  padding: clamp(80px, 10vw, 130px) 0;
-  background: linear-gradient(160deg, var(--bg) 0%, var(--bg-alt) 100%);
-  position: relative;
-  overflow: hidden;
+───────────────────────────────────────── */
+#testimonials{
+  background:var(--bg-alt);
+  position:relative;overflow:hidden;
 }
-.testimonials-bg {
-  position: absolute;
-  inset: 0;
-  width: 100%; height: 100%;
-  object-fit: cover;
-  opacity: 0.04;
-  pointer-events: none;
+.testimonials-bg-img{
+  position:absolute;right:0;top:0;bottom:0;width:40%;
+  z-index:0;overflow:hidden;
 }
-.testimonials-header { position: relative; z-index: 1; }
-.stars {
-  display: flex;
-  gap: 4px;
-  margin-bottom: 6px;
+.testimonials-bg-img img{width:100%;height:100%;object-fit:cover;opacity:0.12;}
+.testimonials-bg-img::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to right,var(--bg-alt) 0%,transparent 100%);
 }
-.star {
-  width: 18px; height: 18px;
-  fill: var(--accent);
+.testimonials-inner{position:relative;z-index:1;}
+.testimonials-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:clamp(16px,2vw,24px);margin-top:clamp(40px,5vw,64px);
 }
-.google-rating {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  background: rgba(196,124,62,0.1);
-  border: 1px solid var(--border);
-  border-radius: 100px;
-  padding: 8px 18px;
-  margin-bottom: 28px;
+.testi-card{
+  background:var(--cream);border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:clamp(24px,3vw,36px);
+  position:relative;
+  transition:transform var(--transition),box-shadow var(--transition);
 }
-.google-rating-num {
-  font-family: var(--font-head);
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--text);
+.testi-card:hover{transform:translateY(-4px);box-shadow:var(--shadow);}
+.testi-stars{
+  display:flex;gap:3px;margin-bottom:16px;
 }
-.google-rating-label {
-  font-size: 12px;
-  color: var(--text-muted);
-  font-weight: 700;
-  letter-spacing: 0.06em;
+.star{
+  width:16px;height:16px;fill:var(--gold);
 }
-.testimonials-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 28px;
-  position: relative;
-  z-index: 1;
-  margin-top: 56px;
+.testi-text{
+  font-size:0.92rem;color:var(--text-light);line-height:1.75;
+  margin-bottom:20px;
+  font-style:italic;
 }
-.testimonial-card {
-  background: linear-gradient(160deg, #fff 0%, var(--bg-alt) 100%);
-  border: 1px solid var(--border-light);
-  border-radius: var(--radius-lg);
-  padding: 36px 32px;
-  box-shadow: var(--shadow-sm);
-  transition: transform 0.35s cubic-bezier(0.16,1,0.3,1), box-shadow 0.35s, border-color 0.3s;
-  position: relative;
+.testi-author{
+  display:flex;align-items:center;gap:12px;
+  padding-top:16px;border-top:1px solid var(--border);
 }
-.testimonial-card:hover {
-  transform: translateY(-6px);
-  box-shadow: var(--shadow-md);
-  border-color: var(--accent);
+.testi-avatar{
+  width:40px;height:40px;border-radius:50%;
+  background:linear-gradient(135deg,var(--accent),var(--accent-dark));
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-head);font-size:1rem;font-weight:700;color:#fff;
+  flex-shrink:0;
 }
-.testimonial-quote-mark {
-  font-family: var(--font-head);
-  font-size: 72px;
-  color: var(--accent);
-  opacity: 0.18;
-  line-height: 0.7;
-  margin-bottom: 8px;
-  font-style: italic;
-  display: block;
+.testi-name{font-weight:600;font-size:0.88rem;color:var(--text);}
+.testi-location{font-size:0.75rem;color:var(--stone);letter-spacing:0.05em;}
+.google-badge{
+  display:inline-flex;align-items:center;gap:10px;
+  margin-top:clamp(32px,4vw,48px);
+  background:var(--cream);border:1px solid var(--border);
+  padding:14px 22px;border-radius:var(--radius);
 }
-.testimonial-text {
-  font-size: 15px;
-  line-height: 1.75;
-  color: var(--text-light);
-  margin-bottom: 28px;
-}
-.testimonial-footer {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  border-top: 1px solid var(--border-light);
-  padding-top: 22px;
-}
-.testimonial-avatar {
-  width: 44px; height: 44px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--sage), var(--forest));
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-  font-family: var(--font-head);
-  font-size: 18px;
-  font-weight: 700;
-  color: #fff;
-}
-.testimonial-name {
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--text);
-}
-.testimonial-loc {
-  font-size: 12px;
-  color: var(--text-muted);
-  margin-top: 2px;
-}
+.google-badge-stars{display:flex;gap:2px;}
+.google-badge-text{font-size:0.82rem;color:var(--text-light);}
+.google-badge-text strong{color:var(--text);font-weight:700;}
 
-/* ============================================================
+/* ─────────────────────────────────────────
    SERVICE AREA
-   ============================================================ */
-#service-area {
-  padding: clamp(80px, 10vw, 130px) 0;
-  background: linear-gradient(180deg, var(--bg-alt) 0%, var(--bg) 100%);
-  overflow: hidden;
+───────────────────────────────────────── */
+#area{background:var(--bg);}
+.area-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,6vw,80px);align-items:center;}
+.area-cities{
+  display:flex;flex-wrap:wrap;gap:10px;margin-top:28px;
 }
-.area-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: clamp(40px, 6vw, 80px);
-  align-items: start;
+.city-tag{
+  padding:8px 16px;border-radius:2px;
+  background:var(--bg-alt);border:1px solid var(--border);
+  font-size:0.82rem;font-weight:600;color:var(--text);
+  letter-spacing:0.04em;
+  transition:background var(--transition),border-color var(--transition),color var(--transition);
 }
-.area-cities {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-  margin-top: 32px;
+.city-tag:hover{background:var(--accent);border-color:var(--accent);color:#fff;}
+.area-map{
+  position:relative;border-radius:var(--radius);overflow:hidden;
+  aspect-ratio:4/3;
 }
-.area-city {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 14px 18px;
-  background: linear-gradient(135deg, var(--bg) 0%, var(--bg-alt) 100%);
-  border: 1px solid var(--border-light);
-  border-radius: var(--radius-md);
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--text);
-  transition: border-color 0.25s, transform 0.25s cubic-bezier(0.16,1,0.3,1);
+.area-map img{width:100%;height:100%;object-fit:cover;}
+.area-map-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(45,122,58,0.3),rgba(10,25,14,0.5));
 }
-.area-city:hover {
-  border-color: var(--accent);
-  transform: translateX(4px);
+.area-pin{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:56px;height:56px;
+  background:var(--gold);border-radius:50% 50% 50% 0;
+  transform:translate(-50%,-50%) rotate(-45deg);
+  box-shadow:0 4px 20px rgba(0,0,0,0.35);
+  display:flex;align-items:center;justify-content:center;
 }
-.area-dot {
-  width: 8px; height: 8px;
-  background: var(--sage);
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-.area-map-placeholder {
-  position: relative;
-  background: linear-gradient(160deg, var(--forest) 0%, var(--bg-dark) 100%);
-  border-radius: var(--radius-lg);
-  aspect-ratio: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  box-shadow: var(--shadow-lg);
-}
-.area-map-img {
-  position: absolute;
-  inset: 0;
-  width: 100%; height: 100%;
-  object-fit: cover;
-  opacity: 0.15;
-}
-.map-center-pin {
-  position: relative;
-  z-index: 1;
-  text-align: center;
-  color: #fff;
-}
-.pin-icon {
-  width: 56px; height: 56px;
-  background: var(--accent);
-  border-radius: 50% 50% 50% 0;
-  transform: rotate(-45deg);
-  margin: 0 auto 20px;
-  box-shadow: 0 8px 24px var(--accent-glow);
-  display: flex; align-items: center; justify-content: center;
-}
-.pin-icon svg {
-  width: 24px; height: 24px;
-  fill: #fff;
-  transform: rotate(45deg);
-}
-.map-center-pin h3 {
-  font-size: clamp(20px, 2.5vw, 28px);
-  color: #fff;
-  margin-bottom: 8px;
-}
-.map-center-pin p {
-  font-size: 14px;
-  color: rgba(255,255,255,0.55);
-}
-.map-ripple {
-  position: absolute;
-  width: 120px; height: 120px;
-  border-radius: 50%;
-  border: 1px solid rgba(196,124,62,0.3);
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  animation: ripple 2.5s ease-out infinite;
-}
-.map-ripple:nth-child(2) { animation-delay: 0.8s; width: 200px; height: 200px; }
-.map-ripple:nth-child(3) { animation-delay: 1.6s; width: 300px; height: 300px; }
-@keyframes ripple {
-  0% { opacity: 0.6; }
-  100% { opacity: 0; transform: translate(-50%, -50%) scale(1.4); }
+.area-pin::after{
+  content:'ATL';
+  color:#fff;font-family:var(--font-head);font-size:0.6rem;font-weight:700;
+  letter-spacing:0.1em;transform:rotate(45deg);display:block;
 }
 
-/* ============================================================
+/* ─────────────────────────────────────────
    FAQ
-   ============================================================ */
-#faq {
-  padding: clamp(80px, 10vw, 130px) 0;
-  background: var(--bg-dark);
-  position: relative;
+───────────────────────────────────────── */
+#faq{background:var(--bg-alt);}
+.faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,6vw,80px);}
+.faq-intro p{color:var(--text-light);margin-top:16px;max-width:380px;}
+.faq-list{display:flex;flex-direction:column;gap:0;}
+.faq-item{border-bottom:1px solid var(--border);}
+.faq-item:first-child{border-top:1px solid var(--border);}
+.faq-q{
+  width:100%;background:none;border:none;cursor:pointer;
+  display:flex;justify-content:space-between;align-items:center;
+  gap:16px;
+  padding:20px 0;
+  font-family:var(--font-head);font-size:clamp(1rem,1.5vw,1.15rem);
+  font-weight:400;color:var(--text);text-align:left;
+  letter-spacing:0.02em;
+  transition:color var(--transition);
 }
-.faq-header .eyebrow { color: var(--accent-light); }
-.faq-header h2 { color: #fff; }
-.faq-header p { color: rgba(255,255,255,0.5); }
-.faq-list {
-  max-width: 800px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 0;
+.faq-q:hover{color:var(--accent);}
+.faq-icon{
+  width:28px;height:28px;flex-shrink:0;
+  border:1.5px solid var(--border);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  transition:background var(--transition),border-color var(--transition),transform var(--transition);
 }
-.faq-item {
-  border-bottom: 1px solid rgba(255,255,255,0.07);
+.faq-item.open .faq-icon{
+  background:var(--accent);border-color:var(--accent);
+  transform:rotate(45deg);
 }
-.faq-question {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 24px 0;
-  background: none;
-  color: #fff;
-  font-family: var(--font-head);
-  font-size: clamp(16px, 1.6vw, 20px);
-  font-weight: 700;
-  text-align: left;
-  cursor: pointer;
-  gap: 20px;
-  transition: color 0.2s;
-  min-height: 44px;
+.faq-icon svg{width:12px;height:12px;fill:var(--text);}
+.faq-item.open .faq-icon svg{fill:#fff;}
+.faq-a{
+  max-height:0;overflow:hidden;
+  transition:max-height 0.4s cubic-bezier(0.4,0,0.2,1);
 }
-.faq-question:hover { color: var(--accent-light); }
-.faq-icon {
-  width: 28px; height: 28px;
-  border: 1.5px solid rgba(255,255,255,0.2);
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-  transition: transform 0.35s cubic-bezier(0.16,1,0.3,1), border-color 0.3s, background 0.3s;
-}
-.faq-icon svg { width: 14px; height: 14px; fill: #fff; transition: fill 0.3s; }
-.faq-item.open .faq-icon {
-  transform: rotate(45deg);
-  border-color: var(--accent);
-  background: var(--accent);
-}
-.faq-answer {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.45s cubic-bezier(0.16,1,0.3,1);
-}
-.faq-answer-inner {
-  padding-bottom: 24px;
-}
-.faq-answer-inner p {
-  color: rgba(255,255,255,0.55);
-  font-size: 15px;
-  line-height: 1.72;
+.faq-a-inner{
+  padding-bottom:20px;font-size:0.9rem;color:var(--text-light);line-height:1.75;
 }
 
-/* ============================================================
-   CTA / CONTACT
-   ============================================================ */
-#contact {
-  padding: clamp(80px, 10vw, 130px) 0;
-  background: linear-gradient(160deg, var(--bg) 0%, var(--bg-alt) 100%);
-  position: relative;
-  overflow: hidden;
+/* ─────────────────────────────────────────
+   CONTACT / QUOTE FORM
+───────────────────────────────────────── */
+#contact{
+  background:linear-gradient(135deg,var(--bg-dark) 0%,#162a1e 100%);
+  position:relative;overflow:hidden;
 }
-.contact-bg {
-  position: absolute;
-  inset: 0;
-  width: 100%; height: 100%;
-  object-fit: cover;
-  opacity: 0.06;
+.contact-bg{
+  position:absolute;right:0;top:0;bottom:0;width:42%;z-index:0;
 }
-.contact-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: clamp(40px, 6vw, 80px);
-  align-items: start;
-  position: relative;
-  z-index: 1;
+.contact-bg img{width:100%;height:100%;object-fit:cover;opacity:0.18;}
+.contact-bg::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to right,var(--bg-dark) 0%,transparent 100%);
 }
-.contact-left h2 { margin-bottom: 20px; }
-.contact-left p { margin-bottom: 32px; }
-.contact-perks {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  margin-bottom: 40px;
+.contact-inner{position:relative;z-index:1;}
+.contact-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:clamp(40px,6vw,80px);align-items:start;
 }
-.contact-perks li {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--text);
+.contact-info .section-label{color:rgba(255,255,255,0.45);}
+.contact-info .section-label::before{background:var(--gold);}
+.contact-info h2{color:#fff;margin-bottom:20px;}
+.contact-info p{color:rgba(255,255,255,0.6);margin-bottom:28px;}
+.contact-trust{display:flex;flex-direction:column;gap:16px;margin-top:32px;}
+.contact-trust-item{
+  display:flex;align-items:center;gap:14px;
+  color:rgba(255,255,255,0.7);font-size:0.88rem;
 }
-.perk-check {
-  width: 24px; height: 24px;
-  background: linear-gradient(135deg, var(--forest), var(--sage));
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-}
-.perk-check svg { width: 12px; height: 12px; fill: #fff; }
-.contact-img {
-  width: 100%;
-  border-radius: var(--radius-lg);
-  aspect-ratio: 16/9;
-  object-fit: cover;
-  box-shadow: var(--shadow-md);
-}
-
+.contact-trust-item svg{width:18px;height:18px;fill:var(--gold);flex-shrink:0;}
 /* Form */
-.contact-form-wrap {
-  background: linear-gradient(160deg, #fff 0%, var(--bg-alt) 100%);
-  border: 1px solid var(--border-light);
-  border-radius: var(--radius-lg);
-  padding: clamp(32px, 4vw, 52px);
-  box-shadow: var(--shadow-md);
+.quote-form{
+  background:rgba(255,255,255,0.04);
+  backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:var(--radius);
+  padding:clamp(28px,4vw,48px);
 }
-.form-title {
-  font-family: var(--font-head);
-  font-size: clamp(22px, 2.5vw, 30px);
-  font-weight: 700;
-  color: var(--text);
-  margin-bottom: 8px;
+.form-title{
+  font-family:var(--font-head);font-size:1.4rem;color:#fff;
+  margin-bottom:24px;font-weight:400;letter-spacing:0.04em;
 }
-.form-sub {
-  font-size: 14px;
-  color: var(--text-muted);
-  margin-bottom: 28px;
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.form-group{display:flex;flex-direction:column;gap:8px;margin-bottom:16px;}
+.form-label{font-size:0.72rem;font-weight:600;color:rgba(255,255,255,0.5);letter-spacing:0.1em;text-transform:uppercase;}
+.form-input,.form-select,.form-textarea{
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:var(--radius);
+  padding:12px 16px;
+  color:#fff;font-family:var(--font-body);font-size:0.9rem;
+  transition:border-color var(--transition),background var(--transition);
+  outline:none;width:100%;
 }
-.form-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
+.form-input::placeholder,.form-textarea::placeholder{color:rgba(255,255,255,0.25);}
+.form-input:focus,.form-select:focus,.form-textarea:focus{
+  border-color:var(--accent);background:rgba(255,255,255,0.09);
 }
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
+.form-select{cursor:pointer;-webkit-appearance:none;}
+.form-select option{background:var(--bg-dark);color:#fff;}
+.form-textarea{resize:vertical;min-height:100px;}
+.form-submit{
+  width:100%;margin-top:8px;
+  background:var(--gold);color:#fff;
+  font-family:var(--font-head);font-size:1.05rem;font-weight:400;
+  letter-spacing:0.12em;text-transform:uppercase;
+  padding:16px;border:none;border-radius:var(--radius);cursor:pointer;
+  transition:background var(--transition),transform var(--transition),box-shadow var(--transition);
+  box-shadow:0 4px 24px rgba(184,151,42,0.4);
 }
-.form-group.full { grid-column: 1 / -1; }
-.form-group label {
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-}
-.form-group input,
-.form-group select,
-.form-group textarea {
-  padding: 13px 16px;
-  background: var(--bg);
-  border: 1.5px solid var(--border-light);
-  border-radius: var(--radius-sm);
-  font-family: var(--font-body);
-  font-size: 14px;
-  color: var(--text);
-  transition: border-color 0.25s, box-shadow 0.25s;
-  outline: none;
-  min-height: 44px;
-}
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px var(--accent-glow);
-}
-.form-group textarea { resize: vertical; min-height: 110px; }
-.form-submit {
-  width: 100%;
-  padding: 16px;
-  background: linear-gradient(135deg, var(--accent), var(--accent-dark));
-  color: #fff;
-  border-radius: 100px;
-  font-size: 15px;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  box-shadow: 0 6px 20px var(--accent-glow);
-  cursor: pointer;
-  border: none;
-  transition: transform 0.25s cubic-bezier(0.16,1,0.3,1), box-shadow 0.25s;
-  margin-top: 8px;
-}
-.form-submit:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 28px var(--accent-glow);
+.form-submit:hover{
+  background:var(--gold-light);transform:translateY(-2px);
+  box-shadow:0 8px 36px rgba(184,151,42,0.55);
 }
 
-/* ============================================================
+/* ─────────────────────────────────────────
    FOOTER
-   ============================================================ */
-#footer {
-  background: linear-gradient(180deg, var(--bg-dark) 0%, #120D09 100%);
-  padding: clamp(60px, 7vw, 100px) 0 0;
-  position: relative;
-  overflow: hidden;
+───────────────────────────────────────── */
+#footer{
+  background:var(--text);
+  padding:clamp(48px,6vw,80px) 0 clamp(24px,3vw,40px);
 }
-.footer-ghost {
-  position: absolute;
-  bottom: -0.1em;
-  left: 50%;
-  transform: translateX(-50%);
-  font-family: var(--font-head);
-  font-size: clamp(80px, 16vw, 200px);
-  font-weight: 900;
-  color: #fff;
-  opacity: 0.02;
-  pointer-events: none;
-  white-space: nowrap;
-  letter-spacing: -0.06em;
+.footer-grid{
+  display:grid;grid-template-columns:2fr 1fr 1fr;
+  gap:clamp(32px,5vw,64px);
+  padding-bottom:clamp(40px,5vw,64px);
+  border-bottom:1px solid rgba(255,255,255,0.07);
+  margin-bottom:clamp(24px,3vw,36px);
 }
-.footer-grid {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
-  gap: 48px;
-  padding-bottom: 60px;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
+.footer-brand p{
+  color:rgba(255,255,255,0.45);font-size:0.88rem;margin-top:16px;
+  max-width:320px;line-height:1.75;
 }
-.footer-brand {}
-.footer-logo {
-  font-family: var(--font-head);
-  font-size: 22px;
-  font-weight: 700;
-  color: #fff;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 16px;
+.footer-logo{
+  font-family:var(--font-head);font-size:1.4rem;font-weight:700;
+  color:#fff;display:flex;align-items:center;gap:10px;
 }
-.footer-logo-mark {
-  width: 36px; height: 36px;
-  background: linear-gradient(135deg, var(--forest), var(--sage));
-  border-radius: 8px;
-  display: flex; align-items: center; justify-content: center;
+.footer-logo-mark{
+  width:32px;height:32px;background:var(--accent);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
 }
-.footer-logo-mark svg { width: 20px; height: 20px; fill: #fff; }
-.footer-desc {
-  font-size: 14px;
-  color: rgba(255,255,255,0.4);
-  line-height: 1.7;
-  margin-bottom: 24px;
-  max-width: 300px;
+.footer-logo-mark svg{width:16px;height:16px;fill:#fff;}
+.footer-logo span{color:var(--gold);}
+.footer-col h5{
+  font-family:var(--font-head);font-size:0.78rem;font-weight:400;
+  color:rgba(255,255,255,0.35);letter-spacing:0.18em;text-transform:uppercase;
+  margin-bottom:20px;
 }
-.footer-badges {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
+.footer-links{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.footer-links a{
+  font-size:0.88rem;color:rgba(255,255,255,0.55);text-decoration:none;
+  transition:color var(--transition);letter-spacing:0.02em;
 }
-.footer-badge {
-  padding: 5px 14px;
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 100px;
-  font-size: 11px;
-  font-weight: 700;
-  color: rgba(255,255,255,0.45);
-  letter-spacing: 0.08em;
+.footer-links a:hover{color:#fff;}
+.footer-bottom{
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;
 }
-.footer-col h5 {
-  font-family: var(--font-head);
-  font-size: 15px;
-  font-weight: 700;
-  color: #fff;
-  margin-bottom: 20px;
-  letter-spacing: -0.01em;
-}
-.footer-links {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-.footer-links a {
-  font-size: 14px;
-  color: rgba(255,255,255,0.4);
-  transition: color 0.2s;
-}
-.footer-links a:hover { color: var(--accent-light); }
-.footer-bottom {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 24px 0 32px;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-.footer-copy {
-  font-size: 13px;
-  color: rgba(255,255,255,0.3);
-}
-.footer-copy a { color: var(--accent-light); }
-.footer-tagline {
-  font-family: var(--font-head);
-  font-style: italic;
-  font-size: 13px;
-  color: rgba(255,255,255,0.25);
-}
+.footer-copy{font-size:0.78rem;color:rgba(255,255,255,0.3);}
+.footer-copy a{color:rgba(255,255,255,0.3);text-decoration:none;}
+.footer-tagline{font-size:0.72rem;color:rgba(255,255,255,0.2);letter-spacing:0.1em;text-transform:uppercase;}
 
-/* ============================================================
-   VELOCITY MARQUEE (service strip)
-   ============================================================ */
-.marquee-section {
-  background: var(--forest);
-  padding: 20px 0;
-  overflow: hidden;
-  border-top: 1px solid rgba(255,255,255,0.06);
-  border-bottom: 1px solid rgba(255,255,255,0.06);
-}
-.marquee-track {
-  display: flex;
-  gap: 0;
-  will-change: transform;
-  white-space: nowrap;
-}
-.marquee-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 16px;
-  padding: 0 32px;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.6);
-  flex-shrink: 0;
-}
-.marquee-dot {
-  width: 5px; height: 5px;
-  background: var(--accent-light);
-  border-radius: 50%;
-  flex-shrink: 0;
-  opacity: 0.7;
-}
+/* ─────────────────────────────────────────
+   UTILITIES
+───────────────────────────────────────── */
+.text-accent{color:var(--accent);}
+.text-gold{color:var(--gold);}
 
-/* ============================================================
-   CUSTOM CURSOR STYLES
-   ============================================================ */
-#c-dot, #c-ring {
-  pointer-events: none;
-}
-
-/* ============================================================
+/* ─────────────────────────────────────────
    RESPONSIVE — MOBILE FIRST
-   ============================================================ */
-@media (max-width: 767px) {
-  .mobile-call-bar { display: flex; }
-  .mobile-quote-bar { display: block; }
+───────────────────────────────────────── */
+@media (max-width:767px){
+  .sticky-call{display:block;}
+  .sticky-quote-btn{display:block;}
+  body{padding-top:36px;padding-bottom:60px;}
+  #nav{top:36px;}
 
-  #nav {
-    top: 40px;
-    padding: 0 20px;
-  }
-  #nav.scrolled { top: 40px; }
+  .nav-links{display:none;}
+  .nav-hamburger{display:flex;}
 
-  .nav-links { display: none; }
-  .hamburger { display: flex; }
+  .trust-grid{grid-template-columns:repeat(2,1fr);}
+  .trust-item{border-right:none;border-bottom:1px solid rgba(255,255,255,0.07);}
+  .trust-item:nth-child(odd){border-right:1px solid rgba(255,255,255,0.07);}
+  .trust-item:nth-last-child(-n+2){border-bottom:none;}
 
-  .mobile-menu { display: flex; }
+  .services-grid{grid-template-columns:1fr;}
+  .about-grid{grid-template-columns:1fr;}
+  .about-img-wrap{margin-bottom:20px;}
+  .about-badge{right:16px;bottom:16px;}
 
-  #hero { padding-top: 80px; }
-  .hero-content {
-    padding: 100px 24px 120px;
-  }
-  .hero-actions { flex-direction: column; align-items: flex-start; }
-  .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
+  .process-steps{grid-template-columns:1fr;}
+  .process-steps::before{display:none;}
 
-  .trust-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .gallery-grid{grid-template-columns:1fr 1fr;}
+  .gallery-item.span2{grid-column:span 1;}
 
-  .services-grid { grid-template-columns: 1fr; gap: 24px; }
+  .testimonials-bg-img{display:none;}
+  .testimonials-grid{grid-template-columns:1fr;}
 
-  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 32px; }
+  .area-grid{grid-template-columns:1fr;}
+  .faq-grid{grid-template-columns:1fr;}
+  .faq-intro{margin-bottom:32px;}
 
-  .about-grid { grid-template-columns: 1fr; }
-  .about-img-accent { display: none; }
-  .about-badge { left: 12px; top: 16px; }
-  .about-content { padding-right: 0; }
+  .contact-grid{grid-template-columns:1fr;}
+  .contact-bg{display:none;}
+  .form-row{grid-template-columns:1fr;}
 
-  .process-steps { grid-template-columns: 1fr; }
+  .footer-grid{grid-template-columns:1fr;}
+  .footer-bottom{flex-direction:column;text-align:center;}
 
-  .testimonials-grid { grid-template-columns: 1fr; }
+  .stats-grid{grid-template-columns:repeat(2,1fr);}
+  .stat-item{border-right:none;border-bottom:1px solid rgba(255,255,255,0.07);}
+  .stat-item:nth-child(odd){border-right:1px solid rgba(255,255,255,0.07);}
+  .stat-item:nth-last-child(-n+2){border-bottom:none;}
 
-  .area-grid { grid-template-columns: 1fr; }
-  .area-map-placeholder { aspect-ratio: 4/3; }
-
-  .contact-grid { grid-template-columns: 1fr; }
-  .contact-img { display: none; }
-
-  .form-grid { grid-template-columns: 1fr; }
-  .form-group.full { grid-column: 1; }
-
-  .footer-grid {
-    grid-template-columns: 1fr;
-    gap: 36px;
-  }
-  .footer-bottom {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  body { padding-bottom: 80px; }
+  .hero-ghost{display:none;}
 }
 
-@media (min-width: 480px) and (max-width: 767px) {
-  .services-grid { grid-template-columns: repeat(2, 1fr); }
-  .process-steps { grid-template-columns: repeat(2, 1fr); }
+@media (min-width:480px) and (max-width:767px){
+  .services-grid{grid-template-columns:1fr 1fr;}
 }
 
-@media (min-width: 768px) and (max-width: 1023px) {
-  .trust-grid { grid-template-columns: repeat(4, 1fr); gap: 20px; }
-  .services-grid { grid-template-columns: repeat(2, 1fr); }
-  .stats-grid { grid-template-columns: repeat(4, 1fr); }
-  .about-grid { grid-template-columns: 1fr 1fr; }
-  .about-img-accent { display: none; }
-  .process-steps { grid-template-columns: repeat(2, 1fr); }
-  .footer-grid { grid-template-columns: 1fr 1fr; gap: 36px; }
-}
-
-@media (min-width: 1024px) {
-  .services-grid { grid-template-columns: repeat(3, 1fr); }
+@media (min-width:768px) and (max-width:1023px){
+  .trust-grid{grid-template-columns:repeat(4,1fr);}
+  .services-grid{grid-template-columns:repeat(3,1fr);}
+  .about-grid{gap:clamp(28px,4vw,48px);}
+  .process-steps{grid-template-columns:repeat(3,1fr);}
+  .testimonials-grid{grid-template-columns:repeat(3,1fr);}
+  .contact-grid{grid-template-columns:1fr;}
+  .contact-bg{display:none;}
+  .footer-grid{grid-template-columns:1fr 1fr 1fr;}
 }
 
 /* Landscape phones */
-@media (max-width: 900px) and (orientation: landscape) {
-  :root { --nav-h: 52px; }
-  #hero {
-    min-height: 56svh;
+@media (max-width:900px) and (orientation:landscape){
+  body{padding-top:0;padding-bottom:0;}
+  .sticky-call,.sticky-quote-btn{display:none;}
+  #nav{
+    top:0;height:48px;
+    background:rgba(244,249,241,0.96);
+    backdrop-filter:blur(12px);
+    box-shadow:0 1px 0 var(--border);
   }
-  .hero-content {
-    padding: 70px 40px 60px;
+  .nav-inner{padding:0 clamp(16px,3vw,32px);}
+  .nav-links{display:flex;gap:clamp(12px,2vw,20px);}
+  .nav-links a{font-size:0.75rem;}
+  .nav-hamburger{display:none;}
+  .nav-cta{padding:6px 14px;font-size:0.78rem!important;}
+
+  #hero{
+    min-height:56svh;
+    align-items:center;
   }
-  h1 { font-size: clamp(36px, 7vw, 64px); }
-  h2 { font-size: clamp(24px, 4vw, 42px); }
-  .mobile-call-bar { height: 32px; font-size: 11px; }
-  #nav { top: 32px; }
-  .nav-links { display: flex; gap: 16px; }
-  .hamburger { display: none; }
-  .trust-grid { grid-template-columns: repeat(4, 1fr); gap: 16px; }
-  .services-grid { grid-template-columns: repeat(3, 1fr); }
-  #services, #about, #process, #testimonials, #contact, #faq, #gallery, #service-area {
-    padding: clamp(40px, 5vw, 72px) 0;
-  }
+  .hero-title{font-size:clamp(2rem,6vw,3.8rem);}
+  .hero-content{padding-bottom:32px;padding-top:48px;}
+  .hero-sub{font-size:0.92rem;}
+  .hero-ghost{font-size:clamp(60px,12vw,120px);}
+
+  .services-grid{grid-template-columns:1fr 1fr;}
+  .about-grid{grid-template-columns:1fr 1fr;}
+  .process-steps{grid-template-columns:repeat(3,1fr);}
+  .gallery-grid{grid-template-columns:repeat(3,1fr);}
+  .testimonials-grid{grid-template-columns:repeat(3,1fr);}
+  .testimonials-bg-img{display:none;}
+  .contact-grid{grid-template-columns:1fr;}
+  .contact-bg{display:none;}
+  .form-row{grid-template-columns:1fr 1fr;}
+
+  .section{padding:clamp(40px,5vw,64px) 0;}
+  h2{font-size:clamp(1.6rem,4vw,2.8rem);}
 }
 
-@media (orientation: portrait) {
-  .about-img-accent { display: block; }
+@media (orientation:portrait){
+  .hero-title{font-size:clamp(2.8rem,10vw,6rem);}
 }
 
-@media (orientation: landscape) and (min-width: 901px) {
-  .about-img-accent { display: block; }
+@media (orientation:landscape) and (min-width:901px){
+  .hero-title{font-size:clamp(3.2rem,8vw,7.2rem);}
 }
 </style>
 
@@ -1539,567 +946,523 @@ html[data-palette-anim] *, html[data-palette-anim] *::before, html[data-palette-
 </head>
 <body>
 
-<!-- ── MOBILE CALL BAR ──────────────────────────────────── -->
-<a href="tel:" class="mobile-call-bar" aria-label="Call Binda's Landscaping">
-  <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
-  TAP TO CALL — FREE QUOTES FOR ATLANTA HOMES
-</a>
-
-<!-- ── NAVIGATION ──────────────────────────────────────── -->
-<nav id="nav" role="navigation" aria-label="Main navigation">
-  <div class="nav-logo">
-    <div class="nav-logo-mark">
-      <svg viewBox="0 0 24 24"><path d="M17 8C8 10 5.9 16.17 3.82 19.34L5.71 21l1-1C9 17 11 14 17 13v3l4-4-4-4v3z M12 3C7.03 3 3 7.03 3 12h2c0-3.87 3.13-7 7-7V3z"/></svg>
-    </div>
-    Binda's Landscaping
-  </div>
-
-  <ul class="nav-links" id="nav-links">
-    <li><a href="#services">Services</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="#process">Process</a></li>
-    <li><a href="#testimonials">Reviews</a></li>
-    <li><a href="#service-area">Service Area</a></li>
-    <li><a href="#contact" class="nav-cta">Get Free Quote</a></li>
-  </ul>
-
-  <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
-    <span></span><span></span><span></span>
-  </button>
-</nav>
-
-<!-- Mobile full-screen menu -->
-<div class="mobile-menu" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Mobile navigation">
-  <a href="#services"       onclick="closeMobileMenu()">Services</a>
-  <a href="#about"          onclick="closeMobileMenu()">About Us</a>
-  <a href="#process"        onclick="closeMobileMenu()">How It Works</a>
-  <a href="#testimonials"   onclick="closeMobileMenu()">Reviews</a>
-  <a href="#service-area"   onclick="closeMobileMenu()">Service Area</a>
-  <a href="#faq"            onclick="closeMobileMenu()">FAQ</a>
-  <a href="#contact" style="color:var(--accent)" onclick="closeMobileMenu()">Get Free Quote →</a>
+<!-- STICKY MOBILE CALL BAR -->
+<div class="sticky-call">
+  <a href="tel:+14045550000">📞 Call Now — Atlanta's Trusted Lawn Crew</a>
 </div>
 
-<!-- ── HERO ─────────────────────────────────────────────── -->
-<section id="hero" aria-label="Hero">
-  <div class="hero-overlay"></div>
+<!-- NAV -->
+<nav id="nav" role="navigation" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="#hero" class="nav-logo" aria-label="Binda's Landscaping Home">
+      <div class="nav-logo-mark">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8 2 4 5.5 4 10c0 6 8 12 8 12s8-6 8-12c0-4.5-4-8-8-8zm0 10.5c-1.4 0-2.5-1.1-2.5-2.5S10.6 7.5 12 7.5 14.5 8.6 14.5 10 13.4 12.5 12 12.5z"/></svg>
+      </div>
+      Binda's <span>Landscaping</span>
+    </a>
+    <ul class="nav-links" role="list">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#testimonials">Reviews</a></li>
+      <li><a href="#area">Service Area</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#contact" class="nav-cta">Get Free Estimate</a></li>
+    </ul>
+    <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
 
-  <!-- SVG Noise texture -->
+<!-- MOBILE NAV -->
+<div class="nav-mobile" id="navMobile" role="dialog" aria-modal="true" aria-label="Mobile navigation">
+  <a href="#services" class="nav-mobile-link">Services</a>
+  <a href="#about" class="nav-mobile-link">About</a>
+  <a href="#testimonials" class="nav-mobile-link">Reviews</a>
+  <a href="#area" class="nav-mobile-link">Area</a>
+  <a href="#faq" class="nav-mobile-link">FAQ</a>
+  <a href="#contact" class="nav-mobile-link nav-mobile-cta">Get Free Estimate</a>
+</div>
+
+<!-- ═══════ HERO ═══════ -->
+<section id="hero" aria-label="Hero">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-overlay"></div>
   <svg class="hero-noise" aria-hidden="true">
     <filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3"/></filter>
     <rect width="100%" height="100%" filter="url(#n)"/>
   </svg>
-
-  <div class="hero-ghost" aria-hidden="true">BINDA'S</div>
-
+  <div class="hero-ghost" aria-hidden="true">GREEN</div>
   <div class="hero-content">
-    <span class="hero-eyebrow">Atlanta Metro Landscaping</span>
-    <h1 class="hero-title">Curb appeal.<br/><em>Clean lines.</em><br/>Every time.</h1>
-    <p class="hero-sub">Reliable residential and commercial landscaping across Sandy Springs, Buckhead, Decatur, and the greater Atlanta metro — photo-ready results on a schedule you can count on.</p>
+    <p class="hero-eyebrow">Atlanta Metro Landscaping Since 2010</p>
+    <h1 class="hero-title" id="heroTitle">
+      Curb Appeal.<br/>
+      <em>Clean Lines.</em><br/>
+      Atlanta Lawns.
+    </h1>
+    <p class="hero-sub">
+      Weekly lawn care, precision edging, bed design, seasonal cleanups, and dependable scheduling for homes across Sandy Springs, Buckhead, Decatur, and beyond.
+    </p>
     <div class="hero-actions">
-      <a href="#contact" class="btn-primary">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
-        Get My Free Quote
+      <a href="#contact" class="btn-primary" id="heroCtaBtn">
+        Get a Free Estimate
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
       <a href="#services" class="btn-secondary">View Our Services</a>
     </div>
   </div>
-
-  <div class="hero-scroll-indicator" aria-hidden="true">
-    <div class="scroll-line"></div>
+  <div class="hero-scroll-hint" aria-hidden="true">
     <span>Scroll</span>
+    <div class="hero-scroll-line"></div>
   </div>
 </section>
 
-<!-- ── TRUST BAR ─────────────────────────────────────────── -->
+<!-- ═══════ TRUST BAR ═══════ -->
 <section id="trust" aria-label="Trust indicators">
-  <div class="section-wrap">
+  <div class="container">
     <div class="trust-grid">
       <div class="trust-item reveal">
         <div class="trust-icon">
-          <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.5 3.8 10.7 9 12 5.2-1.3 9-6.5 9-12V5l-9-4z"/></svg>
         </div>
-        <div>
-          <div class="trust-label">Licensed & Insured</div>
-          <div class="trust-sub">Fully covered, every job</div>
-        </div>
-      </div>
-      <div class="trust-item reveal">
-        <div class="trust-icon">
-          <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-        </div>
-        <div>
-          <div class="trust-label">Atlanta Metro Service</div>
-          <div class="trust-sub">Sandy Springs · Buckhead · Decatur</div>
+        <div class="trust-text">
+          <strong>Licensed &amp; Insured</strong>
+          <span>Georgia Certified</span>
         </div>
       </div>
       <div class="trust-item reveal">
         <div class="trust-icon">
-          <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
         </div>
-        <div>
-          <div class="trust-label">Reliable Scheduling</div>
-          <div class="trust-sub">On-time, every visit</div>
+        <div class="trust-text">
+          <strong>4.9 ★ Google Rating</strong>
+          <span>200+ Reviews</span>
         </div>
       </div>
       <div class="trust-item reveal">
         <div class="trust-icon">
-          <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
         </div>
-        <div>
-          <div class="trust-label">Local, Family Crew</div>
-          <div class="trust-sub">Proudly serving Atlanta</div>
+        <div class="trust-text">
+          <strong>Local &amp; Family Owned</strong>
+          <span>Atlanta-Based Crew</span>
+        </div>
+      </div>
+      <div class="trust-item reveal">
+        <div class="trust-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        </div>
+        <div class="trust-text">
+          <strong>15+ Years Experience</strong>
+          <span>Metro Atlanta Service</span>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── SERVICES MARQUEE ──────────────────────────────────── -->
+<!-- ═══════ MARQUEE ═══════ -->
 <div class="marquee-section" aria-hidden="true">
-  <div class="marquee-track" id="marquee-track">
-    <div class="marquee-item"><span class="marquee-dot"></span>Weekly Lawn Care</div>
-    <div class="marquee-item"><span class="marquee-dot"></span>Seasonal Cleanups</div>
-    <div class="marquee-item"><span class="marquee-dot"></span>Mulching & Bed Design</div>
-    <div class="marquee-item"><span class="marquee-dot"></span>Hedge Trimming</div>
-    <div class="marquee-item"><span class="marquee-dot"></span>Irrigation Checks</div>
-    <div class="marquee-item"><span class="marquee-dot"></span>Small Hardscaping</div>
-    <div class="marquee-item"><span class="marquee-dot"></span>HOA Grounds Care</div>
-    <div class="marquee-item"><span class="marquee-dot"></span>Commercial Properties</div>
-    <div class="marquee-item"><span class="marquee-dot"></span>Weekly Lawn Care</div>
-    <div class="marquee-item"><span class="marquee-dot"></span>Seasonal Cleanups</div>
-    <div class="marquee-item"><span class="marquee-dot"></span>Mulching & Bed Design</div>
-    <div class="marquee-item"><span class="marquee-dot"></span>Hedge Trimming</div>
-    <div class="marquee-item"><span class="marquee-dot"></span>Irrigation Checks</div>
-    <div class="marquee-item"><span class="marquee-dot"></span>Small Hardscaping</div>
-    <div class="marquee-item"><span class="marquee-dot"></span>HOA Grounds Care</div>
-    <div class="marquee-item"><span class="marquee-dot"></span>Commercial Properties</div>
+  <div class="marquee-track" id="marqueeTrack">
+    <span class="marquee-item">Lawn Mowing<span class="marquee-dot"></span></span>
+    <span class="marquee-item">Hedge Trimming<span class="marquee-dot"></span></span>
+    <span class="marquee-item">Mulching<span class="marquee-dot"></span></span>
+    <span class="marquee-item">Bed Design<span class="marquee-dot"></span></span>
+    <span class="marquee-item">Seasonal Cleanup<span class="marquee-dot"></span></span>
+    <span class="marquee-item">Irrigation Checks<span class="marquee-dot"></span></span>
+    <span class="marquee-item">Hardscaping<span class="marquee-dot"></span></span>
+    <span class="marquee-item">HOA Grounds Care<span class="marquee-dot"></span></span>
+    <span class="marquee-item">Lawn Mowing<span class="marquee-dot"></span></span>
+    <span class="marquee-item">Hedge Trimming<span class="marquee-dot"></span></span>
+    <span class="marquee-item">Mulching<span class="marquee-dot"></span></span>
+    <span class="marquee-item">Bed Design<span class="marquee-dot"></span></span>
+    <span class="marquee-item">Seasonal Cleanup<span class="marquee-dot"></span></span>
+    <span class="marquee-item">Irrigation Checks<span class="marquee-dot"></span></span>
+    <span class="marquee-item">Hardscaping<span class="marquee-dot"></span></span>
+    <span class="marquee-item">HOA Grounds Care<span class="marquee-dot"></span></span>
   </div>
 </div>
 
-<!-- ── SERVICES ──────────────────────────────────────────── -->
-<section id="services" aria-label="Our services">
-  <div class="services-ghost" aria-hidden="true">SERVICES</div>
-  <div class="section-wrap">
-    <div class="section-header reveal">
-      <span class="eyebrow">What We Do</span>
-      <h2>Everything your property needs, done right</h2>
-      <p>From weekly maintenance to full seasonal transformations — Binda's delivers photo-ready results on a schedule you can trust.</p>
-    </div>
+<!-- ═══════ SERVICES ═══════ -->
+<section id="services" class="section" aria-label="Our services">
+  <div class="container">
+    <p class="section-label reveal">What We Do</p>
+    <h2 class="section-heading reveal" id="servicesHeading">
+      Every Service,<br/>Photo-Ready Results.
+    </h2>
     <div class="services-grid">
-      <div class="service-card reveal">
-        <div style="overflow:hidden">
-          <img class="service-card-img" src="https://images.pexels.com/photos/9203789/pexels-photo-9203789.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Drone view of landscaped home with pool and garden" loading="lazy"/>
+      <article class="service-card reveal">
+        <div class="service-card-img">
+          <img src="https://images.pexels.com/photos/9203789/pexels-photo-9203789.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Aerial view of landscaped home with garden and swimming pool" loading="lazy" width="940" height="650"/>
         </div>
         <div class="service-card-body">
+          <p class="service-card-num">01 — Lawn Care</p>
+          <h3>Weekly Lawn Care &amp; Edging</h3>
+          <p>Reliable weekly mowing, precision edging, blowing, and turf health monitoring. Your lawn looks sharp every time, on schedule.</p>
           <span class="service-card-tag">Most Popular</span>
-          <h4>Weekly Lawn Care</h4>
-          <p>Reliable mowing, edging, and blowing every week. We treat every yard like our own — sharp lines, clean borders, zero skipped visits.</p>
         </div>
-      </div>
-      <div class="service-card reveal">
-        <div style="overflow:hidden">
-          <img class="service-card-img" src="https://images.pexels.com/photos/27176060/pexels-photo-27176060.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Gardener planting seedlings in a garden bed" loading="lazy"/>
+      </article>
+      <article class="service-card reveal">
+        <div class="service-card-img">
+          <img src="https://images.pexels.com/photos/27176060/pexels-photo-27176060.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Gardener planting seedlings in a garden bed" loading="lazy" width="940" height="650"/>
         </div>
         <div class="service-card-body">
-          <span class="service-card-tag">Seasonal</span>
-          <h4>Mulching & Bed Design</h4>
-          <p>Fresh mulch application, bed reshaping, and seasonal plantings that give your property that polished, photo-ready curb appeal.</p>
+          <p class="service-card-num">02 — Bed Design</p>
+          <h3>Mulching &amp; Bed Design</h3>
+          <p>Custom bed layouts, seasonal color installs, and premium mulching that retains moisture, controls weeds, and looks immaculate.</p>
+          <span class="service-card-tag">Curb Appeal Driver</span>
         </div>
-      </div>
-      <div class="service-card reveal">
-        <div style="overflow:hidden">
-          <img class="service-card-img" src="https://images.pexels.com/photos/4920283/pexels-photo-4920283.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Gardener trimming a green hedge" loading="lazy"/>
-        </div>
-        <div class="service-card-body">
-          <span class="service-card-tag">Year-Round</span>
-          <h4>Hedge Trimming & Shaping</h4>
-          <p>Precision shaping of shrubs, hedges, and ornamentals. We sculpt clean lines that make your property stand out on the block.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Second row -->
-    <div class="services-grid" style="margin-top:28px">
-      <div class="service-card reveal">
-        <div style="overflow:hidden">
-          <img class="service-card-img" src="https://images.pexels.com/photos/32024878/pexels-photo-32024878.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Cozy backyard with wooden lounge chairs and lush greenery" loading="lazy"/>
+      </article>
+      <article class="service-card reveal">
+        <div class="service-card-img">
+          <img src="https://images.pexels.com/photos/15868304/pexels-photo-15868304.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Neatly trimmed green shrubs lining a walking path" loading="lazy" width="940" height="650"/>
         </div>
         <div class="service-card-body">
-          <span class="service-card-tag">Residential & HOA</span>
-          <h4>Seasonal Cleanups</h4>
-          <p>Spring revival and fall leaf cleanup packages that keep properties in top shape before and after Atlanta's seasonal shifts.</p>
+          <p class="service-card-num">03 — Hedge Trimming</p>
+          <h3>Hedge &amp; Shrub Shaping</h3>
+          <p>Crisp, geometric cuts and natural sculpting for hedges, ornamental shrubs, and topiaries that define your property's architecture.</p>
+          <span class="service-card-tag">Clean &amp; Precise</span>
         </div>
-      </div>
-      <div class="service-card reveal">
-        <div style="overflow:hidden">
-          <img class="service-card-img" src="https://images.pexels.com/photos/8333119/pexels-photo-8333119.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Aerial view of a landscaped garden with pathways and a house" loading="lazy"/>
-        </div>
-        <div class="service-card-body">
-          <span class="service-card-tag">New</span>
-          <h4>Small Hardscaping</h4>
-          <p>Walkways, stepping stones, edging borders, and simple landscape structures that add structure and lasting value to your outdoor space.</p>
-        </div>
-      </div>
-      <div class="service-card reveal">
-        <div style="overflow:hidden">
-          <img class="service-card-img" src="https://images.pexels.com/photos/26743245/pexels-photo-26743245.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Inviting garden with wooden swing and lush greenery" loading="lazy"/>
+      </article>
+      <article class="service-card reveal">
+        <div class="service-card-img">
+          <img src="https://images.pexels.com/photos/25283561/pexels-photo-25283561.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Garden sprinkler watering a lush green lawn" loading="lazy" width="940" height="650"/>
         </div>
         <div class="service-card-body">
-          <span class="service-card-tag">Maintenance</span>
-          <h4>Irrigation Checks</h4>
-          <p>Basic system inspections, head adjustments, and seasonal shut-offs to keep your irrigation running efficiently all year long.</p>
+          <p class="service-card-num">04 — Irrigation</p>
+          <h3>Irrigation Checks &amp; Tuning</h3>
+          <p>Seasonal start-ups, system inspections, head adjustments, and smart controller checks to keep your lawn green without waste.</p>
+          <span class="service-card-tag">Efficiency First</span>
         </div>
-      </div>
+      </article>
+      <article class="service-card reveal">
+        <div class="service-card-img">
+          <img src="https://images.unsplash.com/photo-1673643717342-e9077cbfda77?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxzbWFsbCUyMGhhcmRzY2FwaW5nJTIwc3RvbmUlMjBwYXRoJTIwcGF0aW8lMjByZXNpZGVudGlhbCUyMGxhbmRzY2FwZSUyMGRlc2lnbnxlbnwwfDB8fHwxNzc3OTE0OTUwfDA&ixlib=rb-4.1.0&q=80&w=1080" alt="Stone garden walkway with palm trees" loading="lazy" width="1080" height="720"/>
+        </div>
+        <div class="service-card-body">
+          <p class="service-card-num">05 — Hardscaping</p>
+          <h3>Small Hardscaping Projects</h3>
+          <p>Stone pathways, step installations, border edging, and simple patio enhancements that add lasting structure to your outdoor space.</p>
+          <span class="service-card-tag">Built to Last</span>
+        </div>
+      </article>
+      <article class="service-card reveal">
+        <div class="service-card-img">
+          <img src="https://images.pexels.com/photos/8333119/pexels-photo-8333119.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Aerial view of a landscaped garden with trees and pathways" loading="lazy" width="940" height="650"/>
+        </div>
+        <div class="service-card-body">
+          <p class="service-card-num">06 — Seasonal Cleanup</p>
+          <h3>Seasonal Cleanups &amp; HOA Care</h3>
+          <p>Spring and fall detail cleanups, leaf removal, property-wide blowouts, and dependable maintenance contracts for HOAs and commercial properties.</p>
+          <span class="service-card-tag">Recurring Plans</span>
+        </div>
+      </article>
     </div>
   </div>
 </section>
 
-<!-- ── STATS ─────────────────────────────────────────────── -->
-<section id="stats" aria-label="Company stats">
-  <img class="stats-bg-img" src="https://images.pexels.com/photos/5879102/pexels-photo-5879102.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="" aria-hidden="true" loading="lazy"/>
-  <div class="section-wrap">
+<!-- ═══════ STATS ═══════ -->
+<section id="stats" aria-label="Key statistics">
+  <div class="stats-ghost" aria-hidden="true">BINDA</div>
+  <div class="container">
     <div class="stats-grid">
-      <div class="reveal">
-        <div class="stat-val"><span class="counter" data-target="500">0</span><span>+</span></div>
-        <div class="stat-label">Properties Served</div>
+      <div class="stat-item reveal">
+        <span class="stat-num" data-target="15" data-suffix="+"><span class="counter">15</span><span>+</span></span>
+        <span class="stat-label">Years Serving Atlanta</span>
       </div>
-      <div class="reveal">
-        <div class="stat-val"><span class="counter" data-target="98">0</span><span>%</span></div>
-        <div class="stat-label">On-Time Rate</div>
+      <div class="stat-item reveal">
+        <span class="stat-num" data-target="850" data-suffix="+"><span class="counter">850</span><span>+</span></span>
+        <span class="stat-label">Properties Maintained</span>
       </div>
-      <div class="reveal">
-        <div class="stat-val"><span class="counter" data-target="5">0</span><span>★</span></div>
-        <div class="stat-label">Average Google Rating</div>
+      <div class="stat-item reveal">
+        <span class="stat-num" data-target="98" data-suffix="%"><span class="counter">98</span><span>%</span></span>
+        <span class="stat-label">Client Retention Rate</span>
       </div>
-      <div class="reveal">
-        <div class="stat-val"><span class="counter" data-target="12">0</span><span>+</span></div>
-        <div class="stat-label">Atlanta Communities</div>
+      <div class="stat-item reveal">
+        <span class="stat-num"><span class="counter" data-target="4.9" data-suffix="" data-decimal>4.9</span><span style="color:var(--gold)">★</span></span>
+        <span class="stat-label">Average Google Rating</span>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── ABOUT ─────────────────────────────────────────────── -->
-<section id="about" aria-label="About Binda's Landscaping">
-  <div class="section-wrap">
+<!-- ═══════ ABOUT ═══════ -->
+<section id="about" class="section" aria-label="About Binda's Landscaping">
+  <div class="container">
     <div class="about-grid">
       <div class="about-img-wrap reveal">
-        <img class="about-img-main" src="https://images.unsplash.com/photo-1593266432400-4ee632e15d6d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwzfHxmcmllbmRseSUyMGxhbmRzY2FwaW5nJTIwY3JldyUyMGFwcHJvYWNoYWJsZSUyMGxvY2FsJTIwQXRsYW50YSUyMHRlYW18ZW58MHwwfHx8MTc3Nzg2ODY4M3ww&ixlib=rb-4.1.0&q=80&w=1080" alt="Aerial view of a healthy green lawn" loading="lazy"/>
+        <img src="https://images.pexels.com/photos/4920283/pexels-photo-4920283.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Experienced gardener trimming a lush green hedge" loading="lazy" width="940" height="650"/>
         <div class="about-badge">
-          <strong>ATL</strong>
-          <span>Local Crew</span>
+          15+
+          <small>Years in Atlanta</small>
         </div>
-        <img class="about-img-accent" src="https://images.unsplash.com/photo-1651444911193-135d55dec8d0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHw4fHxiZWZvcmUlMjBhZnRlciUyMGxhd24lMjB0cmFuc2Zvcm1hdGlvbiUyMHBob3RvLXJlYWR5JTIwY3VyYiUyMGFwcGVhbHxlbnwwfDB8fHwxNzc3OTEzNzc3fDA&ixlib=rb-4.1.0&q=80&w=1080" alt="Landscaped backyard transformation" loading="lazy"/>
       </div>
       <div class="about-content">
-        <span class="eyebrow">Our Story</span>
-        <h2>Grounded in Atlanta. Driven by clean work.</h2>
-        <p>Binda's Landscaping started with a simple belief: every Atlanta homeowner deserves a yard that makes them proud. We built our reputation visit by visit — showing up on time, doing the work right, and leaving every property looking its best.</p>
-        <p>We serve homeowners in Sandy Springs, Decatur, Buckhead, and surrounding suburbs, as well as HOA property managers and small commercial clients who need a crew they can genuinely count on.</p>
-        <ul class="about-bullets">
-          <li><span class="bullet-dot"></span>Locally operated, community-focused team</li>
-          <li><span class="bullet-dot"></span>Consistent crews — you know who's showing up</li>
-          <li><span class="bullet-dot"></span>Photo-ready results every single visit</li>
-          <li><span class="bullet-dot"></span>Transparent pricing, no hidden fees</li>
+        <p class="section-label reveal">Our Story</p>
+        <h2 class="reveal" id="aboutHeading">We Take Pride<br/>in Every Edge.</h2>
+        <p class="reveal">Binda's Landscaping was founded on a simple belief: that every property deserves the same care and attention we'd give our own. We've been working Atlanta's neighborhoods since 2010 — one well-kept lawn at a time.</p>
+        <p class="reveal">Our crews are trained, punctual, and proud of the work they do. We don't just mow grass — we build lasting curb appeal for homeowners and property managers who want reliable, photo-ready results every week.</p>
+        <ul class="about-list reveal">
+          <li>
+            <span class="about-list-check">
+              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
+            Consistent crews — same faces, same standards, every visit
+          </li>
+          <li>
+            <span class="about-list-check">
+              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
+            Digital scheduling with photo confirmations after every service
+          </li>
+          <li>
+            <span class="about-list-check">
+              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
+            Fully licensed and insured — residential and commercial
+          </li>
+          <li>
+            <span class="about-list-check">
+              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
+            Local, family-owned — not a franchise, not a call center
+          </li>
         </ul>
-        <a href="#contact" class="btn-primary" style="display:inline-flex">
-          Schedule a Walkthrough
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+        <a href="#contact" class="btn-primary reveal" style="display:inline-flex;margin-top:8px;">
+          Start Your Estimate
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── HOW IT WORKS ──────────────────────────────────────── -->
-<section id="process" aria-label="How it works">
-  <img class="process-bg" src="https://images.unsplash.com/photo-1777895703634-bb97e9789866?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHw2fHxsYW5kc2NhcGluZyUyMHNjaGVkdWxpbmclMjByZWxpYWJsZSUyMGNyZXclMjBvcmdhbml6ZWQlMjBwcm9mZXNzaW9uYWwlMjB3b3JrZmxvd3xlbnwwfDB8fHwxNzc3OTEzNzc5fDA&ixlib=rb-4.1.0&q=80&w=1080" alt="" aria-hidden="true" loading="lazy"/>
-  <div class="process-ghost" aria-hidden="true">PROCESS</div>
-  <div class="section-wrap" style="position:relative;z-index:1">
-    <div class="section-header process-header reveal">
-      <span class="eyebrow">How It Works</span>
-      <h2>Simple. Reliable. Done.</h2>
-      <p>Getting started with Binda's is effortless. Here's exactly what to expect from your first quote to your first visit.</p>
+<!-- ═══════ HOW IT WORKS ═══════ -->
+<section id="process" class="section" aria-label="How it works">
+  <div class="container">
+    <div class="process-img-band reveal">
+      <img src="https://images.pexels.com/photos/12700530/pexels-photo-12700530.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Aerial view of lush suburban Atlanta backyards" loading="lazy" width="940" height="650"/>
+      <div class="process-img-overlay">
+        <div class="process-img-text">
+          <p class="section-label" style="color:rgba(255,255,255,0.55);">The Process</p>
+          <h2 style="color:#fff;font-size:clamp(1.8rem,4vw,3rem);">Simple From<br/>Start to Schedule.</h2>
+          <p>No complicated contracts. No chasing invoices. Just a clean yard on the day you expect it.</p>
+        </div>
+      </div>
     </div>
     <div class="process-steps">
       <div class="process-step reveal">
-        <div class="step-num">01</div>
-        <div class="step-title">Request a Quote</div>
-        <p class="step-desc">Fill out the short form or call us. Tell us your address, what services you need, and any special details about your property.</p>
+        <div class="process-num">01</div>
+        <h4>Request Your Estimate</h4>
+        <p>Fill out our quick quote form or call us directly. We'll respond within one business day with a transparent, itemized proposal.</p>
       </div>
       <div class="process-step reveal">
-        <div class="step-num">02</div>
-        <div class="step-title">Property Walkthrough</div>
-        <p class="step-desc">We schedule a quick on-site visit to assess the property, confirm scope, and give you a clear, itemized price — no surprises.</p>
+        <div class="process-num">02</div>
+        <h4>We Visit &amp; Plan</h4>
+        <p>Our team visits your property, assesses your lawn's specific needs, and maps out a custom service plan — weekly, bi-weekly, or seasonal.</p>
       </div>
       <div class="process-step reveal">
-        <div class="step-num">03</div>
-        <div class="step-title">Lock In Your Schedule</div>
-        <p class="step-desc">Choose your service frequency — weekly, bi-weekly, or seasonal. We lock in your recurring slot and you're set.</p>
-      </div>
-      <div class="process-step reveal">
-        <div class="step-num">04</div>
-        <div class="step-title">Sit Back & Enjoy</div>
-        <p class="step-desc">Your crew arrives on time, does clean work, and sends a photo confirmation after every visit. That's the Binda's standard.</p>
+        <div class="process-num">03</div>
+        <h4>Enjoy Photo-Ready Results</h4>
+        <p>We show up on schedule, do the work to our exacting standards, and send you a photo confirmation after every visit. That's it.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── GALLERY ────────────────────────────────────────────── -->
+<!-- ═══════ GALLERY ═══════ -->
 <section id="gallery" aria-label="Project gallery">
-  <div class="section-wrap">
-    <div class="section-header reveal">
-      <span class="eyebrow">Our Work</span>
-      <h2>Results that speak for themselves</h2>
-      <p>Every yard we touch gets the same attention to detail. See how Atlanta properties look after the Binda's treatment.</p>
+  <div class="container">
+    <div class="gallery-header">
+      <p class="section-label reveal">Our Work</p>
+      <h2 class="reveal">Results That Speak<br/>For Themselves.</h2>
     </div>
-  </div>
-  <div class="gallery-marquee-wrap">
-    <div class="gallery-track" id="gallery-track">
-      <div class="gallery-item">
-        <img src="https://images.pexels.com/photos/18559625/pexels-photo-18559625.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Elegant suburban home with landscaped garden" loading="lazy"/>
-        <div class="gallery-item-label">Residential — Buckhead</div>
+    <div class="gallery-grid">
+      <div class="gallery-item span2 reveal">
+        <img src="https://images.pexels.com/photos/8583893/pexels-photo-8583893.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Colonial-style brick house with lush garden and classic architecture" loading="lazy" width="940" height="650"/>
+        <div class="gallery-item-overlay"><span class="gallery-item-label">Buckhead Estate — Full Grounds</span></div>
       </div>
-      <div class="gallery-item">
-        <img src="https://images.pexels.com/photos/7174/summer-grass.jpg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Expansive green lawn" loading="lazy"/>
-        <div class="gallery-item-label">Lawn Care — Sandy Springs</div>
-      </div>
-      <div class="gallery-item">
-        <img src="https://images.pexels.com/photos/5879102/pexels-photo-5879102.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Autumn leaves on green grass" loading="lazy"/>
-        <div class="gallery-item-label">Seasonal Cleanup — Decatur</div>
-      </div>
-      <div class="gallery-item">
-        <img src="https://images.unsplash.com/photo-1651444911193-135d55dec8d0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHw4fHxiZWZvcmUlMjBhZnRlciUyMGxhd24lMjB0cmFuc2Zvcm1hdGlvbiUyMHBob3RvLXJlYWR5JTIwY3VyYiUyMGFwcGVhbHxlbnwwfDB8fHwxNzc3OTEzNzc3fDA&ixlib=rb-4.1.0&q=80&w=1080" alt="Backyard landscape transformation" loading="lazy"/>
-        <div class="gallery-item-label">Bed Design — HOA Property</div>
-      </div>
-      <div class="gallery-item">
-        <img src="https://images.pexels.com/photos/8333119/pexels-photo-8333119.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Aerial view of landscaped garden" loading="lazy"/>
-        <div class="gallery-item-label">Full Service — Commercial</div>
-      </div>
-      <!-- Duplicate for seamless loop -->
-      <div class="gallery-item" aria-hidden="true">
-        <img src="https://images.pexels.com/photos/18559625/pexels-photo-18559625.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="" loading="lazy"/>
-        <div class="gallery-item-label">Residential — Buckhead</div>
-      </div>
-      <div class="gallery-item" aria-hidden="true">
-        <img src="https://images.pexels.com/photos/7174/summer-grass.jpg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="" loading="lazy"/>
-        <div class="gallery-item-label">Lawn Care — Sandy Springs</div>
-      </div>
-      <div class="gallery-item" aria-hidden="true">
-        <img src="https://images.pexels.com/photos/5879102/pexels-photo-5879102.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="" loading="lazy"/>
-        <div class="gallery-item-label">Seasonal Cleanup — Decatur</div>
-      </div>
-      <div class="gallery-item" aria-hidden="true">
-        <img src="https://images.unsplash.com/photo-1651444911193-135d55dec8d0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHw4fHxiZWZvcmUlMjBhZnRlciUyMGxhd24lMjB0cmFuc2Zvcm1hdGlvbiUyMHBob3RvLXJlYWR5JTIwY3VyYiUyMGFwcGVhbHxlbnwwfDB8fHwxNzc3OTEzNzc3fDA&ixlib=rb-4.1.0&q=80&w=1080" alt="" loading="lazy"/>
-        <div class="gallery-item-label">Bed Design — HOA Property</div>
-      </div>
-      <div class="gallery-item" aria-hidden="true">
-        <img src="https://images.pexels.com/photos/8333119/pexels-photo-8333119.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="" loading="lazy"/>
-        <div class="gallery-item-label">Full Service — Commercial</div>
+      <div class="gallery-item reveal">
+        <img src="https://pixabay.com/get/g27ed3b007a733e3048f93cf89d2969cf807324525b69ebf1de08da4eacb206f61e68acff0fef082a589ad35b79fdb46d218b99f2553eb3e0b82a2516080727f1_1280.jpg" alt="Manicured outdoor landscape" loading="lazy" width="940" height="650"/>
+        <div class="gallery-item-overlay"><span class="gallery-item-label">Sandy Springs — Seasonal Refresh</span></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── TESTIMONIALS ──────────────────────────────────────── -->
-<section id="testimonials" aria-label="Customer reviews">
-  <img class="testimonials-bg" src="https://images.pexels.com/photos/18559625/pexels-photo-18559625.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="" aria-hidden="true" loading="lazy"/>
-  <div class="section-wrap">
-    <div class="section-header testimonials-header reveal">
-      <span class="eyebrow">What Clients Say</span>
-      <div class="google-rating" style="justify-content:center">
-        <svg class="star" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-        <span class="google-rating-num">4.9</span>
-        <span class="google-rating-label">Google Reviews</span>
+<!-- ═══════ TESTIMONIALS ═══════ -->
+<section id="testimonials" class="section" aria-label="Customer testimonials">
+  <div class="testimonials-bg-img">
+    <img src="https://images.pexels.com/photos/8583893/pexels-photo-8583893.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="" role="presentation" loading="lazy" width="940" height="650"/>
+  </div>
+  <div class="container testimonials-inner">
+    <p class="section-label reveal">What Clients Say</p>
+    <h2 class="reveal" id="testiHeading">Atlanta Homeowners<br/>Trust Binda's.</h2>
+    <div class="google-badge reveal">
+      <div class="google-badge-stars">
+        <svg class="star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg class="star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg class="star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg class="star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg class="star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
       </div>
-      <h2>Atlanta homeowners love the difference</h2>
+      <p class="google-badge-text"><strong>4.9 / 5.0</strong> · 200+ Google Reviews · Atlanta Metro</p>
     </div>
     <div class="testimonials-grid">
-      <div class="testimonial-card reveal">
-        <span class="testimonial-quote-mark">"</span>
-        <p class="testimonial-text">Binda's completely transformed our front yard. They showed up exactly when they said they would, the edging was immaculate, and our neighbors immediately noticed. We've been on their weekly schedule for over a year and it's been flawless every single time.</p>
-        <div class="testimonial-footer">
-          <div class="stars">
-            <svg class="star" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <svg class="star" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <svg class="star" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <svg class="star" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <svg class="star" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-          </div>
-          <div class="testimonial-avatar">M</div>
+      <article class="testi-card reveal">
+        <div class="testi-stars">
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <p class="testi-text">"Binda's completely transformed our front yard. They show up every single week without fail, and the edging is always perfectly crisp. Our neighbors constantly ask who does our lawn. Couldn't recommend them more."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">S</div>
           <div>
-            <div class="testimonial-name">Sandy Springs Homeowner</div>
-            <div class="testimonial-loc">Sandy Springs, GA</div>
+            <p class="testi-name">Sandy Springs Homeowner</p>
+            <p class="testi-location">Weekly Lawn Care Client</p>
           </div>
         </div>
-      </div>
-      <div class="testimonial-card reveal">
-        <span class="testimonial-quote-mark">"</span>
-        <p class="testimonial-text">As a property manager overseeing several HOA communities, reliability is everything. Binda's has been our go-to crew for two seasons running. They communicate proactively, never skip a beat, and the properties always look sharp for resident walkthroughs.</p>
-        <div class="testimonial-footer">
-          <div class="stars">
-            <svg class="star" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <svg class="star" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <svg class="star" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <svg class="star" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <svg class="star" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-          </div>
-          <div class="testimonial-avatar">T</div>
+      </article>
+      <article class="testi-card reveal">
+        <div class="testi-stars">
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <p class="testi-text">"We manage a small HOA in Decatur and Binda's has been our grounds crew for three years. Reliable, professional, and they actually communicate. Every resident comments on how good the common areas look."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">D</div>
           <div>
-            <div class="testimonial-name">HOA Property Manager</div>
-            <div class="testimonial-loc">Decatur, GA</div>
+            <p class="testi-name">Decatur HOA Property Manager</p>
+            <p class="testi-location">Commercial Grounds Contract</p>
           </div>
         </div>
-      </div>
-      <div class="testimonial-card reveal">
-        <span class="testimonial-quote-mark">"</span>
-        <p class="testimonial-text">Had them do a full spring cleanup plus new mulch and bed reshaping. The before-and-after was jaw-dropping. My house sold two weeks after listing and the realtor specifically mentioned the curb appeal. Worth every penny — highly recommend.</p>
-        <div class="testimonial-footer">
-          <div class="stars">
-            <svg class="star" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <svg class="star" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <svg class="star" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <svg class="star" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <svg class="star" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-          </div>
-          <div class="testimonial-avatar">R</div>
+      </article>
+      <article class="testi-card reveal">
+        <div class="testi-stars">
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <p class="testi-text">"The mulching and bed redesign they did for our backyard was incredible. It looked like a magazine shoot when they were done. They finished on time, cleaned up completely, and the price was fair. Will use again."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">B</div>
           <div>
-            <div class="testimonial-name">Buckhead Homeowner</div>
-            <div class="testimonial-loc">Buckhead, GA</div>
+            <p class="testi-name">Buckhead Resident</p>
+            <p class="testi-location">Bed Design &amp; Mulching Project</p>
           </div>
         </div>
-      </div>
+      </article>
     </div>
   </div>
 </section>
 
-<!-- ── SERVICE AREA ──────────────────────────────────────── -->
-<section id="service-area" aria-label="Service area">
-  <div class="section-wrap">
+<!-- ═══════ SERVICE AREA ═══════ -->
+<section id="area" class="section" aria-label="Service area">
+  <div class="container">
     <div class="area-grid">
       <div>
-        <div class="reveal">
-          <span class="eyebrow">Where We Serve</span>
-          <h2>Proudly covering the Atlanta metro</h2>
-          <p>We're a local Atlanta crew — we know these neighborhoods, we know the Georgia climate, and we're ready to serve properties across the full metro area.</p>
-        </div>
+        <p class="section-label reveal">Where We Work</p>
+        <h2 class="reveal" id="areaHeading">Serving Atlanta's<br/>Best Neighborhoods.</h2>
+        <p class="reveal" style="color:var(--text-light);margin-top:16px;">We cover the full Atlanta metro with same-crew consistency. If you're in one of these communities, we're likely already working nearby.</p>
         <div class="area-cities reveal">
-          <div class="area-city"><span class="area-dot"></span>Sandy Springs</div>
-          <div class="area-city"><span class="area-dot"></span>Buckhead</div>
-          <div class="area-city"><span class="area-dot"></span>Decatur</div>
-          <div class="area-city"><span class="area-dot"></span>Dunwoody</div>
-          <div class="area-city"><span class="area-dot"></span>Marietta</div>
-          <div class="area-city"><span class="area-dot"></span>Roswell</div>
-          <div class="area-city"><span class="area-dot"></span>Smyrna</div>
-          <div class="area-city"><span class="area-dot"></span>Brookhaven</div>
-          <div class="area-city"><span class="area-dot"></span>Tucker</div>
-          <div class="area-city"><span class="area-dot"></span>Chamblee</div>
-          <div class="area-city"><span class="area-dot"></span>Peachtree City</div>
-          <div class="area-city"><span class="area-dot"></span>And more…</div>
+          <span class="city-tag">Sandy Springs</span>
+          <span class="city-tag">Buckhead</span>
+          <span class="city-tag">Decatur</span>
+          <span class="city-tag">Dunwoody</span>
+          <span class="city-tag">Brookhaven</span>
+          <span class="city-tag">Vinings</span>
+          <span class="city-tag">Smyrna</span>
+          <span class="city-tag">Roswell</span>
+          <span class="city-tag">Alpharetta</span>
+          <span class="city-tag">Johns Creek</span>
+          <span class="city-tag">Marietta</span>
+          <span class="city-tag">East Atlanta</span>
         </div>
+        <p class="reveal" style="margin-top:24px;font-size:0.82rem;color:var(--stone);">Not sure if we cover your address? Contact us — we're always expanding.</p>
       </div>
-      <div class="area-map-placeholder reveal">
-        <img class="area-map-img" src="https://images.pexels.com/photos/9203789/pexels-photo-9203789.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="" aria-hidden="true" loading="lazy"/>
-        <div class="map-ripple"></div>
-        <div class="map-ripple"></div>
-        <div class="map-ripple"></div>
-        <div class="map-center-pin">
-          <div class="pin-icon">
-            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-          </div>
-          <h3>Atlanta Metro</h3>
-          <p>Greater Atlanta & Suburbs</p>
-        </div>
+      <div class="area-map reveal">
+        <img src="https://images.pexels.com/photos/8333119/pexels-photo-8333119.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Aerial view of Atlanta landscaped neighborhood" loading="lazy" width="940" height="650"/>
+        <div class="area-map-overlay"></div>
+        <div class="area-pin" aria-label="Atlanta service center"></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── FAQ ───────────────────────────────────────────────── -->
-<section id="faq" aria-label="Frequently asked questions">
-  <div class="section-wrap">
-    <div class="section-header faq-header reveal" style="text-align:center;margin-bottom:56px">
-      <span class="eyebrow">Common Questions</span>
-      <h2>Everything you want to know</h2>
-      <p>No fluff — just honest answers to the questions Atlanta homeowners actually ask.</p>
-    </div>
-    <div class="faq-list" role="list">
-      <div class="faq-item" role="listitem">
-        <button class="faq-question" aria-expanded="false">
-          Do I need to be home for a service visit?
-          <span class="faq-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-          </span>
-        </button>
-        <div class="faq-answer" role="region">
-          <div class="faq-answer-inner">
-            <p>No — you don't need to be home. Our crew is professional and thorough. We'll complete the work and send you a photo summary via text when we're done so you can see exactly what was done before we leave your property.</p>
+<!-- ═══════ FAQ ═══════ -->
+<section id="faq" class="section" aria-label="Frequently asked questions">
+  <div class="container">
+    <div class="faq-grid">
+      <div class="faq-intro">
+        <p class="section-label reveal">FAQ</p>
+        <h2 class="reveal" id="faqHeading">Questions<br/>Answered.</h2>
+        <p class="reveal">Everything you need to know before getting started. Still have questions? Just reach out.</p>
+        <a href="#contact" class="btn-primary reveal" style="display:inline-flex;margin-top:32px;">
+          Ask Us Directly
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+      <div class="faq-list" role="list">
+        <div class="faq-item reveal" role="listitem">
+          <button class="faq-q" aria-expanded="false">
+            How often will you service my property?
+            <span class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+          </button>
+          <div class="faq-a" role="region">
+            <p class="faq-a-inner">We offer weekly, bi-weekly, and custom schedules depending on your lawn type and season. During peak growing season in Atlanta, most residential clients opt for weekly service. We'll recommend what works best after seeing your property.</p>
           </div>
         </div>
-      </div>
-      <div class="faq-item" role="listitem">
-        <button class="faq-question" aria-expanded="false">
-          What happens if it rains on my scheduled day?
-          <span class="faq-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-          </span>
-        </button>
-        <div class="faq-answer" role="region">
-          <div class="faq-answer-inner">
-            <p>We monitor Atlanta-area weather closely. If conditions prevent a safe or quality visit, we'll automatically reschedule to the next available day and notify you in advance. You'll never be left wondering — we stay in communication throughout.</p>
+        <div class="faq-item reveal" role="listitem">
+          <button class="faq-q" aria-expanded="false">
+            Do I need to be home during service?
+            <span class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+          </button>
+          <div class="faq-a" role="region">
+            <p class="faq-a-inner">Not at all. Most of our clients aren't home when we service their properties. We send a photo confirmation after every visit so you always know the work is done — and done right.</p>
           </div>
         </div>
-      </div>
-      <div class="faq-item" role="listitem">
-        <button class="faq-question" aria-expanded="false">
-          Do you offer one-time services or only recurring plans?
-          <span class="faq-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-          </span>
-        </button>
-        <div class="faq-answer" role="region">
-          <div class="faq-answer-inner">
-            <p>We offer both. One-time seasonal cleanups, mulching, and bed prep are available for homeowners who need a single refresh. For ongoing lawn care and maintenance, our recurring weekly and bi-weekly plans provide the best value and most consistent results.</p>
+        <div class="faq-item reveal" role="listitem">
+          <button class="faq-q" aria-expanded="false">
+            What if it rains on my service day?
+            <span class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+          </button>
+          <div class="faq-a" role="region">
+            <p class="faq-a-inner">We'll reschedule to the next available day and notify you in advance. We never skip a service — we simply move it when weather requires. Your lawn stays on its regular rotation.</p>
           </div>
         </div>
-      </div>
-      <div class="faq-item" role="listitem">
-        <button class="faq-question" aria-expanded="false">
-          Are you insured and do you work with HOAs?
-          <span class="faq-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-          </span>
-        </button>
-        <div class="faq-answer" role="region">
-          <div class="faq-answer-inner">
-            <p>Yes on both counts. Binda's is fully licensed and insured — we can provide certificates of insurance for HOA and property management contracts. We currently service multiple HOA communities across the Atlanta metro and understand the documentation and consistency requirements that come with those accounts.</p>
+        <div class="faq-item reveal" role="listitem">
+          <button class="faq-q" aria-expanded="false">
+            Are your crews licensed and insured?
+            <span class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+          </button>
+          <div class="faq-a" role="region">
+            <p class="faq-a-inner">Absolutely. Binda's Landscaping is fully licensed in the state of Georgia and carries comprehensive liability insurance. We're happy to provide proof of coverage upon request before any work begins.</p>
           </div>
         </div>
-      </div>
-      <div class="faq-item" role="listitem">
-        <button class="faq-question" aria-expanded="false">
-          How is pricing determined?
-          <span class="faq-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-          </span>
-        </button>
-        <div class="faq-answer" role="region">
-          <div class="faq-answer-inner">
-            <p>We price based on property size, service type, and frequency. After your free property walkthrough, we provide a clear written quote with no hidden fees. Most weekly lawn care clients receive their quote same-day, and many are scheduled within the same week.</p>
+        <div class="faq-item reveal" role="listitem">
+          <button class="faq-q" aria-expanded="false">
+            Do you offer one-time services or only recurring plans?
+            <span class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+          </button>
+          <div class="faq-a" role="region">
+            <p class="faq-a-inner">Both. We handle seasonal cleanups, one-time mulching projects, and hardscaping jobs alongside recurring maintenance plans. Just describe what you need in the quote form and we'll tailor a proposal.</p>
           </div>
         </div>
-      </div>
-      <div class="faq-item" role="listitem">
-        <button class="faq-question" aria-expanded="false">
-          What areas outside of Atlanta do you serve?
-          <span class="faq-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-          </span>
-        </button>
-        <div class="faq-answer" role="region">
-          <div class="faq-answer-inner">
-            <p>We cover the greater Atlanta metro including Sandy Springs, Buckhead, Decatur, Dunwoody, Roswell, Marietta, Smyrna, Brookhaven, Tucker, Chamblee, and Peachtree City. Not sure if we reach your area? Submit a quote request and we'll let you know right away.</p>
+        <div class="faq-item reveal" role="listitem">
+          <button class="faq-q" aria-expanded="false">
+            How do I get a price estimate?
+            <span class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+          </button>
+          <div class="faq-a" role="region">
+            <p class="faq-a-inner">Fill out the contact form below with your address and service needs. We'll respond within one business day with a transparent quote. For larger projects, we may schedule a brief on-site walkthrough at no charge.</p>
           </div>
         </div>
       </div>
@@ -2107,352 +1470,328 @@ html[data-palette-anim] *, html[data-palette-anim] *::before, html[data-palette-
   </div>
 </section>
 
-<!-- ── CONTACT / QUOTE FORM ──────────────────────────────── -->
-<section id="contact" aria-label="Get a free quote">
-  <img class="contact-bg" src="https://images.pexels.com/photos/26743245/pexels-photo-26743245.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="" aria-hidden="true" loading="lazy"/>
-  <div class="section-wrap">
+<!-- ═══════ CONTACT / QUOTE ═══════ -->
+<section id="contact" class="section" aria-label="Get a free estimate">
+  <div class="contact-bg">
+    <img src="https://images.pexels.com/photos/9203789/pexels-photo-9203789.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="" role="presentation" loading="lazy" width="940" height="650"/>
+  </div>
+  <div class="container contact-inner">
     <div class="contact-grid">
-      <div class="contact-left reveal">
-        <span class="eyebrow">Get Started Today</span>
-        <h2>Your best-looking yard starts with one form</h2>
-        <p>Tell us about your property and we'll get back to you quickly with a clear, no-obligation quote. Serving the greater Atlanta metro area.</p>
-        <ul class="contact-perks">
-          <li>
-            <span class="perk-check"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>
-            Free, no-obligation property walkthrough
-          </li>
-          <li>
-            <span class="perk-check"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>
-            Same-week scheduling available
-          </li>
-          <li>
-            <span class="perk-check"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>
-            Licensed & insured crew, every visit
-          </li>
-          <li>
-            <span class="perk-check"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>
-            Photo confirmation after every service
-          </li>
-        </ul>
-        <img class="contact-img" src="https://images.pexels.com/photos/18559625/pexels-photo-18559625.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Beautiful landscaped home in Atlanta suburb" loading="lazy"/>
+      <div class="contact-info">
+        <p class="section-label reveal">Get Started</p>
+        <h2 class="reveal" id="contactHeading">Ready for a Lawn<br/>That Turns Heads?</h2>
+        <p class="reveal">Fill out the form and we'll get back to you within one business day with a free, no-obligation estimate. No pressure — just a conversation about your property.</p>
+        <div class="contact-trust reveal">
+          <div class="contact-trust-item">
+            <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.5 3.8 10.7 9 12 5.2-1.3 9-6.5 9-12V5l-9-4z"/></svg>
+            Licensed &amp; insured in the state of Georgia
+          </div>
+          <div class="contact-trust-item">
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            4.9 ★ Google Rating — 200+ Atlanta Reviews
+          </div>
+          <div class="contact-trust-item">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/></svg>
+            Local, family-owned business since 2010
+          </div>
+          <div class="contact-trust-item">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            Response within one business day
+          </div>
+        </div>
       </div>
-      <div class="contact-form-wrap reveal">
-        <div class="form-title">Request a Free Quote</div>
-        <p class="form-sub">We'll respond quickly — usually same day.</p>
-        <form id="quote-form" novalidate>
-          <div class="form-grid">
+      <div class="quote-form reveal">
+        <p class="form-title">Request Your Free Estimate</p>
+        <form action="#" method="post" novalidate>
+          <div class="form-row">
             <div class="form-group">
-              <label for="f-name">Full Name</label>
-              <input type="text" id="f-name" name="name" placeholder="Your full name" autocomplete="name" required/>
+              <label class="form-label" for="fname">First Name</label>
+              <input class="form-input" type="text" id="fname" name="first_name" placeholder="First name" autocomplete="given-name" required minlength="2"/>
             </div>
             <div class="form-group">
-              <label for="f-phone">Phone Number</label>
-              <input type="tel" id="f-phone" name="phone" placeholder="(xxx) xxx-xxxx" autocomplete="tel" required/>
-            </div>
-            <div class="form-group full">
-              <label for="f-email">Email Address</label>
-              <input type="email" id="f-email" name="email" placeholder="your@email.com" autocomplete="email"/>
-            </div>
-            <div class="form-group full">
-              <label for="f-service">Service Needed</label>
-              <select id="f-service" name="service" required>
-                <option value="" disabled selected>Select a service…</option>
-                <option>Weekly Lawn Care</option>
-                <option>Mulching & Bed Design</option>
-                <option>Hedge Trimming & Shaping</option>
-                <option>Seasonal Cleanup</option>
-                <option>Small Hardscaping</option>
-                <option>Irrigation Check</option>
-                <option>HOA / Commercial Grounds</option>
-                <option>Multiple / Not Sure Yet</option>
-              </select>
-            </div>
-            <div class="form-group full">
-              <label for="f-notes">Property Details / Notes</label>
-              <textarea id="f-notes" name="notes" placeholder="Property size, address area, specific needs, any deadlines…"></textarea>
+              <label class="form-label" for="lname">Last Name</label>
+              <input class="form-input" type="text" id="lname" name="last_name" placeholder="Last name" autocomplete="family-name" required minlength="2"/>
             </div>
           </div>
-          <button type="submit" class="form-submit">Send My Quote Request →</button>
+          <div class="form-group">
+            <label class="form-label" for="phone">Phone Number</label>
+            <input class="form-input" type="tel" id="phone" name="phone" placeholder="(770) 000-0000" autocomplete="tel"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="email">Email Address</label>
+            <input class="form-input" type="email" id="email" name="email" placeholder="your@email.com" autocomplete="email" required/>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="service">Service Needed</label>
+            <select class="form-select form-input" id="service" name="service" required>
+              <option value="" disabled selected>Select a service...</option>
+              <option>Weekly Lawn Care &amp; Edging</option>
+              <option>Mulching &amp; Bed Design</option>
+              <option>Hedge &amp; Shrub Trimming</option>
+              <option>Irrigation Check &amp; Tuning</option>
+              <option>Seasonal Cleanup</option>
+              <option>Small Hardscaping Project</option>
+              <option>HOA / Commercial Grounds</option>
+              <option>Multiple Services</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="notes">Property Address &amp; Notes</label>
+            <textarea class="form-textarea" id="notes" name="notes" placeholder="Tell us your address, property size, and any specific requests or concerns..."></textarea>
+          </div>
+          <button type="submit" class="form-submit">Get My Free Estimate →</button>
         </form>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── FOOTER ─────────────────────────────────────────────── -->
-<footer id="footer" aria-label="Site footer">
-  <div class="footer-ghost" aria-hidden="true">BINDA'S</div>
-  <div class="section-wrap">
+<!-- ═══════ FOOTER ═══════ -->
+<footer id="footer" role="contentinfo">
+  <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
         <div class="footer-logo">
           <div class="footer-logo-mark">
-            <svg viewBox="0 0 24 24"><path d="M17 8C8 10 5.9 16.17 3.82 19.34L5.71 21l1-1C9 17 11 14 17 13v3l4-4-4-4v3z M12 3C7.03 3 3 7.03 3 12h2c0-3.87 3.13-7 7-7V3z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2C8 2 4 5.5 4 10c0 6 8 12 8 12s8-6 8-12c0-4.5-4-8-8-8zm0 10.5c-1.4 0-2.5-1.1-2.5-2.5S10.6 7.5 12 7.5 14.5 8.6 14.5 10 13.4 12.5 12 12.5z"/></svg>
           </div>
-          Binda's Landscaping
+          Binda's <span>Landscaping</span>
         </div>
-        <p class="footer-desc">Curb appeal and clean lines for Atlanta homes. Reliable residential and commercial landscaping across the greater Atlanta metro since day one.</p>
-        <div class="footer-badges">
-          <span class="footer-badge">Licensed</span>
-          <span class="footer-badge">Insured</span>
-          <span class="footer-badge">Local Crew</span>
-          <span class="footer-badge">Atlanta Metro</span>
-        </div>
+        <p>Curb appeal and clean lines for Atlanta homes. Reliable scheduling, consistent crews, and photo-ready results since 2010.</p>
       </div>
       <div class="footer-col">
         <h5>Services</h5>
         <ul class="footer-links">
           <li><a href="#services">Weekly Lawn Care</a></li>
-          <li><a href="#services">Mulching & Beds</a></li>
+          <li><a href="#services">Mulching &amp; Bed Design</a></li>
           <li><a href="#services">Hedge Trimming</a></li>
+          <li><a href="#services">Irrigation Checks</a></li>
           <li><a href="#services">Seasonal Cleanup</a></li>
           <li><a href="#services">Hardscaping</a></li>
-          <li><a href="#services">Irrigation</a></li>
+          <li><a href="#services">HOA Grounds Care</a></li>
         </ul>
       </div>
       <div class="footer-col">
-        <h5>Company</h5>
+        <h5>Navigate</h5>
         <ul class="footer-links">
+          <li><a href="#hero">Home</a></li>
           <li><a href="#about">About Us</a></li>
-          <li><a href="#process">How It Works</a></li>
           <li><a href="#testimonials">Reviews</a></li>
-          <li><a href="#service-area">Service Area</a></li>
+          <li><a href="#area">Service Area</a></li>
           <li><a href="#faq">FAQ</a></li>
+          <li><a href="#contact">Get Estimate</a></li>
         </ul>
-      </div>
-      <div class="footer-col">
-        <h5>Get In Touch</h5>
-        <ul class="footer-links">
-          <li><a href="#contact">Free Quote Form</a></li>
-          <li><a href="#service-area">Service Area</a></li>
-          <li><a href="#contact">HOA & Commercial</a></li>
-        </ul>
-        <div style="margin-top:24px">
-          <div style="font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:10px">Serving</div>
-          <div style="font-size:13px;color:rgba(255,255,255,0.45);line-height:1.8">Sandy Springs · Buckhead<br/>Decatur · Dunwoody<br/>Roswell · Marietta</div>
-        </div>
       </div>
     </div>
     <div class="footer-bottom">
-      <p class="footer-copy">© <span id="copyright-year"></span> Binda's Landscaping. All rights reserved. Built for Atlanta.</p>
-      <p class="footer-tagline">Clean lines. Every time.</p>
+      <p class="footer-copy">© <span id="copyright-year"></span> Binda's Landscaping. All rights reserved. · <a href="#">Privacy Policy</a></p>
+      <p class="footer-tagline">Serving Atlanta Metro · Licensed &amp; Insured · Georgia</p>
     </div>
   </div>
 </footer>
 
-<!-- Mobile sticky bottom CTA -->
-<div class="mobile-quote-bar">
-  <a href="#contact">Get My Free Quote — No Obligation</a>
-</div>
+<!-- STICKY MOBILE QUOTE BTN -->
+<a href="#contact" class="sticky-quote-btn" id="stickyQuote">Get Free Estimate →</a>
 
-<!-- ============================================================
-     JAVASCRIPT
-     ============================================================ -->
 <script>
 document.documentElement.classList.add('js-loaded');
 
-/* ── GSAP + LENIS INIT ──────────────────────────────────── */
+// ── GSAP + LENIS INIT ──
 gsap.registerPlugin(ScrollTrigger, SplitText, MorphSVGPlugin, Flip);
 
 const lenis = new Lenis({
   duration: 1.2,
   easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t))
 });
-
 gsap.ticker.add(t => lenis.raf(t * 1000));
 gsap.ticker.lagSmoothing(0);
 lenis.on('scroll', ScrollTrigger.update);
 
-/* ── HERO SPLIT TEXT ENTRANCE ───────────────────────────── */
+// ── COPYRIGHT YEAR ──
+document.getElementById('copyright-year').textContent = new Date().getFullYear();
+
+// ── HERO PARALLAX ──
+gsap.to('#heroBg', {
+  yPercent: 22,
+  ease: 'none',
+  scrollTrigger: {
+    trigger: '#hero',
+    start: 'top top',
+    end: 'bottom top',
+    scrub: true
+  }
+});
+
+// ── HERO SPLIT TEXT ENTRANCE ──
 document.fonts.ready.then(() => {
-  try {
-    const heroEyebrow = document.querySelector('.hero-eyebrow');
-    const heroSub     = document.querySelector('.hero-sub');
-    const heroActions = document.querySelector('.hero-actions');
-    const scrollInd   = document.querySelector('.hero-scroll-indicator');
-
-    const split = new SplitText('.hero-title', { type: 'chars,words,lines' });
-
-    const heroTl = gsap.timeline({ defaults: { ease: 'expo.out' } });
-    heroTl
-      .to(heroEyebrow, { opacity: 1, y: 0, duration: 0.8, delay: 0.15 })
-      .from(split.chars, {
+  const heroTitle = document.getElementById('heroTitle');
+  if (heroTitle && typeof SplitText !== 'undefined') {
+    try {
+      const split = new SplitText(heroTitle, { type: 'chars,words,lines' });
+      gsap.from(split.chars, {
         y: 120,
         opacity: 0,
-        stagger: 0.022,
+        stagger: 0.03,
         duration: 1.1,
-        ease: 'expo.out'
-      }, '-=0.5')
-      .to(heroSub,     { opacity: 1, y: 0, duration: 0.9 }, '-=0.4')
-      .to(heroActions, { opacity: 1, y: 0, duration: 0.8 }, '-=0.6')
-      .to(scrollInd,   { opacity: 1, duration: 0.8 }, '-=0.4');
-
-    /* ── SECTION HEADING SPLIT REVEALS ── */
-    document.querySelectorAll('h2').forEach((el, i) => {
-      if (el.closest('#hero')) return;
-      try {
-        const s = new SplitText(el, { type: 'lines,words' });
-        gsap.from(s.words, {
-          scrollTrigger: {
-            trigger: el,
-            start: 'top 88%',
-            toggleActions: 'play none none reverse'
-          },
-          y: 40,
-          opacity: 0,
-          stagger: 0.06,
-          duration: 0.85,
-          ease: 'power3.out'
-        });
-      } catch(e) {}
-    });
-
-    ScrollTrigger.refresh();
-  } catch(e) {
-    // Fallback: show everything
-    document.querySelector('.hero-title').style.opacity = '1';
-    document.querySelector('.hero-eyebrow').style.opacity = '1';
-    document.querySelector('.hero-sub').style.opacity = '1';
-    document.querySelector('.hero-actions').style.opacity = '1';
+        ease: 'expo.out',
+        delay: 0.2
+      });
+    } catch(e) {
+      gsap.from(heroTitle, { y: 40, opacity: 0, duration: 1, ease: 'expo.out', delay: 0.2 });
+    }
   }
-}).catch(() => {});
 
-/* ── ABOUT IMAGE CLIP-PATH REVEAL ───────────────────────── */
-gsap.to('.about-img-main', {
-  scrollTrigger: {
-    trigger: '.about-img-wrap',
-    start: 'top 80%',
-    toggleActions: 'play none none reverse'
-  },
-  clipPath: 'inset(0% 0 0 0)',
+  // Hero sub and actions
+  gsap.from('.hero-eyebrow', { y: 30, opacity: 0, duration: 0.9, ease: 'expo.out', delay: 0.5 });
+  gsap.from('.hero-sub', { y: 30, opacity: 0, duration: 0.9, ease: 'expo.out', delay: 0.75 });
+  gsap.from('.hero-actions', { y: 30, opacity: 0, duration: 0.9, ease: 'expo.out', delay: 0.95 });
+  gsap.from('.hero-ghost', { x: 60, opacity: 0, duration: 1.4, ease: 'expo.out', delay: 1.1 });
+
+  ScrollTrigger.refresh();
+
+  // ── SECTION HEADING SPLITS ──
+  const splitHeadings = ['#servicesHeading', '#aboutHeading', '#testiHeading', '#areaHeading', '#faqHeading', '#contactHeading'];
+  splitHeadings.forEach(sel => {
+    const el = document.querySelector(sel);
+    if (!el) return;
+    try {
+      const s = new SplitText(el, { type: 'lines,words' });
+      gsap.from(s.words, {
+        scrollTrigger: { trigger: el, start: 'top 82%', toggleActions: 'play none none reverse' },
+        y: 50,
+        opacity: 0,
+        duration: 0.9,
+        ease: 'power3.out',
+        stagger: 0.07
+      });
+    } catch(e) {}
+  });
+
+  // ── STATS COUNTER ──
+  const statNums = document.querySelectorAll('.counter');
+  statNums.forEach(el => {
+    const parent = el.closest('.stat-item');
+    const target = parseFloat(el.dataset.target || el.textContent);
+    const isDecimal = el.dataset.decimal !== undefined;
+    gsap.from({ val: 0 }, {
+      val: target,
+      duration: 2,
+      ease: 'power2.out',
+      scrollTrigger: {
+        trigger: parent || el,
+        start: 'top 85%',
+        once: true
+      },
+      onUpdate: function() {
+        el.textContent = isDecimal ? this.targets()[0].val.toFixed(1) : Math.round(this.targets()[0].val);
+      }
+    });
+  });
+
+}).catch(() => {
+  ScrollTrigger.refresh();
+});
+
+// ── SCROLL CHOREOGRAPHY ──
+// Services cards
+gsap.from('.service-card', {
+  scrollTrigger: { trigger: '#services .services-grid', start: 'top 82%', toggleActions: 'play none none reverse' },
+  y: 60,
+  opacity: 0,
+  duration: 0.8,
+  ease: 'power3.out',
+  stagger: 0.1
+});
+
+// About image clip
+gsap.from('.about-img-wrap img', {
+  scrollTrigger: { trigger: '#about', start: 'top 75%', toggleActions: 'play none none reverse' },
+  clipPath: 'inset(100% 0 0 0)',
   duration: 1.1,
   ease: 'power3.inOut'
 });
-
-/* ── SERVICE CARDS STAGGER ──────────────────────────────── */
-gsap.from('.service-card', {
-  scrollTrigger: {
-    trigger: '#services .services-grid',
-    start: 'top 82%',
-    toggleActions: 'play none none reverse'
-  },
-  y: 60,
+gsap.from('.about-badge', {
+  scrollTrigger: { trigger: '#about', start: 'top 70%', toggleActions: 'play none none reverse' },
+  x: 30,
   opacity: 0,
-  stagger: 0.12,
-  duration: 0.9,
-  ease: 'power3.out'
+  duration: 0.8,
+  delay: 0.5,
+  ease: 'expo.out'
 });
 
-/* ── PROCESS STEPS SCRUB ────────────────────────────────── */
+// Process steps
 gsap.from('.process-step', {
-  scrollTrigger: {
-    trigger: '.process-steps',
-    start: 'top 85%',
-    toggleActions: 'play none none reverse'
-  },
+  scrollTrigger: { trigger: '.process-steps', start: 'top 80%', toggleActions: 'play none none reverse' },
   y: 50,
   opacity: 0,
   stagger: 0.15,
+  duration: 0.8,
+  ease: 'power3.out'
+});
+
+// Gallery items clip reveal
+document.querySelectorAll('.gallery-item').forEach((item, i) => {
+  gsap.from(item, {
+    scrollTrigger: { trigger: item, start: 'top 85%', toggleActions: 'play none none reverse' },
+    clipPath: 'inset(100% 0 0 0)',
+    duration: 1.0,
+    ease: 'power3.inOut',
+    delay: i * 0.12
+  });
+});
+
+// Testimonials stagger
+gsap.from('.testi-card', {
+  scrollTrigger: { trigger: '#testimonials .testimonials-grid', start: 'top 82%', toggleActions: 'play none none reverse' },
+  y: 50,
+  opacity: 0,
+  stagger: 0.12,
+  duration: 0.8,
+  ease: 'power3.out'
+});
+
+// Stats band pin for visual weight
+gsap.from('.stats-grid', {
+  scrollTrigger: { trigger: '#stats', start: 'top 80%', toggleActions: 'play none none reverse' },
+  y: 40,
+  opacity: 0,
   duration: 0.9,
   ease: 'power3.out'
 });
 
-/* ── TESTIMONIAL CARDS ──────────────────────────────────── */
-gsap.from('.testimonial-card', {
+// Process image band scrub parallax
+gsap.to('.process-img-band img', {
+  yPercent: -10,
+  ease: 'none',
   scrollTrigger: {
-    trigger: '.testimonials-grid',
-    start: 'top 82%',
-    toggleActions: 'play none none reverse'
-  },
-  y: 50,
-  opacity: 0,
-  stagger: 0.13,
-  duration: 0.85,
-  ease: 'power3.out'
-});
-
-/* ── STATS SECTION SCRUB PARALLAX ───────────────────────── */
-gsap.to('.stats-bg-img', {
-  scrollTrigger: {
-    trigger: '#stats',
+    trigger: '.process-img-band',
     start: 'top bottom',
     end: 'bottom top',
     scrub: true
-  },
-  y: -60,
-  ease: 'none'
+  }
 });
 
-/* ── TRUST ITEMS ────────────────────────────────────────── */
-gsap.from('.trust-item', {
-  scrollTrigger: {
-    trigger: '#trust',
-    start: 'top 88%',
-    toggleActions: 'play none none reverse'
-  },
-  y: 30,
+// Contact form scrub
+gsap.from('.quote-form', {
+  scrollTrigger: { trigger: '#contact', start: 'top 75%', toggleActions: 'play none none reverse' },
+  x: 40,
   opacity: 0,
-  stagger: 0.1,
-  duration: 0.75,
-  ease: 'power3.out',
-  clearProps: 'transform,opacity'
+  duration: 1.0,
+  ease: 'expo.out'
 });
 
-/* ── AREA CITIES ────────────────────────────────────────── */
-gsap.from('.area-city', {
-  scrollTrigger: {
-    trigger: '.area-cities',
-    start: 'top 85%',
-    toggleActions: 'play none none reverse'
-  },
-  x: -20,
+// City tags stagger
+gsap.from('.city-tag', {
+  scrollTrigger: { trigger: '.area-cities', start: 'top 85%', toggleActions: 'play none none reverse' },
+  y: 20,
   opacity: 0,
-  stagger: 0.06,
-  duration: 0.6,
-  ease: 'power3.out'
+  stagger: 0.04,
+  duration: 0.5,
+  ease: 'power2.out'
 });
 
-/* ── FOOTER LOGO PIN (subtle scrub) ─────────────────────── */
-gsap.from('.footer-grid .footer-brand', {
-  scrollTrigger: {
-    trigger: '#footer',
-    start: 'top bottom',
-    end: 'top 60%',
-    scrub: true
-  },
-  y: 30,
-  opacity: 0,
-  ease: 'none'
-});
-
-/* ── COUNTER ANIMATION ──────────────────────────────────── */
-function animateCounters() {
-  document.querySelectorAll('.counter').forEach(el => {
-    const target = parseInt(el.dataset.target, 10);
-    const duration = 2000;
-    const start = performance.now();
-
-    ScrollTrigger.create({
-      trigger: el,
-      start: 'top 85%',
-      onEnter: () => {
-        const tick = (now) => {
-          const elapsed = now - start;
-          const progress = Math.min(elapsed / duration, 1);
-          const eased = 1 - Math.pow(1 - progress, 3);
-          el.textContent = Math.round(eased * target);
-          if (progress < 1) requestAnimationFrame(tick);
-          else el.textContent = target;
-        };
-        requestAnimationFrame(tick);
-      },
-      once: true
-    });
-  });
-}
-animateCounters();
-
-/* ── INTERSECTION OBSERVER REVEAL ───────────────────────── */
+// ── INTERSECTION OBSERVER REVEAL (fallback) ──
+const revealEls = document.querySelectorAll('.reveal');
 const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -2460,44 +1799,38 @@ const revealObserver = new IntersectionObserver((entries) => {
     }
   });
 }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+revealEls.forEach(el => revealObserver.observe(el));
 
-document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
-
-/* ── STICKY NAV ─────────────────────────────────────────── */
+// ── STICKY NAV ──
 const nav = document.getElementById('nav');
-lenis.on('scroll', ({ scroll }) => {
-  if (scroll > 80) {
-    nav.classList.add('scrolled');
-  } else {
-    nav.classList.remove('scrolled');
-  }
-});
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+}, { passive: true });
 
-/* ── HAMBURGER MENU ─────────────────────────────────────── */
-const hamburger   = document.getElementById('hamburger');
-const mobileMenu  = document.getElementById('mobile-menu');
-
+// ── HAMBURGER MENU ──
+const hamburger = document.getElementById('hamburger');
+const navMobile = document.getElementById('navMobile');
 hamburger.addEventListener('click', () => {
-  const open = hamburger.classList.toggle('open');
-  mobileMenu.classList.toggle('open', open);
-  hamburger.setAttribute('aria-expanded', open.toString());
-  document.body.style.overflow = open ? 'hidden' : '';
-  if (open) lenis.stop(); else lenis.start();
+  const isOpen = navMobile.classList.toggle('open');
+  hamburger.classList.toggle('open', isOpen);
+  hamburger.setAttribute('aria-expanded', isOpen);
+  document.body.style.overflow = isOpen ? 'hidden' : '';
+});
+document.querySelectorAll('.nav-mobile-link').forEach(link => {
+  link.addEventListener('click', () => {
+    navMobile.classList.remove('open');
+    hamburger.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  });
 });
 
-function closeMobileMenu() {
-  hamburger.classList.remove('open');
-  mobileMenu.classList.remove('open');
-  hamburger.setAttribute('aria-expanded', 'false');
-  document.body.style.overflow = '';
-  lenis.start();
-}
-window.closeMobileMenu = closeMobileMenu;
-
-/* ── SMOOTH SCROLL ANCHORS ──────────────────────────────── */
-document.querySelectorAll('a[href^="#"]').forEach(a => {
-  a.addEventListener('click', e => {
-    const target = document.querySelector(a.getAttribute('href'));
+// ── SMOOTH SCROLL ──
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', e => {
+    const id = anchor.getAttribute('href');
+    if (id === '#') return;
+    const target = document.querySelector(id);
     if (target) {
       e.preventDefault();
       lenis.scrollTo(target, { offset: -72, duration: 1.4 });
@@ -2505,19 +1838,17 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   });
 });
 
-/* ── FAQ ACCORDION ──────────────────────────────────────── */
-document.querySelectorAll('.faq-question').forEach(btn => {
+// ── FAQ ACCORDION ──
+document.querySelectorAll('.faq-q').forEach(btn => {
   btn.addEventListener('click', () => {
-    const item   = btn.parentElement;
-    const answer = item.querySelector('.faq-answer');
+    const item = btn.closest('.faq-item');
+    const answer = item.querySelector('.faq-a');
     const isOpen = item.classList.contains('open');
-
     document.querySelectorAll('.faq-item.open').forEach(openItem => {
       openItem.classList.remove('open');
-      openItem.querySelector('.faq-answer').style.maxHeight = '0';
-      openItem.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+      openItem.querySelector('.faq-a').style.maxHeight = null;
+      openItem.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
     });
-
     if (!isOpen) {
       item.classList.add('open');
       answer.style.maxHeight = answer.scrollHeight + 'px';
@@ -2526,100 +1857,67 @@ document.querySelectorAll('.faq-question').forEach(btn => {
   });
 });
 
-/* ── GALLERY MARQUEE ─────────────────────────────────────── */
+// ── MARQUEE ──
 (function() {
-  const track = document.getElementById('gallery-track');
+  const track = document.getElementById('marqueeTrack');
   if (!track) return;
   let x = 0;
   const speed = 0.6;
-  let raf;
-  let paused = false;
-  const total = track.scrollWidth / 2;
-
-  function tick() {
-    if (!paused) {
-      x -= speed;
-      if (Math.abs(x) >= total) x = 0;
-      track.style.transform = 'translateX(' + x + 'px)';
-    }
-    raf = requestAnimationFrame(tick);
-  }
-  raf = requestAnimationFrame(tick);
-
-  track.addEventListener('mouseenter', () => { paused = true; });
-  track.addEventListener('mouseleave', () => { paused = false; });
-})();
-
-/* ── SERVICE MARQUEE ─────────────────────────────────────── */
-(function() {
-  const track = document.getElementById('marquee-track');
-  if (!track) return;
-  let x = 0;
-  const speed = 0.45;
-  const total = track.scrollWidth / 2;
-
-  function tick() {
+  const totalW = track.scrollWidth / 2;
+  function animateMarquee() {
     x -= speed;
-    if (Math.abs(x) >= total) x = 0;
-    track.style.transform = 'translateX(' + x + 'px)';
-    requestAnimationFrame(tick);
+    if (x <= -totalW) x = 0;
+    track.style.transform = `translateX(${x}px)`;
+    requestAnimationFrame(animateMarquee);
   }
-  requestAnimationFrame(tick);
+  animateMarquee();
 })();
 
-/* ── FORM SUBMIT ─────────────────────────────────────────── */
-const form = document.getElementById('quote-form');
-if (form) {
-  form.addEventListener('submit', e => {
-    e.preventDefault();
-    const btn = form.querySelector('.form-submit');
-    btn.textContent = 'Request Sent! We\'ll be in touch soon.';
-    btn.style.background = 'linear-gradient(135deg, #3D6B2A, #2C4A1E)';
-    btn.disabled = true;
-  });
-}
-
-/* ── MAGNETIC CTA ─────────────────────────────────────────── */
-document.querySelectorAll('.btn-primary').forEach(btn => {
+// ── MAGNETIC CTA BUTTON ──
+(function() {
+  const btn = document.getElementById('heroCtaBtn');
+  if (!btn || 'ontouchstart' in window) return;
   btn.addEventListener('mousemove', e => {
     const rect = btn.getBoundingClientRect();
-    const cx   = rect.left + rect.width  / 2;
-    const cy   = rect.top  + rect.height / 2;
-    const dx   = (e.clientX - cx) / rect.width  * 35;
-    const dy   = (e.clientY - cy) / rect.height * 35;
-    gsap.to(btn, { x: dx, y: dy, duration: 0.3, ease: 'power2.out' });
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    const dx = e.clientX - cx;
+    const dy = e.clientY - cy;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+    if (dist < 100) {
+      gsap.to(btn, { x: dx * 0.35, y: dy * 0.35, duration: 0.3, ease: 'power2.out' });
+    }
   });
   btn.addEventListener('mouseleave', () => {
     gsap.to(btn, { x: 0, y: 0, duration: 0.5, ease: 'elastic.out(1,0.4)' });
   });
-});
+})();
 
-/* ── COPYRIGHT YEAR ──────────────────────────────────────── */
-document.getElementById('copyright-year').textContent = new Date().getFullYear();
-
-/* ── CUSTOM CURSOR ───────────────────────────────────────── */
+// ── CUSTOM CURSOR ──
 (function() {
   if ('ontouchstart' in window) return;
-  const dot  = Object.assign(document.createElement('div'), { id: 'c-dot' });
-  const ring = Object.assign(document.createElement('div'), { id: 'c-ring' });
-  dot.style.cssText  = 'position:fixed;width:6px;height:6px;border-radius:50%;background:#fff;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);mix-blend-mode:difference;will-change:transform';
-  ring.style.cssText = 'position:fixed;width:32px;height:32px;border-radius:50%;border:1.5px solid rgba(255,255,255,0.6);pointer-events:none;z-index:99998;transform:translate(-50%,-50%);will-change:transform';
+  const dot = document.createElement('div');
+  dot.id = 'c-dot';
+  const ring = document.createElement('div');
+  ring.id = 'c-ring';
   document.body.append(dot, ring);
-
   document.addEventListener('mousemove', e => {
-    gsap.to(dot,  { x: e.clientX, y: e.clientY, duration: 0.08, overwrite: true });
+    gsap.to(dot, { x: e.clientX, y: e.clientY, duration: 0.08, overwrite: true });
     gsap.to(ring, { x: e.clientX, y: e.clientY, duration: 0.28, ease: 'power2.out', overwrite: true });
   });
-
-  document.querySelectorAll('a, button').forEach(el => {
+  document.querySelectorAll('a, button, .service-card, .testi-card, .city-tag').forEach(el => {
     el.addEventListener('mouseenter', () => gsap.to(ring, { scale: 2.2, duration: 0.3 }));
-    el.addEventListener('mouseleave', () => gsap.to(ring, { scale: 1,   duration: 0.3 }));
+    el.addEventListener('mouseleave', () => gsap.to(ring, { scale: 1, duration: 0.3 }));
   });
 })();
 
 ScrollTrigger.refresh();
+
+window.addEventListener('load', () => {
+  ScrollTrigger.refresh();
+});
 </script>
 
-<div id="gwp-switcher" style="position:fixed;bottom:20px;right:20px;z-index:2147483647;display:flex;flex-direction:column;align-items:flex-end;gap:5px;font-family:-apple-system,BlinkMacSystemFont,'Inter',sans-serif;"><div style="font-size:9px;letter-spacing:0.14em;color:rgba(255,255,255,0.3);text-transform:uppercase;padding-right:3px;">gitworkdone &middot; palette</div><div style="background:rgba(8,8,8,0.88);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,0.1);border-radius:50px;padding:5px;display:flex;gap:3px;box-shadow:0 8px 32px rgba(0,0,0,0.55);"><button id="gwp-a-btn" onclick="gwpSet('a')" style="border:none;border-radius:50px;padding:7px 15px;cursor:pointer;display:flex;align-items:center;gap:7px;font-size:11px;font-weight:600;letter-spacing:0.05em;background:rgba(255,255,255,0.13);color:#fff;line-height:1;"><span style="width:10px;height:10px;border-radius:50%;background:#A3611F;flex-shrink:0;border:1px solid rgba(255,255,255,0.2);display:inline-block;"></span>Design A</button><button id="gwp-b-btn" onclick="gwpSet('b')" style="border:none;border-radius:50px;padding:7px 15px;cursor:pointer;display:flex;align-items:center;gap:7px;font-size:11px;font-weight:600;letter-spacing:0.05em;background:transparent;color:rgba(255,255,255,0.38);line-height:1;"><span style="width:10px;height:10px;border-radius:50%;background:#3E8C6E;flex-shrink:0;border:1px solid rgba(255,255,255,0.2);display:inline-block;"></span>"Moss & Slate" — complementary cool-green shift</button></div></div><script>(function(){function gwpSet(p){var root=document.documentElement;root.setAttribute('data-palette-anim','');if(p==='a'){root.removeAttribute('data-palette');}else{root.setAttribute('data-palette','b');}setTimeout(function(){root.removeAttribute('data-palette-anim');},400);var a=document.getElementById('gwp-a-btn'),b=document.getElementById('gwp-b-btn');if(p==='a'){a.style.background='rgba(255,255,255,0.13)';a.style.color='#fff';b.style.background='transparent';b.style.color='rgba(255,255,255,0.38)';}else{b.style.background='rgba(255,255,255,0.13)';b.style.color='#fff';a.style.background='transparent';a.style.color='rgba(255,255,255,0.38)';}}window.gwpSet=gwpSet;})();</script>
+<div id="gwp-switcher" style="position:fixed;bottom:20px;right:20px;z-index:2147483647;display:flex;flex-direction:column;align-items:flex-end;gap:5px;font-family:-apple-system,BlinkMacSystemFont,'Inter',sans-serif;"><div style="font-size:9px;letter-spacing:0.14em;color:rgba(255,255,255,0.3);text-transform:uppercase;padding-right:3px;">gitworkdone &middot; palette</div><div style="background:rgba(8,8,8,0.88);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,0.1);border-radius:50px;padding:5px;display:flex;gap:3px;box-shadow:0 8px 32px rgba(0,0,0,0.55);"><button id="gwp-a-btn" onclick="gwpSet('a')" style="border:none;border-radius:50px;padding:7px 15px;cursor:pointer;display:flex;align-items:center;gap:7px;font-size:11px;font-weight:600;letter-spacing:0.05em;background:rgba(255,255,255,0.13);color:#fff;line-height:1;"><span style="width:10px;height:10px;border-radius:50%;background:#B8972A;flex-shrink:0;border:1px solid rgba(255,255,255,0.2);display:inline-block;"></span>Design A</button><button id="gwp-b-btn" onclick="gwpSet('b')" style="border:none;border-radius:50px;padding:7px 15px;cursor:pointer;display:flex;align-items:center;gap:7px;font-size:11px;font-weight:600;letter-spacing:0.05em;background:transparent;color:rgba(255,255,255,0.38);line-height:1;"><span style="width:10px;height:10px;border-radius:50%;background:#A0522D;flex-shrink:0;border:1px solid rgba(255,255,255,0.2);display:inline-block;"></span>"Ember Dusk" — warm terracotta accent, 150° from forest green</button></div></div><script>(function(){function gwpSet(p){var root=document.documentElement;root.setAttribute('data-palette-anim','');if(p==='a'){root.removeAttribute('data-palette');}else{root.setAttribute('data-palette','b');}setTimeout(function(){root.removeAttribute('data-palette-anim');},400);var a=document.getElementById('gwp-a-btn'),b=document.getElementById('gwp-b-btn');if(p==='a'){a.style.background='rgba(255,255,255,0.13)';a.style.color='#fff';b.style.background='transparent';b.style.color='rgba(255,255,255,0.38)';}else{b.style.background='rgba(255,255,255,0.13)';b.style.color='#fff';a.style.background='transparent';a.style.color='rgba(255,255,255,0.38)';}}window.gwpSet=gwpSet;})();</script>
 </body>
 </html>
