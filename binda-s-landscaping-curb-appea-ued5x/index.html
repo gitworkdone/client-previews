@@ -45,7 +45,7 @@ img{max-width:100%;display:block;object-fit:cover;}
 a{text-decoration:none;color:inherit;}
 button{font-family:inherit;cursor:pointer;border:none;background:none;}
 
-/* ── SCROLL REVEAL — GSAP only, no IO mixing ── */
+/* ── SCROLL REVEAL — GSAP only ── */
 html.js-loaded .reveal{opacity:1;transform:none;}
 
 /* ── NAV ── */
@@ -78,7 +78,7 @@ html.js-loaded .reveal{opacity:1;transform:none;}
 #nav.scrolled .nav-links a:hover{color:var(--text);}
 .nav-cta{
   background:var(--accent);color:var(--white)!important;
-  padding:10px 22px;border-radius:4px;
+  padding:10px 22px;border-radius:8px;
   font-weight:600!important;font-size:0.75rem!important;
   letter-spacing:0.06em!important;text-transform:uppercase!important;
   transition:background 0.2s ease,transform 0.2s ease!important;
@@ -108,7 +108,7 @@ html.js-loaded .reveal{opacity:1;transform:none;}
 .mobile-nav a:hover{color:var(--accent);}
 .mobile-nav .nav-cta-mobile{
   background:var(--accent);color:var(--white)!important;
-  padding:14px 36px;border-radius:6px;
+  padding:14px 36px;border-radius:10px;
   font-size:1rem!important;
 }
 .mobile-close{
@@ -173,7 +173,7 @@ html.js-loaded .reveal{opacity:1;transform:none;}
 .btn-primary{
   display:inline-flex;align-items:center;gap:8px;
   background:var(--accent);color:var(--white);
-  padding:15px 30px;border-radius:4px;
+  padding:15px 30px;border-radius:8px;
   font-weight:600;font-size:0.85rem;letter-spacing:0.05em;text-transform:uppercase;
   transition:background 0.2s ease,transform 0.2s ease;
 }
@@ -181,7 +181,7 @@ html.js-loaded .reveal{opacity:1;transform:none;}
 .btn-outline{
   display:inline-flex;align-items:center;gap:8px;
   border:1px solid rgba(255,255,255,0.3);color:rgba(255,255,255,0.75);
-  padding:14px 26px;border-radius:4px;
+  padding:14px 26px;border-radius:8px;
   font-weight:500;font-size:0.85rem;letter-spacing:0.04em;text-transform:uppercase;
   transition:border-color 0.2s,color 0.2s,transform 0.2s;
 }
@@ -258,7 +258,7 @@ html.js-loaded .reveal{opacity:1;transform:none;}
 }
 .services-tab-strip{
   display:flex;gap:0;border:1px solid var(--border);
-  border-radius:4px;overflow:hidden;align-self:flex-end;
+  border-radius:8px;overflow:hidden;align-self:flex-end;
 }
 .tab-btn{
   flex:1;padding:11px 20px;font-size:0.75rem;font-weight:600;
@@ -294,13 +294,14 @@ html.js-loaded .reveal{opacity:1;transform:none;}
 .service-tags{display:flex;gap:6px;flex-wrap:wrap;}
 .service-tag{
   font-size:0.7rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;
-  padding:4px 10px;border-radius:2px;
+  padding:4px 10px;border-radius:20px;
   background:rgba(122,98,72,0.08);color:var(--accent);
   border:1px solid rgba(122,98,72,0.15);
 }
 .service-row-img{
   position:relative;overflow:hidden;min-height:300px;
   clip-path:inset(100% 0 0 0);
+  border-radius:0;
 }
 .service-row-img img{
   width:100%;height:100%;object-fit:cover;
@@ -320,14 +321,14 @@ html.js-loaded .reveal{opacity:1;transform:none;}
   display:grid;grid-template-columns:1fr 1fr;gap:96px;align-items:center;
 }
 .about-img-wrap{
-  position:relative;border-radius:2px;overflow:hidden;
+  position:relative;border-radius:12px;overflow:hidden;
   height:560px;
 }
 .about-img-wrap img{width:100%;height:100%;object-fit:cover;}
 .about-img-accent{
   position:absolute;bottom:28px;left:-16px;
   background:var(--accent);color:var(--white);
-  padding:18px 24px;border-radius:2px;
+  padding:18px 24px;border-radius:10px;
   box-shadow:0 8px 32px rgba(0,0,0,0.35);
 }
 .about-img-accent .stat-num{
@@ -374,6 +375,7 @@ html.js-loaded .reveal{opacity:1;transform:none;}
   background:var(--bg-alt);
   position:relative;overflow:hidden;
   transition:background 0.2s ease;
+  border-radius:0;
 }
 .process-card:hover{background:var(--bg);}
 .process-step-num{
@@ -389,7 +391,7 @@ html.js-loaded .reveal{opacity:1;transform:none;}
   font-size:0.875rem;color:rgba(46,34,24,0.58);line-height:1.75;
 }
 .process-card-img{
-  margin-top:28px;border-radius:2px;overflow:hidden;
+  margin-top:28px;border-radius:8px;overflow:hidden;
   height:160px;clip-path:inset(100% 0 0 0);
 }
 .process-card-img img{width:100%;height:100%;object-fit:cover;}
@@ -404,7 +406,7 @@ html.js-loaded .reveal{opacity:1;transform:none;}
   display:grid;grid-template-columns:repeat(3,1fr);gap:12px;
 }
 .gallery-item{
-  position:relative;overflow:hidden;border-radius:2px;
+  position:relative;overflow:hidden;border-radius:12px;
   aspect-ratio:4/3;cursor:pointer;
 }
 .gallery-item img{
@@ -453,16 +455,19 @@ html.js-loaded .reveal{opacity:1;transform:none;}
 /* ── TESTIMONIALS ── */
 #reviews{background:var(--bg-alt);position:relative;overflow:hidden;}
 .reviews-grid{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:2px;
-  margin-top:64px;background:var(--border);
+  display:grid;grid-template-columns:repeat(3,1fr);gap:16px;
+  margin-top:64px;
 }
 .review-card{
   padding:40px;
-  background:var(--bg-alt);
+  background:var(--bg);
   position:relative;
-  transition:background 0.2s;
+  border-radius:14px;
+  border:1px solid var(--border);
+  transition:background 0.2s,transform 0.2s,box-shadow 0.2s;
+  box-shadow:0 2px 12px var(--shadow);
 }
-.review-card:hover{background:var(--bg);}
+.review-card:hover{background:var(--white);transform:translateY(-3px);box-shadow:0 8px 32px var(--shadow);}
 .review-stars{display:flex;gap:2px;margin-bottom:20px;}
 .review-stars svg{width:13px;height:13px;fill:#C49A4A;}
 .review-text{
@@ -483,7 +488,7 @@ html.js-loaded .reveal{opacity:1;transform:none;}
 }
 .google-badge{
   display:inline-flex;align-items:center;gap:12px;
-  padding:14px 24px;border-radius:4px;
+  padding:14px 24px;border-radius:10px;
   background:var(--bg);border:1px solid var(--border);
   font-weight:600;font-size:0.85rem;color:var(--text);
 }
@@ -501,7 +506,7 @@ html.js-loaded .reveal{opacity:1;transform:none;}
   align-items:start;
 }
 .area-map-wrap{
-  border-radius:2px;overflow:hidden;
+  border-radius:14px;overflow:hidden;
   border:1px solid var(--border);
   height:400px;
   position:relative;
@@ -535,7 +540,7 @@ html.js-loaded .reveal{opacity:1;transform:none;}
 }
 .city-item{
   display:flex;align-items:center;gap:8px;
-  padding:9px 12px;border-radius:2px;
+  padding:9px 12px;border-radius:8px;
   font-size:0.83rem;font-weight:500;color:var(--text);
   border:1px solid var(--border);
   transition:background 0.15s,border-color 0.15s,transform 0.2s;
@@ -558,7 +563,7 @@ html.js-loaded .reveal{opacity:1;transform:none;}
 }
 .cta-banner-bg{
   position:absolute;inset:0;
-  background-image:url("https://images.unsplash.com/photo-1718019136589-153f99372c75?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxsdXNoJTIwZ3JlZW4lMjBsYXduJTIwd2FybSUyMHN0b25lJTIwcGF0aHdheSUyMHN1bmxpdCUyMGJhY2t5YXJkfGVufDB8MHx8fDE3Nzc4Njg2ODd8MA&ixlib=rb-4.1.0&q=80&w=1080");
+  background-image:url("https://images.pexels.com/photos/11654274/pexels-photo-11654274.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
   background-size:cover;background-position:center;
 }
 .cta-banner-overlay{
@@ -581,7 +586,7 @@ html.js-loaded .reveal{opacity:1;transform:none;}
 .cta-banner-actions{display:flex;gap:14px;flex-wrap:wrap;}
 .btn-white{
   background:var(--white);color:var(--accent);
-  padding:15px 30px;border-radius:4px;
+  padding:15px 30px;border-radius:8px;
   font-weight:700;font-size:0.85rem;letter-spacing:0.05em;text-transform:uppercase;
   transition:transform 0.2s,background 0.2s;
   display:inline-block;
@@ -589,7 +594,7 @@ html.js-loaded .reveal{opacity:1;transform:none;}
 .btn-white:hover{transform:translateY(-2px);background:var(--bg);}
 .btn-ghost{
   border:1px solid rgba(255,255,255,0.35);color:rgba(255,255,255,0.8);
-  padding:14px 26px;border-radius:4px;
+  padding:14px 26px;border-radius:8px;
   font-weight:500;font-size:0.85rem;letter-spacing:0.04em;text-transform:uppercase;
   transition:border-color 0.2s,color 0.2s;
   display:inline-block;
@@ -622,8 +627,9 @@ html.js-loaded .reveal{opacity:1;transform:none;}
 }
 .contact-trust-check svg{width:10px;height:10px;stroke:var(--accent);fill:none;}
 .quote-form{
-  background:var(--bg);border-radius:2px;
+  background:var(--bg);border-radius:14px;
   padding:48px;border:1px solid var(--border);
+  box-shadow:0 4px 24px var(--shadow);
 }
 .quote-form h3{
   font-size:1.35rem;font-weight:700;color:var(--text);
@@ -638,7 +644,7 @@ html.js-loaded .reveal{opacity:1;transform:none;}
 .form-group input,
 .form-group select,
 .form-group textarea{
-  padding:13px 14px;border-radius:2px;
+  padding:13px 14px;border-radius:8px;
   border:1px solid var(--border);
   background:var(--bg);color:var(--text);
   font-family:inherit;font-size:0.9rem;
@@ -656,7 +662,7 @@ html.js-loaded .reveal{opacity:1;transform:none;}
   display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;
 }
 .contact-method-btn{
-  padding:9px 16px;border-radius:2px;
+  padding:9px 16px;border-radius:8px;
   border:1px solid var(--border);
   font-size:0.78rem;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;
   color:var(--text);background:var(--bg);cursor:pointer;
@@ -670,7 +676,7 @@ html.js-loaded .reveal{opacity:1;transform:none;}
 .form-submit{
   width:100%;padding:17px;
   background:var(--accent);color:var(--white);
-  border-radius:4px;font-weight:700;font-size:0.85rem;
+  border-radius:8px;font-weight:700;font-size:0.85rem;
   letter-spacing:0.06em;text-transform:uppercase;
   border:none;cursor:pointer;
   transition:background 0.2s,transform 0.2s;
@@ -747,7 +753,7 @@ html.js-loaded .reveal{opacity:1;transform:none;}
   background:rgba(122,98,72,0.15);
   backdrop-filter:blur(16px);
   border:1px solid rgba(255,255,255,0.08);
-  border-radius:2px;
+  border-radius:10px;
 }
 
 /* ── RESPONSIVE ── */
@@ -762,7 +768,7 @@ html.js-loaded .reveal{opacity:1;transform:none;}
   .hero-panel-text{background:var(--bg-dark);}
   #hero::before{
     content:'';position:absolute;inset:0;z-index:0;
-    background-image:url("https://images.unsplash.com/photo-1593266432400-4ee632e15d6d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBsYXduJTIwZWRnaW5nJTIwY3Jpc3AlMjBzdWJ1cmJhbiUyMEF0bGFudGElMjBncmVlbnxlbnwwfDB8fHwxNzc3ODY4NjgzfDA&ixlib=rb-4.1.0&q=80&w=1080");
+    background-image:url("https://images.unsplash.com/photo-1593266432400-4ee632e15d6d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxsdXNoJTIwZ3JlZW4lMjBzdWJ1cmJhbiUyMGxhd24lMjBmcmVzaGx5JTIwZWRnZWQlMjBBdGxhbnRhJTIwcHJvZmVzc2lvbmFsJTIwbGFuZHNjYXBpbmd8ZW58MHwwfHx8MTc3Nzg3MDU4OHww&ixlib=rb-4.1.0&q=80&w=1080");
     background-size:cover;background-position:center;
     opacity:0.18;
   }
@@ -796,7 +802,7 @@ html.js-loaded .reveal{opacity:1;transform:none;}
   .trust-divider{display:none;}
   .process-grid{grid-template-columns:1fr;gap:2px;}
   .gallery-grid{grid-template-columns:1fr 1fr;}
-  .reviews-grid{grid-template-columns:1fr;gap:2px;}
+  .reviews-grid{grid-template-columns:1fr;gap:16px;}
   .stats-grid{grid-template-columns:1fr 1fr;}
   .footer-grid{grid-template-columns:1fr 1fr;}
   .cta-banner-content{padding:60px 24px;}
@@ -827,6 +833,7 @@ html.js-loaded .reveal{opacity:1;transform:none;}
   .nav-links{display:none;}
 }
 </style>
+
 
 </head>
 <body>
@@ -870,7 +877,7 @@ html.js-loaded .reveal{opacity:1;transform:none;}
     </div>
   </div>
   <div class="hero-panel-img">
-    <img src="https://images.unsplash.com/photo-1593266432400-4ee632e15d6d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBsYXduJTIwZWRnaW5nJTIwY3Jpc3AlMjBzdWJ1cmJhbiUyMEF0bGFudGElMjBncmVlbnxlbnwwfDB8fHwxNzc3ODY4NjgzfDA&ixlib=rb-4.1.0&q=80&w=1080" alt="Professional lawn edging on a crisp suburban Atlanta property" />
+    <img src="https://images.unsplash.com/photo-1593266432400-4ee632e15d6d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxsdXNoJTIwZ3JlZW4lMjBzdWJ1cmJhbiUyMGxhd24lMjBmcmVzaGx5JTIwZWRnZWQlMjBBdGxhbnRhJTIwcHJvZmVzc2lvbmFsJTIwbGFuZHNjYXBpbmd8ZW58MHwwfHx8MTc3Nzg3MDU4OHww&ixlib=rb-4.1.0&q=80&w=1080" alt="Lush green suburban lawn freshly edged by Binda's Landscaping in Atlanta" />
   </div>
   <svg class="hero-noise" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3"/></filter><rect width="100%" height="100%" filter="url(#n)"/></svg>
   <div class="hero-scroll" aria-hidden="true">
@@ -931,7 +938,7 @@ html.js-loaded .reveal{opacity:1;transform:none;}
       <div>
         <span class="section-label reveal">What We Do</span>
         <h2 class="section-title reveal" id="services-title">Everything Your Property Deserves</h2>
-        <p class="section-body reveal">From weekly lawn maintenance to seasonal design installs — Binda's delivers photo-ready results every single visit, no shortcuts.</p>
+        <p class="section-body reveal">From weekly lawn maintenance to seasonal design installs — Binda's delivers photo-ready results every single visit, no shortcuts, no excuses.</p>
       </div>
       <div class="reveal">
         <div class="services-tab-strip" role="tablist" aria-label="Service categories">
@@ -957,7 +964,7 @@ html.js-loaded .reveal{opacity:1;transform:none;}
             </div>
           </div>
           <div class="service-row-img">
-            <img src="https://images.unsplash.com/photo-1777428762787-03867c2013a6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHx3ZWVrbHklMjByZXNpZGVudGlhbCUyMGxhd24lMjBtb3dpbmclMjBtYW5pY3VyZWQlMjBzdWJ1cmJhbiUyMHlhcmR8ZW58MHwwfHx8MTc3Nzg2ODY4NHww&ixlib=rb-4.1.0&q=80&w=1080" alt="Colorful tulips bloom around a tree in a manicured suburban yard" loading="lazy" />
+            <img src="https://images.unsplash.com/photo-1764969370921-7c8df49171cd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHx3ZWVrbHklMjBsYXduJTIwbW93aW5nJTIwbWFuaWN1cmVkJTIwcmVzaWRlbnRpYWwlMjBsYXduJTIwY3Jpc3AlMjBlZGdlc3xlbnwwfDB8fHwxNzc3ODcwNTg4fDA&ixlib=rb-4.1.0&q=80&w=1080" alt="A freshly mown lawn in a sunny park with crisp edges" loading="lazy" />
           </div>
         </div>
         <div class="service-row reveal">
@@ -972,7 +979,7 @@ html.js-loaded .reveal{opacity:1;transform:none;}
             </div>
           </div>
           <div class="service-row-img">
-            <img src="https://images.unsplash.com/photo-1630257334364-d1dfe34cc166?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxzZWFzb25hbCUyMGdhcmRlbiUyMGNsZWFudXAlMjBtdWxjaGluZyUyMGZsb3dlciUyMGJlZCUyMGRlc2lnbnxlbnwwfDB8fHwxNzc3ODY4Njg0fDA&ixlib=rb-4.1.0&q=80&w=1080" alt="Red and white flower garden after seasonal bed cleanup" loading="lazy" />
+            <img src="https://images.unsplash.com/photo-1777428762787-03867c2013a6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxzZWFzb25hbCUyMGdhcmRlbiUyMGNsZWFudXAlMjBtdWxjaGluZyUyMGZsb3dlciUyMGJlZCUyMGRlc2lnbiUyMHN1YnVyYmFuJTIwaG9tZXxlbnwwfDB8fHwxNzc3ODcwNTg5fDA&ixlib=rb-4.1.0&q=80&w=1080" alt="Colorful tulips bloom around a tree in a suburban yard after seasonal cleanup" loading="lazy" />
           </div>
         </div>
         <div class="service-row reveal">
@@ -1002,7 +1009,7 @@ html.js-loaded .reveal{opacity:1;transform:none;}
             </div>
           </div>
           <div class="service-row-img">
-            <img src="https://images.pexels.com/photos/16239802/pexels-photo-16239802.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Worker carefully placing elements during outdoor landscaping project" loading="lazy" />
+            <img src="https://images.pexels.com/photos/36777954/pexels-photo-36777954.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Spacious patio featuring wooden seating and stone work under a covered area" loading="lazy" />
           </div>
         </div>
       </div>
@@ -1023,7 +1030,7 @@ html.js-loaded .reveal{opacity:1;transform:none;}
             </div>
           </div>
           <div class="service-row-img">
-            <img src="https://images.pexels.com/photos/4469133/pexels-photo-4469133.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Beautiful two-story home with manicured landscape design" loading="lazy" />
+            <img src="https://images.pexels.com/photos/209296/pexels-photo-209296.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Elegant suburban family home with large manicured lawn and driveway" loading="lazy" />
           </div>
         </div>
         <div class="service-row reveal">
@@ -1038,7 +1045,7 @@ html.js-loaded .reveal{opacity:1;transform:none;}
             </div>
           </div>
           <div class="service-row-img">
-            <img src="https://images.pexels.com/photos/30290374/pexels-photo-30290374.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Intricate stone patio showcasing hardscaping craftsmanship" loading="lazy" />
+            <img src="https://images.pexels.com/photos/8333119/pexels-photo-8333119.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Aerial image of a landscaped garden with trees, pathways, and a house" loading="lazy" />
           </div>
         </div>
         <div class="service-row reveal">
@@ -1053,7 +1060,7 @@ html.js-loaded .reveal{opacity:1;transform:none;}
             </div>
           </div>
           <div class="service-row-img">
-            <img src="https://images.pexels.com/photos/34581908/pexels-photo-34581908.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Professional tree and branch management on residential property" loading="lazy" />
+            <img src="https://images.pexels.com/photos/589/garden-grass-meadow-green.jpg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Close-up view of a lawn mower cutting grass in a garden on a sunny day" loading="lazy" />
           </div>
         </div>
       </div>
@@ -1092,7 +1099,7 @@ html.js-loaded .reveal{opacity:1;transform:none;}
   <div class="container">
     <div class="about-grid">
       <div class="about-img-wrap reveal">
-        <img src="https://images.pexels.com/photos/20541452/pexels-photo-20541452.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Binda's Landscaping crew smiling together on the job" loading="lazy" />
+        <img src="https://images.pexels.com/photos/9620215/pexels-photo-9620215.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="A man operates a leaf blower in an autumn backyard, clearing leaves — Binda's crew at work" loading="lazy" />
         <div class="about-img-accent glass-card">
           <span class="stat-num">ATL</span>
           <span class="stat-label">Metro Proud</span>
@@ -1102,7 +1109,7 @@ html.js-loaded .reveal{opacity:1;transform:none;}
         <span class="section-label reveal" style="color:var(--accent-light);">Our Story</span>
         <h2 class="section-title section-title-light reveal" id="about-title">Started in a Truck. Now Atlanta's Most Trusted.</h2>
         <p class="section-body section-body-light reveal">Binda's Landscaping started with a truck, a mower, and a simple promise — show up on time, do the work right, and leave every property better than we found it. That crew ethic is still what drives us across every neighborhood in the Atlanta metro.</p>
-        <p class="section-body section-body-light reveal" style="margin-top:16px;">We serve homeowners in Sandy Springs, Decatur, and Buckhead who expect more than a quick cut — they want a property that earns compliments. We also partner with HOAs and commercial strip clients who need dependable grounds maintenance on a schedule they can count on.</p>
+        <p class="section-body section-body-light reveal" style="margin-top:16px;">We serve homeowners in Sandy Springs, Decatur, and Buckhead who expect more than a quick cut — they want a property that earns compliments. We also partner with HOAs and commercial clients who need dependable grounds maintenance on a schedule they can count on.</p>
         <div class="about-features reveal">
           <div class="about-feature">
             <div class="about-feature-dot"></div>
@@ -1145,7 +1152,7 @@ html.js-loaded .reveal{opacity:1;transform:none;}
         <h3 class="process-title">Request Your Free Estimate</h3>
         <p class="process-body">Fill out our short form or give us a call. We'll come out to your property, walk the full scope, and give you a clear, no-pressure quote within 24 hours.</p>
         <div class="process-card-img">
-          <img src="https://images.unsplash.com/photo-1734303023491-db8037a21f09?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxsYW5kc2NhcGluZyUyMGNyZXclMjBzY2hlZHVsaW5nJTIwcmVsaWFibGUlMjBwcm9mZXNzaW9uYWwlMjBvdXRkb29yJTIwd29ya3xlbnwwfDB8fHwxNzc3ODY2NjQ3fDA&ixlib=rb-4.1.0&q=80&w=1080" alt="Professional landscaper mowing a well-kept lawn" loading="lazy" />
+          <img src="https://images.pexels.com/photos/9890699/pexels-photo-9890699.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Close-up of rich brown bark mulch in sunlight, showcasing natural texture" loading="lazy" />
         </div>
       </div>
       <div class="process-card reveal">
@@ -1153,7 +1160,7 @@ html.js-loaded .reveal{opacity:1;transform:none;}
         <h3 class="process-title">We Build Your Maintenance Plan</h3>
         <p class="process-body">We schedule your service day, assign your dedicated crew, and set up your visit cadence — weekly, biweekly, or seasonal. You approve it. We lock it in.</p>
         <div class="process-card-img">
-          <img src="https://images.pexels.com/photos/15131952/pexels-photo-15131952.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Professional landscaper maintaining grounds on schedule" loading="lazy" />
+          <img src="https://images.pexels.com/photos/589/garden-grass-meadow-green.jpg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Close-up view of a lawn mower cutting grass in a garden on a sunny day" loading="lazy" />
         </div>
       </div>
       <div class="process-card reveal">
@@ -1161,7 +1168,7 @@ html.js-loaded .reveal{opacity:1;transform:none;}
         <h3 class="process-title">Sit Back. Your Lawn Handles Itself.</h3>
         <p class="process-body">Your crew arrives on schedule, completes the work to spec, and sends a completion note. You get curb-ready results without lifting a finger — every single visit.</p>
         <div class="process-card-img">
-          <img src="https://images.pexels.com/photos/5524205/pexels-photo-5524205.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Beautiful Atlanta home with pristine landscaping results" loading="lazy" />
+          <img src="https://images.pexels.com/photos/259588/pexels-photo-259588.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Elegant stone family home surrounded by trees, lush lawn, and vibrant garden" loading="lazy" />
         </div>
       </div>
     </div>
@@ -1181,16 +1188,16 @@ html.js-loaded .reveal{opacity:1;transform:none;}
     </div>
     <div class="gallery-grid">
       <div class="gallery-item reveal">
-        <img src="https://images.pexels.com/photos/8031890/pexels-photo-8031890.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Modern suburban home with lush green lawn and landscaped garden" loading="lazy" />
+        <img src="https://images.pexels.com/photos/209296/pexels-photo-209296.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Elegant suburban family home with large lawn and landscaped garden" loading="lazy" />
         <div class="gallery-item-overlay"><span class="gallery-item-label">Lawn Installation</span></div>
       </div>
       <div class="gallery-item reveal">
-        <img src="https://images.pexels.com/photos/16133567/pexels-photo-16133567.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Contemporary commercial exterior with clean landscaping under blue sky" loading="lazy" />
-        <div class="gallery-item-overlay"><span class="gallery-item-label">Commercial Grounds</span></div>
+        <img src="https://images.pexels.com/photos/9890699/pexels-photo-9890699.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Close-up of brown bark mulch showcasing fresh mulch bed installation" loading="lazy" />
+        <div class="gallery-item-overlay"><span class="gallery-item-label">Mulch &amp; Bed Refresh</span></div>
       </div>
       <div class="gallery-item reveal">
-        <img src="https://images.unsplash.com/photo-1561534685-675e2cb257d9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MzQ1MTZ8MHwxfHNlYXJjaHwxfHxiZWZvcmUlMjBhZnRlciUyMGxhd24lMjB0cmFuc2Zvcm1hdGlvbiUyMGx1c2glMjBncmVlbiUyMGVkZ2VkfGVufDB8MHx8fDE3Nzc4Njg2ODV8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="Crisp edged lawn transformation showing clean green grass beside walkway" loading="lazy" />
-        <div class="gallery-item-overlay"><span class="gallery-item-label">Lawn Edging &amp; Refresh</span></div>
+        <img src="https://images.pexels.com/photos/8333119/pexels-photo-8333119.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Aerial image of a landscaped garden with trees, pathways, and a house" loading="lazy" />
+        <div class="gallery-item-overlay"><span class="gallery-item-label">Full Landscape Design</span></div>
       </div>
     </div>
   </div>
@@ -1312,7 +1319,7 @@ html.js-loaded .reveal{opacity:1;transform:none;}
       </div>
       <div class="area-map-wrap reveal">
         <div class="area-map-placeholder">
-          <img src="https://images.pexels.com/photos/33133749/pexels-photo-33133749.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Aerial view of Atlanta metro area served by Binda's Landscaping" loading="lazy" />
+          <img src="https://images.pexels.com/photos/8333119/pexels-photo-8333119.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Aerial view of Atlanta metro area served by Binda's Landscaping" loading="lazy" />
           <div class="area-map-overlay">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
             <p>Atlanta, GA</p>
@@ -1450,9 +1457,9 @@ html.js-loaded .reveal{opacity:1;transform:none;}
       <div class="footer-brand">Binda's<span> Landscaping</span></div>
       <p class="footer-tagline">Curb appeal and clean lines for Atlanta homes. Reliable scheduling, photo-ready results, local crew.</p>
       <div style="display:flex;gap:6px;flex-wrap:wrap;">
-        <span style="font-size:0.7rem;padding:3px 9px;border-radius:2px;background:rgba(122,98,72,0.18);color:var(--accent-light);font-weight:600;letter-spacing:0.06em;text-transform:uppercase;">Licensed</span>
-        <span style="font-size:0.7rem;padding:3px 9px;border-radius:2px;background:rgba(122,98,72,0.18);color:var(--accent-light);font-weight:600;letter-spacing:0.06em;text-transform:uppercase;">Insured</span>
-        <span style="font-size:0.7rem;padding:3px 9px;border-radius:2px;background:rgba(122,98,72,0.18);color:var(--accent-light);font-weight:600;letter-spacing:0.06em;text-transform:uppercase;">Local</span>
+        <span style="font-size:0.7rem;padding:3px 9px;border-radius:20px;background:rgba(122,98,72,0.18);color:var(--accent-light);font-weight:600;letter-spacing:0.06em;text-transform:uppercase;">Licensed</span>
+        <span style="font-size:0.7rem;padding:3px 9px;border-radius:20px;background:rgba(122,98,72,0.18);color:var(--accent-light);font-weight:600;letter-spacing:0.06em;text-transform:uppercase;">Insured</span>
+        <span style="font-size:0.7rem;padding:3px 9px;border-radius:20px;background:rgba(122,98,72,0.18);color:var(--accent-light);font-weight:600;letter-spacing:0.06em;text-transform:uppercase;">Local</span>
       </div>
     </div>
     <div>
@@ -1512,28 +1519,51 @@ lenis.on('scroll', ScrollTrigger.update);
 // ── COPYRIGHT ──
 document.getElementById('copyright-year').textContent = new Date().getFullYear();
 
-// ── SPLIT TEXT HERO ──
-const heroHeadline = document.getElementById('hero-headline');
-const heroEyebrow = document.getElementById('hero-eyebrow');
-const heroSub = document.getElementById('hero-sub');
-const heroActions = document.getElementById('hero-actions');
+// ── SPLIT TEXT HERO — deferred until fonts ready ──
+document.fonts.ready.then(function() {
+  const heroHeadline = document.getElementById('hero-headline');
+  const heroEyebrow = document.getElementById('hero-eyebrow');
+  const heroSub = document.getElementById('hero-sub');
+  const heroActions = document.getElementById('hero-actions');
 
-if (heroHeadline) {
-  const split = new SplitText(heroHeadline, { type: 'chars,words,lines' });
-  gsap.from(split.chars, {
-    y: 120,
-    opacity: 0,
-    stagger: 0.028,
-    duration: 1.1,
-    ease: 'expo.out',
-    delay: 0.3,
-    onComplete: () => {
-      gsap.to(heroEyebrow, { opacity: 1, y: 0, duration: 0.7, ease: 'expo.out' });
-      gsap.to(heroSub, { opacity: 1, y: 0, duration: 0.7, ease: 'expo.out', delay: 0.1 });
-      gsap.to(heroActions, { opacity: 1, y: 0, duration: 0.7, ease: 'expo.out', delay: 0.2 });
-    }
+  if (heroHeadline) {
+    const split = new SplitText(heroHeadline, { type: 'chars,words,lines' });
+    gsap.from(split.chars, {
+      y: 120,
+      opacity: 0,
+      stagger: 0.028,
+      duration: 1.1,
+      ease: 'expo.out',
+      delay: 0.3,
+      onComplete: () => {
+        gsap.to(heroEyebrow, { opacity: 1, y: 0, duration: 0.7, ease: 'expo.out' });
+        gsap.to(heroSub, { opacity: 1, y: 0, duration: 0.7, ease: 'expo.out', delay: 0.1 });
+        gsap.to(heroActions, { opacity: 1, y: 0, duration: 0.7, ease: 'expo.out', delay: 0.2 });
+      }
+    });
+  }
+
+  // ── SCROLL ANIMATIONS — SECTION HEADINGS ──
+  const sectionTitles = ['services-title','about-title','process-title','gallery-title','reviews-title','area-title','contact-title'];
+  sectionTitles.forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const s = new SplitText(el, { type: 'words,chars' });
+    gsap.from(s.words, {
+      scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none reverse' },
+      y: 60,
+      opacity: 0,
+      duration: 0.8,
+      stagger: 0.06,
+      ease: 'power3.out'
+    });
   });
-}
+
+  ScrollTrigger.refresh();
+}).catch(function() {
+  // Font load failed — still run reveals without SplitText
+  ScrollTrigger.refresh();
+});
 
 // ── NAV SCROLL BEHAVIOR ──
 const nav = document.getElementById('nav');
@@ -1607,25 +1637,9 @@ if (quoteForm) {
   });
 }
 
-// ── SCROLL ANIMATIONS — SECTION HEADINGS ──
-const sectionTitles = ['services-title','about-title','process-title','gallery-title','reviews-title','area-title','contact-title'];
-sectionTitles.forEach(id => {
-  const el = document.getElementById(id);
-  if (!el) return;
-  const s = new SplitText(el, { type: 'words,chars' });
-  gsap.from(s.words, {
-    scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none reverse' },
-    y: 60,
-    opacity: 0,
-    duration: 0.8,
-    stagger: 0.06,
-    ease: 'power3.out'
-  });
-});
-
 // ── SERVICE ROW IMAGES: clipPath reveal ──
 function revealServiceImages() {
-  document.querySelectorAll('.service-row-img').forEach((img, i) => {
+  document.querySelectorAll('.service-row-img').forEach((img) => {
     gsap.set(img, { clipPath: 'inset(100% 0 0 0)' });
     ScrollTrigger.create({
       trigger: img,
@@ -1743,7 +1757,7 @@ gsap.from('.city-item', {
   ease: 'power2.out'
 });
 
-// ── TRUST ITEMS SCRUB ──
+// ── TRUST ITEMS ──
 gsap.from('.trust-item', {
   scrollTrigger: { trigger: '#trust', start: 'top 95%', toggleActions: 'play none none none' },
   y: 20,
@@ -1784,7 +1798,7 @@ if (primaryBtn && window.innerWidth > 768) {
   });
 }
 
-// ── REVEAL ELEMENTS (GSAP-driven — no IO to avoid Lenis conflict) ──
+// ── REVEAL ELEMENTS (GSAP-driven) ──
 gsap.utils.toArray('.reveal').forEach(el => {
   gsap.from(el, {
     scrollTrigger: {
