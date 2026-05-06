@@ -548,12 +548,8 @@
       /* ── Page footer: repeats on every printed page via position:fixed ── */
       #printFooter{
         display:block!important;
-        position:fixed!important;
-        bottom:0!important;
-        left:0!important;
-        right:0!important;
-        padding:0 16mm!important;
-        background:#fff!important;
+        margin-top:18pt!important;
+        padding-top:0!important;
         -webkit-print-color-adjust:exact!important;
         print-color-adjust:exact!important;
       }
@@ -578,7 +574,7 @@
         print-color-adjust:exact!important;
       }
       /* Reserve space so content never slides under the footer */
-      #printArea{padding-bottom:28pt!important;}
+      #printArea{padding-bottom:8pt!important;}
     }
     /* Mobile + touch: comfortable tap targets and readable type */
     @media(max-width:1023px){
@@ -829,24 +825,23 @@
             <p class="small preview-client-email">Client email: <span id="pvClientEmail">—</span></p>
           </div>
         </div>
+        <div id="printFooter" aria-hidden="true">
+          <div class="print-footer-rule"></div>
+          <div class="print-footer-text">
+            <strong id="pfBiz">Binda's Landscaping LLC</strong>
+            <span class="pf-sep">·</span>
+            <span id="pfPhone">(678) 983-0827</span>
+            <span class="pf-sep">·</span>
+            <span id="pfEmail">bindaslandscaping@gmail.com</span>
+            <span class="pf-sep">·</span>
+            <span id="pfCity">Lilburn, GA 30047</span>
+          </div>
+        </div>
       </div>
       <div id="proposalToolbar">
         <button type="button" class="ghost" id="btnEdit">← Edit</button>
         <button type="button" class="primary" id="btnPrint">Print / Save PDF</button>
       </div>
-    </div>
-  </div>
-
-  <div id="printFooter" aria-hidden="true">
-    <div class="print-footer-rule"></div>
-    <div class="print-footer-text">
-      <strong id="pfBiz">Binda's Landscaping LLC</strong>
-      <span class="pf-sep">·</span>
-      <span id="pfPhone">(678) 983-0827</span>
-      <span class="pf-sep">·</span>
-      <span id="pfEmail">bindaslandscaping@gmail.com</span>
-      <span class="pf-sep">·</span>
-      <span id="pfCity">Lilburn, GA 30047</span>
     </div>
   </div>
 
