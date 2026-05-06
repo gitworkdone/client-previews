@@ -331,7 +331,6 @@
 
       /* ── Preview card ── */
       #printArea{
-        zoom:0.9!important;
         border-top:4px solid #2F5D45!important;
         border-left:1px solid rgba(45,61,54,0.18)!important;
         border-right:1px solid rgba(45,61,54,0.18)!important;
@@ -1229,6 +1228,9 @@
         svcOl.style.setProperty('-webkit-column-gap', gap, 'important');
         svcOl.style.setProperty('column-gap', gap, 'important');
       }
+
+      /* Force 90% print scaling so everything fits on fewer pages. */
+      pa.style.setProperty('zoom', '0.9', 'important');
     }
 
     syncAllSigToPreview();
@@ -1454,7 +1456,7 @@
     runPrepareForPrint();
   });
   window.addEventListener('afterprint', function(){
-    /* Clear inline column styles set by runPrepareForPrint so screen view is unaffected. */
+    /* Clear inline styles set by runPrepareForPrint so screen view is unaffected. */
     var svcOl = $('pvServices');
     if (svcOl) {
       svcOl.style.removeProperty('-webkit-column-count');
@@ -1462,6 +1464,8 @@
       svcOl.style.removeProperty('-webkit-column-gap');
       svcOl.style.removeProperty('column-gap');
     }
+    var pa = $('printArea');
+    if (pa) pa.style.removeProperty('zoom');
     scheduleSigPadLayout();
   });
 
