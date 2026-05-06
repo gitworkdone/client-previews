@@ -1439,14 +1439,27 @@
     scheduleSigPadLayout();
   });
 
+  function cleanupAfterPrint(){
+    /* Idempotent — safe to call multiple times (button click + afterprint). */
+    var colWrap = document.getElementById('pvServicesPrintCols');
+    if (colWrap && colWrap.parentNode) colWrap.parentNode.removeChild(colWrap);
+    var svcOl = $('pvServices');
+    if (svcOl) svcOl.style.display = '';
+    var pa = $('printArea');
+    if (pa) pa.style.removeProperty('zoom');
+  }
+
   $('btnPrint').addEventListener('click', function(){
-    /* Sync signatures + apply inline column styles before print.
-       Two rAFs ensure the browser commits all style/layout changes before the
-       print snapshot is taken — critical on iOS Safari and Android Chrome. */
+    /* Two rAFs let the browser commit all DOM/style changes before the print
+       snapshot — critical on iOS Safari and Android Chrome.
+       cleanupAfterPrint() is called right after window.print() returns:
+       on iOS, print() is synchronous and afterprint never fires, so this
+       is the only reliable cleanup path. */
     runPrepareForPrint();
     requestAnimationFrame(function(){
       requestAnimationFrame(function(){
         window.print();
+        cleanupAfterPrint();   /* iOS: print() returns immediately */
       });
     });
   });
@@ -1468,13 +1481,7 @@
     runPrepareForPrint();
   });
   window.addEventListener('afterprint', function(){
-    /* Remove the print column wrapper and restore the original list. */
-    var colWrap = document.getElementById('pvServicesPrintCols');
-    if (colWrap && colWrap.parentNode) colWrap.parentNode.removeChild(colWrap);
-    var svcOl = $('pvServices');
-    if (svcOl) svcOl.style.display = '';
-    var pa = $('printArea');
-    if (pa) pa.style.removeProperty('zoom');
+    cleanupAfterPrint();   /* desktop: afterprint fires after dialog closes */
     scheduleSigPadLayout();
   });
 
