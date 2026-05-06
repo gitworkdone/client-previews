@@ -1218,15 +1218,27 @@
       var cols = realN <= 3 ? 1 : realN <= 6 ? 2 : realN <= 9 ? 3 : 4;
       pa.setAttribute('data-svc-cols', String(cols));
 
-      /* Force columns via inline style — CSS column-count is unreliable in mobile
-         print (iOS Safari). Inline !important overrides everything. */
+      /* Restructure services into explicit flex columns (3 items per column max).
+         CSS column-count is unreliable in mobile print — explicit HTML always works. */
       var svcOl = $('pvServices');
-      if (svcOl) {
-        var gap = cols <= 2 ? '18pt' : cols === 3 ? '14pt' : '10pt';
-        svcOl.style.setProperty('-webkit-column-count', String(cols), 'important');
-        svcOl.style.setProperty('column-count', String(cols), 'important');
-        svcOl.style.setProperty('-webkit-column-gap', gap, 'important');
-        svcOl.style.setProperty('column-gap', gap, 'important');
+      if (svcOl && realN > 0) {
+        var liEls = Array.prototype.slice.call(svcOl.querySelectorAll('li'));
+        var realLis = liEls.filter(function(li){ return li.style.color !== '#888'; });
+        if (realLis.length > 3) {
+          var wrapper = document.createElement('div');
+          wrapper.id = 'pvServicesPrintCols';
+          wrapper.style.cssText = 'display:flex;flex-direction:row;gap:16pt;width:100%;margin:0;padding:0;';
+          for (var ci = 0; ci < realLis.length; ci += 3) {
+            var colOl = document.createElement('ol');
+            colOl.style.cssText = 'flex:1;min-width:0;margin:0;padding:0 0 0 1.1em;';
+            realLis.slice(ci, ci + 3).forEach(function(li){
+              colOl.appendChild(li.cloneNode(true));
+            });
+            wrapper.appendChild(colOl);
+          }
+          svcOl.style.display = 'none';
+          svcOl.parentNode.insertBefore(wrapper, svcOl.nextSibling);
+        }
       }
 
       /* Force 90% print scaling so everything fits on fewer pages. */
@@ -1456,14 +1468,11 @@
     runPrepareForPrint();
   });
   window.addEventListener('afterprint', function(){
-    /* Clear inline styles set by runPrepareForPrint so screen view is unaffected. */
+    /* Remove the print column wrapper and restore the original list. */
+    var colWrap = document.getElementById('pvServicesPrintCols');
+    if (colWrap && colWrap.parentNode) colWrap.parentNode.removeChild(colWrap);
     var svcOl = $('pvServices');
-    if (svcOl) {
-      svcOl.style.removeProperty('-webkit-column-count');
-      svcOl.style.removeProperty('column-count');
-      svcOl.style.removeProperty('-webkit-column-gap');
-      svcOl.style.removeProperty('column-gap');
-    }
+    if (svcOl) svcOl.style.display = '';
     var pa = $('printArea');
     if (pa) pa.style.removeProperty('zoom');
     scheduleSigPadLayout();
