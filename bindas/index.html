@@ -1589,33 +1589,33 @@
   /* Fields where every word should be capitalized (names, addresses) */
   var TITLE_CASE_FIELDS = new Set(['bizName','clientName','bizAddr','bizCity','clientAddr1','clientAddr2']);
 
-  function applyWordCase(str, titleCase){
+  function applyWordCase(str, titleCase, wholeStringIsAllCaps){
     var trimmed = str.trimStart();
     if (!trimmed) return str;
     var leading = str.slice(0, str.length - trimmed.length);
-    var originalWords = trimmed.split(/(\s+)/);
-    var result = originalWords.map(function(chunk, i){
-      if (!chunk.trim()) return chunk;           /* preserve whitespace tokens */
+    var wordIndex = 0;
+    var result = trimmed.split(/(\s+)/).map(function(chunk){
+      if (!chunk.trim()) return chunk;
       var lower = chunk.toLowerCase();
-      if (/[@\/\.]/.test(chunk)) return chunk;   /* email / URL — leave alone */
-      if (FORCE_UPPER.has(lower)) return chunk.toUpperCase();
-      /* Already-uppercase abbreviation (2+ caps) — keep as-is */
-      if (chunk.length > 1 && chunk === chunk.toUpperCase()) return chunk;
-      if (titleCase) {
-        /* Title case: capitalize first letter of every word */
-        return chunk.charAt(0).toUpperCase() + chunk.slice(1).toLowerCase();
-      } else {
-        /* Sentence case: capitalize only the very first word */
-        if (i === 0) return chunk.charAt(0).toUpperCase() + chunk.slice(1).toLowerCase();
-        return chunk.toLowerCase();
+      if (/[@\/\.]/.test(chunk)) return chunk;
+      if (FORCE_UPPER.has(lower)) { wordIndex++; return chunk.toUpperCase(); }
+      /* Only treat as an abbreviation when the whole string wasn't all-caps —
+         otherwise every word in "THIS IS ALL CAPS" would be left unchanged. */
+      if (!wholeStringIsAllCaps && chunk.length > 1 && chunk === chunk.toUpperCase()) {
+        wordIndex++; return chunk;
       }
+      var out = titleCase || wordIndex === 0
+        ? chunk.charAt(0).toUpperCase() + chunk.slice(1).toLowerCase()
+        : chunk.toLowerCase();
+      wordIndex++;
+      return out;
     });
     return leading + result.join('');
   }
 
-  /* For multi-sentence fields (textareas): capitalize after . ! ? and newlines */
+  /* For multi-sentence textareas: capitalize after . ! ? and newlines */
   function applySentenceCaseMulti(str){
-    return str.replace(/(^|[.!?]\s+|\n+)([a-z])/g, function(match, sep, letter){
+    return str.replace(/(^|[.!?]\s+|\n+)([a-z])/g, function(m, sep, letter){
       return sep + letter.toUpperCase();
     });
   }
@@ -1629,10 +1629,12 @@
     var allUpper = letters === letters.toUpperCase();
     if (allLower || allUpper) {
       var useTitle = TITLE_CASE_FIELDS.has(el.id);
-      var normalized = applyWordCase(val, useTitle);
-      /* For textareas, also capitalize the start of every sentence */
+      var normalized = applyWordCase(val, useTitle, allUpper);
       if (el.tagName === 'TEXTAREA') {
         normalized = applySentenceCaseMulti(normalized);
+        /* Auto-append period if the text doesn't end with sentence punctuation */
+        var trimEnd = normalized.trimEnd();
+        if (trimEnd && !/[.!?]$/.test(trimEnd)) normalized = trimEnd + '.';
       }
       el.value = normalized;
     }
