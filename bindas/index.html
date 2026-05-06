@@ -496,6 +496,35 @@
       #printArea.print-compact-services #pvChange{font-size:9pt!important;}
       #printArea.print-compact-services .preview-sig-img{max-height:50pt!important;}
 
+      /* ── Compact page-2: Notes + Change Authorization both visible ── */
+      #printArea.print-compact-extra #pvChange{
+        margin-top:7pt!important;
+        padding:5pt 8pt!important;
+        font-size:9pt!important;
+        line-height:1.3!important;
+      }
+      #printArea.print-compact-extra #pvNotes{
+        font-size:9pt!important;
+        line-height:1.35!important;
+      }
+      #printArea.print-compact-extra .preview-sig-separator{
+        margin:7pt 0 9pt!important;
+      }
+      #printArea.print-compact-extra h3:not(.preview-agreement-heading){
+        font-size:9.5pt!important;
+        margin-bottom:1pt!important;
+      }
+      #printArea.print-compact-extra .preview-sig-stack{margin-top:0!important;}
+      #printArea.print-compact-extra .preview-sig-col--vendor > p.small:first-child{margin-top:0!important;}
+      #printArea.print-compact-extra .preview-sig-col--client > p.small:first-child{margin-top:8pt!important;}
+      #printArea.print-compact-extra .preview-sig-slot{min-height:36pt!important;}
+      #printArea.print-compact-extra .preview-sig-img{max-height:40pt!important;}
+      #printArea.print-compact-extra .preview-client-address{margin-top:4pt!important;}
+      #printArea.print-compact-extra .preview-client-email{margin-top:1pt!important;}
+      /* handheld + both sections = most aggressive reduction */
+      html.print-device-handheld #printArea.print-compact-extra .preview-sig-slot{min-height:24pt!important;}
+      html.print-device-handheld #printArea.print-compact-extra .preview-sig-img{max-height:26pt!important;}
+
       /* ── Handheld (printed from phone) ── */
       html.print-device-handheld #printArea{
         padding:7mm 8mm!important;
@@ -1166,6 +1195,16 @@
     var handheld = ('ontouchstart' in window || navigator.maxTouchPoints > 0) &&
                    window.innerWidth < 900;
     document.documentElement.classList.toggle('print-device-handheld', handheld);
+
+    /* When both Change Authorization and Notes are visible, page 2 is fuller —
+       apply compact mode so signatures stay on page 2 and don't spill to page 3. */
+    var pa = $('printArea');
+    if (pa) {
+      var hasChange = $('pvChange') && $('pvChange').style.display !== 'none';
+      var hasNotes  = $('pvNotes')  && $('pvNotes').style.display  !== 'none';
+      pa.classList.toggle('print-compact-extra', !!(hasChange && hasNotes));
+    }
+
     syncAllSigToPreview();
   }
 
