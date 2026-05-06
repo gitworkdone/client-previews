@@ -1242,8 +1242,10 @@
         }
       }
 
-      /* Force 90% print scaling so everything fits on fewer pages. */
-      pa.style.setProperty('zoom', '0.9', 'important');
+      /* Force 90% print scaling so everything fits on fewer pages.
+         Applied to body (not #printArea) so position:fixed #printFooter
+         stays in the same zoom context and renders correctly. */
+      document.body.style.setProperty('zoom', '0.9', 'important');
     }
 
     syncAllSigToPreview();
@@ -1446,8 +1448,7 @@
     if (colWrap && colWrap.parentNode) colWrap.parentNode.removeChild(colWrap);
     var svcOl = $('pvServices');
     if (svcOl) svcOl.style.display = '';
-    var pa = $('printArea');
-    if (pa) pa.style.removeProperty('zoom');
+    document.body.style.removeProperty('zoom');
   }
 
   $('btnPrint').addEventListener('click', function(){
