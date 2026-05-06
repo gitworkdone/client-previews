@@ -1340,6 +1340,9 @@
   });
 
   $('btnPrint').addEventListener('click', function(){
+    /* Sync signatures before print — beforeprint is unreliable on iOS Safari
+       and some Android browsers, so we always sync on button click as well. */
+    runPrepareForPrint();
     window.print();
   });
 
