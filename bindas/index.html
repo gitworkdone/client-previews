@@ -1580,14 +1580,22 @@
      If the user leaves a field with entirely all-lowercase or entirely
      all-uppercase text, convert to Title Case. Mixed-case is left alone
      (e.g. "LLC", "GA", "bindaslandscaping@gmail.com" stay untouched). */
-  function toTitleCase(str){
-    return str.replace(/\S+/g, function(word){
-      /* Preserve words that look like abbreviations (2+ uppercase letters)
-         or email addresses / URLs. */
-      if (/[@\/\.]/.test(word)) return word;
-      if (word.length > 1 && word === word.toUpperCase()) return word;
-      return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+  function toSentenceCase(str){
+    /* Capitalize only the very first letter, lowercase everything else,
+       but preserve words that look like abbreviations (2+ consecutive caps)
+       or contain @ / . (emails, URLs). */
+    var trimmed = str.trimStart();
+    if (!trimmed) return str;
+    var leading = str.slice(0, str.length - trimmed.length);
+    var rest = trimmed.charAt(0).toUpperCase() + trimmed.slice(1).toLowerCase();
+    /* Re-preserve abbreviations and special tokens */
+    rest = rest.replace(/\S+/g, function(word, offset){
+      var original = trimmed.slice(offset, offset + word.length);
+      if (/[@\/\.]/.test(original)) return original;
+      if (original.length > 1 && original === original.toUpperCase()) return original;
+      return word;
     });
+    return leading + rest;
   }
 
   function normalizeFieldCase(el){
@@ -1598,7 +1606,7 @@
     var allLower = letters === letters.toLowerCase();
     var allUpper = letters === letters.toUpperCase();
     if (allLower || allUpper) {
-      el.value = toTitleCase(val);
+      el.value = toSentenceCase(val);
     }
   }
 
