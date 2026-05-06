@@ -1205,13 +1205,20 @@
                    window.innerWidth < 900;
     document.documentElement.classList.toggle('print-device-handheld', handheld);
 
-    /* When both Change Authorization and Notes are visible, page 2 is fuller —
-       apply compact mode so signatures stay on page 2 and don't spill to page 3. */
     var pa = $('printArea');
     if (pa) {
+      /* When both Change Authorization and Notes are visible, page 2 is fuller —
+         apply compact mode so signatures stay on page 2 and don't spill to page 3. */
       var hasChange = $('pvChange') && $('pvChange').style.display !== 'none';
       var hasNotes  = $('pvNotes')  && $('pvNotes').style.display  !== 'none';
       pa.classList.toggle('print-compact-extra', !!(hasChange && hasNotes));
+
+      /* Re-confirm service column count from state so it's always accurate at
+         print time regardless of whether syncPreview() ran recently. */
+      var realN = 0;
+      state.lines.forEach(function(L){ if (L.desc || L.amt) realN++; });
+      var cols = realN <= 3 ? 1 : realN <= 6 ? 2 : realN <= 9 ? 3 : 4;
+      pa.setAttribute('data-svc-cols', String(cols));
     }
 
     syncAllSigToPreview();
