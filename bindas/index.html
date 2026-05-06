@@ -1613,6 +1613,13 @@
     return leading + result.join('');
   }
 
+  /* For multi-sentence fields (textareas): capitalize after . ! ? and newlines */
+  function applySentenceCaseMulti(str){
+    return str.replace(/(^|[.!?]\s+|\n+)([a-z])/g, function(match, sep, letter){
+      return sep + letter.toUpperCase();
+    });
+  }
+
   function normalizeFieldCase(el){
     var val = el.value;
     if (!val.trim()) return;
@@ -1622,7 +1629,12 @@
     var allUpper = letters === letters.toUpperCase();
     if (allLower || allUpper) {
       var useTitle = TITLE_CASE_FIELDS.has(el.id);
-      el.value = applyWordCase(val, useTitle);
+      var normalized = applyWordCase(val, useTitle);
+      /* For textareas, also capitalize the start of every sentence */
+      if (el.tagName === 'TEXTAREA') {
+        normalized = applySentenceCaseMulti(normalized);
+      }
+      el.value = normalized;
     }
   }
 
