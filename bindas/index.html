@@ -1425,10 +1425,15 @@
   });
 
   $('btnPrint').addEventListener('click', function(){
-    /* Sync signatures before print — beforeprint is unreliable on iOS Safari
-       and some Android browsers, so we always sync on button click as well. */
+    /* Sync signatures + apply inline column styles before print.
+       Two rAFs ensure the browser commits all style/layout changes before the
+       print snapshot is taken — critical on iOS Safari and Android Chrome. */
     runPrepareForPrint();
-    window.print();
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){
+        window.print();
+      });
+    });
   });
 
   var syncWidthResizeTimer;
