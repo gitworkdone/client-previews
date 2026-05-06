@@ -1230,6 +1230,7 @@
           wrapper.style.cssText = 'display:flex;flex-direction:row;gap:16pt;width:100%;margin:0;padding:0;';
           for (var ci = 0; ci < realLis.length; ci += 3) {
             var colOl = document.createElement('ol');
+            colOl.setAttribute('start', String(ci + 1));
             colOl.style.cssText = 'flex:1;min-width:0;margin:0;padding:0 0 0 1.1em;';
             realLis.slice(ci, ci + 3).forEach(function(li){
               colOl.appendChild(li.cloneNode(true));
