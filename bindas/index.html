@@ -496,11 +496,17 @@
       #printArea.print-compact-services #pvChange{font-size:9pt!important;}
       #printArea.print-compact-services .preview-sig-img{max-height:50pt!important;}
 
-      /* ── Handheld (printed from phone share-sheet) ── */
+      /* ── Handheld (printed from phone) ── */
       html.print-device-handheld #printArea{
         padding:7mm 8mm!important;
         font-size:9.5pt!important;
         line-height:1.38!important;
+      }
+      html.print-device-handheld #printArea .preview-sig-slot{
+        min-height:32pt!important;
+      }
+      html.print-device-handheld #printArea .preview-sig-img{
+        max-height:38pt!important;
       }
 
       /* ── Page footer: repeats on every printed page via position:fixed ── */
@@ -911,6 +917,9 @@
     var r = canvas.getBoundingClientRect();
     var w = Math.round(r.width);
     var h = Math.round(r.height);
+    /* Canvas is hidden (display:none) — skip resize entirely to avoid clearing ink.
+       It will be laid out correctly when it becomes visible. */
+    if (w === 0 && h === 0) return;
     if (w < 80 || h < 56) {
       var slot = $(spec.slotId);
       var pw = slot ? Math.round(slot.getBoundingClientRect().width) : 0;
@@ -918,9 +927,11 @@
       h = Math.max(100, h || 128);
     }
     if (Math.abs(w - spec.W) <= 1 && Math.abs(h - spec.H) <= 1) return;
+    /* Prefer the URL saved at stroke-end (avoids race with async restore). */
     var backup = '';
     if (spec.state.hasInk) {
-      try { backup = canvas.toDataURL('image/png'); } catch (e) {}
+      backup = spec.state.savedUrl || '';
+      if (!backup) { try { backup = canvas.toDataURL('image/png'); } catch (e) {} }
     }
     spec.W = w;
     spec.H = h;
@@ -980,6 +991,7 @@
     if (!spec.ctx) return;
     spec.ctx.clearRect(0, 0, spec.W, spec.H);
     spec.state.hasInk = false;
+    spec.state.savedUrl = '';
     syncSigToPreviewFor(spec);
   }
 
@@ -990,6 +1002,7 @@
       spec.ctx.clearRect(0, 0, spec.W, spec.H);
       spec.ctx.drawImage(im, 0, 0, spec.W, spec.H);
       spec.state.hasInk = true;
+      spec.state.savedUrl = url;
       syncSigToPreviewFor(spec);
     };
     im.onerror = function(){
@@ -1042,6 +1055,7 @@
       if (!drawing) return;
       drawing = false;
       try { canvas.releasePointerCapture(ev.pointerId); } catch (err) {}
+      try { spec.state.savedUrl = canvas.toDataURL('image/png'); } catch (e) {}
       syncSigToPreviewFor(spec);
     }
 
@@ -1148,6 +1162,10 @@
 
 
   function runPrepareForPrint(){
+    /* Tag handheld so print CSS can shrink signatures to fit page 2. */
+    var handheld = ('ontouchstart' in window || navigator.maxTouchPoints > 0) &&
+                   window.innerWidth < 900;
+    document.documentElement.classList.toggle('print-device-handheld', handheld);
     syncAllSigToPreview();
   }
 
