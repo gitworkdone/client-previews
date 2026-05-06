@@ -60,8 +60,7 @@
     input[type="date"]{width:100%;max-width:100%;min-width:0;}
     input:focus,textarea:focus,select:focus{outline:2px solid var(--accent);outline-offset:1px;}
     textarea{min-height:72px;resize:vertical;}
-    .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px;min-width:0;overflow:hidden;}
-    .row2>div{min-width:0;overflow:hidden;}
+    .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px;min-width:0;}
     @media(max-width:640px){.row2{grid-template-columns:1fr;}}
     .toolbar{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0 8px;}
     button,.btn{
@@ -656,16 +655,10 @@
         <h2>Client</h2>
         <label for="clientName">Client name</label>
         <input id="clientName" type="text" placeholder="Full name" />
-        <div class="row2">
-          <div>
-            <label for="clientEmail">Email</label>
-            <input id="clientEmail" type="email" placeholder="client@email.com" />
-          </div>
-          <div>
-            <label for="agreeDate">Date</label>
-            <input id="agreeDate" type="date" />
-          </div>
-        </div>
+        <label for="clientEmail">Email</label>
+        <input id="clientEmail" type="email" placeholder="client@email.com" />
+        <label for="agreeDate">Date</label>
+        <input id="agreeDate" type="date" />
         <label for="clientAddr1">Address line 1</label>
         <input id="clientAddr1" type="text" />
         <label for="clientAddr2">Address line 2</label>
