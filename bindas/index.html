@@ -384,9 +384,7 @@
       /* ── Services cluster ── */
       #printArea .preview-services-cluster{
         margin-top:14pt!important;
-        display:flex!important;
-        flex-direction:column!important;
-        align-items:flex-start!important;
+        display:block!important;
       }
       /* Max 3 items per column — column count set via data-svc-cols by JS */
       #printArea #pvServices{margin:0!important;padding:0!important;width:100%!important;columns:2!important;column-gap:18pt!important;}
@@ -1219,6 +1217,17 @@
       state.lines.forEach(function(L){ if (L.desc || L.amt) realN++; });
       var cols = realN <= 3 ? 1 : realN <= 6 ? 2 : realN <= 9 ? 3 : 4;
       pa.setAttribute('data-svc-cols', String(cols));
+
+      /* Force columns via inline style — CSS column-count is unreliable in mobile
+         print (iOS Safari). Inline !important overrides everything. */
+      var svcOl = $('pvServices');
+      if (svcOl) {
+        var gap = cols <= 2 ? '18pt' : cols === 3 ? '14pt' : '10pt';
+        svcOl.style.setProperty('-webkit-column-count', String(cols), 'important');
+        svcOl.style.setProperty('column-count', String(cols), 'important');
+        svcOl.style.setProperty('-webkit-column-gap', gap, 'important');
+        svcOl.style.setProperty('column-gap', gap, 'important');
+      }
     }
 
     syncAllSigToPreview();
@@ -1439,6 +1448,14 @@
     runPrepareForPrint();
   });
   window.addEventListener('afterprint', function(){
+    /* Clear inline column styles set by runPrepareForPrint so screen view is unaffected. */
+    var svcOl = $('pvServices');
+    if (svcOl) {
+      svcOl.style.removeProperty('-webkit-column-count');
+      svcOl.style.removeProperty('column-count');
+      svcOl.style.removeProperty('-webkit-column-gap');
+      svcOl.style.removeProperty('column-gap');
+    }
     scheduleSigPadLayout();
   });
 
