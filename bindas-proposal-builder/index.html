@@ -1,0 +1,1493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#2F5D45" />
+  <script>
+  (function(){ if (/previews\.gitworkdone\.com$/i.test(location.hostname)) document.documentElement.classList.add('is-preview-host'); })();
+  </script>
+  <title>Binda’s — Proposal builder (concept)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet" />
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    :root{
+      --bg:#F6F3EE;--bg2:#EDE8E0;--ink:#1a221e;--muted:#4a5752;
+      --accent:#2F5D45;--accent2:#244538;--line:rgba(26,34,30,0.12);--danger:#8b2942;
+    }
+    html{
+      -webkit-text-size-adjust:100%;
+      text-size-adjust:100%;
+    }
+    body{
+      font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;min-height:100vh;
+      min-height:100dvh;
+      overflow-x:clip;
+    }
+    h1,h2,h3{font-family:Fraunces,Georgia,serif;font-weight:600;letter-spacing:-0.02em;color:var(--accent);}
+    h1{font-size:clamp(1.35rem,3vw,1.75rem);}
+    h2{font-size:1rem;margin-bottom:10px;}
+    .wrap{
+      max-width:1180px;margin:0 auto;
+      padding:clamp(16px,4vw,24px) clamp(14px,4vw,18px) clamp(32px,6vw,48px);
+      padding-left:max(clamp(14px,4vw,18px), env(safe-area-inset-left));
+      padding-right:max(clamp(14px,4vw,18px), env(safe-area-inset-right));
+      padding-bottom:max(clamp(32px,6vw,48px), env(safe-area-inset-bottom));
+    }
+    .banner{
+      background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;
+      padding:14px 18px;border-radius:14px;margin-bottom:22px;font-size:0.85rem;
+    }
+    .banner strong{font-weight:700;}
+    .preview-host-note{display:none;margin:0 0 18px;padding:10px 14px;border-radius:12px;background:rgba(47,93,69,0.08);border:1px solid rgba(47,93,69,0.22);font-size:0.82rem;color:var(--muted);line-height:1.45;}
+    html.is-preview-host .preview-host-note{display:block;}
+    .grid{display:grid;gap:clamp(16px,4vw,22px);}
+    /* Two columns only on tablet/desktop — avoids cramped side-by-side on large phones in landscape */
+    @media(min-width:1024px){.grid{grid-template-columns:1fr 1fr;align-items:start;}}
+    .card{
+      background:#fff;border:1px solid var(--line);border-radius:16px;padding:clamp(16px,4vw,20px) clamp(14px,4vw,18px);
+      box-shadow:0 12px 36px -24px rgba(26,34,30,0.25);
+      min-width:0;
+    }
+    label{display:block;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--muted);margin-bottom:6px;}
+    input,textarea,select{
+      width:100%;max-width:100%;font:inherit;padding:10px 12px;border:1px solid var(--line);border-radius:10px;
+      background:var(--bg);color:var(--ink);margin-bottom:14px;
+    }
+    input:focus,textarea:focus,select:focus{outline:2px solid var(--accent);outline-offset:1px;}
+    textarea{min-height:72px;resize:vertical;}
+    .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px;min-width:0;}
+    @media(max-width:640px){.row2{grid-template-columns:1fr;}}
+    .toolbar{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0 8px;}
+    button,.btn{
+      font:inherit;font-weight:600;padding:10px 16px;border-radius:10px;border:1px solid var(--line);
+      background:var(--bg2);color:var(--ink);cursor:pointer;
+      touch-action:manipulation;
+    }
+    button.primary{background:var(--accent);color:#fff;border-color:transparent;}
+    button.ghost{background:transparent;}
+    button:disabled{opacity:0.45;cursor:not-allowed;}
+    .line-item{display:grid;grid-template-columns:1fr minmax(96px,120px) auto;gap:8px;align-items:end;margin-bottom:10px;min-width:0;}
+    @media(max-width:640px){.line-item{grid-template-columns:1fr;}}
+    .line-item input{margin-bottom:0;}
+    .small{font-size:0.8rem;color:var(--muted);}
+    .preview{
+      font-size:0.92rem;color:var(--muted);
+      overflow-wrap:anywhere;word-break:break-word;
+    }
+    .preview h3:not(.preview-agreement-heading){font-family:Fraunces,serif;font-size:1.05rem;color:var(--accent);margin:18px 0 8px;}
+    .preview-doc-header{
+      text-align:center;
+      padding-bottom:2px;
+      margin-bottom:0;
+    }
+    .preview-company-name{
+      display:block;
+      font-family:Fraunces,Georgia,serif;
+      font-size:clamp(1.12rem,3.2vw,1.38rem);
+      font-weight:600;
+      color:var(--accent);
+      letter-spacing:-0.02em;
+      line-height:1.2;
+      margin:0 0 8px;
+    }
+    .preview-contact{
+      font-size:0.84rem;
+      line-height:1.55;
+      color:var(--muted);
+    }
+    .preview-separator{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      margin:11px 0 16px;
+    }
+    .preview-separator__line{
+      flex:1;
+      min-width:12px;
+      height:1px;
+      /* Match Binda site nav / accent rhythm: forest green + sage (site/index.html) */
+      background:linear-gradient(
+        90deg,
+        transparent,
+        rgba(47,93,69,0.2) 14%,
+        rgba(140,190,130,0.6) 50%,
+        rgba(47,93,69,0.2) 86%,
+        transparent
+      );
+      -webkit-print-color-adjust:exact;
+      print-color-adjust:exact;
+    }
+    .preview-separator__label{
+      font-size:0.58rem;
+      font-weight:700;
+      letter-spacing:0.1em;
+      text-transform:none;
+      color:var(--accent);
+      white-space:normal;
+      text-align:center;
+      max-width:min(100%,14rem);
+      line-height:1.25;
+    }
+    .preview-intro{
+      margin:0 0 4px;
+      color:var(--muted);
+    }
+    .preview-box-heading{color:var(--accent);}
+    /* Horizontal rule between Services list and quote body — keep compact below Services */
+    .preview-intro strong{color:var(--ink);}
+    .preview ul{margin:8px 0 0 1.1rem;}
+    .preview ol{margin:8px 0 0; padding-left:0; list-style-position:inside;}
+    .preview-services-cluster{
+      margin-top:18px;
+      display:flex;
+      flex-direction:column;
+      align-items:flex-start;
+      text-align:left;
+    }
+    .preview-services-cluster #pvServices{
+      width:100%;
+      max-width:100%;
+      box-sizing:border-box;
+      margin:0;
+      padding:0;
+      text-align:left;
+      line-height:1.2;
+      columns:2;
+      column-gap:22px;
+    }
+    .preview-services-cluster #pvServices li{
+      margin:0;
+      padding:0 0 2px;
+      font-size:0.95em;
+      line-height:1.5;
+      break-inside:avoid;
+    }
+    #notesHeading{margin-top:18px;}
+    .preview .money{font-variant-numeric:tabular-nums;font-weight:600;color:var(--ink);}
+    /* Match Change Authorization (#pvChange): solid rule + bg2 */
+    .preview .box{border:1px solid var(--line);border-radius:12px;padding:12px;margin-top:12px;background:var(--bg2);}
+    .preview-client-address,
+    .preview-prepared-date{margin-top:10px;line-height:1.45;}
+    .adjustment-other-wrap{margin-top:8px;display:none;}
+    .adjustment-other-wrap.is-visible{display:block;}
+    /* Electronic signature (concept): pad lives in Signatures area; image used for Print/PDF */
+    .sig-pad-wrap{margin-top:4px;margin-bottom:4px;}
+    .sig-pad-wrap > label{margin-bottom:8px;}
+    .sig-pad-field{
+      touch-action:none;
+      border:2px dashed var(--line);
+      border-radius:12px;
+      background:#fff;
+      cursor:crosshair;
+      display:block;
+      width:100%;
+      max-width:540px;
+      height:140px;
+      vertical-align:top;
+    }
+    .sig-pad-field.sig-pad-field--preview{
+      max-width:100%!important;
+      width:100%!important;
+      display:block;
+      box-sizing:border-box;
+      /* Fits card width; height tracks shorter viewport side + orientation */
+      height:clamp(108px, min(34vmin, 46vw), 240px);
+    }
+    @media screen{
+      #pvSigSlot .preview-sig-img,
+      #pvBizSigSlot .preview-sig-img{display:none!important;}
+    }
+    @media screen and (orientation:landscape) and (max-height:520px){
+      .sig-pad-field.sig-pad-field--preview{
+        height:clamp(92px, min(42vmin, 52vw), 180px);
+      }
+    }
+    .preview-sig-stack{
+      display:flex;
+      flex-direction:column;
+      width:100%;
+      min-width:0;
+      margin-top:8px;
+    }
+    .preview-sig-col--vendor,
+    .preview-sig-col--client{width:100%;min-width:0;}
+    .preview-sig-separator{
+      border:0;
+      height:1px;
+      margin:14px 0 16px;
+      flex-shrink:0;
+      background:linear-gradient(
+        90deg,
+        transparent,
+        rgba(47,93,69,0.18) 12%,
+        rgba(140,190,130,0.45) 50%,
+        rgba(47,93,69,0.18) 88%,
+        transparent
+      );
+      -webkit-print-color-adjust:exact;
+      print-color-adjust:exact;
+    }
+    .sig-pad-field:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+    .sig-pad-actions{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap;align-items:center;}
+    .preview-sig-slot{
+      position:relative;
+      min-height:36px;
+    }
+    .preview-sig-slot .preview-sig-line{
+      border-bottom:1px solid var(--ink);
+      height:36px;
+    }
+    .preview-sig-img{
+      position:absolute;
+      left:0;
+      bottom:1px;
+      max-width:100%;
+      max-height:32px;
+      width:auto;
+      height:auto;
+      object-fit:contain;
+      object-position:left bottom;
+      pointer-events:none;
+      -webkit-print-color-adjust:exact;
+      print-color-adjust:exact;
+    }
+    .preview-sig-slot.is-empty .preview-sig-img{display:none;}
+    /* Flex centers heading + grid as one cluster; grid width fits content only (no edge-to-edge columns). */
+    .preview-agreement-summary{
+      text-align:left;
+      display:flex;
+      flex-direction:column;
+      align-items:flex-start;
+    }
+    .preview-agreement-heading{
+      display:block;
+      width:auto;
+      font-family:inherit;
+      font-weight:700;
+      color:var(--accent);
+      margin:0 0 10px;
+      font-size:calc(1.05em * 1.05 * 1.05);
+      text-align:left;
+    }
+    .preview h3.preview-agreement-heading{margin-top:0;}
+    .preview-agreement-dl{
+      display:grid;
+      grid-template-columns:auto minmax(0,31ch);
+      justify-content:start;
+      width:fit-content;
+      max-width:100%;
+      box-sizing:border-box;
+      row-gap:9px;
+      column-gap:clamp(14px,2.5vw,24px);
+      margin:0;
+      align-items:baseline;
+      font-size:0.95em;
+      line-height:1.5;
+    }
+    /* Labels left column; amounts + adjustment reason right column. */
+    .preview-agreement-dl dt,
+    .preview-agreement-dl dd{min-width:0;}
+    .preview-agreement-dl dt{color:var(--muted);margin:0;font-weight:500;text-align:left;}
+    .preview-agreement-dl dd{margin:0;text-align:right;font-variant-numeric:tabular-nums;color:var(--ink);}
+    .preview-agreement-dl dd.preview-agreement-note{
+      text-align:right;
+      font-size:0.92em;
+      font-variant-numeric:normal;
+      color:var(--muted);
+      max-width:100%;
+      overflow-wrap:break-word;
+      word-break:break-word;
+      line-height:1.48;
+      white-space:normal;
+    }
+    .preview-agreement-dl .preview-agreement-grand-row{margin-top:14px;}
+    .check{display:flex;align-items:flex-start;gap:8px;margin:10px 0;font-size:0.85rem;color:var(--muted);}
+    .check input{width:auto;margin:3px 0 0;}
+    /* Footer: hidden on screen, fixed at page bottom in print */
+    #printFooter{display:none;}
+    @media print{
+      /* ── Page setup: explicit inch dimensions for portrait in all browsers ── */
+      @page{
+        size:8.5in 11in;
+        margin:14mm 16mm;
+      }
+
+      /* ── Hide non-print UI ── */
+      .no-print{display:none!important;}
+      #proposalToolbar{display:none!important;} /* hide in print even though not fixed */
+      body{background:#fff!important;margin:0!important;}
+      .wrap{max-width:none!important;padding:0!important;margin:0!important;}
+      /* Collapse two-column grid so printArea spans the full page width */
+      .grid{display:block!important;grid-template-columns:none!important;gap:0!important;}
+      .card{box-shadow:none!important;}
+
+      /* ── Preview card ── */
+      #printArea{
+        border-top:4px solid #2F5D45!important;
+        border-left:1px solid rgba(45,61,54,0.18)!important;
+        border-right:1px solid rgba(45,61,54,0.18)!important;
+        border-bottom:1px solid rgba(45,61,54,0.18)!important;
+        border-radius:0!important;
+        padding:9mm 11mm!important;
+        font-size:10.5pt!important;
+        line-height:1.45!important;
+        background:#fff!important;
+        box-sizing:border-box!important;
+        width:100%!important;
+        max-width:100%!important;
+        color:#1a221e!important;
+        -webkit-print-color-adjust:exact!important;
+        print-color-adjust:exact!important;
+      }
+
+      /* ── Header ── */
+      #printArea .preview-doc-header{padding-bottom:8pt!important;margin-bottom:10pt!important;}
+      #printArea .preview-company-name{font-size:13pt!important;margin-bottom:6pt!important;color:#2F5D45!important;}
+      #printArea .preview-contact{font-size:8.5pt!important;line-height:1.5!important;}
+      #printArea .preview-separator{margin:10pt 0 14pt!important;gap:8pt!important;}
+      #printArea .preview-separator__label{font-size:7pt!important;max-width:12rem!important;line-height:1.15!important;color:#2F5D45!important;}
+      #printArea .preview-separator__line{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;}
+
+      /* ── Body text ── */
+      #printArea .preview-intro{margin:0 0 20pt!important;font-size:10.5pt!important;line-height:1.55!important;}
+      #printArea h3:not(.preview-agreement-heading){font-size:11pt!important;margin:24pt 0 2pt!important;color:#2F5D45!important;}
+      #printArea .preview-sig-stack{margin-top:0!important;}
+      #printArea .preview-sig-col--vendor > p.small:first-child{margin-top:0!important;}
+      #printArea .preview-sig-col--client > p.small:first-child{margin-top:12pt!important;}
+      #printArea h3:not(.preview-agreement-heading):nth-of-type(2){margin-top:28pt!important;}
+      #printArea p{margin-top:14pt!important;}
+      #printArea ol{margin-top:10pt!important;}
+      #printArea .small{font-size:8pt!important;}
+
+      /* ── Boxes (Services, Agreement Details, Standard Terms) ── */
+      #printArea .box{
+        margin-top:20pt!important;
+        padding:13pt 15pt!important;
+        border:1px solid rgba(26,34,30,0.22)!important;
+        background:#EDE8E0!important;
+        border-radius:8px!important;
+        -webkit-print-color-adjust:exact!important;
+        print-color-adjust:exact!important;
+      }
+      #printArea .box ul{margin-top:9pt!important;}
+      #printArea .box li{font-size:10pt!important;margin-bottom:6pt!important;line-height:1.5!important;}
+      #printArea .preview-box-heading{color:#2F5D45!important;}
+
+      /* ── Services cluster ── */
+      #printArea .preview-services-cluster{
+        margin-top:14pt!important;
+        display:flex!important;
+        flex-direction:column!important;
+        align-items:flex-start!important;
+      }
+      #printArea #pvServices{margin:0!important;padding:0!important;width:100%!important;columns:2!important;column-gap:18pt!important;}
+      #printArea #pvServices li{margin:0!important;padding-bottom:5pt!important;line-height:1.55!important;break-inside:avoid!important;}
+
+      /* ── Agreement Details ── */
+      #printArea .preview-agreement-summary.box{
+        display:flex!important;
+        flex-direction:column!important;
+        align-items:flex-start!important;
+      }
+      #printArea .preview-agreement-heading,
+      #printArea h3.preview-agreement-heading{
+        font-size:11pt!important;
+        font-family:inherit!important;
+        width:auto!important;
+        margin-bottom:6pt!important;
+        margin-left:0!important;
+        margin-right:0!important;
+        text-align:left!important;
+        color:#2F5D45!important;
+      }
+      #printArea .preview-agreement-dl{
+        display:grid!important;
+        font-size:10pt!important;
+        width:fit-content!important;
+        max-width:100%!important;
+        box-sizing:border-box!important;
+        margin:0!important;
+        grid-template-columns:auto minmax(0,30ch)!important;
+        justify-content:start!important;
+        row-gap:4pt!important;
+        column-gap:20pt!important;
+        line-height:1.5!important;
+      }
+      #printArea .preview-agreement-dl dt{text-align:left!important;}
+      #printArea .preview-agreement-dl dd{font-size:inherit!important;}
+      #printArea .preview-agreement-dl dd strong{font-size:inherit!important;}
+      #printArea .preview-agreement-dl dd.preview-agreement-note{font-size:9pt!important;line-height:1.4!important;text-align:right!important;}
+
+      /* ── Change Authorization ── */
+      #printArea #pvChange{
+        margin-top:14pt!important;
+        padding:8pt 10pt!important;
+        font-size:9.5pt!important;
+        line-height:1.35!important;
+      }
+      #printArea #pvChange strong{font-size:inherit!important;}
+      #printArea .row2{gap:12pt!important;}
+
+      /* ── Notes ── */
+      #printArea #pvNotes{
+        margin-top:0!important;
+        padding-top:0!important;
+        font-size:9.5pt!important;
+      }
+
+      /* ── Signature section ── */
+      #printArea .preview-sig-separator{
+        margin:16pt 0 20pt!important;
+        height:1px!important;
+        background:linear-gradient(90deg,transparent,rgba(140,190,130,0.5) 50%,transparent)!important;
+        -webkit-print-color-adjust:exact!important;
+        print-color-adjust:exact!important;
+      }
+      /* Allow the sig stack to break across pages if needed — preventing it caused the
+         entire block to get ejected to a new page when it didn't fit. Each individual
+         slot is kept together instead. */
+      #printArea .preview-sig-stack{break-inside:auto;page-break-inside:auto;}
+      #printArea .preview-sig-slot{
+        display:flex!important;
+        flex-direction:column!important;
+        align-items:flex-start!important;
+        width:100%!important;
+        min-height:52pt!important;
+        break-inside:avoid!important;
+        page-break-inside:avoid!important;
+      }
+      #printArea .preview-sig-line{
+        margin-top:auto!important;
+        align-self:stretch!important;
+        width:100%!important;
+        border-bottom:1px solid #1a221e!important;
+      }
+      #printArea .preview-sig-img{
+        position:static!important;
+        max-height:80pt!important;
+        max-width:100%!important;
+        width:auto!important;
+        height:auto!important;
+        margin:0!important;
+        object-fit:contain!important;
+        object-position:left bottom!important;
+      }
+      #printArea .preview-client-address{margin-top:10pt!important;}
+      #printArea .preview-client-email{margin-top:2pt!important;}
+
+      /* Standard Terms always opens on page 2 */
+      #printArea .preview-agreement-summary ~ .box{
+        page-break-before:always!important;
+        break-before:page!important;
+        margin-top:0!important;
+      }
+
+      /* ── Compact mode: many services (12+) ── */
+      #printArea.print-compact-services{font-size:9.5pt!important;line-height:1.38!important;}
+      #printArea.print-compact-services h3:not(.preview-agreement-heading){font-size:10pt!important;}
+      #printArea.print-compact-services .preview-agreement-heading,
+      #printArea.print-compact-services h3.preview-agreement-heading{font-size:9.5pt!important;}
+      #printArea.print-compact-services .box li{font-size:9pt!important;line-height:1.32!important;}
+      #printArea.print-compact-services .preview-agreement-dl{font-size:9pt!important;}
+      #printArea.print-compact-services #pvChange{font-size:9pt!important;}
+      #printArea.print-compact-services .preview-sig-img{max-height:50pt!important;}
+
+      /* ── Handheld (printed from phone) ── */
+      html.print-device-handheld #printArea{
+        padding:7mm 8mm!important;
+        font-size:9.5pt!important;
+        line-height:1.38!important;
+      }
+      html.print-device-handheld #printArea .preview-sig-slot{
+        min-height:32pt!important;
+      }
+      html.print-device-handheld #printArea .preview-sig-img{
+        max-height:38pt!important;
+      }
+
+      /* ── Page footer: repeats on every printed page via position:fixed ── */
+      #printFooter{
+        display:block!important;
+        position:fixed!important;
+        bottom:0!important;
+        left:0!important;
+        right:0!important;
+        padding:0 16mm!important;
+        background:#fff!important;
+        -webkit-print-color-adjust:exact!important;
+        print-color-adjust:exact!important;
+      }
+      .print-footer-rule{
+        height:1px!important;
+        background:linear-gradient(90deg,transparent,#2F5D45 18%,#2F5D45 82%,transparent)!important;
+        margin-bottom:5pt!important;
+        -webkit-print-color-adjust:exact!important;
+        print-color-adjust:exact!important;
+      }
+      .print-footer-text{
+        font-size:7.5pt!important;
+        color:#5a6b62!important;
+        text-align:center!important;
+        line-height:1.4!important;
+        padding-bottom:3pt!important;
+      }
+      .pf-sep{
+        margin:0 5pt!important;
+        color:#8cb682!important;
+        -webkit-print-color-adjust:exact!important;
+        print-color-adjust:exact!important;
+      }
+      /* Reserve space so content never slides under the footer */
+      #printArea{padding-bottom:28pt!important;}
+    }
+    /* Mobile + touch: comfortable tap targets and readable type */
+    @media(max-width:1023px){
+      h1{font-size:clamp(1.2rem,4.5vw,1.6rem);}
+      .banner{font-size:0.8rem;line-height:1.45;padding:12px 14px;}
+      button,.btn{
+        min-height:44px;
+        padding-left:18px;padding-right:18px;
+      }
+      input,textarea,select{
+        font-size:16px;
+        min-height:44px;
+        padding-top:12px;padding-bottom:12px;
+      }
+      textarea{min-height:88px;min-height:max(88px,20vh);}
+    }
+
+    /* Short landscape (phones): keep form scannable — stack stays via 1024 breakpoint */
+    @media(orientation:landscape) and (max-height:520px){
+      .banner{margin-bottom:14px;padding:10px 12px;}
+      h1{margin-bottom:12px!important;}
+    }
+
+    /* ── Two-view toggle ── */
+    /* Builder view: hide sig pads in the live preview — they belong on the proposal page */
+    body:not(.proposal-view) .sig-pad-wrap{display:none!important;}
+    /* Proposal view: keep sig canvases compact so content fits on 2 pages */
+    body.proposal-view .sig-pad-field--preview{height:130px!important;}
+    /* Proposal view: hide all .no-print elements except the toolbar and the sig pads */
+    body.proposal-view .no-print:not(.sig-pad-wrap){display:none!important;}
+    body.proposal-view .banner{display:none!important;}
+    body.proposal-view .preview-host-note{display:none!important;}
+    body.proposal-view .wrap{max-width:860px;padding:0 12px;}
+    body.proposal-view .grid{display:block!important;}
+    body.proposal-view #printArea{box-shadow:0 2px 18px rgba(0,0,0,0.08);}
+    /* Proposal toolbar: inline below the proposal card */
+    #proposalToolbar{
+      display:none;
+      align-items:center;
+      gap:10px;
+      padding:14px 0 20px;
+    }
+    body.proposal-view #proposalToolbar{display:flex;}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="banner no-print">
+      <strong>Concept only</strong> — internal tool for Binda’s to draft proposals with adjustable pricing, scope lines, deposit rules, and optional electronic signature. Nothing is submitted to a server; use <em>Print / PDF</em> or save a draft in this browser.
+    </div>
+    <p class="preview-host-note no-print" role="status">
+      <strong>Private preview.</strong> This URL is not linked from gitworkdone.com. Share only with Binda’s Landscaping — anyone with the link can open it.
+    </p>
+
+    <h1 class="no-print" style="margin-bottom:18px;">Proposal builder</h1>
+
+    <div class="grid">
+      <div class="card no-print">
+        <h2>Business</h2>
+        <label for="bizName">Business name</label>
+        <input id="bizName" type="text" value="Binda’s Landscaping LLC" />
+        <label for="bizAddr">Street</label>
+        <input id="bizAddr" type="text" value="5224 Five Forks Trickum Rd." />
+        <div class="row2">
+          <div>
+            <label for="bizCity">City, ST ZIP</label>
+            <input id="bizCity" type="text" value="Lilburn, GA 30047" />
+          </div>
+          <div>
+            <label for="bizPhone">Phone</label>
+            <input id="bizPhone" type="text" value="(678) 983-0827" />
+          </div>
+        </div>
+        <label for="bizEmail">Email</label>
+        <input id="bizEmail" type="email" value="bindaslandscaping@gmail.com" />
+
+        <h2>Client</h2>
+        <label for="clientName">Client name</label>
+        <input id="clientName" type="text" placeholder="Full name" />
+        <div class="row2">
+          <div>
+            <label for="clientEmail">Email</label>
+            <input id="clientEmail" type="email" placeholder="client@email.com" />
+          </div>
+          <div>
+            <label for="agreeDate">Date</label>
+            <input id="agreeDate" type="date" />
+          </div>
+        </div>
+        <label for="clientAddr1">Address line 1</label>
+        <input id="clientAddr1" type="text" />
+        <label for="clientAddr2">Address line 2</label>
+        <input id="clientAddr2" type="text" />
+
+        <h2>Scope &amp; pricing</h2>
+        <div class="check">
+          <input type="checkbox" id="autoTotal" checked />
+          <span><strong>Auto total</strong> — quoted price follows the sum of line items (you can override below).</span>
+        </div>
+        <div id="lines"></div>
+        <div class="toolbar">
+          <button type="button" id="addLine">+ Line item</button>
+          <button type="button" class="ghost" id="resetLines">Reset to 4 blanks</button>
+        </div>
+        <div class="row2">
+          <div>
+            <label for="quoted">Quoted total ($)</label>
+            <input id="quoted" type="number" min="0" step="0.01" placeholder="0.00" />
+          </div>
+          <div>
+            <label for="depositPct">Deposit (%)</label>
+            <input id="depositPct" type="number" min="0" max="100" step="0.5" value="50" />
+          </div>
+        </div>
+        <p class="small">Paper terms: <em>50% or more depending on cost of materials</em> — adjust % to match the job.</p>
+
+        <h2>Proposal Adjustment (Optional)</h2>
+        <p class="small" style="margin-top:-6px;margin-bottom:12px;">Enter a <strong>positive</strong> amount for an additional charge, or a <strong>negative</strong> amount (e.g. <code>-150</code>) for a reduction. Leave amount blank or $0 when there is no adjustment.</p>
+        <label for="adjustmentAmt">Adjustment ($)</label>
+        <input id="adjustmentAmt" type="number" step="0.01" placeholder="0.00 (use − for a reduction)" />
+        <label for="adjustmentReason">Typical reason (select one)</label>
+        <select id="adjustmentReason">
+          <option value="">— None —</option>
+          <option value="scope-expand">Additional scope or upgrade beyond the original proposal</option>
+          <option value="site-conditions">Site conditions differ from estimate (grade, access, roots/rock, utilities)</option>
+          <option value="material-sub">Plant or material substitution / availability</option>
+          <option value="weather-schedule">Weather or scheduling factors affecting labor or timing</option>
+          <option value="discount-scope">Discount, promotion, or scope reduction</option>
+          <option value="other">Other</option>
+        </select>
+        <div id="adjustmentOtherWrap" class="adjustment-other-wrap">
+          <label for="adjustmentOther">Describe (max 60 characters)</label>
+          <input id="adjustmentOther" type="text" maxlength="60" placeholder="Brief description" />
+        </div>
+
+        <h2 id="notesHeading">Notes</h2>
+        <label for="notes">Client-facing/Proposal Notes</label>
+        <textarea id="notes" maxlength="485" placeholder="Project notes the client should see on the proposal."></textarea>
+        <p class="small" id="notesCharCount" style="margin-top:4px;text-align:right;color:var(--muted);">0 / 485</p>
+        <label for="internalNotes">Internal-only Notes</label>
+        <textarea id="internalNotes" placeholder="Access notes, gate codes, supplier reminders, material brands, crew notes, etc."></textarea>
+
+        <div class="toolbar">
+          <button type="button" class="primary" id="btnCreate">Create Proposal</button>
+          <button type="button" id="btnSave">Save draft (this browser)</button>
+          <button type="button" class="ghost" id="btnLoad">Load draft</button>
+          <button type="button" class="ghost" id="btnClear">Clear draft</button>
+        </div>
+      </div>
+
+      <div class="card preview" id="printArea">
+        <header class="preview-doc-header">
+          <strong class="preview-company-name" id="pvBiz">Binda’s Landscaping LLC</strong>
+          <div class="preview-contact" id="pvBizBlock"></div>
+        </header>
+        <div class="preview-separator">
+          <span class="preview-separator__line"></span>
+          <span class="preview-separator__label">Landscaping Service Agreement</span>
+          <span class="preview-separator__line"></span>
+        </div>
+        <p class="preview-intro">
+          This is an agreement between <strong id="pvBizName2">Binda’s Landscaping LLC</strong> and
+          <strong id="pvClient">__________</strong> (client) for providing the following services:
+        </p>
+        <section class="preview-services-cluster box">
+          <h3 class="preview-agreement-heading">Services</h3>
+          <ol id="pvServices"></ol>
+        </section>
+        <p style="margin-top:14px;">
+          <span id="pvBizName3">Binda’s Landscaping LLC</span> and the client agree that the
+          <strong>total agreement amount</strong> for completing the above stated work (including labor and materials) is
+          <span class="money" id="pvQuote">$0.00</span>.
+        </p>
+        <p style="margin-top:10px;">
+          The client agrees to a deposit of <span class="money" id="pvDepPct">50%</span>
+          (<span class="money" id="pvDepAmt">$0.00</span>), with
+          <span class="money" id="pvBal">$0.00</span> due after the agreed milestone (e.g. half the work completed), per your standard terms.
+        </p>
+        <div class="box preview-agreement-summary">
+          <strong class="preview-agreement-heading">Agreement Details</strong>
+          <dl class="preview-agreement-dl">
+            <dt>Services subtotal</dt>
+            <dd id="pvAgSubtotal" class="money">$0.00</dd>
+            <dt id="pvAgAdjDt" style="display:none;">Proposal adjustment</dt>
+            <dd id="pvAgAdjDd" style="display:none;"></dd>
+            <dt id="pvAgAdjNoteDt" style="display:none;">Adjustment Details: </dt>
+            <dd id="pvAgAdjNoteDd" class="preview-agreement-note" style="display:none;"></dd>
+            <dt class="preview-agreement-grand-row"><strong>Total Agreement Amount</strong></dt>
+            <dd id="pvAgGrand" class="money preview-agreement-grand-row"><strong>$0.00</strong></dd>
+            <dt>Deposit (<span id="pvAgDepPctEcho">50%</span>)</dt>
+            <dd id="pvAgDepAmtEcho" class="money">$0.00</dd>
+            <dt>Balance after deposit</dt>
+            <dd id="pvAgBalEcho" class="money">$0.00</dd>
+            <dt>Prepared Date</dt>
+            <dd id="pvDate">—</dd>
+          </dl>
+        </div>
+        <div class="box">
+          <strong class="preview-box-heading">Standard Terms Summary</strong>
+          <ul>
+            <li>Required deposit depending on cost of materials — deposit % shown above.</li>
+            <li>Remaining balance after half the work is completed unless otherwise specified below in 'Notes' section.</li>
+            <li>If the client cancels after materials are ordered and/or work has begun, the client remains liable for the full agreed price.</li>
+            <li>Proposal adjustments (additional charges or reductions) are summarized in <b>Agreement Details</b> and, when applicable, authorized in writing in the <b>Change Authorization</b> section below.</li>
+            <li>Additional costs may be determined for requested changes after work begins.</li>
+          </ul>
+        </div>
+        <div id="pvChange" style="display:none;margin-top:14px;padding:12px;border-radius:12px;background:var(--bg2);border:1px solid var(--line);">
+          <strong class="preview-box-heading">Change Authorization</strong>
+          <p id="pvChangeBody" style="margin-top:8px;"></p>
+        </div>
+        <hr class="preview-sig-separator" id="pvNotesSep" aria-hidden="true" style="display:none;" />
+        <p id="pvNotes" style="margin-top:0;display:none;"></p>
+        <h3>Signatures</h3>
+        <p class="small no-print" style="margin-top:4px;margin-bottom:10px;color:var(--muted);">
+          <strong>Electronic signature (concept):</strong> draw contractor and client signatures below. They appear on <strong>Print / PDF</strong>.
+          Nothing is sent to a server; include them in <strong>Save draft</strong> to store in this browser only.
+        </p>
+        <div class="preview-sig-stack">
+          <div class="preview-sig-col preview-sig-col--vendor">
+            <p class="small">Binda’s Landscaping LLC</p>
+            <div class="preview-sig-slot preview-sig-slot--vendor is-empty" id="pvBizSigSlot">
+              <div class="sig-pad-wrap no-print sig-pad-wrap--in-preview">
+                <label for="sigPadBiz">Contractor — sign below</label>
+                <canvas id="sigPadBiz" class="sig-pad-field sig-pad-field--preview" tabindex="0" aria-label="Draw contractor signature with pointer or touch"></canvas>
+                <div class="sig-pad-actions">
+                  <button type="button" class="ghost" id="sigClearBiz">Clear signature</button>
+                </div>
+              </div>
+              <img id="pvBizSigImg" class="preview-sig-img" alt="" width="300" height="80" />
+              <div class="preview-sig-line preview-sig-line--vendor" aria-hidden="true"></div>
+            </div>
+          </div>
+          <div class="preview-sig-col preview-sig-col--client">
+            <p class="small">Client</p>
+            <div class="preview-sig-slot is-empty" id="pvSigSlot">
+              <div class="sig-pad-wrap no-print sig-pad-wrap--in-preview">
+                <label for="sigPad">Client — sign below</label>
+                <canvas id="sigPad" class="sig-pad-field sig-pad-field--preview" tabindex="0" aria-label="Draw signature with pointer or touch"></canvas>
+                <div class="sig-pad-actions">
+                  <button type="button" class="ghost" id="sigClear">Clear signature</button>
+                </div>
+              </div>
+              <img id="pvSigImg" class="preview-sig-img" alt="" width="300" height="80" />
+              <div class="preview-sig-line" aria-hidden="true"></div>
+            </div>
+            <p class="small preview-client-address">Client address: <span id="pvAddr">—</span></p>
+            <p class="small preview-client-email">Client email: <span id="pvClientEmail">—</span></p>
+          </div>
+        </div>
+      </div>
+      <div id="proposalToolbar">
+        <button type="button" class="ghost" id="btnEdit">← Edit</button>
+        <button type="button" class="primary" id="btnPrint">Print / Save PDF</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="printFooter" aria-hidden="true">
+    <div class="print-footer-rule"></div>
+    <div class="print-footer-text">
+      <strong id="pfBiz">Binda's Landscaping LLC</strong>
+      <span class="pf-sep">·</span>
+      <span id="pfPhone">(678) 983-0827</span>
+      <span class="pf-sep">·</span>
+      <span id="pfEmail">bindaslandscaping@gmail.com</span>
+      <span class="pf-sep">·</span>
+      <span id="pfCity">Lilburn, GA 30047</span>
+    </div>
+  </div>
+
+  <script>
+(function(){
+  var STORAGE_KEY = 'binda-proposal-builder-draft-v1';
+  var MAX_LINES = 12;
+
+  function $(id){ return document.getElementById(id); }
+
+  function money(n){
+    if (n == null || isNaN(n)) return '$0.00';
+    return '$' + Number(n).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+
+  function parseNum(el, fallback){
+    var v = parseFloat(el.value);
+    return isNaN(v) ? fallback : v;
+  }
+
+  function escapeHtml(s){
+    return String(s == null ? '' : s)
+      .replace(/&/g,'&amp;')
+      .replace(/</g,'&lt;')
+      .replace(/>/g,'&gt;')
+      .replace(/"/g,'&quot;');
+  }
+
+  /** Ensures plain-text reason lines end with "." for print/PDF consistency. */
+  function ensureReasonEndsWithPeriod(text){
+    var t = String(text == null ? '' : text).trim();
+    if (!t) return '.';
+    if (t.charAt(t.length - 1) === '.') return t;
+    return t + '.';
+  }
+
+  /** Site-conditions preset copy (single source of truth). */
+  var ADJ_DETAIL_WRAP_REFERENCE = 'Site conditions differ from estimate (grade, access, roots/rock, utilities).';
+
+  function adjustmentReasonLabel(key){
+    var map = {
+      'scope-expand': 'Additional scope or upgrade beyond the original proposal.',
+      'site-conditions': ADJ_DETAIL_WRAP_REFERENCE,
+      'material-sub': 'Plant or material substitution / availability.',
+      'weather-schedule': 'Weather or scheduling factors affecting labor or timing.',
+      'discount-scope': 'Discount, promotion, or scope reduction.',
+      other: 'Other (see note below).'
+    };
+    return map[key] || '';
+  }
+
+  var DEFAULT_ADJUSTMENT_REASON = 'Additional maintenance.';
+
+  function getAdjustmentReasonSentence(){
+    var key = $('adjustmentReason').value;
+    if (key === 'other') {
+      var o = ($('adjustmentOther').value || '').trim().slice(0, 60);
+      return o || DEFAULT_ADJUSTMENT_REASON;
+    }
+    if (adjustmentReasonLabel(key)) return adjustmentReasonLabel(key);
+    return DEFAULT_ADJUSTMENT_REASON;
+  }
+
+  function toggleAdjustmentOther(){
+    var w = $('adjustmentOtherWrap');
+    var sel = $('adjustmentReason');
+    if (!w || !sel) return;
+    if (sel.value === 'other') w.classList.add('is-visible');
+    else w.classList.remove('is-visible');
+  }
+
+  var state = { lines: [] };
+
+  var SIG_PAD_SPECS = [
+    {
+      canvasId: 'sigPad',
+      imgId: 'pvSigImg',
+      slotId: 'pvSigSlot',
+      clearId: 'sigClear',
+      imgAlt: 'Client signature',
+      W: 280,
+      H: 128,
+      ctx: null,
+      state: { hasInk: false }
+    },
+    {
+      canvasId: 'sigPadBiz',
+      imgId: 'pvBizSigImg',
+      slotId: 'pvBizSigSlot',
+      clearId: 'sigClearBiz',
+      imgAlt: 'Contractor signature',
+      W: 280,
+      H: 128,
+      ctx: null,
+      state: { hasInk: false }
+    }
+  ];
+  var sigPadLayoutTimer = null;
+  var sigOrientationHooked = false;
+
+  function layoutSigPadFromDisplayFor(spec){
+    var canvas = $(spec.canvasId);
+    if (!canvas || !spec.ctx) return;
+    var r = canvas.getBoundingClientRect();
+    var w = Math.round(r.width);
+    var h = Math.round(r.height);
+    /* Canvas is hidden (display:none) — skip resize entirely to avoid clearing ink.
+       It will be laid out correctly when it becomes visible. */
+    if (w === 0 && h === 0) return;
+    if (w < 80 || h < 56) {
+      var slot = $(spec.slotId);
+      var pw = slot ? Math.round(slot.getBoundingClientRect().width) : 0;
+      w = Math.max(200, pw || 280);
+      h = Math.max(100, h || 128);
+    }
+    if (Math.abs(w - spec.W) <= 1 && Math.abs(h - spec.H) <= 1) return;
+    /* Prefer the URL saved at stroke-end (avoids race with async restore). */
+    var backup = '';
+    if (spec.state.hasInk) {
+      backup = spec.state.savedUrl || '';
+      if (!backup) { try { backup = canvas.toDataURL('image/png'); } catch (e) {} }
+    }
+    spec.W = w;
+    spec.H = h;
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.floor(spec.W * dpr);
+    canvas.height = Math.floor(spec.H * dpr);
+    spec.ctx.setTransform(1, 0, 0, 1, 0, 0);
+    spec.ctx.scale(dpr, dpr);
+    spec.ctx.lineCap = 'round';
+    spec.ctx.lineJoin = 'round';
+    spec.ctx.strokeStyle = '#1a221e';
+    spec.ctx.lineWidth = 2.25;
+    if (backup) restoreSigFromDataUrlFor(spec, backup);
+    else {
+      spec.ctx.clearRect(0, 0, spec.W, spec.H);
+      spec.state.hasInk = false;
+      syncSigToPreviewFor(spec);
+    }
+  }
+
+  function layoutAllSigPadsFromDisplay(){
+    SIG_PAD_SPECS.forEach(layoutSigPadFromDisplayFor);
+  }
+
+  function scheduleSigPadLayout(){
+    clearTimeout(sigPadLayoutTimer);
+    sigPadLayoutTimer = setTimeout(function(){
+      requestAnimationFrame(layoutAllSigPadsFromDisplay);
+    }, 60);
+  }
+
+  function syncSigToPreviewFor(spec){
+    var canvas = $(spec.canvasId);
+    var img = $(spec.imgId);
+    var slot = $(spec.slotId);
+    if (!canvas || !img || !slot) return;
+    if (!spec.state.hasInk) {
+      img.removeAttribute('src');
+      img.alt = '';
+      slot.classList.add('is-empty');
+      return;
+    }
+    try {
+      img.src = canvas.toDataURL('image/png');
+      img.alt = spec.imgAlt;
+      slot.classList.remove('is-empty');
+    } catch (e) {
+      slot.classList.add('is-empty');
+    }
+  }
+
+  function syncAllSigToPreview(){
+    SIG_PAD_SPECS.forEach(syncSigToPreviewFor);
+  }
+
+  function clearSigPadFor(spec){
+    if (!spec.ctx) return;
+    spec.ctx.clearRect(0, 0, spec.W, spec.H);
+    spec.state.hasInk = false;
+    spec.state.savedUrl = '';
+    syncSigToPreviewFor(spec);
+  }
+
+  function restoreSigFromDataUrlFor(spec, url){
+    if (!url || !spec.ctx) return;
+    var im = new Image();
+    im.onload = function(){
+      spec.ctx.clearRect(0, 0, spec.W, spec.H);
+      spec.ctx.drawImage(im, 0, 0, spec.W, spec.H);
+      spec.state.hasInk = true;
+      spec.state.savedUrl = url;
+      syncSigToPreviewFor(spec);
+    };
+    im.onerror = function(){
+      spec.state.hasInk = false;
+      syncSigToPreviewFor(spec);
+    };
+    im.src = url;
+  }
+
+  function initSigPadFor(spec){
+    var canvas = $(spec.canvasId);
+    if (!canvas || spec.ctx) return;
+    spec.ctx = canvas.getContext('2d');
+    layoutSigPadFromDisplayFor(spec);
+
+    var drawing = false;
+    var last = { x: 0, y: 0 };
+
+    function pos(ev){
+      var r = canvas.getBoundingClientRect();
+      var sx = spec.W / Math.max(r.width, 1);
+      var sy = spec.H / Math.max(r.height, 1);
+      return {
+        x: (ev.clientX - r.left) * sx,
+        y: (ev.clientY - r.top) * sy
+      };
+    }
+
+    function start(ev){
+      if (ev.pointerType === 'mouse' && ev.button != null && ev.button !== 0) return;
+      ev.preventDefault();
+      drawing = true;
+      last = pos(ev);
+      try { canvas.setPointerCapture(ev.pointerId); } catch (err) {}
+    }
+
+    function stroke(ev){
+      if (!drawing) return;
+      ev.preventDefault();
+      var p = pos(ev);
+      spec.ctx.beginPath();
+      spec.ctx.moveTo(last.x, last.y);
+      spec.ctx.lineTo(p.x, p.y);
+      spec.ctx.stroke();
+      last = p;
+      spec.state.hasInk = true;
+    }
+
+    function end(ev){
+      if (!drawing) return;
+      drawing = false;
+      try { canvas.releasePointerCapture(ev.pointerId); } catch (err) {}
+      try { spec.state.savedUrl = canvas.toDataURL('image/png'); } catch (e) {}
+      syncSigToPreviewFor(spec);
+    }
+
+    canvas.addEventListener('pointerdown', start);
+    canvas.addEventListener('pointermove', stroke);
+    canvas.addEventListener('pointerup', end);
+    canvas.addEventListener('pointercancel', end);
+    canvas.addEventListener('pointerleave', function(ev){
+      if (drawing) end(ev);
+    });
+
+    var btnClr = $(spec.clearId);
+    if (btnClr) btnClr.addEventListener('click', function(){ clearSigPadFor(spec); });
+
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){ layoutSigPadFromDisplayFor(spec); });
+    });
+    if (typeof ResizeObserver !== 'undefined') {
+      try {
+        new ResizeObserver(function(){ scheduleSigPadLayout(); }).observe(canvas);
+      } catch (e) {}
+    }
+  }
+
+  function initAllSigPads(){
+    SIG_PAD_SPECS.forEach(initSigPadFor);
+    if (!sigOrientationHooked) {
+      sigOrientationHooked = true;
+      window.addEventListener('orientationchange', scheduleSigPadLayout);
+    }
+  }
+
+  function collectSigPng(spec){
+    if (!spec.state.hasInk || !spec.ctx) return '';
+    try { return $(spec.canvasId).toDataURL('image/png'); } catch (e) { return ''; }
+  }
+
+  function defaultLines(){
+    var a = [];
+    for (var i = 0; i < 4; i++) a.push({ desc: '', amt: '' });
+    return a;
+  }
+
+  function renderLineEditor(){
+    var host = $('lines');
+    host.innerHTML = '';
+    state.lines.forEach(function(row, idx){
+      var div = document.createElement('div');
+      div.className = 'line-item';
+      div.innerHTML =
+        '<div><label>Item ' + (idx + 1) + '</label><input type="text" class="desc" data-i="' + idx + '" placeholder="Description" maxlength="65" value="' + escapeAttr(row.desc) + '" /></div>' +
+        '<div style="min-width:120px"><label>$</label><input type="number" class="amt" data-i="' + idx + '" min="0" step="0.01" placeholder="0" value="' + escapeAttr(row.amt) + '" /></div>' +
+        '<div><button type="button" class="ghost rm" data-i="' + idx + '">Remove</button></div>';
+      host.appendChild(div);
+    });
+    host.querySelectorAll('.desc').forEach(function(inp){
+      inp.addEventListener('input', onLineInput);
+    });
+    host.querySelectorAll('.amt').forEach(function(inp){
+      inp.addEventListener('input', onLineInput);
+    });
+    host.querySelectorAll('.rm').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var i = +btn.getAttribute('data-i');
+        state.lines.splice(i, 1);
+        if (state.lines.length === 0) state.lines = defaultLines();
+        renderLineEditor();
+        syncPreview();
+      });
+    });
+    $('addLine').disabled = state.lines.length >= MAX_LINES;
+  }
+
+  function escapeAttr(s){
+    return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');
+  }
+
+  function onLineInput(){
+    var descs = document.querySelectorAll('.line-item .desc');
+    var amts = document.querySelectorAll('.line-item .amt');
+    state.lines = [];
+    for (var i = 0; i < descs.length; i++){
+      state.lines.push({ desc: descs[i].value, amt: amts[i] ? amts[i].value : '' });
+    }
+    syncPreview();
+  }
+
+  function sumLines(){
+    var t = 0;
+    state.lines.forEach(function(L){
+      var a = parseFloat(L.amt);
+      if (!isNaN(a)) t += a;
+    });
+    return t;
+  }
+
+    /** Services stays single-column; clear width overrides from earlier compact alignment logic. */
+  function syncServicesListWidthToAgreement(){
+    var pa = $('printArea');
+    var ol = $('pvServices');
+    if (!pa || !ol) return;
+    ol.style.width = '';
+  }
+
+
+  function runPrepareForPrint(){
+    /* Tag handheld so print CSS can shrink signatures to fit page 2. */
+    var handheld = ('ontouchstart' in window || navigator.maxTouchPoints > 0) &&
+                   window.innerWidth < 900;
+    document.documentElement.classList.toggle('print-device-handheld', handheld);
+    syncAllSigToPreview();
+  }
+
+  function syncPreview(){
+    var biz = $('bizName').value.trim() || 'Binda’s Landscaping LLC';
+    var street = $('bizAddr').value.trim();
+    var city = $('bizCity').value.trim();
+    var phone = $('bizPhone').value.trim();
+    var email = $('bizEmail').value.trim();
+    $('pvBiz').textContent = biz;
+    $('pvBizName2').textContent = biz;
+    $('pvBizName3').textContent = biz;
+    $('pvBizBlock').innerHTML = street + '<br />' + city + '<br />' + phone + '<br />' + email;
+    if ($('pfBiz')) $('pfBiz').textContent = biz;
+    if ($('pfPhone')) $('pfPhone').textContent = phone || '—';
+    if ($('pfEmail')) $('pfEmail').textContent = email || '—';
+    if ($('pfCity')) $('pfCity').textContent = city || '—';
+
+    var cname = $('clientName').value.trim() || '__________';
+    $('pvClient').textContent = cname;
+
+    var cmail = $('clientEmail').value.trim();
+    $('pvClientEmail').textContent = cmail || '—';
+
+    var auto = $('autoTotal').checked;
+    var sum = sumLines();
+    if (auto) {
+      $('quoted').value = sum > 0 ? sum.toFixed(2) : '';
+    }
+    var servicesSubtotal = parseNum($('quoted'), 0);
+    var adjRaw = (($('adjustmentAmt').value != null) ? $('adjustmentAmt').value : '').trim();
+    var adjustment = adjRaw === '' ? 0 : parseFloat(adjRaw);
+    if (isNaN(adjustment)) adjustment = 0;
+
+    var agreementTotal = servicesSubtotal + adjustment;
+    if (agreementTotal < 0) agreementTotal = 0;
+
+    var depPct = parseNum($('depositPct'), 50);
+    depPct = Math.max(0, Math.min(100, depPct));
+    var depAmt = agreementTotal * (depPct / 100);
+    var bal = Math.max(0, agreementTotal - depAmt);
+
+    $('pvQuote').textContent = money(agreementTotal);
+    $('pvDepPct').textContent = depPct.toFixed(1).replace(/\.0$/, '') + '%';
+    $('pvDepAmt').textContent = money(depAmt);
+    $('pvBal').textContent = money(bal);
+
+    $('pvAgSubtotal').textContent = money(servicesSubtotal);
+    var adjDt = $('pvAgAdjDt');
+    var adjDd = $('pvAgAdjDd');
+    var adjNoteDt = $('pvAgAdjNoteDt');
+    var adjNoteDd = $('pvAgAdjNoteDd');
+    if (Math.abs(adjustment) > 0.0001) {
+      adjDt.style.display = '';
+      adjDd.style.display = '';
+      adjNoteDt.style.display = '';
+      adjNoteDd.style.display = '';
+      var adjWords = adjustment > 0 ? 'additional charge' : 'reduction';
+      adjDd.textContent = (adjustment > 0 ? '+' : '−') + money(Math.abs(adjustment)) + ' (' + adjWords + ')';
+      adjNoteDd.textContent = getAdjustmentReasonSentence();
+    } else {
+      adjDt.style.display = 'none';
+      adjDd.style.display = 'none';
+      adjNoteDt.style.display = 'none';
+      adjNoteDd.style.display = 'none';
+    }
+    $('pvAgGrand').innerHTML = '<strong>' + money(agreementTotal) + '</strong>';
+    $('pvAgDepPctEcho').textContent = depPct.toFixed(1).replace(/\.0$/, '') + '%';
+    $('pvAgDepAmtEcho').textContent = money(depAmt);
+    $('pvAgBalEcho').textContent = money(bal);
+
+    var ol = $('pvServices');
+    ol.innerHTML = '';
+    var n = 0;
+    state.lines.forEach(function(L){
+      if (!L.desc && !L.amt) return;
+      n++;
+      var li = document.createElement('li');
+      var t = L.desc || '(description)';
+      if (L.amt) t += ' : ' + money(parseFloat(L.amt) || 0);
+      li.textContent = t;
+      ol.appendChild(li);
+    });
+    if (n === 0) {
+      var li = document.createElement('li');
+      li.style.color = '#888';
+      li.textContent = '(Add line items in the form)';
+      ol.appendChild(li);
+    }
+
+    var pa = $('printArea');
+    if (pa) {
+      pa.classList.toggle('print-compact-services', n >= 12);
+    }
+
+    requestAnimationFrame(function(){
+      requestAnimationFrame(syncServicesListWidthToAgreement);
+    });
+
+    var chgBlock = $('pvChange');
+    var chgBody = $('pvChangeBody');
+    if (Math.abs(adjustment) > 0.0001 && chgBlock && chgBody) {
+      chgBlock.style.display = 'block';
+      var verb = adjustment > 0 ? 'increase' : 'decrease';
+      var absPart = '<span class="money">' + money(Math.abs(adjustment)) + '</span>';
+      var subPart = '<span class="money">' + money(servicesSubtotal) + '</span>';
+      var totPart = '<span class="money">' + money(agreementTotal) + '</span>';
+      var reasonPart = escapeHtml(ensureReasonEndsWithPeriod(getAdjustmentReasonSentence()));
+      chgBody.innerHTML =
+        'The client authorizes a proposal adjustment that will <strong>' + verb + '</strong> the agreement amount by ' +
+        absPart +
+        ' relative to the services subtotal of ' +
+        subPart +
+        ', for a revised <strong>total agreement amount</strong> of ' +
+        totPart +
+        '. This is reflected in the <strong>Agreement Details</strong> section above.<br /><br /><strong>Reason:</strong> ' +
+        reasonPart;
+    } else if (chgBlock) {
+      chgBlock.style.display = 'none';
+    }
+
+    var a1 = $('clientAddr1').value.trim();
+    var a2 = $('clientAddr2').value.trim();
+    $('pvAddr').textContent = [a1, a2].filter(Boolean).join(', ') || '—';
+
+    var d = $('agreeDate').value;
+    $('pvDate').textContent = d || '—';
+
+    var notes = $('notes').value.trim();
+    var pvNotesSep = $('pvNotesSep');
+    if (notes) {
+      $('pvNotes').style.display = 'block';
+      $('pvNotes').innerHTML = '<strong class="preview-box-heading">Notes</strong><br />' + notes.replace(/\n/g, '<br />');
+      if (pvNotesSep) pvNotesSep.style.display = '';
+    } else {
+      $('pvNotes').style.display = 'none';
+      $('pvNotes').textContent = '';
+      if (pvNotesSep) pvNotesSep.style.display = 'none';
+    }
+  }
+
+  $('addLine').addEventListener('click', function(){
+    if (state.lines.length >= MAX_LINES) return;
+    state.lines.push({ desc: '', amt: '' });
+    renderLineEditor();
+    syncPreview();
+  });
+
+  $('resetLines').addEventListener('click', function(){
+    state.lines = defaultLines();
+    renderLineEditor();
+    syncPreview();
+  });
+
+  (function(){
+    var notesEl = $('notes');
+    var counter = $('notesCharCount');
+    if (!notesEl || !counter) return;
+    function updateCount(){
+      var len = notesEl.value.length;
+      counter.textContent = len + ' / 485';
+      counter.style.color = len >= 460 ? (len >= 485 ? 'var(--danger, #c0392b)' : '#b07d00') : 'var(--muted)';
+    }
+    notesEl.addEventListener('input', updateCount);
+    updateCount();
+  })();
+
+  $('autoTotal').addEventListener('change', syncPreview);
+  ['bizName','bizAddr','bizCity','bizPhone','bizEmail','clientName','clientEmail','clientAddr1','clientAddr2','agreeDate','quoted','depositPct','adjustmentAmt','adjustmentOther','notes','internalNotes'].forEach(function(id){
+    var el = $(id);
+    if (!el) return;
+    el.addEventListener('input', syncPreview);
+    el.addEventListener('change', syncPreview);
+  });
+  $('adjustmentReason').addEventListener('change', function(){
+    toggleAdjustmentOther();
+    syncPreview();
+  });
+
+  $('btnCreate').addEventListener('click', function(){
+    syncPreview();
+    document.body.classList.add('proposal-view');
+    window.scrollTo(0, 0);
+    scheduleSigPadLayout();
+  });
+  $('btnEdit').addEventListener('click', function(){
+    document.body.classList.remove('proposal-view');
+    window.scrollTo(0, 0);
+    scheduleSigPadLayout();
+  });
+
+  $('btnPrint').addEventListener('click', function(){
+    /* Sync signatures before print — beforeprint is unreliable on iOS Safari
+       and some Android browsers, so we always sync on button click as well. */
+    runPrepareForPrint();
+    window.print();
+  });
+
+  var syncWidthResizeTimer;
+  window.addEventListener('resize', function(){
+    clearTimeout(syncWidthResizeTimer);
+    syncWidthResizeTimer = setTimeout(function(){
+      syncPreview();
+      syncServicesListWidthToAgreement();
+      scheduleSigPadLayout();
+    }, 100);
+  });
+  window.addEventListener('orientationchange', function(){
+    syncPreview();
+    scheduleSigPadLayout();
+  });
+  window.addEventListener('beforeprint', function(){
+    runPrepareForPrint();
+  });
+  window.addEventListener('afterprint', function(){
+    scheduleSigPadLayout();
+  });
+
+  (function observeAgreementDlWidth(){
+    var dl = $('printArea') && $('printArea').querySelector('.preview-agreement-dl');
+    if (!dl || typeof ResizeObserver === 'undefined') return;
+    new ResizeObserver(syncServicesListWidthToAgreement).observe(dl);
+  })();
+
+  function collect(){
+    return {
+      bizName: $('bizName').value,
+      bizAddr: $('bizAddr').value,
+      bizCity: $('bizCity').value,
+      bizPhone: $('bizPhone').value,
+      bizEmail: $('bizEmail').value,
+      clientName: $('clientName').value,
+      clientEmail: $('clientEmail').value,
+      clientAddr1: $('clientAddr1').value,
+      clientAddr2: $('clientAddr2').value,
+      agreeDate: $('agreeDate').value,
+      autoTotal: $('autoTotal').checked,
+      lines: state.lines,
+      quoted: $('quoted').value,
+      depositPct: $('depositPct').value,
+      adjustmentAmt: $('adjustmentAmt').value,
+      adjustmentReason: $('adjustmentReason').value,
+      adjustmentOther: $('adjustmentOther').value,
+      notes: $('notes').value,
+      internalNotes: $('internalNotes').value,
+      clientSigPng: collectSigPng(SIG_PAD_SPECS[0]),
+      bizSigPng: collectSigPng(SIG_PAD_SPECS[1])
+    };
+  }
+
+  function apply(data){
+    if (!data) return;
+    $('bizName').value = data.bizName || '';
+    $('bizAddr').value = data.bizAddr || '';
+    $('bizCity').value = data.bizCity || '';
+    $('bizPhone').value = data.bizPhone || '';
+    $('bizEmail').value = data.bizEmail || '';
+    $('clientName').value = data.clientName || '';
+    $('clientEmail').value = data.clientEmail || '';
+    $('clientAddr1').value = data.clientAddr1 || '';
+    $('clientAddr2').value = data.clientAddr2 || '';
+    $('agreeDate').value = data.agreeDate || '';
+    $('autoTotal').checked = !!data.autoTotal;
+    state.lines = (data.lines && data.lines.length) ? data.lines : defaultLines();
+    $('quoted').value = data.quoted || '';
+    $('depositPct').value = data.depositPct || '50';
+    $('adjustmentAmt').value = data.adjustmentAmt != null ? data.adjustmentAmt : '';
+    $('adjustmentReason').value = data.adjustmentReason || '';
+    $('adjustmentOther').value = data.adjustmentOther || '';
+    if (data.chgAmt && !data.adjustmentAmt && $('adjustmentAmt').value === '') {
+      $('adjustmentAmt').value = String(data.chgAmt);
+    }
+    $('notes').value = data.notes || '';
+    $('internalNotes').value = data.internalNotes || '';
+    if (data.clientSigPng && SIG_PAD_SPECS[0].ctx) {
+      SIG_PAD_SPECS[0].state.hasInk = false;
+      syncSigToPreviewFor(SIG_PAD_SPECS[0]);
+      layoutSigPadFromDisplayFor(SIG_PAD_SPECS[0]);
+      restoreSigFromDataUrlFor(SIG_PAD_SPECS[0], data.clientSigPng);
+    } else clearSigPadFor(SIG_PAD_SPECS[0]);
+
+    if (data.bizSigPng && SIG_PAD_SPECS[1].ctx) {
+      SIG_PAD_SPECS[1].state.hasInk = false;
+      syncSigToPreviewFor(SIG_PAD_SPECS[1]);
+      layoutSigPadFromDisplayFor(SIG_PAD_SPECS[1]);
+      restoreSigFromDataUrlFor(SIG_PAD_SPECS[1], data.bizSigPng);
+    } else clearSigPadFor(SIG_PAD_SPECS[1]);
+    renderLineEditor();
+    toggleAdjustmentOther();
+    syncPreview();
+  }
+
+  $('btnSave').addEventListener('click', function(){
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(collect()));
+      alert('Draft saved in this browser.');
+    } catch (e) { alert('Could not save.'); }
+  });
+
+  $('btnLoad').addEventListener('click', function(){
+    try {
+      var raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) { alert('No draft found.'); return; }
+      apply(JSON.parse(raw));
+    } catch (e) { alert('Could not load draft.'); }
+  });
+
+  $('btnClear').addEventListener('click', function(){
+    if (!confirm('Clear saved draft?')) return;
+    localStorage.removeItem(STORAGE_KEY);
+  });
+
+  initAllSigPads();
+
+  state.lines = defaultLines();
+  renderLineEditor();
+  toggleAdjustmentOther();
+  var today = new Date().toISOString().slice(0, 10);
+  if (!$('agreeDate').value) $('agreeDate').value = today;
+  syncPreview();
+  scheduleSigPadLayout();
+})();
+  </script>
+</body>
+</html>
