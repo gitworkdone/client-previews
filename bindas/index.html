@@ -60,7 +60,8 @@
     input[type="date"]{width:100%;max-width:100%;min-width:0;}
     input:focus,textarea:focus,select:focus{outline:2px solid var(--accent);outline-offset:1px;}
     textarea{min-height:72px;resize:vertical;}
-    .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px;min-width:0;}
+    .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px;min-width:0;overflow:hidden;}
+    .row2>div{min-width:0;overflow:hidden;}
     @media(max-width:640px){.row2{grid-template-columns:1fr;}}
     .toolbar{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0 8px;}
     button,.btn{
