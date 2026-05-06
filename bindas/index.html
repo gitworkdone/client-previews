@@ -1586,23 +1586,31 @@
     'dba','po','id','atm','diy','hvac','ac','dc','vin','gps','api','pdf','url','ceo','cfo','coo'
   ]);
 
-  function toSentenceCase(str){
+  /* Fields where every word should be capitalized (names, addresses) */
+  var TITLE_CASE_FIELDS = new Set(['bizName','clientName','bizAddr','bizCity','clientAddr1','clientAddr2']);
+
+  function applyWordCase(str, titleCase){
     var trimmed = str.trimStart();
     if (!trimmed) return str;
     var leading = str.slice(0, str.length - trimmed.length);
-    var lowered = trimmed.charAt(0).toUpperCase() + trimmed.slice(1).toLowerCase();
-    /* Re-preserve: already-uppercase abbreviations, forced-upper list, emails/URLs */
     var originalWords = trimmed.split(/(\s+)/);
-    var resultWords  = lowered.split(/(\s+)/);
-    for (var i = 0; i < resultWords.length; i++) {
-      var orig = originalWords[i] || '';
-      var word = resultWords[i];
-      if (!word.trim()) continue;
-      if (/[@\/\.]/.test(orig)) { resultWords[i] = orig; continue; }
-      if (orig.length > 1 && orig === orig.toUpperCase()) { resultWords[i] = orig; continue; }
-      if (FORCE_UPPER.has(word.toLowerCase())) { resultWords[i] = word.toUpperCase(); continue; }
-    }
-    return leading + resultWords.join('');
+    var result = originalWords.map(function(chunk, i){
+      if (!chunk.trim()) return chunk;           /* preserve whitespace tokens */
+      var lower = chunk.toLowerCase();
+      if (/[@\/\.]/.test(chunk)) return chunk;   /* email / URL — leave alone */
+      if (FORCE_UPPER.has(lower)) return chunk.toUpperCase();
+      /* Already-uppercase abbreviation (2+ caps) — keep as-is */
+      if (chunk.length > 1 && chunk === chunk.toUpperCase()) return chunk;
+      if (titleCase) {
+        /* Title case: capitalize first letter of every word */
+        return chunk.charAt(0).toUpperCase() + chunk.slice(1).toLowerCase();
+      } else {
+        /* Sentence case: capitalize only the very first word */
+        if (i === 0) return chunk.charAt(0).toUpperCase() + chunk.slice(1).toLowerCase();
+        return chunk.toLowerCase();
+      }
+    });
+    return leading + result.join('');
   }
 
   function normalizeFieldCase(el){
@@ -1613,7 +1621,8 @@
     var allLower = letters === letters.toLowerCase();
     var allUpper = letters === letters.toUpperCase();
     if (allLower || allUpper) {
-      el.value = toSentenceCase(val);
+      var useTitle = TITLE_CASE_FIELDS.has(el.id);
+      el.value = applyWordCase(val, useTitle);
     }
   }
 
