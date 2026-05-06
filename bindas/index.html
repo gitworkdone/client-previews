@@ -1580,22 +1580,29 @@
      If the user leaves a field with entirely all-lowercase or entirely
      all-uppercase text, convert to Title Case. Mixed-case is left alone
      (e.g. "LLC", "GA", "bindaslandscaping@gmail.com" stay untouched). */
+  var FORCE_UPPER = new Set([
+    'llc','inc','co','corp','ltd','lp','llp','pllc',
+    'usa','us','uk','ga','fl','tx','ca','ny','nc','sc','va','pa','oh','mi','al','tn','az','nj','ma',
+    'dba','po','id','atm','diy','hvac','ac','dc','vin','gps','api','pdf','url','ceo','cfo','coo'
+  ]);
+
   function toSentenceCase(str){
-    /* Capitalize only the very first letter, lowercase everything else,
-       but preserve words that look like abbreviations (2+ consecutive caps)
-       or contain @ / . (emails, URLs). */
     var trimmed = str.trimStart();
     if (!trimmed) return str;
     var leading = str.slice(0, str.length - trimmed.length);
-    var rest = trimmed.charAt(0).toUpperCase() + trimmed.slice(1).toLowerCase();
-    /* Re-preserve abbreviations and special tokens */
-    rest = rest.replace(/\S+/g, function(word, offset){
-      var original = trimmed.slice(offset, offset + word.length);
-      if (/[@\/\.]/.test(original)) return original;
-      if (original.length > 1 && original === original.toUpperCase()) return original;
-      return word;
-    });
-    return leading + rest;
+    var lowered = trimmed.charAt(0).toUpperCase() + trimmed.slice(1).toLowerCase();
+    /* Re-preserve: already-uppercase abbreviations, forced-upper list, emails/URLs */
+    var originalWords = trimmed.split(/(\s+)/);
+    var resultWords  = lowered.split(/(\s+)/);
+    for (var i = 0; i < resultWords.length; i++) {
+      var orig = originalWords[i] || '';
+      var word = resultWords[i];
+      if (!word.trim()) continue;
+      if (/[@\/\.]/.test(orig)) { resultWords[i] = orig; continue; }
+      if (orig.length > 1 && orig === orig.toUpperCase()) { resultWords[i] = orig; continue; }
+      if (FORCE_UPPER.has(word.toLowerCase())) { resultWords[i] = word.toUpperCase(); continue; }
+    }
+    return leading + resultWords.join('');
   }
 
   function normalizeFieldCase(el){
