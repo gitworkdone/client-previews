@@ -302,6 +302,35 @@
     .sig-pad-modal.is-open .sig-pad-modal__backdrop{
       opacity:1;
     }
+    /* Mobile: element fullscreen + landscape lock — dialog fills physical screen */
+    .sig-pad-modal:fullscreen,
+    .sig-pad-modal:-webkit-full-screen{
+      padding:max(12px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right)) max(12px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
+      background:var(--bg);
+    }
+    .sig-pad-modal:fullscreen .sig-pad-modal__dialog,
+    .sig-pad-modal:-webkit-full-screen .sig-pad-modal__dialog{
+      width:100%;
+      max-width:none;
+      height:100%;
+      max-height:none;
+      border-radius:0;
+      border-left:none;
+      border-right:none;
+    }
+    .sig-pad-modal:fullscreen .sig-pad-modal__head,
+    .sig-pad-modal:-webkit-full-screen .sig-pad-modal__head{
+      border-radius:0;
+    }
+    .sig-pad-modal:fullscreen .sig-pad-modal__actions,
+    .sig-pad-modal:-webkit-full-screen .sig-pad-modal__actions{
+      border-radius:0;
+    }
+    .sig-pad-modal:fullscreen .sig-pad-modal__canvas-host,
+    .sig-pad-modal:-webkit-full-screen .sig-pad-modal__canvas-host{
+      flex:1;
+      min-height:0;
+    }
     .sig-pad-modal__dialog{
       --sig-modal-r:18px;
       /* Inset radius inside 1px border so header/footer bands follow the shell curve */
@@ -1244,6 +1273,92 @@
   var sigOrientationHooked = false;
   var sigModalSpec = null;
   var sigModalSnapshot = '';
+  var sigModalEnteredFullscreen = false;
+  var sigModalOrientationLocked = false;
+
+  function isSigModalMobileFullscreenTarget(){
+    if (!window.matchMedia) return false;
+    if (window.matchMedia('(pointer: coarse)').matches) return true;
+    if (window.matchMedia('(hover: none)').matches && window.matchMedia('(max-width: 768px)').matches) return true;
+    return false;
+  }
+
+  function sigModalFullscreenEl(){
+    return document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement;
+  }
+
+  function sigModalTryOrientationLockPromise(){
+    var o = typeof screen !== 'undefined' ? screen.orientation : null;
+    if (!o || typeof o.lock !== 'function') return Promise.resolve();
+    return o.lock('landscape-primary').then(function(){ sigModalOrientationLocked = true; }).catch(function(){
+      return o.lock('landscape').then(function(){ sigModalOrientationLocked = true; }).catch(function(){});
+    });
+  }
+
+  /** Must run from the same user gesture as Expand / tap (Fullscreen + lock APIs requirement). */
+  function sigModalTryFullscreenLandscape(modal){
+    if (!modal || !isSigModalMobileFullscreenTarget()) return;
+    sigModalEnteredFullscreen = false;
+    sigModalOrientationLocked = false;
+    modal.classList.add('sig-pad-modal--mobile-fs-target');
+    var req = modal.requestFullscreen || modal.webkitRequestFullscreen || modal.msRequestFullscreen;
+    if (!req) {
+      sigModalTryOrientationLockPromise();
+      return;
+    }
+    var p;
+    try {
+      p = req.call(modal);
+    } catch (err) {
+      sigModalTryOrientationLockPromise();
+      return;
+    }
+    if (p && typeof p.then === 'function') {
+      p.then(function(){
+        sigModalEnteredFullscreen = modal === sigModalFullscreenEl();
+        return sigModalTryOrientationLockPromise();
+      }).catch(function(){
+        return sigModalTryOrientationLockPromise();
+      });
+    } else {
+      sigModalEnteredFullscreen = true;
+      sigModalTryOrientationLockPromise();
+    }
+  }
+
+  function sigModalReleaseFullscreenLandscape(){
+    try {
+      if (sigModalOrientationLocked && screen.orientation && typeof screen.orientation.unlock === 'function') {
+        screen.orientation.unlock();
+      }
+    } catch (e) {}
+    sigModalOrientationLocked = false;
+    try {
+      var modal = $('sigPadModal');
+      var fsEl = sigModalFullscreenEl();
+      if (modal && fsEl === modal) {
+        if (document.exitFullscreen) document.exitFullscreen();
+        else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+        else if (document.msExitFullscreen) document.msExitFullscreen();
+      }
+    } catch (e2) {}
+    sigModalEnteredFullscreen = false;
+    var m = $('sigPadModal');
+    if (m) m.classList.remove('sig-pad-modal--mobile-fs-target');
+  }
+
+  function sigModalOnFullscreenChange(){
+    if (!sigModalSpec) return;
+    var fsEl = sigModalFullscreenEl();
+    if (!fsEl) {
+      sigModalEnteredFullscreen = false;
+      sigModalOrientationLocked = false;
+      closeSigModal(false);
+      return;
+    }
+    var modal = $('sigPadModal');
+    if (modal && fsEl === modal) scheduleSigPadLayout();
+  }
 
   /** Clears the entire backing store (avoids edge specks when W×dpr ≠ canvas.width after round). */
   function clearSigCanvasFullBitmap(canvas, ctx){
@@ -1441,6 +1556,7 @@
     modal.classList.add('is-open');
     modal.setAttribute('aria-hidden', 'false');
     document.body.classList.add('sig-pad-modal-open');
+    sigModalTryFullscreenLandscape(modal);
     requestAnimationFrame(function(){
       layoutSigPadFromDisplayFor(spec);
       requestAnimationFrame(function(){
@@ -1467,6 +1583,7 @@
         resetSigModalDialogStyles();
       }
       document.body.classList.remove('sig-pad-modal-open');
+      sigModalReleaseFullscreenLandscape();
       return;
     }
 
@@ -1484,6 +1601,7 @@
       resetSigModalDialogStyles();
     }
     document.body.classList.remove('sig-pad-modal-open');
+    sigModalReleaseFullscreenLandscape();
     requestAnimationFrame(function(){
       layoutSigPadFromDisplayFor(spec);
       scheduleSigPadLayout();
@@ -1520,6 +1638,9 @@
         closeSigModal(false);
       }
     });
+    document.addEventListener('fullscreenchange', sigModalOnFullscreenChange);
+    document.addEventListener('webkitfullscreenchange', sigModalOnFullscreenChange);
+    document.addEventListener('MSFullscreenChange', sigModalOnFullscreenChange);
     SIG_PAD_SPECS.forEach(function(spec){
       var ex = $(spec.expandId);
       if (ex) {
