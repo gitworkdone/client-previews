@@ -278,7 +278,7 @@
       .sig-pad-hint-desktop{display:none!important;}
       .sig-pad-hint-touch{display:inline!important;}
     }
-    /* Signature modal — fullscreen pad + floating top chrome (buttons overlay the signing area) */
+    /* Signature modal — pad below chrome; banner scales with viewport (vmin / dvh) */
     .sig-pad-modal{
       position:fixed;
       inset:0;
@@ -429,7 +429,10 @@
     .sig-pad-modal__dialog{
       --sig-modal-r:0;
       --sig-modal-inner-r:0;
-      --sig-modal-pad-x:clamp(10px, 3vw, 20px);
+      /* Tracks smallest screen dimension — stable across portrait ↔ landscape */
+      --sig-modal-pad-x:clamp(8px, 2.8vmin + 6px, 22px);
+      --sig-modal-head-pad-y:clamp(6px, 1.7vmin + 4px, 14px);
+      --sig-modal-banner-gap:clamp(6px, 1.3vmin + 2px, 12px);
       position:relative;
       z-index:1;
       margin:0;
@@ -459,58 +462,91 @@
       flex-shrink:0;
       z-index:3;
       pointer-events:auto;
+      display:flex;
+      flex-direction:column;
+      min-width:0;
+      width:100%;
+      box-sizing:border-box;
     }
     .sig-pad-modal__head{
       display:flex;
       flex-wrap:wrap;
       align-items:center;
       justify-content:flex-start;
-      gap:10px 12px;
-      padding:12px var(--sig-modal-pad-x);
+      gap:var(--sig-modal-banner-gap);
+      padding:var(--sig-modal-head-pad-y) var(--sig-modal-pad-x);
       border-bottom:1px solid var(--line);
       background:rgba(237,232,224,0.9);
       -webkit-backdrop-filter:blur(10px);
       backdrop-filter:blur(10px);
       border-radius:0;
       pointer-events:auto;
+      flex-shrink:0;
+      min-width:0;
+      box-sizing:border-box;
     }
     .sig-pad-modal__head .sig-pad-modal__head-actions{
       display:flex;
       flex-wrap:wrap;
       align-items:center;
-      gap:8px;
+      gap:var(--sig-modal-banner-gap);
       flex:0 0 auto;
+      min-width:0;
     }
     .sig-pad-modal__head > h4{
-      flex:1 1 120px;
+      flex:1 1 9rem;
       min-width:0;
       font-family:Fraunces,Georgia,serif;
-      font-size:clamp(0.92rem, 2.8vw, 1.05rem);
+      font-size:clamp(0.78rem, 2.4vmin + 0.42rem, 1.08rem);
+      line-height:1.25;
       color:var(--accent);
       margin:0;
+      overflow-wrap:break-word;
+      word-break:break-word;
+    }
+    .sig-pad-modal__head button:not(.sig-pad-modal__close-x){
+      font-size:clamp(0.7rem, 1.75vmin + 0.12rem, 0.88rem);
+      padding:clamp(6px, 1.2vmin + 2px, 10px) clamp(9px, 2vmin + 4px, 14px);
+      min-height:clamp(38px, 10vmin, 46px);
+      border-radius:clamp(6px, 1.2vmin, 10px);
+      white-space:nowrap;
+      flex-shrink:0;
     }
     .sig-pad-modal__close-x{
-      font-size:1.5rem;
+      font-size:clamp(1.15rem, 4.5vmin, 1.55rem);
       line-height:1;
-      padding:4px 12px;
-      min-height:44px;
-      min-width:44px;
+      padding:clamp(2px, 0.8vmin, 6px) clamp(8px, 2vmin, 14px);
+      min-height:clamp(38px, 10vmin, 46px);
+      min-width:clamp(38px, 10vmin, 46px);
       flex-shrink:0;
       margin-left:0;
     }
     .sig-pad-modal__hint{
       margin:0;
-      padding:8px var(--sig-modal-pad-x) 12px;
+      flex-shrink:1;
+      min-height:0;
+      padding:clamp(6px, 1.4vmin + 2px, 10px) var(--sig-modal-pad-x) clamp(8px, 1.6vmin + 4px, 12px);
       color:var(--muted);
       border-bottom:1px solid var(--line);
       background:rgba(246,243,238,0.88);
       -webkit-backdrop-filter:blur(8px);
       backdrop-filter:blur(8px);
-      font-size:0.78rem;
-      line-height:1.45;
+      font-size:clamp(0.68rem, 1.65vmin + 0.15rem, 0.82rem);
+      line-height:1.42;
       pointer-events:auto;
       -webkit-user-select:none;
       user-select:none;
+      box-sizing:border-box;
+    }
+    /* Landscape / short viewports: cap banner helper copy so the pad keeps usable height */
+    @media (max-height:560px){
+      .sig-pad-modal__hint{
+        max-height:min(30dvh, 148px);
+        overflow-x:hidden;
+        overflow-y:auto;
+        -webkit-overflow-scrolling:touch;
+        overscroll-behavior:contain;
+      }
     }
     .sig-pad-modal__canvas-host{
       position:relative;
