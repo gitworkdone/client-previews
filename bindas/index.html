@@ -201,7 +201,7 @@
       height:140px;
       vertical-align:top;
     }
-    .sig-pad-field.sig-pad-field--preview{
+    .sig-pad-canvas-shell .sig-pad-field.sig-pad-field--preview{
       max-width:100%!important;
       width:100%!important;
       display:block;
@@ -214,7 +214,8 @@
       #pvBizSigSlot .preview-sig-img{display:none!important;}
     }
     @media screen and (orientation:landscape) and (max-height:520px){
-      .sig-pad-field.sig-pad-field--preview{
+      /* Inline preview only — expanded modal canvas must not get a fixed clamp height */
+      .sig-pad-canvas-shell .sig-pad-field.sig-pad-field--preview{
         height:clamp(92px, min(42vmin, 52vw), 180px);
       }
     }
@@ -315,6 +316,31 @@
       min-height:100svh;
       min-height:100dvh;
     }
+    /* Landscape: dvh/max-height pairs often clip short vs the painted viewport — pin to edges */
+    @media screen and (orientation:landscape){
+      body.proposal-view #sigPadModal.sig-pad-modal.is-open,
+      #sigPadModal.sig-pad-modal.is-open{
+        height:auto!important;
+        max-height:none!important;
+        min-height:0!important;
+        top:0!important;
+        right:0!important;
+        bottom:0!important;
+        left:0!important;
+      }
+      html:fullscreen body.sig-pad-modal-open #sigPadModal.sig-pad-modal.is-open,
+      html:-webkit-full-screen body.sig-pad-modal-open #sigPadModal.sig-pad-modal.is-open{
+        max-height:none!important;
+        height:auto!important;
+        min-height:0!important;
+      }
+      #sigPadModal.sig-pad-modal.is-open .sig-pad-modal__dialog{
+        flex:1 1 0%!important;
+        height:auto!important;
+        max-height:none!important;
+        min-height:0!important;
+      }
+    }
     .sig-pad-modal__backdrop{
       position:absolute;
       inset:0;
@@ -357,7 +383,7 @@
     .sig-pad-modal:fullscreen .sig-pad-modal__canvas-host,
     .sig-pad-modal:-webkit-full-screen .sig-pad-modal__canvas-host{
       position:relative;
-      flex:1 1 auto;
+      flex:1 1 0%;
       min-height:0;
       height:auto;
       inset:auto;
@@ -387,7 +413,7 @@
     html:fullscreen .sig-pad-modal.sig-pad-modal--mobile-fs-target.is-open .sig-pad-modal__canvas-host,
     html:-webkit-full-screen .sig-pad-modal.sig-pad-modal--mobile-fs-target.is-open .sig-pad-modal__canvas-host{
       position:relative;
-      flex:1 1 auto;
+      flex:1 1 0%;
       min-height:0;
       height:auto;
       inset:auto;
@@ -411,7 +437,7 @@
     .sig-pad-modal__dialog:fullscreen .sig-pad-modal__canvas-host,
     .sig-pad-modal__dialog:-webkit-full-screen .sig-pad-modal__canvas-host{
       position:relative;
-      flex:1 1 auto;
+      flex:1 1 0%;
       min-height:0;
       height:auto;
       inset:auto;
@@ -558,6 +584,7 @@
       flex:1 1 0%!important;
       min-height:0!important;
       height:auto!important;
+      max-height:none!important;
       max-width:100%!important;
       margin:0!important;
       border:none!important;
@@ -574,6 +601,7 @@
       flex:1 1 0%!important;
       min-height:0!important;
       height:auto!important;
+      max-height:none!important;
       max-width:100%!important;
     }
     body.sig-pad-modal-open{overflow:hidden;}
@@ -1565,6 +1593,15 @@
       if (br.width >= 32 && br.height >= 32) {
         w = Math.round(br.width);
         h = Math.round(br.height);
+      }
+      /* Landscape + fullscreen: canvas box can lag flex layout — clip rect is ground truth */
+      var clipBox = $('sigPadModalCanvasClip');
+      if (clipBox) {
+        var cr = clipBox.getBoundingClientRect();
+        if (cr.width >= 48 && cr.height >= 48) {
+          w = Math.round(cr.width);
+          h = Math.round(cr.height);
+        }
       }
     }
     /* First frames: host may not have height yet — don’t lock a tiny bitmap to fullscreen CSS. */
