@@ -1442,13 +1442,29 @@
     return { client: client, engine: engine };
   }
 
-  /** CW layout rotation: same handheld heuristic as fullscreen target, only in portrait */
+  /** True when the viewport is wider than tall — matches physical rotation even if matchMedia lags */
+  function sigModalIsLandscapeViewport(){
+    try {
+      if (window.matchMedia && window.matchMedia('(orientation: landscape)').matches) return true;
+    } catch (e) {}
+    if (typeof window.innerWidth === 'number' && typeof window.innerHeight === 'number')
+      return window.innerWidth > window.innerHeight;
+    return false;
+  }
+
+  /** CW layout rotation: handheld + portrait viewport — landscape stays unrotated and aligned with the device */
   function sigModalShouldRotateCw90(){
     if (!isSigModalMobileFullscreenTarget()) return false;
-    try {
-      if (window.matchMedia && window.matchMedia('(orientation: landscape)').matches) return false;
-    } catch (e) {}
+    if (sigModalIsLandscapeViewport()) return false;
     return true;
+  }
+
+  /** Keep `sig-pad-modal--cw90` in sync when the device rotates or viewport resizes while the modal is open */
+  function syncSigModalCw90FromViewport(){
+    var modal = $('sigPadModal');
+    if (!modal || !sigModalSpec || !modal.classList.contains('is-open')) return;
+    if (sigModalShouldRotateCw90()) modal.classList.add('sig-pad-modal--cw90');
+    else modal.classList.remove('sig-pad-modal--cw90');
   }
 
   function sigModalInvokeRequestFullscreen(el){
@@ -1474,14 +1490,6 @@
     return document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement;
   }
 
-  function sigModalTryOrientationLockPromise(){
-    var o = typeof screen !== 'undefined' ? screen.orientation : null;
-    if (!o || typeof o.lock !== 'function') return Promise.resolve();
-    return o.lock('landscape-primary').then(function(){ sigModalOrientationLocked = true; }).catch(function(){
-      return o.lock('landscape').then(function(){ sigModalOrientationLocked = true; }).catch(function(){});
-    });
-  }
-
   /**
    * Must run synchronously from Expand / tap (transient user activation).
    * Chrome Android often rejects overlay #sigPadModal — fall back to inner dialog, then <html>.
@@ -1497,9 +1505,9 @@
       .catch(function(){ return sigModalInvokeRequestFullscreen(docEl); })
       .then(function(){
         sigModalEnteredFullscreen = !!sigModalFullscreenEl();
-        return sigModalTryOrientationLockPromise();
+        /* No screen.orientation.lock — lock prevented physical rotation; modal cw90 tracks viewport instead */
       })
-      .catch(function(){ return sigModalTryOrientationLockPromise(); });
+      .catch(function(){});
   }
 
   function sigModalReleaseFullscreenLandscape(){
@@ -1635,6 +1643,7 @@
   function scheduleSigPadLayout(){
     clearTimeout(sigPadLayoutTimer);
     sigPadLayoutTimer = setTimeout(function(){
+      syncSigModalCw90FromViewport();
       requestAnimationFrame(layoutAllSigPadsFromDisplay);
     }, 60);
   }
@@ -1824,7 +1833,7 @@
     var browserInfo = classifySigModalBrowser();
     modal.dataset.sigBrowserClient = browserInfo.client;
     modal.dataset.sigBrowserEngine = browserInfo.engine;
-    if (sigModalShouldRotateCw90()) modal.classList.add('sig-pad-modal--cw90');
+    syncSigModalCw90FromViewport();
     sigModalTryFullscreenLandscape(modal, dialog);
     try {
       sigModalSnapshot = spec.state.hasInk ? canvas.toDataURL('image/png') : '';
@@ -1938,6 +1947,11 @@
       clr.addEventListener('click', function(){
         if (sigModalSpec) clearSigPadFor(sigModalSpec);
       });
+    }
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('resize', function(){
+        if (sigModalSpec) scheduleSigPadLayout();
+      }, { passive: true });
     }
     document.addEventListener('keydown', function(ev){
       if (ev.key === 'Escape' && sigModalSpec) {
@@ -2523,6 +2537,9 @@
     syncPreview();
     syncPrintAreaVisibility();
     scheduleSigPadLayout();
+    /* iOS/Android often update inner dimensions one or two frames late */
+    setTimeout(function(){ scheduleSigPadLayout(); }, 180);
+    setTimeout(function(){ scheduleSigPadLayout(); }, 420);
   });
   window.addEventListener('beforeprint', function(){
     runPrepareForPrint();
