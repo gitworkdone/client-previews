@@ -47,6 +47,10 @@
     .grid{display:grid;gap:clamp(16px,4vw,22px);}
     /* Two columns only on tablet/desktop — avoids cramped side-by-side on large phones in landscape */
     @media(min-width:1024px){.grid{grid-template-columns:1fr 1fr;align-items:start;}}
+    /* Builder screen: no live proposal card beside the form (proposal shows after Create Proposal) */
+    @media(min-width:1024px){
+      body:not(.proposal-view) .grid{grid-template-columns:1fr;}
+    }
     .card{
       background:#fff;border:1px solid var(--line);border-radius:16px;padding:clamp(16px,4vw,20px) clamp(14px,4vw,18px);
       box-shadow:0 12px 36px -24px rgba(26,34,30,0.25);
@@ -324,6 +328,22 @@
       /* ── Hide non-print UI ── */
       .no-print{display:none!important;}
       #proposalToolbar{display:none!important;} /* hide in print even though not fixed */
+      /* Undo builder hide — agreement must print even if inline/screen CSS hid it */
+      #printArea{
+        display:block!important;
+        visibility:visible!important;
+        opacity:1!important;
+        position:static!important;
+        left:auto!important;
+        top:auto!important;
+        width:100%!important;
+        height:auto!important;
+        max-height:none!important;
+        overflow:visible!important;
+        clip-path:none!important;
+        pointer-events:auto!important;
+        margin:0!important;
+      }
       body{background:#fff!important;margin:0!important;}
       .wrap{max-width:none!important;padding:0!important;margin:0!important;}
       /* Collapse two-column grid so printArea spans the full page width */
@@ -600,7 +620,26 @@
     }
 
     /* ── Two-view toggle ── */
-    /* Builder view: hide sig pads in the live preview — they belong on the proposal page */
+    /* Builder: agreement stays in DOM for sync/print but must never paint as a live preview (esp. mobile WebKit). */
+    body:not(.proposal-view) #printArea{
+      display:none!important;
+      visibility:hidden!important;
+      opacity:0!important;
+      position:absolute!important;
+      left:-9999px!important;
+      top:0!important;
+      width:1px!important;
+      height:1px!important;
+      max-height:none!important;
+      overflow:hidden!important;
+      clip-path:inset(50%)!important;
+      pointer-events:none!important;
+      margin:0!important;
+      padding:0!important;
+      border:none!important;
+      box-shadow:none!important;
+    }
+    /* Builder view: hide sig pads — they belong on the proposal page */
     body:not(.proposal-view) .sig-pad-wrap{display:none!important;}
     /* Proposal view: keep sig canvases compact so content fits on 2 pages */
     body.proposal-view .sig-pad-field--preview{height:130px!important;}
@@ -610,7 +649,22 @@
     body.proposal-view .preview-host-note{display:none!important;}
     body.proposal-view .wrap{max-width:860px;padding:0 12px;}
     body.proposal-view .grid{display:block!important;}
-    body.proposal-view #printArea{box-shadow:0 2px 18px rgba(0,0,0,0.08);}
+    body.proposal-view #printArea{
+      display:block!important;
+      visibility:visible!important;
+      opacity:1!important;
+      position:static!important;
+      left:auto!important;
+      top:auto!important;
+      width:auto!important;
+      height:auto!important;
+      overflow:visible!important;
+      clip-path:none!important;
+      pointer-events:auto!important;
+      padding:clamp(16px,4vw,20px) clamp(14px,4vw,18px)!important;
+      border:1px solid var(--line)!important;
+      box-shadow:0 2px 18px rgba(0,0,0,0.08);
+    }
     /* Proposal toolbar: inline below the proposal card */
     #proposalToolbar{
       display:none;
@@ -720,7 +774,7 @@
         </div>
       </div>
 
-      <div class="card preview" id="printArea">
+      <div class="card preview" id="printArea" hidden>
         <header class="preview-doc-header">
           <strong class="preview-company-name" id="pvBiz">Binda’s Landscaping LLC</strong>
           <div class="preview-contact" id="pvBizBlock"></div>
@@ -853,6 +907,49 @@
   function parseNum(el, fallback){
     var v = parseFloat(el.value);
     return isNaN(v) ? fallback : v;
+  }
+
+  /**
+   * Builder mode: #printArea must not paint as a live preview (WebKit often ignores one hiding tactic).
+   * Stack native [hidden] + inline !important; strip all before print / when entering proposal view.
+   */
+  var PRINT_AREA_SCREEN_HIDE = [
+    ['display', 'none'],
+    ['visibility', 'hidden'],
+    ['opacity', '0'],
+    ['position', 'fixed'],
+    ['top', '0'],
+    ['left', '-9999px'],
+    ['width', '1px'],
+    ['height', '1px'],
+    ['overflow', 'hidden'],
+    ['pointer-events', 'none'],
+    ['clip-path', 'inset(50%)']
+  ];
+
+  function armPrintAreaScreenHide(pa){
+    if (!pa) return;
+    pa.setAttribute('hidden', '');
+    PRINT_AREA_SCREEN_HIDE.forEach(function(p){
+      pa.style.setProperty(p[0], p[1], 'important');
+    });
+  }
+
+  function stripPrintAreaScreenHide(pa){
+    if (!pa) return;
+    pa.removeAttribute('hidden');
+    PRINT_AREA_SCREEN_HIDE.forEach(function(p){
+      pa.style.removeProperty(p[0]);
+    });
+  }
+
+  function syncPrintAreaVisibility(){
+    var pa = $('printArea');
+    if (!pa) return;
+    var proposal = document.body.classList.contains('proposal-view');
+    if (!proposal) armPrintAreaScreenHide(pa);
+    else stripPrintAreaScreenHide(pa);
+    pa.setAttribute('aria-hidden', proposal ? 'false' : 'true');
   }
 
   function escapeHtml(s){
@@ -1186,12 +1283,14 @@
 
 
   function runPrepareForPrint(){
+    var pa = $('printArea');
+    stripPrintAreaScreenHide(pa);
+
     /* Tag handheld so print CSS can shrink signatures to fit page 2. */
     var handheld = ('ontouchstart' in window || navigator.maxTouchPoints > 0) &&
                    window.innerWidth < 900;
     document.documentElement.classList.toggle('print-device-handheld', handheld);
 
-    var pa = $('printArea');
     if (pa) {
       /* When both Change Authorization and Notes are visible, page 2 is fuller —
          apply compact mode so signatures stay on page 2 and don't spill to page 3. */
@@ -1421,11 +1520,13 @@
   $('btnCreate').addEventListener('click', function(){
     syncPreview();
     document.body.classList.add('proposal-view');
+    syncPrintAreaVisibility();
     window.scrollTo(0, 0);
     scheduleSigPadLayout();
   });
   $('btnEdit').addEventListener('click', function(){
     document.body.classList.remove('proposal-view');
+    syncPrintAreaVisibility();
     window.scrollTo(0, 0);
     scheduleSigPadLayout();
   });
@@ -1450,6 +1551,7 @@
       requestAnimationFrame(function(){
         window.print();
         cleanupAfterPrint();   /* iOS: print() returns immediately */
+        syncPrintAreaVisibility();
       });
     });
   });
@@ -1460,11 +1562,13 @@
     syncWidthResizeTimer = setTimeout(function(){
       syncPreview();
       syncServicesListWidthToAgreement();
+      syncPrintAreaVisibility();
       scheduleSigPadLayout();
     }, 100);
   });
   window.addEventListener('orientationchange', function(){
     syncPreview();
+    syncPrintAreaVisibility();
     scheduleSigPadLayout();
   });
   window.addEventListener('beforeprint', function(){
@@ -1473,7 +1577,9 @@
   window.addEventListener('afterprint', function(){
     cleanupAfterPrint();   /* desktop: afterprint fires after dialog closes */
     scheduleSigPadLayout();
+    syncPrintAreaVisibility();
   });
+
 
   (function observeAgreementDlWidth(){
     var dl = $('printArea') && $('printArea').querySelector('.preview-agreement-dl');
@@ -1547,6 +1653,7 @@
     renderLineEditor();
     toggleAdjustmentOther();
     syncPreview();
+    syncPrintAreaVisibility();
   }
 
   $('btnSave').addEventListener('click', function(){
@@ -1654,6 +1761,7 @@
   var today = new Date().toISOString().slice(0, 10);
   if (!$('agreeDate').value) $('agreeDate').value = today;
   syncPreview();
+  syncPrintAreaVisibility();
   scheduleSigPadLayout();
 })();
   </script>
