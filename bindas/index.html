@@ -299,6 +299,21 @@
     .sig-pad-modal.is-open{
       display:flex!important;
       flex-direction:column;
+      box-sizing:border-box;
+      /* Rewidth/reflow after device rotation (100% alone can lag on mobile Safari / fullscreen fallback) */
+      width:100%;
+      width:100svw;
+      width:100dvw;
+      max-width:100%;
+      height:100%;
+      height:100svh;
+      height:100dvh;
+      max-height:100vh;
+      max-height:100svh;
+      max-height:100dvh;
+      min-height:100vh;
+      min-height:100svh;
+      min-height:100dvh;
     }
     .sig-pad-modal__backdrop{
       position:absolute;
@@ -343,6 +358,14 @@
       inset:0;
     }
     /* Chrome Android often fullscreen-s the <html> fallback — stretch dialog to viewport */
+    html:fullscreen body.sig-pad-modal-open #sigPadModal.sig-pad-modal.is-open,
+    html:-webkit-full-screen body.sig-pad-modal-open #sigPadModal.sig-pad-modal.is-open{
+      width:100dvw!important;
+      height:100dvh!important;
+      max-width:100dvw!important;
+      max-height:100dvh!important;
+      min-height:100dvh!important;
+    }
     html:fullscreen .sig-pad-modal.sig-pad-modal--mobile-fs-target.is-open .sig-pad-modal__dialog,
     html:-webkit-full-screen .sig-pad-modal.sig-pad-modal--mobile-fs-target.is-open .sig-pad-modal__dialog{
       width:100%;
@@ -381,6 +404,10 @@
     .sig-pad-modal.is-open .sig-pad-modal__dialog{
       flex:1 1 auto;
       min-height:0;
+      width:100%;
+      height:100%;
+      max-height:100%;
+      align-self:stretch;
     }
     .sig-pad-modal__dialog{
       --sig-modal-r:0;
@@ -1368,6 +1395,8 @@
   var sigModalSnapshot = '';
   var sigModalEnteredFullscreen = false;
   var sigModalOrientationLocked = false;
+  /** Last visual viewport size while modal open — invalidates canvas skip-after-orientation */
+  var sigModalLayoutVp = null;
 
   function isSigModalMobileFullscreenTarget(){
     var ua = typeof navigator !== 'undefined' ? String(navigator.userAgent || '') : '';
@@ -1539,7 +1568,19 @@
         h = Math.max(100, h || 128);
       }
     }
-    if (Math.abs(w - spec.W) <= 1 && Math.abs(h - spec.H) <= 1) return;
+    /* Don’t skip resize when only canvas dims match but the viewport rotated (common mobile bug). */
+    var vpSnap = sigModalViewportCssSize();
+    var dimsMatchSpec = Math.abs(w - spec.W) <= 1 && Math.abs(h - spec.H) <= 1;
+    if (inOpenModal) {
+      var vpStable = sigModalLayoutVp &&
+        Math.abs(vpSnap.w - sigModalLayoutVp.w) <= 8 &&
+        Math.abs(vpSnap.h - sigModalLayoutVp.h) <= 8;
+      if (dimsMatchSpec && vpStable) return;
+      sigModalLayoutVp = vpSnap;
+    } else {
+      sigModalLayoutVp = null;
+      if (dimsMatchSpec) return;
+    }
     /* Prefer the URL saved at stroke-end (avoids race with async restore). */
     var backup = '';
     if (spec.state.hasInk) {
@@ -1798,6 +1839,7 @@
     if (!canvas || !shell) {
       sigModalSpec = null;
       sigModalSnapshot = '';
+      sigModalLayoutVp = null;
       if (modal) {
         modal.classList.remove('is-open');
         modal.removeAttribute('data-sig-browser-client');
@@ -1825,6 +1867,7 @@
     shell.appendChild(canvas);
     sigModalSpec = null;
     sigModalSnapshot = '';
+    sigModalLayoutVp = null;
     if (modal) {
       modal.classList.remove('is-open');
       modal.removeAttribute('data-sig-browser-client');
@@ -1841,7 +1884,19 @@
   }
 
   var sigModalUiInitialized = false;
+  var sigModalShellResizeObs = null;
   var sigModalHostResizeObs = null;
+  function attachSigModalShellResizeObserver(){
+    var modal = $('sigPadModal');
+    if (!modal || typeof ResizeObserver === 'undefined') return;
+    try {
+      if (sigModalShellResizeObs) sigModalShellResizeObs.disconnect();
+      sigModalShellResizeObs = new ResizeObserver(function(){
+        if (sigModalSpec && modal.classList.contains('is-open')) scheduleSigPadLayout();
+      });
+      sigModalShellResizeObs.observe(modal);
+    } catch (e) {}
+  }
   function attachSigModalCanvasHostResizeObserver(){
     var host = $('sigPadModalCanvasHost');
     if (!host || typeof ResizeObserver === 'undefined') return;
@@ -1862,6 +1917,7 @@
     if (sigModalUiInitialized) return;
     sigModalUiInitialized = true;
     ensureSigModalPortaledToBody();
+    attachSigModalShellResizeObserver();
     attachSigModalCanvasHostResizeObserver();
     var done = $('sigPadModalDone');
     var cancel = $('sigPadModalCancel');
@@ -1878,9 +1934,11 @@
       });
     }
     if (window.visualViewport) {
-      window.visualViewport.addEventListener('resize', function(){
+      var vvResize = function(){
         if (sigModalSpec) scheduleSigPadLayout();
-      }, { passive: true });
+      };
+      window.visualViewport.addEventListener('resize', vvResize, { passive: true });
+      window.visualViewport.addEventListener('scroll', vvResize, { passive: true });
     }
     document.addEventListener('keydown', function(ev){
       if (ev.key === 'Escape' && sigModalSpec) {
@@ -2458,10 +2516,18 @@
   window.addEventListener('orientationchange', function(){
     syncPreview();
     syncPrintAreaVisibility();
+    /* Signing modal: lay out immediately + debounced passes — avoids stale skip until VP updates */
+    if (sigModalSpec && $('sigPadModal') && $('sigPadModal').classList.contains('is-open')) {
+      requestAnimationFrame(function(){
+        layoutAllSigPadsFromDisplay();
+        scheduleSigPadLayout();
+      });
+    }
     scheduleSigPadLayout();
     /* iOS/Android often update inner dimensions one or two frames late */
     setTimeout(function(){ scheduleSigPadLayout(); }, 180);
     setTimeout(function(){ scheduleSigPadLayout(); }, 420);
+    setTimeout(function(){ scheduleSigPadLayout(); }, 700);
   });
   window.addEventListener('beforeprint', function(){
     runPrepareForPrint();
