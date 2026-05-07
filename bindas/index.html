@@ -17,6 +17,7 @@
     :root{
       --bg:#F6F3EE;--bg2:#EDE8E0;--ink:#1a221e;--muted:#4a5752;
       --accent:#2F5D45;--accent2:#244538;--line:rgba(26,34,30,0.12);--danger:#8b2942;
+      --layout-max:860px;
     }
     html{
       -webkit-text-size-adjust:100%;
@@ -31,10 +32,10 @@
     h1{font-size:clamp(1.35rem,3vw,1.75rem);}
     h2{font-size:1rem;margin-bottom:10px;}
     .wrap{
-      max-width:1180px;margin:0 auto;
-      padding:clamp(16px,4vw,24px) clamp(14px,4vw,18px) clamp(32px,6vw,48px);
-      padding-left:max(clamp(14px,4vw,18px), env(safe-area-inset-left));
-      padding-right:max(clamp(14px,4vw,18px), env(safe-area-inset-right));
+      max-width:var(--layout-max);margin:0 auto;
+      padding:clamp(16px,4vw,24px) 12px clamp(32px,6vw,48px);
+      padding-left:max(12px, env(safe-area-inset-left));
+      padding-right:max(12px, env(safe-area-inset-right));
       padding-bottom:max(clamp(32px,6vw,48px), env(safe-area-inset-bottom));
     }
     .banner{
@@ -188,6 +189,8 @@
     .sig-pad-wrap > label{margin-bottom:8px;}
     .sig-pad-field{
       touch-action:none;
+      user-select:none;
+      -webkit-user-select:none;
       border:2px dashed var(--line);
       border-radius:12px;
       background:#fff;
@@ -242,24 +245,198 @@
     }
     .sig-pad-field:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
     .sig-pad-actions{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap;align-items:center;}
+    .sig-pad-canvas-shell{
+      position:relative;
+      width:100%;
+      max-width:540px;
+    }
+    .sig-pad-canvas-shell .sig-pad-field{max-width:100%!important;}
+    .sig-pad-expand-btn{
+      position:absolute;
+      top:10px;
+      right:10px;
+      z-index:50;
+      font-size:0.7rem;
+      font-weight:700;
+      text-transform:uppercase;
+      letter-spacing:0.04em;
+      padding:8px 12px;
+      border-radius:10px;
+      background:rgba(255,255,255,0.96);
+      border:1px solid var(--line);
+      box-shadow:0 2px 12px rgba(26,34,30,0.08);
+      cursor:pointer;
+      touch-action:manipulation;
+      color:var(--accent);
+    }
+    .sig-pad-expand-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+    @media (pointer:coarse){
+      .sig-pad-hint-desktop{display:none!important;}
+      .sig-pad-hint-touch{display:inline!important;}
+    }
+    /* Signature modal — centered card (desktop-friendly); transform animated from JS (FLIP) */
+    .sig-pad-modal{
+      position:fixed;
+      inset:0;
+      z-index:2147483646;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:max(12px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right)) max(12px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
+      box-sizing:border-box;
+      -webkit-overflow-scrolling:touch;
+    }
+    /* ID + body beats any stray .no-print proposal-view rules; keeps overlay topmost */
+    body.proposal-view #sigPadModal.sig-pad-modal.is-open,
+    .sig-pad-modal.is-open{display:flex!important;}
+    .sig-pad-modal__backdrop{
+      position:absolute;
+      inset:0;
+      z-index:0;
+      background:rgba(26,34,30,0.5);
+      opacity:0;
+      transition:opacity 0.32s ease;
+      -webkit-backdrop-filter:blur(6px);
+      backdrop-filter:blur(6px);
+    }
+    .sig-pad-modal.is-open .sig-pad-modal__backdrop{
+      opacity:1;
+    }
+    .sig-pad-modal__dialog{
+      --sig-modal-r:18px;
+      /* Inset radius inside 1px border so header/footer bands follow the shell curve */
+      --sig-modal-inner-r:calc(var(--sig-modal-r) - 1px);
+      --sig-modal-pad-x:clamp(12px, 4vw, 40px);
+      position:relative;
+      z-index:1;
+      margin:0;
+      width:100%;
+      max-width:min(960px, calc(100vw - 24px));
+      box-sizing:border-box;
+      /* Padding on sections only — outer padding made inner bands look “square” inside the rounded frame */
+      padding:0;
+      max-height:min(92vh, calc(100dvh - 24px));
+      display:flex;
+      flex-direction:column;
+      background:var(--bg);
+      border-radius:var(--sig-modal-r);
+      border:1px solid var(--line);
+      box-shadow:
+        0 4px 6px rgba(26,34,30,0.04),
+        0 24px 56px rgba(26,34,30,0.18),
+        0 0 0 1px rgba(255,255,255,0.06) inset;
+      overflow:hidden;
+      will-change:transform;
+      -webkit-transform:translateZ(0);
+      transform:translateZ(0);
+    }
+    @media (prefers-reduced-motion:reduce){
+      .sig-pad-modal__dialog{transition:none!important;}
+      .sig-pad-modal__backdrop{transition:none!important;}
+    }
+    .sig-pad-modal__head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:14px var(--sig-modal-pad-x);
+      border-bottom:1px solid var(--line);
+      background:var(--bg2);
+      border-radius:var(--sig-modal-inner-r) var(--sig-modal-inner-r) 0 0;
+    }
+    .sig-pad-modal__head h4{
+      font-family:Fraunces,Georgia,serif;
+      font-size:1.05rem;
+      color:var(--accent);
+      margin:0;
+    }
+    .sig-pad-modal__close-x{
+      font-size:1.5rem;
+      line-height:1;
+      padding:4px 12px;
+      min-height:44px;
+      min-width:44px;
+    }
+    .sig-pad-modal__hint{
+      margin:0;
+      padding:10px var(--sig-modal-pad-x);
+      color:var(--muted);
+      border-bottom:1px solid var(--line);
+      background:var(--bg);
+    }
+    .sig-pad-modal__canvas-host{
+      flex:1;
+      min-height:min(38vh, 300px);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:16px var(--sig-modal-pad-x);
+      background:#fff;
+      width:100%;
+      min-width:0;
+    }
+    /* Clips canvas pixels to rounded rect (canvas alone ignores border-radius for bitmap) */
+    .sig-pad-modal__canvas-clip{
+      width:100%;
+      max-width:100%;
+      box-sizing:border-box;
+      border-radius:12px;
+      overflow:hidden;
+      border:2px dashed var(--line);
+      background:#fff;
+      line-height:0;
+    }
+    .sig-pad-modal__canvas-clip .sig-pad-field{
+      width:100%!important;
+      max-width:100%!important;
+      margin:0!important;
+      border:none!important;
+      border-radius:0!important;
+      background:transparent!important;
+      box-sizing:border-box;
+      display:block;
+      vertical-align:top;
+      height:min(30vh, 260px)!important;
+      min-height:168px;
+      cursor:crosshair;
+    }
+    /* Beat proposal-view inline pad height while modal is open */
+    body.proposal-view .sig-pad-modal.is-open .sig-pad-modal__canvas-clip .sig-pad-field.sig-pad-field--preview{
+      height:min(30vh, 260px)!important;
+      min-height:168px!important;
+      max-width:100%!important;
+    }
+    .sig-pad-modal__actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      justify-content:flex-end;
+      padding:14px var(--sig-modal-pad-x);
+      border-top:1px solid var(--line);
+      background:var(--bg2);
+      border-radius:0 0 var(--sig-modal-inner-r) var(--sig-modal-inner-r);
+    }
+    body.sig-pad-modal-open{overflow:hidden;}
     .preview-sig-slot{
       position:relative;
-      min-height:36px;
+      min-height:33px;
     }
     .preview-sig-slot .preview-sig-line{
       border-bottom:1px solid var(--ink);
-      height:36px;
+      height:32px;
     }
     .preview-sig-img{
       position:absolute;
       left:0;
       bottom:1px;
       max-width:100%;
-      max-height:32px;
+      max-height:36px;
       width:auto;
       height:auto;
       object-fit:contain;
       object-position:left bottom;
+      image-rendering:auto;
+      -ms-interpolation-mode:bicubic;
       pointer-events:none;
       -webkit-print-color-adjust:exact;
       print-color-adjust:exact;
@@ -327,6 +504,8 @@
 
       /* ── Hide non-print UI ── */
       .no-print{display:none!important;}
+      #sigPadModal,
+      .sig-pad-modal{display:none!important;visibility:hidden!important;}
       #proposalToolbar{display:none!important;} /* hide in print even though not fixed */
       /* Undo builder hide — agreement must print even if inline/screen CSS hid it */
       #printArea{
@@ -641,13 +820,14 @@
     }
     /* Builder view: hide sig pads — they belong on the proposal page */
     body:not(.proposal-view) .sig-pad-wrap{display:none!important;}
-    /* Proposal view: keep sig canvases compact so content fits on 2 pages */
-    body.proposal-view .sig-pad-field--preview{height:130px!important;}
-    /* Proposal view: hide all .no-print elements except the toolbar and the sig pads */
+    /* Proposal view: keep sig canvases compact so content fits on 2 pages (~10% under prior 130×540) */
+    body.proposal-view .sig-pad-canvas-shell{max-width:486px;}
+    body.proposal-view .sig-pad-field--preview{height:117px!important;}
+    /* Proposal view: hide all .no-print elements except the toolbar and sig pads (#sigPadModal is not .no-print; hidden in @media print) */
     body.proposal-view .no-print:not(.sig-pad-wrap){display:none!important;}
     body.proposal-view .banner{display:none!important;}
     body.proposal-view .preview-host-note{display:none!important;}
-    body.proposal-view .wrap{max-width:860px;padding:0 12px;}
+    body.proposal-view .wrap{max-width:var(--layout-max);padding:0 12px;}
     body.proposal-view .grid{display:block!important;}
     body.proposal-view #printArea{
       display:block!important;
@@ -845,8 +1025,11 @@
             <p class="small">Binda’s Landscaping LLC</p>
             <div class="preview-sig-slot preview-sig-slot--vendor is-empty" id="pvBizSigSlot">
               <div class="sig-pad-wrap no-print sig-pad-wrap--in-preview">
-                <label for="sigPadBiz">Contractor — sign below</label>
-                <canvas id="sigPadBiz" class="sig-pad-field sig-pad-field--preview" tabindex="0" aria-label="Draw contractor signature with pointer or touch"></canvas>
+                <label for="sigPadBiz">Contractor — sign below <span class="small sig-pad-hint-desktop" style="font-weight:500;color:var(--muted);">· Expand or double-click the pad</span><span class="small sig-pad-hint-touch" style="font-weight:500;color:var(--muted);display:none;">· tap pad or Expand</span></label>
+                <div class="sig-pad-canvas-shell" data-sig-shell="biz">
+                  <button type="button" class="sig-pad-expand-btn" id="sigExpandBiz" aria-label="Open larger signing area for contractor">Expand</button>
+                  <canvas id="sigPadBiz" class="sig-pad-field sig-pad-field--preview" tabindex="0" aria-label="Draw contractor signature with pointer or touch"></canvas>
+                </div>
                 <div class="sig-pad-actions">
                   <button type="button" class="ghost" id="sigClearBiz">Clear signature</button>
                 </div>
@@ -859,8 +1042,11 @@
             <p class="small">Client</p>
             <div class="preview-sig-slot is-empty" id="pvSigSlot">
               <div class="sig-pad-wrap no-print sig-pad-wrap--in-preview">
-                <label for="sigPad">Client — sign below</label>
-                <canvas id="sigPad" class="sig-pad-field sig-pad-field--preview" tabindex="0" aria-label="Draw signature with pointer or touch"></canvas>
+                <label for="sigPad">Client — sign below <span class="small sig-pad-hint-desktop" style="font-weight:500;color:var(--muted);">· Expand or double-click the pad</span><span class="small sig-pad-hint-touch" style="font-weight:500;color:var(--muted);display:none;">· tap pad or Expand</span></label>
+                <div class="sig-pad-canvas-shell" data-sig-shell="client">
+                  <button type="button" class="sig-pad-expand-btn" id="sigExpandClient" aria-label="Open larger signing area for client">Expand</button>
+                  <canvas id="sigPad" class="sig-pad-field sig-pad-field--preview" tabindex="0" aria-label="Draw signature with pointer or touch"></canvas>
+                </div>
                 <div class="sig-pad-actions">
                   <button type="button" class="ghost" id="sigClear">Clear signature</button>
                 </div>
@@ -888,6 +1074,25 @@
       <div id="proposalToolbar">
         <button type="button" class="ghost" id="btnEdit">← Edit</button>
         <button type="button" class="primary" id="btnPrint">Print / Save PDF</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="sigPadModal" class="sig-pad-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="sigPadModalTitle">
+    <div class="sig-pad-modal__backdrop" id="sigPadModalBackdrop" tabindex="-1"></div>
+    <div class="sig-pad-modal__dialog">
+      <div class="sig-pad-modal__head">
+        <h4 id="sigPadModalTitle">Larger signing area</h4>
+        <button type="button" class="ghost sig-pad-modal__close-x" id="sigPadModalCloseX" aria-label="Close">×</button>
+      </div>
+      <p class="sig-pad-modal__hint small"><strong>Done</strong> keeps your strokes. <strong>Cancel</strong> restores how this signature looked before opening.</p>
+      <div class="sig-pad-modal__canvas-host" id="sigPadModalCanvasHost">
+        <div class="sig-pad-modal__canvas-clip" id="sigPadModalCanvasClip"></div>
+      </div>
+      <div class="sig-pad-modal__actions">
+        <button type="button" class="ghost" id="sigPadModalClear">Clear</button>
+        <button type="button" class="ghost" id="sigPadModalCancel">Cancel</button>
+        <button type="button" class="primary" id="sigPadModalDone">Done</button>
       </div>
     </div>
   </div>
@@ -1011,10 +1216,13 @@
       imgId: 'pvSigImg',
       slotId: 'pvSigSlot',
       clearId: 'sigClear',
+      expandId: 'sigExpandClient',
+      modalTitle: 'Client — larger signing area',
       imgAlt: 'Client signature',
       W: 280,
       H: 128,
       ctx: null,
+      canvasShell: null,
       state: { hasInk: false }
     },
     {
@@ -1022,22 +1230,41 @@
       imgId: 'pvBizSigImg',
       slotId: 'pvBizSigSlot',
       clearId: 'sigClearBiz',
+      expandId: 'sigExpandBiz',
+      modalTitle: 'Contractor — larger signing area',
       imgAlt: 'Contractor signature',
       W: 280,
       H: 128,
       ctx: null,
+      canvasShell: null,
       state: { hasInk: false }
     }
   ];
   var sigPadLayoutTimer = null;
   var sigOrientationHooked = false;
+  var sigModalSpec = null;
+  var sigModalSnapshot = '';
+
+  /** Clears the entire backing store (avoids edge specks when W×dpr ≠ canvas.width after round). */
+  function clearSigCanvasFullBitmap(canvas, ctx){
+    if (!canvas || !ctx) return;
+    ctx.save();
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.restore();
+  }
 
   function layoutSigPadFromDisplayFor(spec){
     var canvas = $(spec.canvasId);
     if (!canvas || !spec.ctx) return;
-    var r = canvas.getBoundingClientRect();
-    var w = Math.round(r.width);
-    var h = Math.round(r.height);
+    /* Integer CSS px from layout box — avoids fractional rect vs bitmap mismatch (blurry strokes). */
+    var w = canvas.clientWidth;
+    var h = canvas.clientHeight;
+    if (!w || !h) {
+      var r = canvas.getBoundingClientRect();
+      w = Math.max(0, Math.round(r.width));
+      h = Math.max(0, Math.round(r.height));
+    }
     /* Canvas is hidden (display:none) — skip resize entirely to avoid clearing ink.
        It will be laid out correctly when it becomes visible. */
     if (w === 0 && h === 0) return;
@@ -1056,18 +1283,20 @@
     }
     spec.W = w;
     spec.H = h;
-    var dpr = Math.min(window.devicePixelRatio || 1, 2);
-    canvas.width = Math.floor(spec.W * dpr);
-    canvas.height = Math.floor(spec.H * dpr);
+    var dpr = Math.min(Math.max(window.devicePixelRatio || 1, 1), 3);
+    canvas.width = Math.round(spec.W * dpr);
+    canvas.height = Math.round(spec.H * dpr);
     spec.ctx.setTransform(1, 0, 0, 1, 0, 0);
     spec.ctx.scale(dpr, dpr);
+    spec.ctx.imageSmoothingEnabled = true;
+    if (spec.ctx.imageSmoothingQuality !== undefined) spec.ctx.imageSmoothingQuality = 'high';
     spec.ctx.lineCap = 'round';
     spec.ctx.lineJoin = 'round';
     spec.ctx.strokeStyle = '#1a221e';
     spec.ctx.lineWidth = 2.25;
     if (backup) restoreSigFromDataUrlFor(spec, backup);
     else {
-      spec.ctx.clearRect(0, 0, spec.W, spec.H);
+      clearSigCanvasFullBitmap(canvas, spec.ctx);
       spec.state.hasInk = false;
       syncSigToPreviewFor(spec);
     }
@@ -1110,7 +1339,8 @@
 
   function clearSigPadFor(spec){
     if (!spec.ctx) return;
-    spec.ctx.clearRect(0, 0, spec.W, spec.H);
+    var canvas = $(spec.canvasId);
+    clearSigCanvasFullBitmap(canvas, spec.ctx);
     spec.state.hasInk = false;
     spec.state.savedUrl = '';
     syncSigToPreviewFor(spec);
@@ -1120,7 +1350,10 @@
     if (!url || !spec.ctx) return;
     var im = new Image();
     im.onload = function(){
-      spec.ctx.clearRect(0, 0, spec.W, spec.H);
+      var canvas = $(spec.canvasId);
+      clearSigCanvasFullBitmap(canvas, spec.ctx);
+      spec.ctx.imageSmoothingEnabled = true;
+      if (spec.ctx.imageSmoothingQuality !== undefined) spec.ctx.imageSmoothingQuality = 'high';
       spec.ctx.drawImage(im, 0, 0, spec.W, spec.H);
       spec.state.hasInk = true;
       spec.state.savedUrl = url;
@@ -1133,14 +1366,187 @@
     im.src = url;
   }
 
+  function resetSigModalDialogStyles(){
+    var modal = $('sigPadModal');
+    if (!modal) return;
+    var dialog = modal.querySelector('.sig-pad-modal__dialog');
+    if (!dialog) return;
+    dialog.style.transition = '';
+    dialog.style.transform = '';
+    dialog.style.opacity = '';
+    dialog.style.transformOrigin = '';
+    dialog.style.willChange = '';
+  }
+
+  function playSigModalEnterAnimation(dialog, originRect){
+    if (!dialog || !originRect) return;
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      dialog.style.transform = '';
+      dialog.style.transition = '';
+      dialog.style.opacity = '';
+      return;
+    }
+    var d = dialog.getBoundingClientRect();
+    var mx = originRect.left + originRect.width / 2;
+    var my = originRect.top + originRect.height / 2;
+    var cx = d.left + d.width / 2;
+    var cy = d.top + d.height / 2;
+    var dx = mx - cx;
+    var dy = my - cy;
+    var sc = Math.min(
+      0.92,
+      Math.max(0.14, Math.min(originRect.width / Math.max(d.width, 1), originRect.height / Math.max(d.height, 1)))
+    );
+    dialog.style.transition = 'none';
+    dialog.style.transformOrigin = 'center center';
+    dialog.style.opacity = '';
+    dialog.style.transform = 'translate(' + dx + 'px,' + dy + 'px) scale(' + sc + ') translateZ(0)';
+    dialog.style.willChange = 'transform';
+    void dialog.offsetWidth;
+    requestAnimationFrame(function(){
+      dialog.style.transition = '-webkit-transform 0.48s cubic-bezier(0.22, 1, 0.32, 1), transform 0.48s cubic-bezier(0.22, 1, 0.32, 1)';
+      dialog.style.transform = 'translate(0,0) scale(1) translateZ(0)';
+      window.setTimeout(function(){
+        if (!sigModalSpec || !$('sigPadModal') || !$('sigPadModal').classList.contains('is-open')) return;
+        dialog.style.transition = '';
+        dialog.style.willChange = '';
+      }, 520);
+    });
+  }
+
+  function openSigModal(spec){
+    if (sigModalSpec || !spec || !spec.ctx) return;
+    var canvas = $(spec.canvasId);
+    var host = $('sigPadModalCanvasClip') || $('sigPadModalCanvasHost');
+    var modal = $('sigPadModal');
+    if (!canvas || !host || !modal) return;
+    var dialog = modal.querySelector('.sig-pad-modal__dialog');
+    if (dialog) {
+      dialog.style.transition = 'none';
+      dialog.style.transform = '';
+      dialog.style.opacity = '';
+      dialog.style.transformOrigin = '';
+    }
+    /* Snapshot ink & origin while canvas is still in the proposal slot (desktop FLIP). */
+    var originRect = canvas.getBoundingClientRect();
+    sigModalSpec = spec;
+    try {
+      sigModalSnapshot = spec.state.hasInk ? canvas.toDataURL('image/png') : '';
+    } catch (e) {
+      sigModalSnapshot = '';
+    }
+    var titleEl = $('sigPadModalTitle');
+    if (titleEl) titleEl.textContent = spec.modalTitle || 'Larger signing area';
+    host.appendChild(canvas);
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('sig-pad-modal-open');
+    requestAnimationFrame(function(){
+      layoutSigPadFromDisplayFor(spec);
+      requestAnimationFrame(function(){
+        playSigModalEnterAnimation(dialog, originRect);
+        try {
+          canvas.focus();
+        } catch (e) {}
+      });
+    });
+  }
+
+  function closeSigModal(accept){
+    var spec = sigModalSpec;
+    if (!spec) return;
+    var canvas = $(spec.canvasId);
+    var shell = spec.canvasShell;
+    var modal = $('sigPadModal');
+    if (!canvas || !shell) {
+      sigModalSpec = null;
+      sigModalSnapshot = '';
+      if (modal) {
+        modal.classList.remove('is-open');
+        modal.setAttribute('aria-hidden', 'true');
+        resetSigModalDialogStyles();
+      }
+      document.body.classList.remove('sig-pad-modal-open');
+      return;
+    }
+
+    if (!accept) {
+      if (sigModalSnapshot) restoreSigFromDataUrlFor(spec, sigModalSnapshot);
+      else clearSigPadFor(spec);
+    }
+
+    shell.appendChild(canvas);
+    sigModalSpec = null;
+    sigModalSnapshot = '';
+    if (modal) {
+      modal.classList.remove('is-open');
+      modal.setAttribute('aria-hidden', 'true');
+      resetSigModalDialogStyles();
+    }
+    document.body.classList.remove('sig-pad-modal-open');
+    requestAnimationFrame(function(){
+      layoutSigPadFromDisplayFor(spec);
+      scheduleSigPadLayout();
+    });
+  }
+
+  var sigModalUiInitialized = false;
+  function ensureSigModalPortaledToBody(){
+    var modal = $('sigPadModal');
+    if (!modal || modal.parentNode === document.body) return;
+    document.body.appendChild(modal);
+  }
+  function initSigModalUi(){
+    if (sigModalUiInitialized) return;
+    sigModalUiInitialized = true;
+    ensureSigModalPortaledToBody();
+    var done = $('sigPadModalDone');
+    var cancel = $('sigPadModalCancel');
+    var clr = $('sigPadModalClear');
+    var backdrop = $('sigPadModalBackdrop');
+    var xbtn = $('sigPadModalCloseX');
+    if (done) done.addEventListener('click', function(){ closeSigModal(true); });
+    if (cancel) cancel.addEventListener('click', function(){ closeSigModal(false); });
+    if (backdrop) backdrop.addEventListener('click', function(){ closeSigModal(false); });
+    if (xbtn) xbtn.addEventListener('click', function(){ closeSigModal(false); });
+    if (clr) {
+      clr.addEventListener('click', function(){
+        if (sigModalSpec) clearSigPadFor(sigModalSpec);
+      });
+    }
+    document.addEventListener('keydown', function(ev){
+      if (ev.key === 'Escape' && sigModalSpec) {
+        ev.preventDefault();
+        closeSigModal(false);
+      }
+    });
+    SIG_PAD_SPECS.forEach(function(spec){
+      var ex = $(spec.expandId);
+      if (ex) {
+        ex.addEventListener('click', function(ev){
+          ev.preventDefault();
+          ev.stopPropagation();
+          openSigModal(spec);
+        });
+      }
+    });
+  }
+
   function initSigPadFor(spec){
     var canvas = $(spec.canvasId);
     if (!canvas || spec.ctx) return;
+    spec.canvasShell = canvas.closest('.sig-pad-canvas-shell');
     spec.ctx = canvas.getContext('2d');
     layoutSigPadFromDisplayFor(spec);
 
     var drawing = false;
+    var maybeTap = false;
     var last = { x: 0, y: 0 };
+
+    /* Mouse / pen: draw immediately. Touch-only: short tap opens modal (desktop was opening modal on every click). */
+    function useTouchDeferredTap(ev){
+      return ev.pointerType === 'touch';
+    }
 
     function pos(ev){
       var r = canvas.getBoundingClientRect();
@@ -1155,15 +1561,36 @@
     function start(ev){
       if (ev.pointerType === 'mouse' && ev.button != null && ev.button !== 0) return;
       ev.preventDefault();
-      drawing = true;
+      if (useTouchDeferredTap(ev)) {
+        drawing = false;
+        maybeTap = true;
+      } else {
+        drawing = true;
+        maybeTap = false;
+      }
       last = pos(ev);
-      try { canvas.setPointerCapture(ev.pointerId); } catch (err) {}
+      try {
+        canvas.setPointerCapture(ev.pointerId);
+      } catch (err) {}
     }
 
     function stroke(ev){
+      var p = pos(ev);
+      if (maybeTap) {
+        if (Math.hypot(p.x - last.x, p.y - last.y) > 8) {
+          maybeTap = false;
+          drawing = true;
+          spec.ctx.beginPath();
+          spec.ctx.moveTo(last.x, last.y);
+          spec.ctx.lineTo(p.x, p.y);
+          spec.ctx.stroke();
+          last = p;
+          spec.state.hasInk = true;
+        }
+        return;
+      }
       if (!drawing) return;
       ev.preventDefault();
-      var p = pos(ev);
       spec.ctx.beginPath();
       spec.ctx.moveTo(last.x, last.y);
       spec.ctx.lineTo(p.x, p.y);
@@ -1173,18 +1600,51 @@
     }
 
     function end(ev){
+      if (maybeTap) {
+        maybeTap = false;
+        try {
+          canvas.releasePointerCapture(ev.pointerId);
+        } catch (err) {}
+        if (!sigModalSpec && useTouchDeferredTap(ev)) openSigModal(spec);
+        return;
+      }
+      maybeTap = false;
       if (!drawing) return;
       drawing = false;
-      try { canvas.releasePointerCapture(ev.pointerId); } catch (err) {}
-      try { spec.state.savedUrl = canvas.toDataURL('image/png'); } catch (e) {}
+      try {
+        canvas.releasePointerCapture(ev.pointerId);
+      } catch (err) {}
+      try {
+        spec.state.savedUrl = canvas.toDataURL('image/png');
+      } catch (e) {}
       syncSigToPreviewFor(spec);
     }
 
+    canvas.addEventListener('dblclick', function(ev){
+      ev.preventDefault();
+      if (sigModalSpec) return;
+      openSigModal(spec);
+    });
     canvas.addEventListener('pointerdown', start);
     canvas.addEventListener('pointermove', stroke);
     canvas.addEventListener('pointerup', end);
-    canvas.addEventListener('pointercancel', end);
+    canvas.addEventListener('pointercancel', function(ev){
+      maybeTap = false;
+      if (drawing) end(ev);
+      else {
+        try {
+          canvas.releasePointerCapture(ev.pointerId);
+        } catch (err) {}
+      }
+    });
     canvas.addEventListener('pointerleave', function(ev){
+      if (maybeTap) {
+        maybeTap = false;
+        try {
+          canvas.releasePointerCapture(ev.pointerId);
+        } catch (err) {}
+        return;
+      }
       if (drawing) end(ev);
     });
 
@@ -1202,6 +1662,7 @@
   }
 
   function initAllSigPads(){
+    initSigModalUi();
     SIG_PAD_SPECS.forEach(initSigPadFor);
     if (!sigOrientationHooked) {
       sigOrientationHooked = true;
