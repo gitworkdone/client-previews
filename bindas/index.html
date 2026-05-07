@@ -1930,7 +1930,22 @@
 
   var sigModalUiInitialized = false;
   var sigModalShellResizeObs = null;
+  var sigModalBannerResizeObs = null;
   var sigModalHostResizeObs = null;
+  /** Banner chrome wraps/reflows — remainder flex slot + bitmap must match new usable pad rect */
+  function attachSigModalBannerResizeObserver(){
+    var modal = $('sigPadModal');
+    var chrome = modal && modal.querySelector('.sig-pad-modal__top-chrome');
+    if (!chrome || typeof ResizeObserver === 'undefined') return;
+    try {
+      if (sigModalBannerResizeObs) sigModalBannerResizeObs.disconnect();
+      sigModalBannerResizeObs = new ResizeObserver(function(){
+        var m = $('sigPadModal');
+        if (sigModalSpec && m && m.classList.contains('is-open')) scheduleSigPadLayout();
+      });
+      sigModalBannerResizeObs.observe(chrome);
+    } catch (e) {}
+  }
   function attachSigModalShellResizeObserver(){
     var modal = $('sigPadModal');
     if (!modal || typeof ResizeObserver === 'undefined') return;
@@ -1963,6 +1978,7 @@
     sigModalUiInitialized = true;
     ensureSigModalPortaledToBody();
     attachSigModalShellResizeObserver();
+    attachSigModalBannerResizeObserver();
     attachSigModalCanvasHostResizeObserver();
     var done = $('sigPadModalDone');
     var cancel = $('sigPadModalCancel');
