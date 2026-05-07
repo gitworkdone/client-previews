@@ -521,33 +521,6 @@
       flex-shrink:0;
       margin-left:0;
     }
-    .sig-pad-modal__hint{
-      margin:0;
-      flex-shrink:1;
-      min-height:0;
-      padding:clamp(6px, 1.4vmin + 2px, 10px) var(--sig-modal-pad-x) clamp(8px, 1.6vmin + 4px, 12px);
-      color:var(--muted);
-      border-bottom:1px solid var(--line);
-      background:rgba(246,243,238,0.88);
-      -webkit-backdrop-filter:blur(8px);
-      backdrop-filter:blur(8px);
-      font-size:clamp(0.68rem, 1.65vmin + 0.15rem, 0.82rem);
-      line-height:1.42;
-      pointer-events:auto;
-      -webkit-user-select:none;
-      user-select:none;
-      box-sizing:border-box;
-    }
-    /* Landscape / short viewports: cap banner helper copy so the pad keeps usable height */
-    @media (max-height:560px){
-      .sig-pad-modal__hint{
-        max-height:min(30dvh, 148px);
-        overflow-x:hidden;
-        overflow-y:auto;
-        -webkit-overflow-scrolling:touch;
-        overscroll-behavior:contain;
-      }
-    }
     .sig-pad-modal__canvas-host{
       position:relative;
       flex:1 1 auto;
@@ -1271,7 +1244,6 @@
           </div>
           <button type="button" class="ghost sig-pad-modal__close-x" id="sigPadModalCloseX" aria-label="Close">×</button>
         </div>
-        <p class="sig-pad-modal__hint small"><strong>Done</strong> keeps your strokes. <strong>Cancel</strong> restores how this signature looked before opening.</p>
       </div>
       <div class="sig-pad-modal__canvas-host" id="sigPadModalCanvasHost">
         <div class="sig-pad-modal__canvas-clip" id="sigPadModalCanvasClip"></div>
