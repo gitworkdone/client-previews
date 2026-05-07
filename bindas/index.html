@@ -309,6 +309,9 @@
       min-height:0!important;
       background:#fff;
     }
+    #sigPadModal.sig-pad-modal.is-open{
+      overflow:visible;
+    }
     .sig-pad-modal__backdrop{
       position:absolute;
       inset:0;
@@ -426,6 +429,7 @@
       height:auto;
       max-height:none;
       align-self:stretch;
+      overflow:visible;
       /* Pad zone uses white; avoids grey strip if flex math is 1px short */
       background:#fff;
     }
@@ -537,6 +541,11 @@
       background:#fff;
       width:100%;
       min-width:0;
+    }
+    /* Extra signing depth (~10%-ish of viewport height + vmin); avoids fragile calc(100%+…) inside flex */
+    #sigPadModal.sig-pad-modal.is-open .sig-pad-modal__canvas-host{
+      min-height:max(240px, calc(30vh + 10vmin));
+      box-sizing:border-box;
     }
     /* Clips canvas pixels to rounded rect (canvas alone ignores border-radius for bitmap) */
     .sig-pad-modal__canvas-clip{
@@ -1590,6 +1599,12 @@
       }
       w = hw;
       h = hh;
+      /* Mirrors CSS #sigPadModal .sig-pad-modal__canvas-host min-height: max(240px, 30vh + 10vmin) */
+      var vpM = sigModalViewportCssSize();
+      var innerH = typeof window.innerHeight === 'number' ? window.innerHeight : vpM.h;
+      var vminPx = Math.min(vpM.w || innerH, vpM.h || innerH);
+      var modalHFloor = Math.max(240, Math.round(innerH * 0.3 + vminPx * 0.1));
+      h = Math.max(h, modalHFloor);
     }
     /* First frames: host may not have height yet — don’t lock a tiny bitmap to fullscreen CSS. */
     if (inOpenModal && (w < 120 || h < 120)) {
