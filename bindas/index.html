@@ -8,7 +8,7 @@
   <script>
   (function(){ if (/previews\.gitworkdone\.com$/i.test(location.hostname)) document.documentElement.classList.add('is-preview-host'); })();
   </script>
-  <title>Binda’s — Proposal builder (concept)</title>
+  <title>Binda’s — Landscape Scope &amp; Quote (concept)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet" />
@@ -231,7 +231,7 @@
     /* Screen proposal: air above “Client” after contractor block; tighter pad→rule gap */
     body.proposal-view .preview-sig-col--client > p.small:first-child{margin-top:22px;}
     body.proposal-view .preview-sig-col--client .sig-pad-actions{margin-top:6px;}
-    body.proposal-view .preview-sig-slot .preview-sig-line{height:22px;}
+    body.proposal-view .preview-sig-slot .preview-sig-line{height:14px;}
     .preview-sig-separator{
       border:0;
       height:1px;
@@ -594,8 +594,23 @@
       min-height:33px;
     }
     .preview-sig-slot .preview-sig-line{
-      border-bottom:1px solid var(--ink);
       height:32px;
+      /* Decorative signature rule with same footprint (no extra vertical space). */
+      background:
+        linear-gradient(
+          90deg,
+          rgba(26,34,30,0.58) 0%,
+          rgba(47,93,69,0.78) 28%,
+          rgba(140,190,130,0.84) 50%,
+          rgba(47,93,69,0.78) 72%,
+          rgba(26,34,30,0.58) 100%
+        ) left bottom/100% 1px no-repeat,
+        repeating-linear-gradient(
+          90deg,
+          transparent 0 16px,
+          rgba(140,190,130,0.24) 16px 18px,
+          transparent 18px 32px
+        ) left calc(100% - 3px)/100% 1px no-repeat;
     }
     .preview-sig-img{
       position:absolute;
@@ -848,17 +863,37 @@
         margin-top:auto!important;
         align-self:stretch!important;
         width:100%!important;
-        border-bottom:1px solid #1a221e!important;
+        height:14px!important;
+        background:
+          linear-gradient(
+            90deg,
+            rgba(26,34,30,0.58) 0%,
+            rgba(47,93,69,0.78) 28%,
+            rgba(140,190,130,0.84) 50%,
+            rgba(47,93,69,0.78) 72%,
+            rgba(26,34,30,0.58) 100%
+          ) left bottom/100% 1px no-repeat,
+          repeating-linear-gradient(
+            90deg,
+            transparent 0 16px,
+            rgba(140,190,130,0.24) 16px 18px,
+            transparent 18px 32px
+          ) left calc(100% - 3px)/100% 1px no-repeat!important;
+        -webkit-print-color-adjust:exact!important;
+        print-color-adjust:exact!important;
       }
       #printArea .preview-sig-img{
         position:static!important;
-        max-height:80pt!important;
+        max-height:58pt!important;
         max-width:100%!important;
         width:auto!important;
         height:auto!important;
         margin:0!important;
         object-fit:contain!important;
         object-position:left bottom!important;
+      }
+      #printArea .preview-sig-slot.sig-has-modal-export .preview-sig-img{
+        max-height:80pt!important;
       }
       #printArea .preview-sig-signed-date{
         margin-top:4pt!important;
@@ -1047,7 +1082,7 @@
       <strong>Private preview.</strong> This URL is not linked from gitworkdone.com. Share only with Binda’s Landscaping — anyone with the link can open it.
     </p>
 
-    <h1 class="no-print" style="margin-bottom:18px;">Proposal builder</h1>
+    <h1 class="no-print" style="margin-bottom:18px;">Landscape Scope &amp; Quote</h1>
 
     <div class="grid">
       <div class="card no-print">
@@ -1103,7 +1138,7 @@
         </div>
         <p class="small">Paper terms: <em>50% or more depending on cost of materials</em> — adjust % to match the job.</p>
 
-        <h2>Proposal Adjustment (Optional)</h2>
+        <h2 style="margin-top:24px;">Proposal Adjustment (Optional)</h2>
         <p class="small" style="margin-top:-6px;margin-bottom:12px;">Enter a <strong>positive</strong> amount for an additional charge, or a <strong>negative</strong> amount (e.g. <code>-150</code>) for a reduction. Leave amount blank or $0 when there is no adjustment.</p>
         <label for="adjustmentAmt">Adjustment ($)</label>
         <input id="adjustmentAmt" type="number" step="0.01" placeholder="0.00 (use − for a reduction)" />
@@ -1739,7 +1774,7 @@
   var SIG_PAD_BASE_LINE_WIDTH = 2.45;
 
   /** Inline slot pads: stroke scale vs expanded (same formula); pair with SIG_PAD_INLINE_DPR_BOOST for crispness. */
-  var SIG_PAD_INLINE_STROKE_FACTOR = 0.50;
+  var SIG_PAD_INLINE_STROKE_FACTOR = 0.60;
 
   /** Expanded modal: slightly finer than full width-scaled stroke (inline uses SIG_PAD_INLINE_STROKE_FACTOR). */
   var SIG_PAD_MODAL_STROKE_FACTOR = 0.90;
@@ -1906,6 +1941,7 @@
       img.removeAttribute('src');
       img.alt = '';
       slot.classList.add('is-empty');
+      slot.classList.remove('sig-has-modal-export');
       spec.state.previewExportUrl = '';
       updateSigSignedDateUi(spec);
       return;
@@ -1913,7 +1949,8 @@
     try {
       var url = spec.state.previewExportUrl || '';
       if (!url) {
-        url = buildSigPreviewDataURL(canvas);
+        /* Inline (non-modal) signatures should preserve relative ink scale on print. */
+        url = canvas.toDataURL('image/png');
       }
       if (!url) {
         url = canvas.toDataURL('image/png');
@@ -1921,9 +1958,11 @@
       img.src = url;
       img.alt = spec.imgAlt;
       slot.classList.remove('is-empty');
+      slot.classList.toggle('sig-has-modal-export', !!spec.state.previewExportUrl);
       updateSigSignedDateUi(spec);
     } catch (e) {
       slot.classList.add('is-empty');
+      slot.classList.remove('sig-has-modal-export');
       updateSigSignedDateUi(spec);
     }
   }
@@ -2098,7 +2137,8 @@
       else clearSigPadFor(spec);
     } else if (accept && spec.state.hasInk && canvas) {
       try {
-        spec.state.previewExportUrl = buildSigPreviewDataURL(canvas);
+        /* Preserve natural signature scale from expanded pad (avoid crop-upscale magnifying short signatures). */
+        spec.state.previewExportUrl = canvas.toDataURL('image/png');
       } catch (e) {
         spec.state.previewExportUrl = '';
       }
@@ -2414,7 +2454,7 @@
     if (!spec.ctx) return '';
     try {
       var c = $(spec.canvasId);
-      return buildSigPreviewDataURL(c) || c.toDataURL('image/png');
+      return c.toDataURL('image/png');
     } catch (e) { return ''; }
   }
 
