@@ -406,6 +406,49 @@
       -webkit-transform:translateZ(0);
       transform:translateZ(0);
     }
+    /* Portrait handheld: rotate signing shell 90° CW so the pad reads “wide” in the hand */
+    .sig-pad-modal.sig-pad-modal--cw90.is-open .sig-pad-modal__dialog{
+      position:absolute;
+      left:50%;
+      top:50%;
+      flex:none;
+      width:100vh;
+      width:100dvh;
+      height:100vw;
+      height:100dvw;
+      max-width:none;
+      max-height:none;
+      min-height:0;
+      -webkit-transform:translate(-50%,-50%) rotate(90deg);
+      transform:translate(-50%,-50%) rotate(90deg);
+      transform-origin:center center;
+    }
+    html:fullscreen .sig-pad-modal.sig-pad-modal--cw90.sig-pad-modal--mobile-fs-target.is-open .sig-pad-modal__dialog,
+    html:-webkit-full-screen .sig-pad-modal.sig-pad-modal--cw90.sig-pad-modal--mobile-fs-target.is-open .sig-pad-modal__dialog{
+      width:100vh;
+      width:100dvh;
+      height:100vw;
+      height:100dvw;
+      max-width:none;
+      max-height:none;
+      -webkit-transform:translate(-50%,-50%) rotate(90deg);
+      transform:translate(-50%,-50%) rotate(90deg);
+    }
+    .sig-pad-modal:fullscreen.sig-pad-modal--cw90 .sig-pad-modal__dialog,
+    .sig-pad-modal:-webkit-full-screen.sig-pad-modal--cw90 .sig-pad-modal__dialog{
+      position:absolute;
+      left:50%;
+      top:50%;
+      width:100vh;
+      width:100dvh;
+      height:100vw;
+      height:100dvw;
+      max-width:none;
+      max-height:none;
+      flex:none;
+      -webkit-transform:translate(-50%,-50%) rotate(90deg);
+      transform:translate(-50%,-50%) rotate(90deg);
+    }
     @media (prefers-reduced-motion:reduce){
       .sig-pad-modal__dialog{transition:none!important;}
       .sig-pad-modal__backdrop{transition:none!important;}
@@ -1378,6 +1421,36 @@
     return false;
   }
 
+  /** For analytics / debugging: client form-factor + engine label on `#sigPadModal` dataset */
+  function classifySigModalBrowser(){
+    var ua = typeof navigator !== 'undefined' ? String(navigator.userAgent || '') : '';
+    var engine = 'other';
+    if (/Edg\//.test(ua)) engine = 'edge';
+    else if (/OPR\/|Opera/i.test(ua)) engine = 'opera';
+    else if (/Chrome\//.test(ua) && !/Edg/.test(ua)) engine = 'chrome';
+    else if (/Safari\//.test(ua) && !/Chrome/.test(ua)) engine = 'safari';
+    else if (/Firefox\//.test(ua)) engine = 'firefox';
+
+    var client = 'desktop';
+    var iPad = /iPad/.test(ua) || (typeof navigator !== 'undefined' && navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    var phoneLike = /Android.*Mobile|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua);
+    var androidTablet = /Android/i.test(ua) && !/Mobile/i.test(ua);
+    if (phoneLike) client = 'mobile';
+    else if (iPad || androidTablet) client = 'tablet';
+    else if (window.matchMedia && window.matchMedia('(pointer: coarse)').matches && window.matchMedia('(max-width: 900px)').matches) client = 'mobile';
+
+    return { client: client, engine: engine };
+  }
+
+  /** CW layout rotation: same handheld heuristic as fullscreen target, only in portrait */
+  function sigModalShouldRotateCw90(){
+    if (!isSigModalMobileFullscreenTarget()) return false;
+    try {
+      if (window.matchMedia && window.matchMedia('(orientation: landscape)').matches) return false;
+    } catch (e) {}
+    return true;
+  }
+
   function sigModalInvokeRequestFullscreen(el){
     if (!el) return Promise.reject(new Error('sig-fs:no-element'));
     var req = el.requestFullscreen || el.webkitRequestFullscreen || el.msRequestFullscreen;
@@ -1748,6 +1821,10 @@
     modal.classList.add('is-open');
     modal.setAttribute('aria-hidden', 'false');
     document.body.classList.add('sig-pad-modal-open');
+    var browserInfo = classifySigModalBrowser();
+    modal.dataset.sigBrowserClient = browserInfo.client;
+    modal.dataset.sigBrowserEngine = browserInfo.engine;
+    if (sigModalShouldRotateCw90()) modal.classList.add('sig-pad-modal--cw90');
     sigModalTryFullscreenLandscape(modal, dialog);
     try {
       sigModalSnapshot = spec.state.hasInk ? canvas.toDataURL('image/png') : '';
@@ -1762,7 +1839,7 @@
       requestAnimationFrame(function(){
         layoutSigPadFromDisplayFor(spec);
         requestAnimationFrame(function(){
-          playSigModalEnterAnimation(dialog, originRect);
+          if (!modal.classList.contains('sig-pad-modal--cw90')) playSigModalEnterAnimation(dialog, originRect);
           try {
             canvas.focus();
           } catch (e) {}
@@ -1784,7 +1861,9 @@
       sigModalSpec = null;
       sigModalSnapshot = '';
       if (modal) {
-        modal.classList.remove('is-open');
+        modal.classList.remove('is-open', 'sig-pad-modal--cw90');
+        modal.removeAttribute('data-sig-browser-client');
+        modal.removeAttribute('data-sig-browser-engine');
         modal.setAttribute('aria-hidden', 'true');
         resetSigModalDialogStyles();
       }
@@ -1809,7 +1888,9 @@
     sigModalSpec = null;
     sigModalSnapshot = '';
     if (modal) {
-      modal.classList.remove('is-open');
+      modal.classList.remove('is-open', 'sig-pad-modal--cw90');
+      modal.removeAttribute('data-sig-browser-client');
+      modal.removeAttribute('data-sig-browser-engine');
       modal.setAttribute('aria-hidden', 'true');
       resetSigModalDialogStyles();
     }
@@ -1901,6 +1982,13 @@
       var r = canvas.getBoundingClientRect();
       var sx = spec.W / Math.max(r.width, 1);
       var sy = spec.H / Math.max(r.height, 1);
+      var modalEl = canvas.closest('#sigPadModal');
+      if (modalEl && modalEl.classList.contains('sig-pad-modal--cw90')) {
+        /* Dialog rotated 90° CW; map screen coords into bitmap axes */
+        var x = ((ev.clientY - r.top) / Math.max(r.height, 1)) * spec.W;
+        var y = ((r.right - ev.clientX) / Math.max(r.width, 1)) * spec.H;
+        return { x: x, y: y };
+      }
       return {
         x: (ev.clientX - r.left) * sx,
         y: (ev.clientY - r.top) * sy
