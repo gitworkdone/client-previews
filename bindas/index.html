@@ -614,6 +614,11 @@
       print-color-adjust:exact;
     }
     .preview-sig-slot.is-empty .preview-sig-img{display:none;}
+    .preview-sig-signed-date{
+      margin:8px 0 0;
+      color:var(--muted);
+      font-size:0.82rem;
+    }
     /* Flex centers heading + grid as one cluster; grid width fits content only (no edge-to-edge columns). */
     .preview-agreement-summary{
       text-align:left;
@@ -854,6 +859,11 @@
         margin:0!important;
         object-fit:contain!important;
         object-position:left bottom!important;
+      }
+      #printArea .preview-sig-signed-date{
+        margin-top:4pt!important;
+        font-size:8pt!important;
+        color:#3d4a42!important;
       }
       #printArea .preview-client-address{margin-top:10pt!important;}
       #printArea .preview-client-email{margin-top:2pt!important;}
@@ -1209,6 +1219,7 @@
               </div>
               <img id="pvBizSigImg" class="preview-sig-img" alt="" width="300" height="80" />
               <div class="preview-sig-line preview-sig-line--vendor" aria-hidden="true"></div>
+              <p class="small preview-sig-signed-date">Signed Date: <span id="pvBizSigSignedDateVal">—</span></p>
             </div>
           </div>
           <div class="preview-sig-col preview-sig-col--client">
@@ -1226,6 +1237,7 @@
               </div>
               <img id="pvSigImg" class="preview-sig-img" alt="" width="300" height="80" />
               <div class="preview-sig-line" aria-hidden="true"></div>
+              <p class="small preview-sig-signed-date">Signed Date: <span id="pvClientSigSignedDateVal">—</span></p>
             </div>
             <p class="small preview-client-address">Client address: <span id="pvAddr">—</span></p>
             <p class="small preview-client-email">Client email: <span id="pvClientEmail">—</span></p>
@@ -1389,6 +1401,7 @@
       canvasId: 'sigPad',
       imgId: 'pvSigImg',
       slotId: 'pvSigSlot',
+      signedDateValId: 'pvClientSigSignedDateVal',
       clearId: 'sigClear',
       expandId: 'sigExpandClient',
       imgAlt: 'Client signature',
@@ -1396,12 +1409,13 @@
       H: 128,
       ctx: null,
       canvasShell: null,
-      state: { hasInk: false, previewExportUrl: '' }
+      state: { hasInk: false, previewExportUrl: '', signedAtMs: null }
     },
     {
       canvasId: 'sigPadBiz',
       imgId: 'pvBizSigImg',
       slotId: 'pvBizSigSlot',
+      signedDateValId: 'pvBizSigSignedDateVal',
       clearId: 'sigClearBiz',
       expandId: 'sigExpandBiz',
       imgAlt: 'Contractor signature',
@@ -1409,9 +1423,32 @@
       H: 128,
       ctx: null,
       canvasShell: null,
-      state: { hasInk: false, previewExportUrl: '' }
+      state: { hasInk: false, previewExportUrl: '', signedAtMs: null }
     }
   ];
+
+  function formatSigSignedDate(ms){
+    if (ms == null || ms === '') return '—';
+    var n = typeof ms === 'number' ? ms : parseInt(ms, 10);
+    if (!n || isNaN(n)) return '—';
+    try {
+      return new Date(n).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
+    } catch (e) {
+      return '—';
+    }
+  }
+
+  function updateSigSignedDateUi(spec){
+    var el = spec.signedDateValId ? $(spec.signedDateValId) : null;
+    if (!el) return;
+    el.textContent = (spec.state.hasInk && spec.state.signedAtMs != null) ? formatSigSignedDate(spec.state.signedAtMs) : '—';
+  }
+
+  function bumpSigSignedTimestamp(spec){
+    if (!spec.state.hasInk) return;
+    spec.state.signedAtMs = Date.now();
+    updateSigSignedDateUi(spec);
+  }
 
   function getSigModalTitle(spec){
     if (!spec) return 'Larger signing area';
@@ -1559,6 +1596,11 @@
     return { w: iw, h: ih };
   }
 
+  /** Extra device pixels for inline pads (thin strokes + antialias). Modal uses viewport DPR only. */
+  var SIG_PAD_INLINE_DPR_BOOST = 2;
+  /** Upper bound for effective inline DPR (memory vs sharpness). */
+  var SIG_PAD_INLINE_DPR_MAX = 7;
+
   function layoutSigPadFromDisplayFor(spec){
     var canvas = $(spec.canvasId);
     if (!canvas || !spec.ctx) return;
@@ -1571,6 +1613,14 @@
       var r = canvas.getBoundingClientRect();
       w = Math.max(0, Math.round(r.width));
       h = Math.max(0, Math.round(r.height));
+    }
+    /* Inline: match modal — round layout box so bitmap isn’t scaled to fractional CSS px (blurry). */
+    if (!inOpenModal) {
+      var brIn = canvas.getBoundingClientRect();
+      if (brIn.width >= 32 && brIn.height >= 32) {
+        w = Math.round(brIn.width);
+        h = Math.round(brIn.height);
+      }
     }
     if (inOpenModal) {
       var br = canvas.getBoundingClientRect();
@@ -1633,8 +1683,11 @@
       }
     }
     /* Don’t skip resize when only canvas dims match but the viewport rotated (common mobile bug). */
+    var baseDprPre = Math.min(Math.max(window.devicePixelRatio || 1, 1), 4);
+    var dprTarget = inOpenModal ? baseDprPre : Math.min(baseDprPre * SIG_PAD_INLINE_DPR_BOOST, SIG_PAD_INLINE_DPR_MAX);
     var vpSnap = sigModalViewportCssSize();
-    var dimsMatchSpec = Math.abs(w - spec.W) <= 1 && Math.abs(h - spec.H) <= 1;
+    var dimsMatchSpec = Math.abs(w - spec.W) <= 1 && Math.abs(h - spec.H) <= 1 &&
+      (inOpenModal || spec._layoutDprUsed === dprTarget);
     if (inOpenModal) {
       var vpStable = sigModalLayoutVp &&
         Math.abs(vpSnap.w - sigModalLayoutVp.w) <= 8 &&
@@ -1653,7 +1706,15 @@
     }
     spec.W = w;
     spec.H = h;
-    var dpr = Math.min(Math.max(window.devicePixelRatio || 1, 1), 4);
+    if (inOpenModal) {
+      canvas.style.width = '';
+      canvas.style.height = '';
+    } else if (w >= 32 && h >= 32) {
+      canvas.style.width = w + 'px';
+      canvas.style.height = h + 'px';
+    }
+    var dpr = dprTarget;
+    spec._layoutDprUsed = dpr;
     canvas.width = Math.round(spec.W * dpr);
     canvas.height = Math.round(spec.H * dpr);
     spec.ctx.setTransform(1, 0, 0, 1, 0, 0);
@@ -1663,13 +1724,33 @@
     spec.ctx.lineCap = 'round';
     spec.ctx.lineJoin = 'round';
     spec.ctx.strokeStyle = '#1a221e';
-    spec.ctx.lineWidth = 2.85;
+    applySigPadStrokeStyle(spec.ctx, spec, inOpenModal);
     if (backup) restoreSigFromDataUrlFor(spec, backup);
     else {
       clearSigCanvasFullBitmap(canvas, spec.ctx);
       spec.state.hasInk = false;
       syncSigToPreviewFor(spec);
     }
+  }
+
+  /** Reference CSS width of typical inline pad — modal canvases are wider; scale stroke so thickness matches. */
+  var SIG_PAD_REF_CSS_W = 280;
+  /* Slightly finer than 2.85 for inline; scaled up for wide expanded pads */
+  var SIG_PAD_BASE_LINE_WIDTH = 2.45;
+
+  /** Inline slot pads: stroke scale vs expanded (same formula); pair with SIG_PAD_INLINE_DPR_BOOST for crispness. */
+  var SIG_PAD_INLINE_STROKE_FACTOR = 0.50;
+
+  /** Expanded modal: slightly finer than full width-scaled stroke (inline uses SIG_PAD_INLINE_STROKE_FACTOR). */
+  var SIG_PAD_MODAL_STROKE_FACTOR = 0.90;
+
+  function applySigPadStrokeStyle(ctx, spec, isExpandedModal){
+    if (!ctx || !spec) return;
+    var cw = Math.max(80, spec.W || SIG_PAD_REF_CSS_W);
+    var lw = SIG_PAD_BASE_LINE_WIDTH * (cw / SIG_PAD_REF_CSS_W);
+    if (isExpandedModal) lw *= SIG_PAD_MODAL_STROKE_FACTOR;
+    else lw *= SIG_PAD_INLINE_STROKE_FACTOR;
+    ctx.lineWidth = Math.max(1.35, Math.min(14, lw));
   }
 
   function layoutAllSigPadsFromDisplay(){
@@ -1688,13 +1769,92 @@
   var SIG_PREVIEW_MAX_EXPORT_WIDTH = 4096;
 
   /**
+   * Bitmap crop around dark pixels — expanded pads are huge and mostly white; without cropping,
+   * print uses object-fit:contain and the stroke looks tiny vs inline signing.
+   */
+  function getSigInkCropRect(canvas){
+    var sw = canvas.width;
+    var sh = canvas.height;
+    if (!sw || !sh) return null;
+    var maxScan = 480;
+    var scanSc = maxScan / Math.max(sw, sh);
+    var tw = Math.max(1, Math.round(sw * scanSc));
+    var th = Math.max(1, Math.round(sh * scanSc));
+    var tc = document.createElement('canvas');
+    tc.width = tw;
+    tc.height = th;
+    var tctx = tc.getContext('2d', { willReadFrequently: true });
+    if (!tctx) return null;
+    try {
+      tctx.drawImage(canvas, 0, 0, sw, sh, 0, 0, tw, th);
+    } catch (e) {
+      return null;
+    }
+    var data;
+    try {
+      data = tctx.getImageData(0, 0, tw, th).data;
+    } catch (e2) {
+      return null;
+    }
+    var minX = tw;
+    var minY = th;
+    var maxX = 0;
+    var maxY = 0;
+    var found = false;
+    var i = 0;
+    for (var y = 0; y < th; y++) {
+      for (var x = 0; x < tw; x++) {
+        var a = data[i + 3];
+        var r = data[i];
+        var g = data[i + 1];
+        var b = data[i + 2];
+        i += 4;
+        if (a < 20) continue;
+        var lum = 0.299 * r + 0.587 * g + 0.114 * b;
+        if (lum > 248) continue;
+        found = true;
+        if (x < minX) minX = x;
+        if (x > maxX) maxX = x;
+        if (y < minY) minY = y;
+        if (y > maxY) maxY = y;
+      }
+    }
+    if (!found) return null;
+    var padT = 2;
+    minX = Math.max(0, minX - padT);
+    minY = Math.max(0, minY - padT);
+    maxX = Math.min(tw - 1, maxX + padT);
+    maxY = Math.min(th - 1, maxY + padT);
+    var padSrc = Math.max(8, Math.round(0.04 * Math.min(sw, sh)));
+    var sx = Math.max(0, Math.floor((minX * sw) / tw) - padSrc);
+    var sy = Math.max(0, Math.floor((minY * sh) / th) - padSrc);
+    var ex = Math.min(sw, Math.ceil(((maxX + 1) * sw) / tw) + padSrc);
+    var ey = Math.min(sh, Math.ceil(((maxY + 1) * sh) / th) + padSrc);
+    var cw = ex - sx;
+    var ch = ey - sy;
+    if (cw < 12 || ch < 12) return null;
+    return { x: sx, y: sy, w: cw, h: ch };
+  }
+
+  /**
    * Renders a hi-res PNG for the preview <img> (not the interactive pad bitmap).
-   * Preserves large modal backing-store resolution — never crush a wide bitmap to 2800px.
+   * Crops to ink so wide modal bitmaps print at a similar visual size to inline pads.
    */
   function buildSigPreviewDataURL(canvas){
     if (!canvas || !canvas.width || !canvas.height) return '';
     var srcW = canvas.width;
     var srcH = canvas.height;
+    var crop = getSigInkCropRect(canvas);
+    var sx = 0;
+    var sy = 0;
+    var sw = srcW;
+    var sh = srcH;
+    if (crop && crop.w > 8 && crop.h > 8) {
+      sx = crop.x;
+      sy = crop.y;
+      sw = crop.w;
+      sh = crop.h;
+    }
     var cssW = canvas.clientWidth;
     var cssH = canvas.clientHeight;
     if (!cssW || !cssH) {
@@ -1710,12 +1870,13 @@
       cssH = Math.max(1, srcH / dprGuess);
     }
     var dpr = Math.min(Math.max(window.devicePixelRatio || 1, 1), 4);
-    var upscaleFloor = Math.round(cssW * dpr * 2);
+    var cropRatio = sw / Math.max(sh, 1);
+    var upscaleFloor = Math.round(Math.max(cssW, cssH * cropRatio) * dpr * 2);
     var targetW = Math.min(
-      Math.max(SIG_PREVIEW_MIN_EXPORT_WIDTH, srcW, upscaleFloor),
+      Math.max(SIG_PREVIEW_MIN_EXPORT_WIDTH, sw, upscaleFloor),
       SIG_PREVIEW_MAX_EXPORT_WIDTH
     );
-    var targetH = Math.max(1, Math.round(srcH * (targetW / srcW)));
+    var targetH = Math.max(1, Math.round(sh * (targetW / sw)));
     var oc = document.createElement('canvas');
     oc.width = targetW;
     oc.height = targetH;
@@ -1728,7 +1889,7 @@
     octx.fillStyle = '#ffffff';
     octx.fillRect(0, 0, targetW, targetH);
     try {
-      octx.drawImage(canvas, 0, 0, targetW, targetH);
+      octx.drawImage(canvas, sx, sy, sw, sh, 0, 0, targetW, targetH);
       return oc.toDataURL('image/png');
     } catch (err) {
       try { return canvas.toDataURL('image/png'); } catch (e2) { return ''; }
@@ -1741,10 +1902,12 @@
     var slot = $(spec.slotId);
     if (!canvas || !img || !slot) return;
     if (!spec.state.hasInk) {
+      spec.state.signedAtMs = null;
       img.removeAttribute('src');
       img.alt = '';
       slot.classList.add('is-empty');
       spec.state.previewExportUrl = '';
+      updateSigSignedDateUi(spec);
       return;
     }
     try {
@@ -1758,8 +1921,10 @@
       img.src = url;
       img.alt = spec.imgAlt;
       slot.classList.remove('is-empty');
+      updateSigSignedDateUi(spec);
     } catch (e) {
       slot.classList.add('is-empty');
+      updateSigSignedDateUi(spec);
     }
   }
 
@@ -1777,7 +1942,8 @@
     syncSigToPreviewFor(spec);
   }
 
-  function restoreSigFromDataUrlFor(spec, url){
+  function restoreSigFromDataUrlFor(spec, url, opts){
+    opts = opts || {};
     if (!url || !spec.ctx) return;
     var im = new Image();
     im.onload = function(){
@@ -1788,10 +1954,16 @@
       spec.ctx.drawImage(im, 0, 0, spec.W, spec.H);
       spec.state.hasInk = true;
       spec.state.savedUrl = url;
+      if (Object.prototype.hasOwnProperty.call(opts, 'signedAtMs')) {
+        spec.state.signedAtMs = opts.signedAtMs;
+      } else if (spec.state.signedAtMs == null || spec.state.signedAtMs === '') {
+        spec.state.signedAtMs = Date.now();
+      }
       syncSigToPreviewFor(spec);
     };
     im.onerror = function(){
       spec.state.hasInk = false;
+      spec.state.signedAtMs = null;
       syncSigToPreviewFor(spec);
     };
     im.src = url;
@@ -1861,6 +2033,7 @@
     /* Snapshot ink & origin while canvas is still in the proposal slot (desktop FLIP). */
     var originRect = canvas.getBoundingClientRect();
     sigModalSpec = spec;
+    spec._sigSignedAtBeforeModal = spec.state.signedAtMs;
     /* Show overlay before fullscreen — invisible overlays often fail requestFullscreen on Chrome mobile. */
     modal.classList.add('is-open');
     modal.setAttribute('aria-hidden', 'false');
@@ -1901,6 +2074,7 @@
     var shell = spec.canvasShell;
     var modal = $('sigPadModal');
     if (!canvas || !shell) {
+      if (spec) spec._sigSignedAtBeforeModal = undefined;
       sigModalSpec = null;
       sigModalSnapshot = '';
       sigModalLayoutVp = null;
@@ -1918,7 +2092,9 @@
 
     if (!accept) {
       spec.state.previewExportUrl = '';
-      if (sigModalSnapshot) restoreSigFromDataUrlFor(spec, sigModalSnapshot);
+      var tBack = spec._sigSignedAtBeforeModal;
+      spec._sigSignedAtBeforeModal = undefined;
+      if (sigModalSnapshot) restoreSigFromDataUrlFor(spec, sigModalSnapshot, { signedAtMs: tBack });
       else clearSigPadFor(spec);
     } else if (accept && spec.state.hasInk && canvas) {
       try {
@@ -1927,6 +2103,7 @@
         spec.state.previewExportUrl = '';
       }
     }
+    spec._sigSignedAtBeforeModal = undefined;
 
     shell.appendChild(canvas);
     sigModalSpec = null;
@@ -2172,6 +2349,7 @@
       try {
         spec.state.savedUrl = canvas.toDataURL('image/png');
       } catch (e) {}
+      bumpSigSignedTimestamp(spec);
       syncSigToPreviewFor(spec);
     }
 
@@ -2223,6 +2401,7 @@
   function initAllSigPads(){
     initSigModalUi();
     SIG_PAD_SPECS.forEach(initSigPadFor);
+    SIG_PAD_SPECS.forEach(updateSigSignedDateUi);
     if (!sigOrientationHooked) {
       sigOrientationHooked = true;
       window.addEventListener('orientationchange', scheduleSigPadLayout);
@@ -2647,7 +2826,9 @@
       notes: $('notes').value,
       internalNotes: $('internalNotes').value,
       clientSigPng: collectSigPng(SIG_PAD_SPECS[0]),
-      bizSigPng: collectSigPng(SIG_PAD_SPECS[1])
+      bizSigPng: collectSigPng(SIG_PAD_SPECS[1]),
+      clientSignedAt: SIG_PAD_SPECS[0].state.signedAtMs,
+      bizSignedAt: SIG_PAD_SPECS[1].state.signedAtMs
     };
   }
 
@@ -2675,8 +2856,13 @@
     }
     $('notes').value = data.notes || '';
     $('internalNotes').value = data.internalNotes || '';
+    var cAt = data.clientSignedAt != null ? Number(data.clientSignedAt) : null;
+    if (cAt != null && isNaN(cAt)) cAt = null;
+    var bAt = data.bizSignedAt != null ? Number(data.bizSignedAt) : null;
+    if (bAt != null && isNaN(bAt)) bAt = null;
     if (data.clientSigPng && SIG_PAD_SPECS[0].ctx) {
       SIG_PAD_SPECS[0].state.hasInk = false;
+      SIG_PAD_SPECS[0].state.signedAtMs = cAt;
       syncSigToPreviewFor(SIG_PAD_SPECS[0]);
       layoutSigPadFromDisplayFor(SIG_PAD_SPECS[0]);
       restoreSigFromDataUrlFor(SIG_PAD_SPECS[0], data.clientSigPng);
@@ -2684,6 +2870,7 @@
 
     if (data.bizSigPng && SIG_PAD_SPECS[1].ctx) {
       SIG_PAD_SPECS[1].state.hasInk = false;
+      SIG_PAD_SPECS[1].state.signedAtMs = bAt;
       syncSigToPreviewFor(SIG_PAD_SPECS[1]);
       layoutSigPadFromDisplayFor(SIG_PAD_SPECS[1]);
       restoreSigFromDataUrlFor(SIG_PAD_SPECS[1], data.bizSigPng);
