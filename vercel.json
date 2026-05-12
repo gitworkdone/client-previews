@@ -1,0 +1,10 @@
+{
+  headers: [
+    {
+      source: /(.*),
+      headers: [
+        { key: Vercel-CDN-Cache-Control, value: max-age=120 }
+      ]
+    }
+  ]
+}
