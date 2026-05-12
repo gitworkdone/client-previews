@@ -1,9 +1,9 @@
-{
-  headers: [
+﻿{
+  "headers": [
     {
-      source: /(.*),
-      headers: [
-        { key: Vercel-CDN-Cache-Control, value: max-age=120 }
+      "source": "/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=120, must-revalidate" }
       ]
     }
   ]
